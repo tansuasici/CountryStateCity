@@ -16,25 +16,16 @@ export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   const links = {
-    product: [
-      { name: "Features", href: "#" },
-      { name: "API Status", href: "#" },
-      { name: "Changelog", href: "#" }
+    resources: [
+      { name: "Documentation", href: "/docs" }
     ],
     developers: [
-      { name: "Documentation", href: "/docs" },
-      { name: "Examples", href: "#" },
-      { name: "SDKs", href: "#" }
+      { name: "NPM Package", href: "https://www.npmjs.com/package/@tansuasici/country-state-city", isExternal: true },
+      { name: "GitHub", href: "https://github.com/tansuasici/CountryStateCity", isExternal: true }
     ],
-    company: [
-      { name: "About", href: "#" },
-      { name: "Blog", href: "#" },
-      { name: "Contact", href: "#" }
-    ],
-    legal: [
-      { name: "Privacy", href: "#" },
-      { name: "Terms", href: "#" },
-      { name: "License", href: "#" }
+    about: [
+      { name: "Author", href: "https://tansuasici.com", isExternal: true },
+      { name: "MIT License", href: "https://github.com/tansuasici/CountryStateCity/blob/main/LICENSE", isExternal: true }
     ]
   };
 
@@ -42,7 +33,7 @@ export default function Footer() {
     <footer className="w-full mt-20 border-t border-divider bg-background">
       <div className="container mx-auto px-4 py-12 max-w-7xl">
         {/* Main Footer Content */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
           {/* Brand Section */}
           <div className="lg:col-span-1">
             <div className="flex items-center gap-3 mb-4">
@@ -55,19 +46,19 @@ export default function Footer() {
               />
               <div>
                 <h3 className="font-bold text-lg">Country State City</h3>
-                <p className="text-tiny text-default-500">Location API</p>
+                <p className="text-tiny text-default-500">Location Data</p>
               </div>
             </div>
             <p className="text-small text-default-600">
-              Access comprehensive location data with our modern RESTful API.
+              Complete world location data in JSON, CSV, XML, and YAML formats.
             </p>
           </div>
 
-          {/* Product Links */}
+          {/* Resources Links */}
           <div>
-            <h4 className="font-semibold mb-3">Product</h4>
+            <h4 className="font-semibold mb-3">Resources</h4>
             <ul className="space-y-2">
-              {links.product.map((link) => (
+              {links.resources.map((link) => (
                 <li key={link.name}>
                   <Link 
                     href={link.href}
@@ -81,6 +72,7 @@ export default function Footer() {
               ))}
             </ul>
           </div>
+
 
           {/* Developers Links */}
           <div>
@@ -93,6 +85,7 @@ export default function Footer() {
                     size="sm"
                     color="foreground"
                     className="opacity-80 hover:opacity-100"
+                    isExternal={link.isExternal}
                   >
                     {link.name}
                   </Link>
@@ -101,36 +94,18 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Company Links */}
+          {/* About Links */}
           <div>
-            <h4 className="font-semibold mb-3">Company</h4>
+            <h4 className="font-semibold mb-3">About</h4>
             <ul className="space-y-2">
-              {links.company.map((link) => (
+              {links.about.map((link) => (
                 <li key={link.name}>
                   <Link 
                     href={link.href}
                     size="sm"
                     color="foreground"
                     className="opacity-80 hover:opacity-100"
-                  >
-                    {link.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Legal Links */}
-          <div>
-            <h4 className="font-semibold mb-3">Legal</h4>
-            <ul className="space-y-2">
-              {links.legal.map((link) => (
-                <li key={link.name}>
-                  <Link 
-                    href={link.href}
-                    size="sm"
-                    color="foreground"
-                    className="opacity-80 hover:opacity-100"
+                    isExternal={link.isExternal}
                   >
                     {link.name}
                   </Link>
@@ -145,7 +120,7 @@ export default function Footer() {
         {/* Bottom Bar */}
         <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
           <div className="flex items-center gap-2 text-small text-default-500">
-            <span>© {currentYear} Country State City API.</span>
+            <span>© {currentYear} Country State City.</span>
             <span>All rights reserved.</span>
           </div>
           <div className="flex items-center gap-2">

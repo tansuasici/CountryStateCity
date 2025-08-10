@@ -8,21 +8,21 @@ import Footer from "@/components/Footer";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Country State City API",
-  description: "Modern RESTful API for accessing comprehensive location data worldwide. 250+ countries, 5,000+ states, and 150,000+ cities.",
-  keywords: ["api", "country", "state", "city", "location", "geography", "rest api"],
-  authors: [{ name: "Country State City" }],
+  title: "Country State City Data",
+  description: "Complete world location data in JSON, CSV, XML, and YAML formats. 250+ countries, 5,000+ states, and 150,000+ cities.",
+  keywords: ["json", "csv", "xml", "yaml", "country", "state", "city", "location", "geography", "data", "npm package"],
+  authors: [{ name: "Tansu Asici", url: "https://tansuasici.com" }],
   openGraph: {
-    title: "Country State City API",
-    description: "Modern RESTful API for location data",
+    title: "Country State City Data",
+    description: "Complete world location data in multiple formats",
     type: "website",
     locale: "en_US",
-    siteName: "Country State City API"
+    siteName: "Country State City Data"
   },
   twitter: {
     card: "summary_large_image",
-    title: "Country State City API",
-    description: "Modern RESTful API for location data"
+    title: "Country State City Data",
+    description: "Complete world location data in multiple formats"
   },
   robots: {
     index: true,

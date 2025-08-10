@@ -39,3 +39,18 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+tsconfig.lib.json
+
+# dist folders
+dist/
+/dist/
+
+# Firebase
+.firebase/
+firebase-debug.log
+
+# NPM package specific
+countrystatecity-npm/dist/
+countrystatecity-npm/node_modules/
+countrystatecity-npm/test.js
+countrystatecity-npm/test-npm-package/

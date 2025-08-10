@@ -1,215 +1,415 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Card, CardBody, CardHeader, Button, Code, Accordion, AccordionItem } from '@heroui/react';
-import { ChevronLeft, ChevronDown, Globe, Building, MapPin, BarChart3, ExternalLink } from 'lucide-react';
+import { Card, CardBody, CardHeader, Button, Code, Accordion, AccordionItem, Snippet } from '@heroui/react';
+import { ChevronLeft, ChevronDown, Globe, Building, MapPin, FileText, Package, Download } from 'lucide-react';
+import DataPlayground from '@/components/DataPlayground';
 
-interface SwaggerSpec {
-  info: {
-    title: string;
-    version: string;
-    description: string;
-  };
-  paths: Record<string, any>;
-  components: {
-    schemas: Record<string, any>;
-  };
-}
-
-export default function APIDocumentation() {
-  const [swaggerSpec, setSwaggerSpec] = useState<SwaggerSpec | null>(null);
-  const [loading, setLoading] = useState(true);
+export default function DataPackageDocumentation() {
+  const [stats, setStats] = useState({ countries: 0, states: 0, cities: 0 });
 
   useEffect(() => {
-    fetch('/api/docs')
-      .then(res => res.json())
-      .then(data => {
-        setSwaggerSpec(data);
-        setLoading(false);
-      })
-      .catch(err => {
-        console.error('Error loading API docs:', err);
-        setLoading(false);
-      });
+    const loadStats = async () => {
+      const { getStats } = await import('@/lib/countries');
+      const data = getStats();
+      setStats(data);
+    };
+    loadStats();
   }, []);
-
-  if (loading) {
-    return <div className="container mx-auto p-4">Yükleniyor...</div>;
-  }
-
-  if (!swaggerSpec) {
-    return <div className="container mx-auto p-4">Failed to load API documentation.</div>;
-  }
-
-  const endpoints = Object.entries(swaggerSpec.paths);
-
-  // Group endpoints by category
-  const groupedEndpoints = {
-    'Countries': endpoints.filter(([path]) => path.startsWith('/api/countries')),
-    'States': endpoints.filter(([path]) => path.startsWith('/api/states')),
-    'Cities': endpoints.filter(([path]) => path.startsWith('/api/cities')),
-    'Statistics': endpoints.filter(([path]) => path.startsWith('/api/stats'))
-  };
-
-  const renderEndpoint = (path: string, methods: any) => (
-    <div key={path} className="mb-4">
-      {Object.entries(methods).map(([method, details]: [string, any]) => (
-        <div key={method} className="border rounded-lg p-4 bg-gray-50/50 dark:bg-gray-800/50">
-          <div className="flex items-center gap-3 mb-3">
-            <span className={`px-2 py-1 rounded text-xs font-bold uppercase ${
-              method === 'get' ? 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300' :
-              method === 'post' ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300' :
-              method === 'put' ? 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-300' :
-              'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300'
-            }`}>
-              {method}
-            </span>
-            <Code size="sm" className="font-mono">{path}</Code>
-            <span className="font-semibold text-gray-700 dark:text-gray-300">{details.summary}</span>
-          </div>
-          
-          <p className="text-gray-600 dark:text-gray-300 mb-3">{details.description || 'Açıklama mevcut değil'}</p>
-          
-          {details.parameters && details.parameters.length > 0 && (
-            <div className="mb-3">
-              <h4 className="font-semibold mb-2">Parameters:</h4>
-              <div className="space-y-2">
-                {details.parameters.map((param: any, idx: number) => (
-                  <div key={idx} className="bg-gray-100 dark:bg-gray-700 p-2 rounded text-sm">
-                    <div className="flex items-center gap-2">
-                      <Code size="sm" color="primary">{param.name}</Code>
-                      <span className="text-xs bg-gray-200 dark:bg-gray-600 px-1 rounded">{param.in}</span>
-                      {param.required && <span className="text-xs bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-300 px-1 rounded">Required</span>}
-                    </div>
-                    <p className="text-gray-600 dark:text-gray-400 mt-1">{param.description}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
-
-          <div className="mb-3">
-            <h4 className="font-semibold mb-2">Sample Request:</h4>
-            <Code className="block p-2" size="sm">
-              curl -X {method.toUpperCase()} "http://localhost:3003{path}"
-            </Code>
-          </div>
-
-          <div>
-            <Button 
-              size="sm" 
-              color="primary"
-              variant="flat"
-              startContent={<ExternalLink size={16} />}
-              onPress={() => {
-                const url = `http://localhost:3003${path}`;
-                window.open(url, '_blank');
-              }}
-            >
-              Test in Browser
-            </Button>
-          </div>
-        </div>
-      ))}
-    </div>
-  );
 
   return (
     <div className="container mx-auto p-4 space-y-6">
-      <Card>
-        <CardHeader>
-          <div>
-            <h1 className="text-3xl font-bold">{swaggerSpec.info.title}</h1>
-            <p className="text-gray-600 mt-2">{swaggerSpec.info.description}</p>
-            <p className="text-sm text-gray-500 mt-1">Version: {swaggerSpec.info.version}</p>
-          </div>
-        </CardHeader>
-        <CardBody>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <Card className="bg-blue-50 dark:bg-blue-950/20">
-              <CardBody className="text-center">
-                <h3 className="text-lg font-semibold text-blue-700 dark:text-blue-300">Base URL</h3>
-                <Code size="sm">http://localhost:3003</Code>
-              </CardBody>
-            </Card>
-            <Card className="bg-green-50 dark:bg-green-950/20">
-              <CardBody className="text-center">
-                <h3 className="text-lg font-semibold text-green-700 dark:text-green-300">Response Format</h3>
-                <Code size="sm">application/json</Code>
-              </CardBody>
-            </Card>
-          </div>
-        </CardBody>
-      </Card>
+      {/* Header */}
+      <section className="mb-12">
+        <div className="text-center mb-8">
+          <h1 className="text-5xl font-bold mb-4">Country State City</h1>
+          <p className="text-xl text-default-600 max-w-2xl mx-auto">Complete world location data in JSON, CSV, XML, and YAML formats.</p>
+        </div>
+        
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <Card className="bg-blue-50 dark:bg-blue-950/20">
+            <CardBody className="text-center">
+              <Globe className="mx-auto mb-2 text-blue-600" size={24} />
+              <h3 className="text-lg font-semibold text-blue-700 dark:text-blue-300">Countries</h3>
+              <Code size="lg">{stats.countries.toLocaleString()}</Code>
+            </CardBody>
+          </Card>
+          <Card className="bg-green-50 dark:bg-green-950/20">
+            <CardBody className="text-center">
+              <Building className="mx-auto mb-2 text-green-600" size={24} />
+              <h3 className="text-lg font-semibold text-green-700 dark:text-green-300">States</h3>
+              <Code size="lg">{stats.states.toLocaleString()}</Code>
+            </CardBody>
+          </Card>
+          <Card className="bg-purple-50 dark:bg-purple-950/20">
+            <CardBody className="text-center">
+              <MapPin className="mx-auto mb-2 text-purple-600" size={24} />
+              <h3 className="text-lg font-semibold text-purple-700 dark:text-purple-300">Cities</h3>
+              <Code size="lg">{stats.cities.toLocaleString()}</Code>
+            </CardBody>
+          </Card>
+        </div>
+      </section>
 
-      <Card>
-        <CardHeader>
-          <h2 className="text-2xl font-bold">API Endpoints</h2>
-        </CardHeader>
-        <CardBody>
-          <Accordion variant="splitted" selectionMode="multiple" defaultExpandedKeys={["0", "1", "2", "3"]}>
-            {Object.entries(groupedEndpoints).map(([category, categoryEndpoints], index) => (
-              <AccordionItem 
-                key={index.toString()}
-                aria-label={category}
-                title={
-                  <div className="flex items-center gap-3">
-                    <div className={`p-2 rounded-lg ${
-                      category === 'Countries' ? 'bg-blue-100 text-blue-600 dark:bg-blue-900/30 dark:text-blue-400' :
-                      category === 'States' ? 'bg-green-100 text-green-600 dark:bg-green-900/30 dark:text-green-400' :
-                      category === 'Cities' ? 'bg-purple-100 text-purple-600 dark:bg-purple-900/30 dark:text-purple-400' :
-                      'bg-orange-100 text-orange-600 dark:bg-orange-900/30 dark:text-orange-400'
-                    }`}>
-                      {category === 'Countries' ? <Globe size={20} /> : 
-                       category === 'States' ? <Building size={20} /> : 
-                       category === 'Cities' ? <MapPin size={20} /> : <BarChart3 size={20} />}
-                    </div>
-                    <span className="font-semibold text-lg">{category}</span>
-                    <span className="text-sm text-gray-500">({categoryEndpoints.length} endpoints)</span>
-                  </div>
-                }
-                indicator={({ isOpen }) => (
-                  <div className="transition-all duration-300">
-                    {isOpen ? <ChevronDown size={16} /> : <ChevronLeft size={16} />}
-                  </div>
-                )}
-                className="mb-2"
-              >
-                <div className="space-y-4">
-                  {categoryEndpoints.map(([path, methods]) => renderEndpoint(path, methods))}
+      {/* API Access */}
+      <section className="mb-12">
+        <div className="text-center mb-8">
+          <h2 className="text-3xl font-bold mb-2">API Access</h2>
+          <p className="text-default-600">Access location data through our RESTful API</p>
+        </div>
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <Card>
+            <CardBody>
+              <h3 className="font-semibold mb-2">Base URL</h3>
+              <Snippet>
+                https://country-state-city-api.web.app/api
+              </Snippet>
+            </CardBody>
+          </Card>
+          <Card>
+            <CardBody>
+              <h3 className="font-semibold mb-2">Example Request</h3>
+              <Snippet>
+                GET /api/countries?format=json
+              </Snippet>
+            </CardBody>
+          </Card>
+        </div>
+      </section>
+
+      {/* API Endpoints */}
+      <section className="mb-12">
+        <div className="text-center mb-8">
+          <h2 className="text-3xl font-bold mb-2">API Endpoints</h2>
+          <p className="text-default-600">Available endpoints with format support</p>
+        </div>
+        
+        <div className="space-y-4">
+          <Card>
+            <CardBody>
+              <h3 className="font-semibold mb-3">Countries</h3>
+              <div className="space-y-2">
+                <div className="flex items-center gap-2">
+                  <Code size="sm">GET</Code>
+                  <span className="text-sm">/api/countries</span>
+                  <span className="text-xs text-gray-500">- Get all countries</span>
                 </div>
-              </AccordionItem>
-            ))}
-          </Accordion>
-        </CardBody>
-      </Card>
+                <div className="flex items-center gap-2">
+                  <Code size="sm">GET</Code>
+                  <span className="text-sm">/api/countries/:id</span>
+                  <span className="text-xs text-gray-500">- Get country by ID</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Code size="sm">GET</Code>
+                  <span className="text-sm">/api/countries/:id/states</span>
+                  <span className="text-xs text-gray-500">- Get states by country</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Code size="sm">GET</Code>
+                  <span className="text-sm">/api/countries/:id/cities</span>
+                  <span className="text-xs text-gray-500">- Get cities by country</span>
+                </div>
+              </div>
+            </CardBody>
+          </Card>
+          
+          <Card>
+            <CardBody>
+              <h3 className="font-semibold mb-3">States</h3>
+              <div className="space-y-2">
+                <div className="flex items-center gap-2">
+                  <Code size="sm">GET</Code>
+                  <span className="text-sm">/api/states</span>
+                  <span className="text-xs text-gray-500">- Get all states</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Code size="sm">GET</Code>
+                  <span className="text-sm">/api/states/:id</span>
+                  <span className="text-xs text-gray-500">- Get state by ID</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Code size="sm">GET</Code>
+                  <span className="text-sm">/api/states/:id/cities</span>
+                  <span className="text-xs text-gray-500">- Get cities by state</span>
+                </div>
+              </div>
+            </CardBody>
+          </Card>
+          
+          <Card>
+            <CardBody>
+              <h3 className="font-semibold mb-3">Cities</h3>
+              <div className="space-y-2">
+                <div className="flex items-center gap-2">
+                  <Code size="sm">GET</Code>
+                  <span className="text-sm">/api/cities</span>
+                  <span className="text-xs text-gray-500">- Get all cities</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Code size="sm">GET</Code>
+                  <span className="text-sm">/api/cities/:id</span>
+                  <span className="text-xs text-gray-500">- Get city by ID</span>
+                </div>
+              </div>
+            </CardBody>
+          </Card>
+          
+          <Card>
+            <CardBody>
+              <h3 className="font-semibold mb-3">Query Parameters</h3>
+              <div className="space-y-2">
+                <div className="flex items-center gap-2">
+                  <Code size="sm">format</Code>
+                  <span className="text-sm">json | csv | xml | yaml</span>
+                  <span className="text-xs text-gray-500">- Response format</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Code size="sm">search</Code>
+                  <span className="text-sm">string</span>
+                  <span className="text-xs text-gray-500">- Search by name</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Code size="sm">limit</Code>
+                  <span className="text-sm">number</span>
+                  <span className="text-xs text-gray-500">- Limit results</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Code size="sm">page</Code>
+                  <span className="text-sm">number</span>
+                  <span className="text-xs text-gray-500">- Page number</span>
+                </div>
+              </div>
+            </CardBody>
+          </Card>
+        </div>
+      </section>
 
-      <Card>
-        <CardHeader>
-          <h2 className="text-xl font-semibold">Veri Modelleri</h2>
-        </CardHeader>
-        <CardBody>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {Object.entries(swaggerSpec.components.schemas).map(([name, schema]: [string, any]) => (
-              <Card key={name} className="bg-gray-50 dark:bg-gray-800">
-                <CardHeader>
-                  <h3 className="font-semibold">{name}</h3>
-                </CardHeader>
-                <CardBody>
-                  <div className="text-sm space-y-1">
-                    {schema.properties && Object.entries(schema.properties).map(([prop, details]: [string, any]) => (
-                      <div key={prop} className="flex justify-between">
-                        <Code size="sm">{prop}</Code>
-                        <span className="text-gray-500">{details.type}</span>
-                      </div>
-                    ))}
+      {/* Interactive Playground */}
+      <section className="mb-12">
+        <div className="text-center mb-8">
+          <h2 className="text-3xl font-bold mb-2">Interactive Playground</h2>
+          <p className="text-default-600">Test the API and explore available endpoints</p>
+        </div>
+        
+        <Card>
+          <CardBody>
+            <DataPlayground stats={stats} />
+          </CardBody>
+        </Card>
+      </section>
+
+      {/* Data Structure */}
+      <section className="mb-12">
+        <div className="text-center mb-8">
+          <h2 className="text-3xl font-bold mb-2">Data Structure</h2>
+          <p className="text-default-600">Complete model structures with all available fields</p>
+        </div>
+        
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <Card>
+            <CardHeader>
+              <h3 className="font-semibold">Country</h3>
+            </CardHeader>
+            <CardBody>
+                <div className="text-sm space-y-1 max-h-96 overflow-y-auto">
+                  <div className="flex justify-between">
+                    <Code size="sm">id</Code>
+                    <span className="text-gray-500">number</span>
                   </div>
-                </CardBody>
-              </Card>
-            ))}
+                  <div className="flex justify-between">
+                    <Code size="sm">name</Code>
+                    <span className="text-gray-500">string</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <Code size="sm">iso2</Code>
+                    <span className="text-gray-500">string</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <Code size="sm">iso3</Code>
+                    <span className="text-gray-500">string</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <Code size="sm">numericCode</Code>
+                    <span className="text-gray-500">string</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <Code size="sm">phoneCode</Code>
+                    <span className="text-gray-500">string</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <Code size="sm">capital</Code>
+                    <span className="text-gray-500">string</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <Code size="sm">currency</Code>
+                    <span className="text-gray-500">string</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <Code size="sm">currencyName</Code>
+                    <span className="text-gray-500">string</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <Code size="sm">currencySymbol</Code>
+                    <span className="text-gray-500">string</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <Code size="sm">tld</Code>
+                    <span className="text-gray-500">string</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <Code size="sm">native</Code>
+                    <span className="text-gray-500">string</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <Code size="sm">region</Code>
+                    <span className="text-gray-500">string</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <Code size="sm">regionId</Code>
+                    <span className="text-gray-500">number?</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <Code size="sm">subregion</Code>
+                    <span className="text-gray-500">string</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <Code size="sm">subregionId</Code>
+                    <span className="text-gray-500">number?</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <Code size="sm">nationality</Code>
+                    <span className="text-gray-500">string?</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <Code size="sm">timezones</Code>
+                    <span className="text-gray-500">Timezone[]</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <Code size="sm">translations</Code>
+                    <span className="text-gray-500">Object</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <Code size="sm">latitude</Code>
+                    <span className="text-gray-500">string</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <Code size="sm">longitude</Code>
+                    <span className="text-gray-500">string</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <Code size="sm">emoji</Code>
+                    <span className="text-gray-500">string</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <Code size="sm">emojiU</Code>
+                    <span className="text-gray-500">string</span>
+                  </div>
+                </div>
+              </CardBody>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <h3 className="font-semibold">State</h3>
+              </CardHeader>
+              <CardBody>
+                <div className="text-sm space-y-1">
+                  <div className="flex justify-between">
+                    <Code size="sm">id</Code>
+                    <span className="text-gray-500">number</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <Code size="sm">name</Code>
+                    <span className="text-gray-500">string</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <Code size="sm">countryId</Code>
+                    <span className="text-gray-500">number</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <Code size="sm">countryCode</Code>
+                    <span className="text-gray-500">string</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <Code size="sm">countryName</Code>
+                    <span className="text-gray-500">string</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <Code size="sm">stateCode</Code>
+                    <span className="text-gray-500">string</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <Code size="sm">type</Code>
+                    <span className="text-gray-500">string | null</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <Code size="sm">latitude</Code>
+                    <span className="text-gray-500">string</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <Code size="sm">longitude</Code>
+                    <span className="text-gray-500">string</span>
+                  </div>
+                </div>
+              </CardBody>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <h3 className="font-semibold">City</h3>
+              </CardHeader>
+              <CardBody>
+                <div className="text-sm space-y-1">
+                  <div className="flex justify-between">
+                    <Code size="sm">id</Code>
+                    <span className="text-gray-500">number</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <Code size="sm">name</Code>
+                    <span className="text-gray-500">string</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <Code size="sm">stateId</Code>
+                    <span className="text-gray-500">number</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <Code size="sm">stateCode</Code>
+                    <span className="text-gray-500">string</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <Code size="sm">stateName</Code>
+                    <span className="text-gray-500">string</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <Code size="sm">countryId</Code>
+                    <span className="text-gray-500">number</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <Code size="sm">countryCode</Code>
+                    <span className="text-gray-500">string</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <Code size="sm">countryName</Code>
+                    <span className="text-gray-500">string</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <Code size="sm">latitude</Code>
+                    <span className="text-gray-500">string</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <Code size="sm">longitude</Code>
+                    <span className="text-gray-500">string</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <Code size="sm">wikiDataId</Code>
+                    <span className="text-gray-500">string</span>
+                  </div>
+                </div>
+              </CardBody>
+            </Card>
           </div>
-        </CardBody>
-      </Card>
+      </section>
     </div>
   );
 }

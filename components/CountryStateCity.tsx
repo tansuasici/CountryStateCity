@@ -61,11 +61,9 @@ export default function CountryStateCity() {
   const loadCountries = async () => {
     setLoading(prev => ({ ...prev, countries: true }));
     try {
-      const response = await fetch('/api/countries?limit=300');
-      const data = await response.json();
-      if (data.success) {
-        setCountries(data.data);
-      }
+      const { getCountries } = await import('@/lib/countries');
+      const data = getCountries(300);
+      setCountries(data);
     } catch (error) {
       console.error('Error loading countries:', error);
     } finally {
@@ -76,11 +74,9 @@ export default function CountryStateCity() {
   const loadStates = async (countryId: number) => {
     setLoading(prev => ({ ...prev, states: true }));
     try {
-      const response = await fetch(`/api/countries/${countryId}/states`);
-      const data = await response.json();
-      if (data.success) {
-        setStates(data.data);
-      }
+      const { getStatesByCountryId } = await import('@/lib/countries');
+      const data = getStatesByCountryId(countryId);
+      setStates(data);
     } catch (error) {
       console.error('Error loading states:', error);
     } finally {
@@ -91,11 +87,9 @@ export default function CountryStateCity() {
   const loadCities = async (stateId: number) => {
     setLoading(prev => ({ ...prev, cities: true }));
     try {
-      const response = await fetch(`/api/states/${stateId}/cities`);
-      const data = await response.json();
-      if (data.success) {
-        setCities(data.data);
-      }
+      const { getCitiesByStateId } = await import('@/lib/countries');
+      const data = getCitiesByStateId(stateId);
+      setCities(data);
     } catch (error) {
       console.error('Error loading cities:', error);
     } finally {

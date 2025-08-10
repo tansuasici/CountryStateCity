@@ -32,19 +32,20 @@ import {
   BarChart,
   CheckCircle
 } from "lucide-react";
+import { useState, useEffect } from "react";
 
 export default function HomePage() {
   const features = [
     {
-      icon: Zap,
-      title: "Lightning Fast",
-      description: "Optimized API responses under 100ms",
+      icon: FileText,
+      title: "Multiple Formats",
+      description: "JSON, CSV, XML, and YAML support",
       color: "warning"
     },
     {
       icon: Shield,
-      title: "Secure & Reliable",
-      description: "99.9% uptime with secure endpoints",
+      title: "ISO Standards",
+      description: "ISO 3166-1 compliant country codes",
       color: "success"
     },
     {
@@ -54,18 +55,31 @@ export default function HomePage() {
       color: "primary"
     },
     {
-      icon: Clock,
-      title: "Real-time Updates",
-      description: "Always up-to-date location data",
+      icon: Code2,
+      title: "Developer Ready",
+      description: "TypeScript support & NPM package",
       color: "secondary"
     }
   ];
 
-  const stats = [
-    { label: "Countries", value: "250", icon: Globe },
-    { label: "States", value: "4,963", icon: Building },
-    { label: "Cities", value: "147,740", icon: Home }
-  ];
+  const [stats, setStats] = useState([
+    { label: "Countries", value: "0", icon: Globe },
+    { label: "States", value: "0", icon: Building },
+    { label: "Cities", value: "0", icon: Home }
+  ]);
+
+  useEffect(() => {
+    const loadStats = async () => {
+      const { getStats } = await import('@/lib/countries');
+      const data = getStats();
+      setStats([
+        { label: "Countries", value: data.countries.toLocaleString(), icon: Globe },
+        { label: "States", value: data.states.toLocaleString(), icon: Building },
+        { label: "Cities", value: data.cities.toLocaleString(), icon: Home }
+      ]);
+    };
+    loadStats();
+  }, []);
 
   return (
     <div className="container mx-auto px-4 py-8 max-w-7xl">
@@ -73,11 +87,11 @@ export default function HomePage() {
       <section className="text-center py-12">
         
         <h1 className="text-5xl font-bold mb-4">
-          Country State City API
+          Country State City Data
         </h1>
         
         <p className="text-xl text-default-600 mb-8 max-w-2xl mx-auto">
-          Access comprehensive location data with our modern RESTful API. 
+          Complete world location data in JSON, CSV, XML, and YAML formats. 
           Simple, fast, and reliable.
         </p>
         
@@ -85,7 +99,6 @@ export default function HomePage() {
           <Button
             color="primary"
             size="lg"
-            variant="flat"
             as={Link}
             href="/docs"
           >
@@ -106,7 +119,7 @@ export default function HomePage() {
       {/* Features Grid */}
       <section className="mb-12">
         <div className="text-center mb-8">
-          <h2 className="text-3xl font-bold mb-2">Why Choose Our API?</h2>
+          <h2 className="text-3xl font-bold mb-2">Why Choose Our Package?</h2>
           <p className="text-default-600">Built for developers, by developers</p>
         </div>
         
