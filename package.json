@@ -20,11 +20,19 @@
     "./data/cities.json": "./data/city.json"
   },
   "scripts": {
-    "dev": "next dev --turbopack",
-    "build": "next build",
+    "dev": "env-cmd -f .env.development next dev --turbopack",
+    "prebuild:test": "npm version prerelease --preid=test",
+    "build:test": "env-cmd -f .env.test next build",
+    "postbuild:test": "git add package.json && git commit -m 'Build(test): version bump'",
+    "prebuild:prod": "npm version patch",
+    "build:prod": "env-cmd -f .env.production next build",
+    "postbuild:prod": "git add package.json && git commit -m 'Build(prod): version bump'",
     "build:lib": "tsc --project tsconfig.lib.json",
     "start": "next start",
+    "export": "next export",
     "lint": "next lint",
+    "build:dev": "SET NODE_ENV=dev npm run build --dev --",
+    "build:local": "env-cmd -f .env.local next build",
     "prepublishOnly": "npm run build:lib"
   },
   "keywords": [
@@ -76,6 +84,7 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "env-cmd": "^10.1.0",
     "typescript": "^5"
   },
   "peerDependencies": {
