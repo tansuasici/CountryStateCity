@@ -1,6 +1,6 @@
 {
   "name": "@tansuasici/country-state-city",
-  "version": "2.0.2",
+  "version": "2.0.6",
   "description": "A lightweight JavaScript library for accessing country, state, and city data worldwide with support for JSON, CSV, XML, and YAML formats",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
@@ -37,6 +37,7 @@
   ],
   "author": "Tansu Asici",
   "license": "MIT",
+  "homepage": "https://countrystatecity.xyz",
   "repository": {
     "type": "git",
     "url": "https://github.com/tansuasici/countrystatecity"

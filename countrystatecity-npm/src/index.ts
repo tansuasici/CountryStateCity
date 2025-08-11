@@ -19,8 +19,8 @@ export class CountryStateCity {
         const paths = [
           join(__dirname, 'data', 'country.json'),
           join(__dirname, '..', 'data', 'country.json'),
-          join(process.cwd(), 'node_modules', 'countrystatecity', 'data', 'country.json'),
-          join(process.cwd(), 'node_modules', 'countrystatecity', 'dist', 'data', 'country.json')
+          join(process.cwd(), 'node_modules', '@tansuasici/country-state-city', 'data', 'country.json'),
+          join(process.cwd(), 'node_modules', '@tansuasici/country-state-city', 'dist', 'data', 'country.json')
         ];
         
         for (const path of paths) {
@@ -51,8 +51,8 @@ export class CountryStateCity {
         const paths = [
           join(__dirname, 'data', 'state.json'),
           join(__dirname, '..', 'data', 'state.json'),
-          join(process.cwd(), 'node_modules', 'countrystatecity', 'data', 'state.json'),
-          join(process.cwd(), 'node_modules', 'countrystatecity', 'dist', 'data', 'state.json')
+          join(process.cwd(), 'node_modules', '@tansuasici/country-state-city', 'data', 'state.json'),
+          join(process.cwd(), 'node_modules', '@tansuasici/country-state-city', 'dist', 'data', 'state.json')
         ];
         
         for (const path of paths) {

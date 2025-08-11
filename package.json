@@ -55,7 +55,7 @@
   "bugs": {
     "url": "https://github.com/tansuasici/CountryStateCity/issues"
   },
-  "homepage": "https://countrystatecity.xyz/",
+  "homepage": "https://countrystatecity.xyz",
   "dependencies": {
     "@heroui/react": "^2.7.8",
     "@types/leaflet": "^1.9.20",
