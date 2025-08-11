@@ -51,38 +51,38 @@ export default function DataPackageDocumentation() {
         </div>
       </section>
 
-      {/* API Access */}
+      {/* NPM Package */}
       <section className="mb-12">
         <div className="text-center mb-8">
-          <h2 className="text-3xl font-bold mb-2">API Access</h2>
-          <p className="text-default-600">Access location data through our RESTful API</p>
+          <h2 className="text-3xl font-bold mb-2">NPM Package</h2>
+          <p className="text-default-600">Install and use the library in your projects</p>
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <Card>
             <CardBody>
-              <h3 className="font-semibold mb-2">Base URL</h3>
+              <h3 className="font-semibold mb-2">Installation</h3>
               <Snippet>
-                https://country-state-city-api.web.app/api
+                npm install @tansuasici/country-state-city
               </Snippet>
             </CardBody>
           </Card>
           <Card>
             <CardBody>
-              <h3 className="font-semibold mb-2">Example Request</h3>
+              <h3 className="font-semibold mb-2">Usage Example</h3>
               <Snippet>
-                GET /api/countries?format=json
+                const countries = CountryStateCity.getAllCountries();
               </Snippet>
             </CardBody>
           </Card>
         </div>
       </section>
 
-      {/* API Endpoints */}
+      {/* Library Methods */}
       <section className="mb-12">
         <div className="text-center mb-8">
-          <h2 className="text-3xl font-bold mb-2">API Endpoints</h2>
-          <p className="text-default-600">Available endpoints with format support</p>
+          <h2 className="text-3xl font-bold mb-2">Library Methods</h2>
+          <p className="text-default-600">Available methods with format support</p>
         </div>
         
         <div className="space-y-4">
@@ -91,23 +91,23 @@ export default function DataPackageDocumentation() {
               <h3 className="font-semibold mb-3">Countries</h3>
               <div className="space-y-2">
                 <div className="flex items-center gap-2">
-                  <Code size="sm">GET</Code>
-                  <span className="text-sm">/api/countries</span>
+                  <Code size="sm">Method</Code>
+                  <span className="text-sm">getAllCountries()</span>
                   <span className="text-xs text-gray-500">- Get all countries</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <Code size="sm">GET</Code>
-                  <span className="text-sm">/api/countries/:id</span>
+                  <Code size="sm">Method</Code>
+                  <span className="text-sm">getCountryById(id)</span>
                   <span className="text-xs text-gray-500">- Get country by ID</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <Code size="sm">GET</Code>
-                  <span className="text-sm">/api/countries/:id/states</span>
+                  <Code size="sm">Method</Code>
+                  <span className="text-sm">getStatesByCountryId(id)</span>
                   <span className="text-xs text-gray-500">- Get states by country</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <Code size="sm">GET</Code>
-                  <span className="text-sm">/api/countries/:id/cities</span>
+                  <Code size="sm">Method</Code>
+                  <span className="text-sm">getCitiesByCountryId(id)</span>
                   <span className="text-xs text-gray-500">- Get cities by country</span>
                 </div>
               </div>
@@ -119,18 +119,18 @@ export default function DataPackageDocumentation() {
               <h3 className="font-semibold mb-3">States</h3>
               <div className="space-y-2">
                 <div className="flex items-center gap-2">
-                  <Code size="sm">GET</Code>
-                  <span className="text-sm">/api/states</span>
+                  <Code size="sm">Method</Code>
+                  <span className="text-sm">getAllStates()</span>
                   <span className="text-xs text-gray-500">- Get all states</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <Code size="sm">GET</Code>
-                  <span className="text-sm">/api/states/:id</span>
+                  <Code size="sm">Method</Code>
+                  <span className="text-sm">getStateById(id)</span>
                   <span className="text-xs text-gray-500">- Get state by ID</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <Code size="sm">GET</Code>
-                  <span className="text-sm">/api/states/:id/cities</span>
+                  <Code size="sm">Method</Code>
+                  <span className="text-sm">getCitiesByStateId(id)</span>
                   <span className="text-xs text-gray-500">- Get cities by state</span>
                 </div>
               </div>
@@ -142,13 +142,13 @@ export default function DataPackageDocumentation() {
               <h3 className="font-semibold mb-3">Cities</h3>
               <div className="space-y-2">
                 <div className="flex items-center gap-2">
-                  <Code size="sm">GET</Code>
-                  <span className="text-sm">/api/cities</span>
+                  <Code size="sm">Method</Code>
+                  <span className="text-sm">getAllCities()</span>
                   <span className="text-xs text-gray-500">- Get all cities</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <Code size="sm">GET</Code>
-                  <span className="text-sm">/api/cities/:id</span>
+                  <Code size="sm">Method</Code>
+                  <span className="text-sm">getCityById(id)</span>
                   <span className="text-xs text-gray-500">- Get city by ID</span>
                 </div>
               </div>
@@ -157,27 +157,27 @@ export default function DataPackageDocumentation() {
           
           <Card>
             <CardBody>
-              <h3 className="font-semibold mb-3">Query Parameters</h3>
+              <h3 className="font-semibold mb-3">Method Options</h3>
               <div className="space-y-2">
                 <div className="flex items-center gap-2">
                   <Code size="sm">format</Code>
                   <span className="text-sm">json | csv | xml | yaml</span>
-                  <span className="text-xs text-gray-500">- Response format</span>
+                  <span className="text-xs text-gray-500">- Output format</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <Code size="sm">search</Code>
+                  <Code size="sm">searchCountries(query)</Code>
                   <span className="text-sm">string</span>
-                  <span className="text-xs text-gray-500">- Search by name</span>
+                  <span className="text-xs text-gray-500">- Search countries</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <Code size="sm">limit</Code>
-                  <span className="text-sm">number</span>
-                  <span className="text-xs text-gray-500">- Limit results</span>
+                  <Code size="sm">searchStates(query)</Code>
+                  <span className="text-sm">string</span>
+                  <span className="text-xs text-gray-500">- Search states</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <Code size="sm">page</Code>
-                  <span className="text-sm">number</span>
-                  <span className="text-xs text-gray-500">- Page number</span>
+                  <Code size="sm">searchCities(query)</Code>
+                  <span className="text-sm">string</span>
+                  <span className="text-xs text-gray-500">- Search cities</span>
                 </div>
               </div>
             </CardBody>

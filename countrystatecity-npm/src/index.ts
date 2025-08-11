@@ -83,14 +83,51 @@ export class CountryStateCity {
         const paths = [
           join(__dirname, 'data', 'city.json'),
           join(__dirname, '..', 'data', 'city.json'),
-          join(process.cwd(), 'node_modules', 'countrystatecity', 'data', 'city.json'),
-          join(process.cwd(), 'node_modules', 'countrystatecity', 'dist', 'data', 'city.json')
+          join(process.cwd(), 'node_modules', '@tansuasici/country-state-city', 'data', 'city.json'),
+          join(process.cwd(), 'node_modules', '@tansuasici/country-state-city', 'dist', 'data', 'city.json')
         ];
         
         for (const path of paths) {
           try {
             const data = readFileSync(path, 'utf-8');
-            this.cities = JSON.parse(data);
+            const optimizedData = JSON.parse(data);
+            
+            // Convert optimized format back to full format
+            this.cities = optimizedData.map((city: any) => ({
+              id: city.i,
+              name: city.n,
+              stateId: city.s,
+              stateCode: '',
+              stateName: '',
+              countryId: city.c,
+              countryCode: '',
+              countryName: '',
+              latitude: String(city.la),
+              longitude: String(city.lo),
+              wikiDataId: city.w || ''
+            }));
+            
+            // Fill in missing data from states and countries
+            const states = this.loadStates();
+            const countries = this.loadCountries();
+            
+            if (this.cities) {
+              this.cities.forEach(city => {
+                const state = states.find(s => s.id === city.stateId);
+                const country = countries.find(c => c.id === city.countryId);
+                
+                if (state) {
+                  city.stateCode = state.stateCode;
+                  city.stateName = state.name;
+                }
+                
+                if (country) {
+                  city.countryCode = country.iso2;
+                  city.countryName = country.name;
+                }
+              });
+            }
+            
             break;
           } catch (e) {
             // Try next path

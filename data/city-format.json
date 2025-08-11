@@ -1,0 +1,22 @@
+{
+  "format": "optimized-v1",
+  "description": "Optimized city data format",
+  "fields": {
+    "i": "id",
+    "n": "name",
+    "s": "stateId",
+    "c": "countryId",
+    "la": "latitude",
+    "lo": "longitude",
+    "w": "wikiDataId (optional)"
+  },
+  "arrayFormat": {
+    "0": "id",
+    "1": "name",
+    "2": "stateId",
+    "3": "countryId",
+    "4": "latitude",
+    "5": "longitude",
+    "6": "wikiDataId (optional)"
+  }
+}

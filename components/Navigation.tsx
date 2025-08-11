@@ -13,6 +13,7 @@ import {
   Switch
 } from "@heroui/react";
 import { useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
 import { 
   FileText, 
   Github, 
@@ -20,7 +21,8 @@ import {
   Sun,
   Home,
   BookOpen,
-  HelpCircle
+  HelpCircle,
+  Map
 } from "lucide-react";
 import { useTheme } from "next-themes";
 import Image from "next/image";
@@ -29,6 +31,7 @@ export default function Navigation() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
     setMounted(true);
@@ -36,6 +39,7 @@ export default function Navigation() {
 
   const menuItems = [
     { name: "Home", href: "/", icon: Home },
+    { name: "Map", href: "/map", icon: Map },
     { name: "Documentation", href: "/docs", icon: BookOpen }
   ];
 
@@ -77,12 +81,29 @@ export default function Navigation() {
       {/* Desktop Menu */}
       <NavbarContent className="hidden sm:flex gap-4" justify="center">
         <NavbarItem>
-          <Link color="foreground" href="/">
+          <Link 
+            color="foreground"
+            href="/"
+            className={pathname === "/" ? "font-bold text-default-900 dark:text-default-100" : ""}
+          >
             Home
           </Link>
         </NavbarItem>
         <NavbarItem>
-          <Link color="foreground" href="/docs">
+          <Link 
+            color="foreground"
+            href="/map"
+            className={pathname === "/map" ? "font-bold text-default-900 dark:text-default-100" : ""}
+          >
+            Map
+          </Link>
+        </NavbarItem>
+        <NavbarItem>
+          <Link 
+            color="foreground"
+            href="/docs"
+            className={pathname === "/docs" ? "font-bold text-default-900 dark:text-default-100" : ""}
+          >
             Documentation
           </Link>
         </NavbarItem>
@@ -107,8 +128,8 @@ export default function Navigation() {
         {menuItems.map((item, index) => (
           <NavbarMenuItem key={`${item.name}-${index}`}>
             <Link
-              className="w-full flex items-center gap-2"
-              color={index === 0 ? "primary" : "foreground"}
+              className={`w-full flex items-center gap-2 ${pathname === item.href ? "font-bold text-default-900 dark:text-default-100" : ""}`}
+              color="foreground"
               href={item.href}
               size="lg"
             >

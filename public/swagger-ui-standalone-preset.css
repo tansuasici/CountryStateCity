@@ -1,9 +1,0 @@
-/* Basic styling for standalone Swagger UI */
-.swagger-ui .topbar {
-  padding: 10px 0;
-  background-color: #89bf04;
-}
-
-.swagger-ui .topbar .download-url-wrapper {
-  display: none;
-}

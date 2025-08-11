@@ -1,6 +1,6 @@
 {
   "name": "@tansuasici/country-state-city",
-  "version": "1.0.2",
+  "version": "2.0.2",
   "description": "A lightweight JavaScript library for accessing country, state, and city data worldwide with support for JSON, CSV, XML, and YAML formats",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
@@ -19,7 +19,7 @@
   },
   "keywords": [
     "country",
-    "state", 
+    "state",
     "city",
     "location",
     "geography",

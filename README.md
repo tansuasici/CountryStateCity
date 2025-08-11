@@ -1,4 +1,4 @@
-# Country State City Data
+# Country State City
 
 A modern web application and API platform built with Next.js 15 and TypeScript, providing comprehensive location data for 250+ countries, 5,000+ states, and 150,000+ cities worldwide.
 
@@ -15,7 +15,7 @@ A modern web application and API platform built with Next.js 15 and TypeScript, 
 - **⚡ Fast Performance**: Optimized API responses under 100ms
 - **🔍 Advanced Search**: Powerful filtering and search capabilities
 - **📱 Responsive Design**: Mobile-first approach with dark mode support
-- **🔧 RESTful API**: Comprehensive API with Swagger documentation
+- **🔧 RESTful API**: Comprehensive API endpoints
 - **📦 NPM Package**: Easy integration with your projects
 - **🛡️ ISO Standards**: ISO 3166-1 compliant country codes
 
@@ -26,7 +26,6 @@ A modern web application and API platform built with Next.js 15 and TypeScript, 
 - **UI Library**: HeroUI (NextUI fork)
 - **Styling**: Tailwind CSS
 - **Icons**: Lucide React
-- **Documentation**: Swagger UI
 - **Deployment**: Vercel/Netlify ready
 
 ## 📋 Prerequisites
@@ -61,7 +60,6 @@ npm start
 
 ## 📚 API Documentation
 
-Access the interactive Swagger documentation at `/docs` endpoint.
 
 ### Sample API Endpoints
 
@@ -137,7 +135,6 @@ const states = CountryStateCity.getStatesByCountryId(usa.id);
 ```
 ├── app/                    # Next.js App Router
 │   ├── api/               # API routes
-│   ├── docs/              # Swagger documentation
 │   └── globals.css        # Global styles
 ├── components/            # React components
 ├── data/                  # JSON data files

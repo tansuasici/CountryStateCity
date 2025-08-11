@@ -2,6 +2,7 @@
 
 A lightweight, memory-efficient JavaScript library for accessing country, state, and city data worldwide with support for multiple data formats.
 
+
 ## Features
 
 - 🌍 **250+ Countries** with ISO codes, phone codes, currencies, and more
@@ -54,7 +55,7 @@ const countriesXML = CountryStateCity.getAllCountries('xml');
 const countriesYAML = CountryStateCity.getAllCountries('yaml');
 ```
 
-## API Reference
+## Method Reference
 
 ### Country Methods
 
@@ -109,7 +110,3 @@ MIT
 
 Tansu Asici
 
-## Links
-
-- [GitHub Repository](https://github.com/tansuasici/country-state-city)
-- [NPM Package](https://www.npmjs.com/package/@tansuasici/country-state-city)
