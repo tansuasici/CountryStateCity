@@ -72,7 +72,6 @@ export default function Navigation() {
             />
             <div className="hidden sm:block">
               <p className="font-bold text-inherit">Country State City</p>
-              <p className="text-tiny text-default-500">Location API Service</p>
             </div>
           </Link>
         </NavbarBrand>
