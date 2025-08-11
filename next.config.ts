@@ -6,6 +6,10 @@ const nextConfig: NextConfig = {
   experimental: {
     optimizePackageImports: ["@heroui/react", "lucide-react"],
   },
+  images: {
+    unoptimized: true,
+  },
+  output: "export",
 };
 
 export default nextConfig;

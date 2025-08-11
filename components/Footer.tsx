@@ -3,14 +3,14 @@
 import {
   Link,
   Chip,
-  Divider
+  Divider,
+  Image
 } from "@heroui/react";
 import { 
   MapPin,
   FileText,
   Heart
 } from "lucide-react";
-import Image from "next/image";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();

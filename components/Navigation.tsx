@@ -25,7 +25,7 @@ import {
   Map
 } from "lucide-react";
 import { useTheme } from "next-themes";
-import Image from "next/image";
+import { Image } from "@heroui/react";
 
 export default function Navigation() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
