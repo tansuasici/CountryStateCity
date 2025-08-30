@@ -5,6 +5,7 @@
 
 Complete world countries, states, and cities data in JSON, CSV, XML, and YAML formats. Optimized for both **Node.js** and **Browser** environments with automatic environment detection.
 
+
 ## 🚀 Features
 
 - ✅ **250+ Countries** with complete ISO codes, currencies, timezones
@@ -76,6 +77,7 @@ import { CountryStateCity } from '@tansuasici/country-state-city/browser';
 // Force Node.js version
 import { CountryStateCity } from '@tansuasici/country-state-city/node';
 ```
+
 
 ## 📖 API Reference
 
@@ -316,24 +318,30 @@ import { CountryStateCity } from '@tansuasici/country-state-city/browser';
 import { CountryStateCity } from '@tansuasici/country-state-city/node';
 ```
 
+
+
 ## 📊 Data Types
 
 ```typescript
+// Types available in the package
 interface Country {
   id: number;
   name: string;
   iso2: string;
   iso3: string;
-  numericCode: string;
-  phoneCode: string;
+  numeric_code: string;
+  phone_code: string;
   capital: string;
   currency: string;
-  currencyName: string;
-  currencySymbol: string;
+  currency_name: string;
+  currency_symbol: string;
   tld: string;
   native: string;
   region: string;
+  region_id: string;
   subregion: string;
+  subregion_id: string;
+  nationality: string;
   timezones: Timezone[];
   translations: Record<string, string>;
   latitude: string;
@@ -345,10 +353,10 @@ interface Country {
 interface State {
   id: number;
   name: string;
-  countryId: number;
-  countryCode: string;
-  countryName: string;
-  stateCode: string;
+  country_id: number;
+  country_code: string;
+  country_name: string;
+  state_code: string;
   type: string | null;
   latitude: string;
   longitude: string;
@@ -357,12 +365,12 @@ interface State {
 interface City {
   id: number;
   name: string;
-  stateId: number;
-  stateCode: string;
-  stateName: string;
-  countryId: number;
-  countryCode: string;
-  countryName: string;
+  state_id: number;
+  state_code: string;
+  state_name: string;
+  country_id: number;
+  country_code: string;
+  country_name: string;
   latitude: string;
   longitude: string;
   wikiDataId: string;
@@ -377,24 +385,224 @@ interface Timezone {
 }
 ```
 
-## 🤝 Contributing
 
-Contributions are welcome! Please feel free to submit a Pull Request.
 
-## 📄 License
+import { NextRequest, NextResponse } from 'next/server';
+import type { Country, State, City } from '@tansuasici/country-state-city';
+
+interface ApiResponse<T> {
+  success: boolean;
+  data?: T;
+  error?: string;
+  total?: number;
+}
+
+export async function GET(request: NextRequest): Promise<NextResponse<ApiResponse<Country[] | State[] | City[]>>> {
+  try {
+    // Dynamic import with TypeScript
+    const { default: CountryStateCity } = await import('@tansuasici/country-state-city');
+    
+    // Create typed instance
+    const csc = new CountryStateCity();
+    
+    // Load data
+    await csc.loadData();
+    
+    // Get search params
+    const searchParams = request.nextUrl.searchParams;
+    const countryCode = searchParams.get('country');
+    const stateId = searchParams.get('state');
+    const search = searchParams.get('search');
+    
+    // Handle different query types
+    if (search) {
+      const cities: City[] = csc.searchCities(search);
+      return NextResponse.json({
+        success: true,
+        data: cities,
+        total: cities.length
+      });
+    }
+    
+    if (countryCode) {
+      const country: Country | undefined = csc.getCountryByIso2(countryCode);
+      if (!country) {
+        return NextResponse.json({
+          success: false,
+          error: 'Country not found'
+        }, { status: 404 });
+      }
+      
+      const states: State[] = csc.getStatesByCountryId(country.id);
+      return NextResponse.json({
+        success: true,
+        data: states,
+        total: states.length
+      });
+    }
+    
+    if (stateId) {
+      const cities: City[] = csc.getCitiesByStateId(parseInt(stateId));
+      return NextResponse.json({
+        success: true,
+        data: cities,
+        total: cities.length
+      });
+    }
+    
+    // Return all countries by default
+    const countries: Country[] = csc.getAllCountries();
+    return NextResponse.json({
+      success: true,
+      data: countries,
+      total: countries.length
+    });
+    
+  } catch (error) {
+    console.error('API Error:', error);
+    return NextResponse.json({
+      success: false,
+      error: error instanceof Error ? error.message : 'Unknown error'
+    }, { status: 500 });
+  }
+}
+```
+
+
+```typescript
+// components/LocationSelector.tsx
+import React, { useState, useEffect } from 'react';
+import type { Country, State, City } from '@tansuasici/country-state-city';
+
+interface LocationSelectorProps {
+  onSelect: (country: Country, state: State | null, city: City | null) => void;
+}
+
+export default function LocationSelector({ onSelect }: LocationSelectorProps) {
+  const [countries, setCountries] = useState<Country[]>([]);
+  const [states, setStates] = useState<State[]>([]);
+  const [cities, setCities] = useState<City[]>([]);
+  
+  const [selectedCountry, setSelectedCountry] = useState<Country | null>(null);
+  const [selectedState, setSelectedState] = useState<State | null>(null);
+  const [selectedCity, setSelectedCity] = useState<City | null>(null);
+  
+  useEffect(() => {
+    loadCountries();
+  }, []);
+  
+  async function loadCountries(): Promise<void> {
+    try {
+      const response = await fetch('/api/countries');
+      const data: ApiResponse<Country[]> = await response.json();
+      if (data.success && data.data) {
+        setCountries(data.data);
+      }
+    } catch (error) {
+      console.error('Failed to load countries:', error);
+    }
+  }
+  
+  async function handleCountryChange(countryId: string): Promise<void> {
+    const country = countries.find(c => c.id === parseInt(countryId));
+    if (!country) return;
+    
+    setSelectedCountry(country);
+    setSelectedState(null);
+    setSelectedCity(null);
+    
+    // Load states for selected country
+    try {
+      const response = await fetch(`/api/countries?country=${country.iso2}`);
+      const data: ApiResponse<State[]> = await response.json();
+      if (data.success && data.data) {
+        setStates(data.data);
+      }
+    } catch (error) {
+      console.error('Failed to load states:', error);
+    }
+  }
+  
+  async function handleStateChange(stateId: string): Promise<void> {
+    const state = states.find(s => s.id === parseInt(stateId));
+    if (!state) return;
+    
+    setSelectedState(state);
+    setSelectedCity(null);
+    
+    // Load cities for selected state
+    try {
+      const response = await fetch(`/api/countries?state=${state.id}`);
+      const data: ApiResponse<City[]> = await response.json();
+      if (data.success && data.data) {
+        setCities(data.data);
+      }
+    } catch (error) {
+      console.error('Failed to load cities:', error);
+    }
+  }
+  
+  function handleCityChange(cityId: string): void {
+    const city = cities.find(c => c.id === parseInt(cityId));
+    if (!city) return;
+    
+    setSelectedCity(city);
+    if (selectedCountry) {
+      onSelect(selectedCountry, selectedState, city);
+    }
+  }
+  
+  return (
+    <div className="space-y-4">
+      <select 
+        onChange={(e) => handleCountryChange(e.target.value)}
+        className="w-full p-2 border rounded"
+      >
+        <option value="">Select Country</option>
+        {countries.map((country) => (
+          <option key={country.id} value={country.id}>
+            {country.emoji} {country.name}
+          </option>
+        ))}
+      </select>
+      
+      {states.length > 0 && (
+        <select 
+          onChange={(e) => handleStateChange(e.target.value)}
+          className="w-full p-2 border rounded"
+        >
+          <option value="">Select State</option>
+          {states.map((state) => (
+            <option key={state.id} value={state.id}>
+              {state.name}
+            </option>
+          ))}
+        </select>
+      )}
+      
+      {cities.length > 0 && (
+        <select 
+          onChange={(e) => handleCityChange(e.target.value)}
+          className="w-full p-2 border rounded"
+        >
+          <option value="">Select City</option>
+          {cities.map((city) => (
+            <option key={city.id} value={city.id}>
+              {city.name}
+            </option>
+          ))}
+        </select>
+      )}
+    </div>
+  );
+}
+```
+
+## License
 
 MIT
 
-## 🔗 Links
+## Author
 
-- [NPM Package](https://www.npmjs.com/package/@tansuasici/country-state-city)
-- [GitHub Repository](https://github.com/tansuasici/CountryStateCity)
-- [Live Demo](https://countrystatecity.xyz)
+Tansu Asici
 
-## 💡 Support
-
-If you find this package helpful, please consider:
-- ⭐ Starring the GitHub repository
-- 🐛 Reporting issues or bugs
-- 💬 Providing feedback and suggestions
-- 🤝 Contributing to the codebase
