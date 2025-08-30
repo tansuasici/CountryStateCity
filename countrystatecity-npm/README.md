@@ -30,51 +30,52 @@ yarn add @tansuasici/country-state-city
 pnpm add @tansuasici/country-state-city
 ```
 
-## 🎯 Quick Start
+## 🎯 Usage
 
-### Browser / Client-Side
-
-The library automatically uses the browser-optimized bundle in client environments:
+### Basic Setup
 
 ```javascript
 import { CountryStateCity } from '@tansuasici/country-state-city';
 
 // Get all countries
 const countries = CountryStateCity.getAllCountries();
+console.log(countries.length); // 250+ countries
 
-// Get country by ISO code
+// Get specific country
 const turkey = CountryStateCity.getCountryByIso2('TR');
+console.log(turkey);
+// {
+//   id: 225,
+//   name: 'Turkey',
+//   iso2: 'TR',
+//   iso3: 'TUR',
+//   capital: 'Ankara',
+//   currency: 'TRY',
+//   ...
+// }
 
-// Get states by country
-const states = CountryStateCity.getStatesByCountryId(225); // Turkey's ID
+// Get states of a country
+const states = CountryStateCity.getStatesByCountryId(225);
+console.log(states.length); // 81 provinces
 
-// Search cities
-const istanbulCities = CountryStateCity.searchCities('Istanbul');
+// Get cities of a state
+const istanbulCities = CountryStateCity.getCitiesByStateId(3981);
+console.log(istanbulCities); // Cities in Istanbul province
 ```
 
-### Node.js / Server-Side
+### Environment-Specific Imports
 
-The library automatically uses the Node.js version with file system support:
-
-```javascript
-const { CountryStateCity } = require('@tansuasici/country-state-city');
-// or
-import { CountryStateCity } from '@tansuasici/country-state-city';
-
-// Same API as browser version
-const countries = CountryStateCity.getAllCountries();
-```
-
-### Explicit Environment Import
-
-If you need to force a specific build:
+The library automatically detects your environment (browser/Node.js). However, you can explicitly import the version you need:
 
 ```javascript
-// Force browser version
+// Browser/Client-side (no fs dependencies)
 import { CountryStateCity } from '@tansuasici/country-state-city/browser';
 
-// Force Node.js version
+// Node.js/Server-side (uses fs for better performance)
 import { CountryStateCity } from '@tansuasici/country-state-city/node';
+
+// CommonJS
+const { CountryStateCity } = require('@tansuasici/country-state-city');
 ```
 
 ## 📖 API Reference
