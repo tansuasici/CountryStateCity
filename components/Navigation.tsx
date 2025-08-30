@@ -83,7 +83,7 @@ export default function Navigation() {
           <Link 
             color="foreground"
             href="/"
-            className={pathname === "/" ? "font-bold text-default-900 dark:text-default-100" : ""}
+            className={pathname === "/" ? "font-bold text-default-900 dark:text-white" : "text-default-600 dark:text-default-400"}
           >
             Home
           </Link>
@@ -92,7 +92,7 @@ export default function Navigation() {
           <Link 
             color="foreground"
             href="/map"
-            className={pathname === "/map" ? "font-bold text-default-900 dark:text-default-100" : ""}
+            className={pathname === "/map" ? "font-bold text-default-900 dark:text-white" : "text-default-600 dark:text-default-400"}
           >
             Map
           </Link>
@@ -101,7 +101,7 @@ export default function Navigation() {
           <Link 
             color="foreground"
             href="/docs"
-            className={pathname === "/docs" ? "font-bold text-default-900 dark:text-default-100" : ""}
+            className={pathname === "/docs" ? "font-bold text-default-900 dark:text-white" : "text-default-600 dark:text-default-400"}
           >
             Documentation
           </Link>
@@ -127,7 +127,7 @@ export default function Navigation() {
         {menuItems.map((item, index) => (
           <NavbarMenuItem key={`${item.name}-${index}`}>
             <Link
-              className={`w-full flex items-center gap-2 ${pathname === item.href ? "font-bold text-default-900 dark:text-default-100" : ""}`}
+              className={`w-full flex items-center gap-2 ${pathname === item.href ? "font-bold text-default-900 dark:text-white" : "text-default-600 dark:text-default-400"}`}
               color="foreground"
               href={item.href}
               size="lg"

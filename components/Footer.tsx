@@ -18,15 +18,11 @@ export default function Footer() {
   const links = {
     resources: [
       { name: "Documentation", href: "/docs" },
-      { name: "Interactive Map", href: "/map" }
+      { name: "Map", href: "/map" }
     ],
     developers: [
       { name: "NPM Package", href: "https://www.npmjs.com/package/@tansuasici/country-state-city", isExternal: true },
       { name: "GitHub", href: "https://github.com/tansuasici/CountryStateCity", isExternal: true }
-    ],
-    about: [
-      { name: "Author", href: "https://tansuasici.com", isExternal: true },
-      { name: "MIT License", href: "https://github.com/tansuasici/CountryStateCity/blob/main/LICENSE", isExternal: true }
     ]
   };
 
@@ -34,7 +30,7 @@ export default function Footer() {
     <footer className="w-full mt-20 border-t border-divider bg-background">
       <div className="container mx-auto px-4 py-12 max-w-7xl">
         {/* Main Footer Content */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
           {/* Brand Section */}
           <div className="lg:col-span-1">
             <div className="flex items-center gap-3 mb-4">
@@ -80,26 +76,6 @@ export default function Footer() {
             <h4 className="font-semibold mb-3">Developers</h4>
             <ul className="space-y-2">
               {links.developers.map((link) => (
-                <li key={link.name}>
-                  <Link 
-                    href={link.href}
-                    size="sm"
-                    color="foreground"
-                    className="opacity-80 hover:opacity-100"
-                    isExternal={link.isExternal}
-                  >
-                    {link.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* About Links */}
-          <div>
-            <h4 className="font-semibold mb-3">About</h4>
-            <ul className="space-y-2">
-              {links.about.map((link) => (
                 <li key={link.name}>
                   <Link 
                     href={link.href}
