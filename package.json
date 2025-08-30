@@ -1,6 +1,6 @@
 {
   "name": "@tansuasici/country-state-city",
-  "version": "1.0.5",
+  "version": "2.0.8",
   "description": "Complete world countries, states, and cities data in JSON, CSV, XML, and YAML formats. Modern UI components included.",
   "main": "countrystatecity-npm/dist/index.node.cjs",
   "module": "countrystatecity-npm/dist/index.node.mjs",
