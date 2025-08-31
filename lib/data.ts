@@ -1,11 +1,9 @@
 import { Country, State, City } from '@/types';
-import countriesData from '@/data/country.json';
-import statesData from '@/data/state.json';
-import citiesData from '@/data/city.json';
+import CountryStateCity from '@tansuasici/country-state-city';
 
-export const countries: Country[] = countriesData as Country[];
-export const states: State[] = statesData as State[];
-export const cities: City[] = citiesData as City[];
+export const countries: Country[] = CountryStateCity.getAllCountries() as Country[];
+export const states: State[] = CountryStateCity.getAllStates() as State[];
+export const cities: City[] = CountryStateCity.getAllCities() as City[];
 
 export class DataService {
   static getAllCountries(): Country[] {

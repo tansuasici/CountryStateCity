@@ -18,25 +18,32 @@ export class CountryStateCity {
   // Lazy loading to prevent memory issues during build
   private static loadCities(): City[] {
     if (!this.cities) {
-      const optimizedData = citiesData as any[];
+      // Check if data is in optimized format or full format
+      const sampleCity = citiesData[0] as any;
+      const isOptimized = sampleCity && typeof sampleCity.i !== 'undefined';
       
-      // Convert optimized format back to full format
-      this.cities = optimizedData.map((city: any) => ({
-        id: city.i,
-        name: city.n,
-        stateId: city.s,
-        stateCode: '',
-        stateName: '',
-        countryId: city.c,
-        countryCode: '',
-        countryName: '',
-        latitude: String(city.la),
-        longitude: String(city.lo),
-        wikiDataId: city.w || ''
-      }));
+      if (isOptimized) {
+        // Convert optimized format back to full format
+        this.cities = (citiesData as any[]).map((city: any) => ({
+          id: city.i,
+          name: city.n,
+          stateId: city.s,
+          stateCode: '',
+          stateName: '',
+          countryId: city.c,
+          countryCode: '',
+          countryName: '',
+          latitude: String(city.la),
+          longitude: String(city.lo),
+          wikiDataId: city.w || ''
+        }));
+      } else {
+        // Data is already in full format
+        this.cities = citiesData as City[];
+      }
       
-      // Fill in missing data from states and countries
-      if (this.cities) {
+      // Fill in missing data from states and countries if needed
+      if (this.cities && isOptimized) {
         this.cities.forEach(city => {
           const state = this.states.find(s => s.id === city.stateId);
           const country = this.countries.find(c => c.id === city.countryId);

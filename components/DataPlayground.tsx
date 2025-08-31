@@ -42,8 +42,8 @@ export default function DataPlayground({ stats }: DataPlaygroundProps) {
 
   useEffect(() => {
     const loadCountries = async () => {
-      const { getCountries } = await import('@/lib/countries');
-      const data = getCountries();
+      const { default: CountryStateCity } = await import('@tansuasici/country-state-city');
+      const data = CountryStateCity.getAllCountries() as Country[];
       setCountries(data);
     };
     loadCountries();
@@ -52,8 +52,8 @@ export default function DataPlayground({ stats }: DataPlaygroundProps) {
   useEffect(() => {
     if (selectedCountry) {
       const loadStates = async () => {
-        const { getStatesByCountryId } = await import('@/lib/countries');
-        const data = getStatesByCountryId(Number(selectedCountry));
+        const { default: CountryStateCity } = await import('@tansuasici/country-state-city');
+        const data = CountryStateCity.getStatesByCountryId(Number(selectedCountry)) as State[];
         setStates(data);
         setSelectedState('');
       };
@@ -67,13 +67,7 @@ export default function DataPlayground({ stats }: DataPlaygroundProps) {
   const executeAction = async () => {
     setLoading(true);
     try {
-      const { 
-        getCountries, 
-        getCountryById, 
-        getStatesByCountryId, 
-        getCitiesByStateId,
-        searchCountries
-      } = await import('@/lib/countries');
+      const { default: CountryStateCity } = await import('@tansuasici/country-state-city');
       
       const {
         formatCountries,
@@ -85,25 +79,25 @@ export default function DataPlayground({ stats }: DataPlaygroundProps) {
       
       switch (selectedAction) {
         case 'getCountries':
-          data = getCountries().slice(0, 10); // Get first 10 countries
+          data = (CountryStateCity.getAllCountries() as Country[]).slice(0, 10); // Get first 10 countries
           break;
         case 'getCountryById':
           if (selectedCountry) {
-            data = getCountryById(Number(selectedCountry));
+            data = CountryStateCity.getCountryById(Number(selectedCountry));
           }
           break;
         case 'getStatesByCountryId':
           if (selectedCountry) {
-            data = getStatesByCountryId(Number(selectedCountry)).slice(0, 20);
+            data = (CountryStateCity.getStatesByCountryId(Number(selectedCountry)) as State[]).slice(0, 20);
           }
           break;
         case 'getCitiesByStateId':
           if (selectedState) {
-            data = getCitiesByStateId(Number(selectedState)).slice(0, 20);
+            data = (CountryStateCity.getCitiesByStateId(Number(selectedState)) as City[]).slice(0, 20);
           }
           break;
         case 'searchCountries':
-          data = searchCountries('United').slice(0, 10);
+          data = CountryStateCity.searchCountries('United').slice(0, 10);
           break;
         default:
           data = { message: 'Select an action to execute' };

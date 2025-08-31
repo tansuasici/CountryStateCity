@@ -1,6 +1,6 @@
 {
   "name": "@tansuasici/country-state-city",
-  "version": "2.0.9",
+  "version": "2.0.10",
   "description": "Complete world countries, states, and cities data in JSON, CSV, XML, and YAML formats. Modern UI components included.",
   "main": "countrystatecity-npm/dist/index.node.cjs",
   "module": "countrystatecity-npm/dist/index.node.mjs",
@@ -36,9 +36,6 @@
   },
   "scripts": {
     "dev": "env-cmd -f .env.development next dev --turbopack",
-    "prebuild:test": "npm version prerelease --preid=test",
-    "build:test": "env-cmd -f .env.test next build",
-    "postbuild:test": "git add package.json && git commit -m 'Build(test): version bump'",
     "prebuild:prod": "npm version patch",
     "build:prod": "env-cmd -f .env.production next build",
     "postbuild:prod": "git add package.json && git commit -m 'Build(prod): version bump'",
@@ -82,6 +79,7 @@
   "homepage": "https://countrystatecity.xyz",
   "dependencies": {
     "@heroui/react": "^2.7.8",
+    "@tansuasici/country-state-city": "^2.0.9",
     "@types/leaflet": "^1.9.20",
     "autoprefixer": "^10.4.17",
     "firebase": "^12.1.0",

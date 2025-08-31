@@ -71,20 +71,168 @@ GET /api/countries?search=united&limit=10
 Install our NPM package for easy integration:
 
 ```bash
-npm install countrystatecity
+npm install @tansuasici/country-state-city
 ```
 
+### Basic Usage
+
 ```javascript
-import { CountryStateCity } from 'countrystatecity';
+import { CountryStateCity } from '@tansuasici/country-state-city';
 
 // Get all countries
 const countries = CountryStateCity.getAllCountries();
 
+// Get country by ID
+const country = CountryStateCity.getCountryById(231);
+
 // Get country by ISO code
 const usa = CountryStateCity.getCountryByIso2('US');
+const turkey = CountryStateCity.getCountryByIso3('TUR');
 
 // Get states by country
-const states = CountryStateCity.getStatesByCountryId(usa.id);
+const states = CountryStateCity.getStatesByCountryId(231);
+
+// Get cities by state
+const cities = CountryStateCity.getCitiesByStateId(1416);
+
+// Search functionality
+const searchResults = CountryStateCity.searchCountries('United');
+const stateResults = CountryStateCity.searchStates('California', 231);
+const cityResults = CountryStateCity.searchCities('New York', null, 231);
+```
+
+### Export Data in Different Formats
+
+```javascript
+import { CountryStateCity } from '@tansuasici/country-state-city';
+
+// Export as JSON (default)
+const countriesJson = CountryStateCity.getAllCountries();
+
+// Export as CSV
+const countriesCsv = CountryStateCity.getAllCountries('csv');
+
+// Export as XML
+const statesXml = CountryStateCity.getStatesByCountryId(231, 'xml');
+
+// Export as YAML
+const citiesYaml = CountryStateCity.getCitiesByStateId(1416, 'yaml');
+```
+
+### All Available Methods
+
+#### Country Methods
+
+```javascript
+// Get all countries
+CountryStateCity.getAllCountries(format?: 'json' | 'csv' | 'xml' | 'yaml');
+
+// Get country by ID
+CountryStateCity.getCountryById(id: number);
+
+// Get country by ISO2 code (e.g., 'US')
+CountryStateCity.getCountryByIso2(iso2: string);
+
+// Get country by ISO3 code (e.g., 'USA')
+CountryStateCity.getCountryByIso3(iso3: string);
+
+// Search countries by name
+CountryStateCity.searchCountries(query: string);
+
+// Get countries by region (e.g., 'Asia', 'Europe')
+CountryStateCity.getCountriesByRegion(region: string);
+
+// Get countries by subregion (e.g., 'Western Europe')
+CountryStateCity.getCountriesBySubregion(subregion: string);
+```
+
+#### State Methods
+
+```javascript
+// Get all states
+CountryStateCity.getAllStates(format?: 'json' | 'csv' | 'xml' | 'yaml');
+
+// Get state by ID
+CountryStateCity.getStateById(id: number);
+
+// Get states by country ID
+CountryStateCity.getStatesByCountryId(countryId: number, format?: string);
+
+// Get states by country code
+CountryStateCity.getStatesByCountryCode(countryCode: string, format?: string);
+
+// Search states
+CountryStateCity.searchStates(query: string, countryId?: number);
+```
+
+#### City Methods
+
+```javascript
+// Get all cities (use with caution - large dataset)
+CountryStateCity.getAllCities(format?: 'json' | 'csv' | 'xml' | 'yaml');
+
+// Get city by ID
+CountryStateCity.getCityById(id: number);
+
+// Get cities by state ID
+CountryStateCity.getCitiesByStateId(stateId: number, format?: string);
+
+// Get cities by country ID
+CountryStateCity.getCitiesByCountryId(countryId: number, format?: string);
+
+// Search cities
+CountryStateCity.searchCities(query: string, stateId?: number, countryId?: number);
+```
+
+#### Utility Methods
+
+```javascript
+// Get statistics
+CountryStateCity.getStats();
+// Returns: { countries: 250, states: 5000, cities: 150000 }
+
+// Get all regions
+CountryStateCity.getAllRegions();
+// Returns: ['Africa', 'Americas', 'Antarctica', 'Asia', 'Europe', 'Oceania']
+
+// Get all subregions
+CountryStateCity.getAllSubregions();
+// Returns: ['Caribbean', 'Central America', 'Central Asia', ...]
+
+// Get all timezones
+CountryStateCity.getAllTimezones();
+// Returns: ['Africa/Abidjan', 'Africa/Accra', ...]
+
+// Get all currencies
+CountryStateCity.getAllCurrencies();
+// Returns: [{ code: 'USD', name: 'US Dollar', symbol: '$' }, ...]
+
+// Export data in specific format
+CountryStateCity.exportData(
+  dataType: 'countries' | 'states' | 'cities',
+  format: 'json' | 'csv' | 'xml' | 'yaml',
+  options?: FormatOptions
+);
+```
+
+### TypeScript Support
+
+The package includes full TypeScript support with type definitions:
+
+```typescript
+import { 
+  CountryStateCity,
+  Country,
+  State,
+  City,
+  DataFormat,
+  FormatOptions
+} from '@tansuasici/country-state-city';
+
+// Type-safe operations
+const country: Country | undefined = CountryStateCity.getCountryById(231);
+const states: State[] = CountryStateCity.getStatesByCountryId(231) as State[];
+const cities: City[] = CountryStateCity.getCitiesByStateId(1416) as City[];
 ```
 
 

@@ -1,12 +1,10 @@
-import countriesData from '@/data/country.json';
-import statesData from '@/data/state.json';
-import citiesData from '@/data/city.json';
+import CountryStateCity from '@tansuasici/country-state-city';
 import { Country, State, City } from '@/types';
 
-// Load data directly from JSON files
-const countries: Country[] = countriesData as Country[];
-const states: State[] = statesData as State[];
-const cities: City[] = citiesData as City[];
+// Load data from NPM package
+const countries: Country[] = CountryStateCity.getAllCountries() as Country[];
+const states: State[] = CountryStateCity.getAllStates() as State[];
+const cities: City[] = CountryStateCity.getAllCities() as City[];
 
 // Helper functions for data access
 export const getCountries = (limit?: number): Country[] => {

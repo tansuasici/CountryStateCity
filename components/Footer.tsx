@@ -18,7 +18,8 @@ export default function Footer() {
   const links = {
     resources: [
       { name: "Documentation", href: "/docs" },
-      { name: "Map", href: "/map" }
+      { name: "Map", href: "/map" },
+      { name: "MCP", href: "/mcp" }
     ],
     developers: [
       { name: "NPM Package", href: "https://www.npmjs.com/package/@tansuasici/country-state-city", isExternal: true },

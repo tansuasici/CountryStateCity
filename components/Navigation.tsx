@@ -22,7 +22,8 @@ import {
   Home,
   BookOpen,
   HelpCircle,
-  Map
+  Map,
+  Cpu
 } from "lucide-react";
 import { useTheme } from "next-themes";
 import { Image } from "@heroui/react";
@@ -40,7 +41,8 @@ export default function Navigation() {
   const menuItems = [
     { name: "Home", href: "/", icon: Home },
     { name: "Map", href: "/map", icon: Map },
-    { name: "Documentation", href: "/docs", icon: BookOpen }
+    { name: "Documentation", href: "/docs", icon: BookOpen },
+    { name: "MCP", href: "/mcp", icon: Cpu }
   ];
 
   if (!mounted) return null;
@@ -104,6 +106,15 @@ export default function Navigation() {
             className={pathname === "/docs" ? "font-bold text-default-900 dark:text-white" : "text-default-600 dark:text-default-400"}
           >
             Documentation
+          </Link>
+        </NavbarItem>
+        <NavbarItem>
+          <Link 
+            color="foreground"
+            href="/mcp"
+            className={pathname === "/mcp" ? "font-bold text-default-900 dark:text-white" : "text-default-600 dark:text-default-400"}
+          >
+            MCP
           </Link>
         </NavbarItem>
       </NavbarContent>
