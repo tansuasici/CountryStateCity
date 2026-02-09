@@ -8,6 +8,7 @@
   "types": "countrystatecity-npm/dist/index.d.ts",
   "files": [
     "countrystatecity-npm/dist",
+    "countrystatecity-mcp/dist",
     "data",
     "README.md"
   ],
@@ -32,7 +33,11 @@
     },
     "./data/countries.json": "./data/country.json",
     "./data/states.json": "./data/state.json",
-    "./data/cities.json": "./data/city.json"
+    "./data/cities.json": "./data/city.json",
+    "./mcp": "./countrystatecity-mcp/dist/index.js"
+  },
+  "bin": {
+    "country-state-city-mcp": "./countrystatecity-mcp/dist/index.js"
   },
   "scripts": {
     "dev": "env-cmd -f .env.development next dev --turbopack",
@@ -44,9 +49,24 @@
     "start": "next start",
     "export": "next export",
     "lint": "next lint",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "prepare": "husky",
     "build:dev": "SET NODE_ENV=dev npm run build --dev --",
     "build:local": "env-cmd -f .env.local next build",
+    "build:mcp": "esbuild countrystatecity-mcp/src/index.ts --bundle --platform=node --format=esm --outfile=countrystatecity-mcp/dist/index.js --external:@modelcontextprotocol/sdk --external:zod --banner:js=\"#!/usr/bin/env node\nimport{fileURLToPath as __mcp_fileURLToPath}from'url';import{dirname as __mcp_dirname}from'path';const __filename=__mcp_fileURLToPath(import.meta.url);const __dirname=__mcp_dirname(__filename);\"",
+    "dev:mcp": "tsx countrystatecity-mcp/src/index.ts",
     "prepublishOnly": "npm run build:lib"
+  },
+  "lint-staged": {
+    "*.{ts,tsx,js,jsx}": [
+      "prettier --write",
+      "eslint --fix"
+    ],
+    "*.{json,md,yml,yaml}": [
+      "prettier --write"
+    ]
   },
   "keywords": [
     "countries",
@@ -79,6 +99,7 @@
   "homepage": "https://countrystatecity.xyz",
   "dependencies": {
     "@heroui/react": "^2.7.8",
+    "@modelcontextprotocol/sdk": "^1.26.0",
     "@tansuasici/country-state-city": "^2.0.9",
     "@types/leaflet": "^1.9.20",
     "autoprefixer": "^10.4.17",
@@ -86,7 +107,7 @@
     "framer-motion": "^12.23.12",
     "leaflet": "^1.9.4",
     "lucide-react": "^0.539.0",
-    "next": "^16.1.1",
+    "next": "^16.1.6",
     "next-themes": "^0.4.6",
     "postcss": "^8.4.33",
     "react": ">=17.0.0",
@@ -95,6 +116,7 @@
     "tailwindcss": "^3.4.1"
   },
   "devDependencies": {
+    "@eslint/eslintrc": "^3.3.3",
     "@rollup/plugin-commonjs": "^28.0.6",
     "@rollup/plugin-json": "^6.1.0",
     "@rollup/plugin-node-resolve": "^16.0.1",
@@ -103,10 +125,18 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@vitest/coverage-v8": "^4.0.18",
     "env-cmd": "^10.1.0",
     "esbuild": "^0.25.9",
+    "eslint-config-next": "^16.1.6",
+    "eslint-config-prettier": "^10.1.8",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.2.7",
+    "prettier": "^3.8.1",
     "rollup": "^4.49.0",
-    "typescript": "^5"
+    "tsx": "^4.21.0",
+    "typescript": "^5",
+    "vitest": "^4.0.18"
   },
   "peerDependencies": {
     "react": ">=17.0.0",

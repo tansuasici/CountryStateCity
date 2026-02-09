@@ -1,435 +1,284 @@
 'use client';
 
-import { Card, CardBody, CardHeader, Code, Link, Button, Chip, Tabs, Tab, Snippet } from '@heroui/react';
-import { Terminal, Download, Settings, Cpu, FileJson, Globe, Sparkles, CheckCircle } from 'lucide-react';
-import { useState } from 'react';
+import { Card, CardBody, Code, Snippet, Chip } from '@heroui/react';
+import {
+  Terminal,
+  Server,
+  Cpu,
+  Wrench,
+  Database,
+  Search,
+  Globe,
+  Building,
+  MapPin,
+  BarChart3,
+  Clock,
+  Coins,
+} from 'lucide-react';
+
+const tools = [
+  {
+    name: 'search_countries',
+    desc: 'Search countries by name (supports partial matching and native names)',
+    icon: Search,
+    param: 'query',
+  },
+  {
+    name: 'get_country',
+    desc: 'Get a country by its numeric ID, ISO2 code, or ISO3 code',
+    icon: Globe,
+    param: 'id | iso2 | iso3',
+  },
+  {
+    name: 'get_countries_by_region',
+    desc: "Get all countries in a specific region (e.g. 'Europe', 'Asia')",
+    icon: Globe,
+    param: 'region',
+  },
+  {
+    name: 'get_states',
+    desc: 'Get all states/provinces for a country by country ID or ISO2 code',
+    icon: Building,
+    param: 'countryId | countryCode',
+  },
+  {
+    name: 'search_states',
+    desc: 'Search states/provinces by name, optionally filtered by country',
+    icon: Search,
+    param: 'query, countryId?',
+  },
+  {
+    name: 'get_cities',
+    desc: 'Get cities by state ID or country ID with pagination',
+    icon: MapPin,
+    param: 'stateId | countryId, limit?',
+  },
+  {
+    name: 'search_cities',
+    desc: 'Search cities by name, optionally filtered by state or country',
+    icon: Search,
+    param: 'query, stateId?, countryId?',
+  },
+  {
+    name: 'get_stats',
+    desc: 'Get database statistics (total counts of countries, states, cities)',
+    icon: BarChart3,
+    param: 'none',
+  },
+  {
+    name: 'get_regions',
+    desc: 'Get all world regions (Europe, Asia, Americas, Africa, Oceania)',
+    icon: Globe,
+    param: 'none',
+  },
+  {
+    name: 'get_timezones',
+    desc: 'Get all timezones from the database',
+    icon: Clock,
+    param: 'none',
+  },
+  {
+    name: 'get_currencies',
+    desc: 'Get all currencies with their codes, names, and symbols',
+    icon: Coins,
+    param: 'none',
+  },
+];
+
+const resources = [
+  { uri: 'country-state-city://countries', desc: 'All countries (summary)', name: 'all-countries' },
+  {
+    uri: 'country-state-city://countries/{iso2}',
+    desc: 'Country detail by ISO2 code',
+    name: 'country-by-iso2',
+  },
+  {
+    uri: 'country-state-city://countries/{iso2}/states',
+    desc: 'States for a country',
+    name: 'states-by-country',
+  },
+  {
+    uri: 'country-state-city://states/{id}/cities',
+    desc: 'Cities for a state',
+    name: 'cities-by-state',
+  },
+  { uri: 'country-state-city://stats', desc: 'Statistics (total counts)', name: 'stats' },
+];
 
 export default function MCPPage() {
-  const [selectedTab, setSelectedTab] = useState('installation');
-
   return (
-    <div className="container mx-auto px-4 py-8 max-w-6xl">
-      {/* Hero Section */}
-      <div className="text-center mb-12">
-        <div className="flex justify-center mb-4">
-          <Cpu className="w-16 h-16 text-primary" />
-        </div>
-        <h1 className="text-4xl font-bold mb-4">MCP Integration</h1>
-        <p className="text-xl text-default-600 mb-6">
-          Model Context Protocol server for AI assistants and LLM applications
-        </p>
+    <div className="dot-grid min-h-screen">
+      <div className="container mx-auto px-4 py-12 max-w-6xl">
+        {/* Hero */}
+        <section className="hero-mesh rounded-3xl px-6 py-16 md:py-20 mb-16">
+          <div className="relative z-10 text-center max-w-3xl mx-auto">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-100 dark:bg-indigo-950/40 border border-indigo-200 dark:border-indigo-800/50 mb-6 fade-in-up">
+              <Cpu size={16} className="text-indigo-600 dark:text-indigo-400" />
+              <span className="text-sm font-medium text-indigo-700 dark:text-indigo-300">
+                Model Context Protocol
+              </span>
+            </div>
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 fade-in-up stagger-1">
+              <span className="gradient-text">MCP Integration</span>
+            </h1>
+            <p className="text-lg md:text-xl text-default-600 mb-8 max-w-2xl mx-auto fade-in-up stagger-2">
+              Connect location data directly to Claude Desktop and other MCP-compatible AI
+              assistants. 11 tools and 5 resource endpoints at your fingertips.
+            </p>
+          </div>
+        </section>
+
+        {/* Setup */}
+        <section className="mb-16">
+          <div className="flex items-center gap-3 mb-6">
+            <div className="w-10 h-10 rounded-xl bg-indigo-100 dark:bg-indigo-950/40 flex items-center justify-center">
+              <Terminal size={20} className="text-indigo-600 dark:text-indigo-400" />
+            </div>
+            <div>
+              <h2 className="text-2xl font-bold">Quick Setup</h2>
+              <p className="text-sm text-default-500">Add to your Claude Desktop configuration</p>
+            </div>
+          </div>
+
+          <Card className="code-block-enhanced">
+            <CardBody className="p-0">
+              <div className="flex items-center gap-2 px-5 py-3 border-b border-default-200 dark:border-default-100/10">
+                <div className="flex gap-1.5">
+                  <span className="w-3 h-3 rounded-full bg-red-400/80" />
+                  <span className="w-3 h-3 rounded-full bg-amber-400/80" />
+                  <span className="w-3 h-3 rounded-full bg-green-400/80" />
+                </div>
+                <span className="text-xs text-default-400 font-mono ml-2">
+                  claude_desktop_config.json
+                </span>
+              </div>
+              <div className="p-5">
+                <Snippet className="w-full snippet-enhanced" symbol="" hideCopyButton={false}>
+                  <span>{`{`}</span>
+                  <span>{`  "mcpServers": {`}</span>
+                  <span>{`    "country-state-city": {`}</span>
+                  <span>{`      "command": "npx",`}</span>
+                  <span>{`      "args": ["@tansuasici/country-state-city", "mcp"]`}</span>
+                  <span>{`    }`}</span>
+                  <span>{`  }`}</span>
+                  <span>{`}`}</span>
+                </Snippet>
+              </div>
+            </CardBody>
+          </Card>
+        </section>
+
+        {/* Tools */}
+        <section className="mb-16">
+          <div className="flex items-center gap-3 mb-6">
+            <div className="w-10 h-10 rounded-xl bg-cyan-100 dark:bg-cyan-950/40 flex items-center justify-center">
+              <Wrench size={20} className="text-cyan-600 dark:text-cyan-400" />
+            </div>
+            <div>
+              <h2 className="text-2xl font-bold">Available Tools</h2>
+              <p className="text-sm text-default-500">11 tools for querying location data</p>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+            {tools.map((tool, i) => (
+              <Card key={tool.name} className="glow-card gradient-border">
+                <CardBody className="p-4">
+                  <div className="flex items-start gap-3">
+                    <div className="w-9 h-9 rounded-lg bg-default-100 dark:bg-default-50/10 flex items-center justify-center shrink-0 mt-0.5">
+                      <tool.icon size={18} className="text-default-600" />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-2 mb-1">
+                        <Code size="sm" className="font-mono font-semibold">
+                          {tool.name}
+                        </Code>
+                      </div>
+                      <p className="text-sm text-default-500 mb-2">{tool.desc}</p>
+                      <Chip size="sm" variant="flat" color="default" className="font-mono text-xs">
+                        {tool.param}
+                      </Chip>
+                    </div>
+                  </div>
+                </CardBody>
+              </Card>
+            ))}
+          </div>
+        </section>
+
+        {/* Resources */}
+        <section className="mb-16">
+          <div className="flex items-center gap-3 mb-6">
+            <div className="w-10 h-10 rounded-xl bg-emerald-100 dark:bg-emerald-950/40 flex items-center justify-center">
+              <Database size={20} className="text-emerald-600 dark:text-emerald-400" />
+            </div>
+            <div>
+              <h2 className="text-2xl font-bold">Resources</h2>
+              <p className="text-sm text-default-500">5 resource URIs for direct data access</p>
+            </div>
+          </div>
+
+          <div className="space-y-3">
+            {resources.map((resource) => (
+              <Card key={resource.name} className="glow-card">
+                <CardBody className="p-4">
+                  <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
+                    <div className="flex items-center gap-2 min-w-0">
+                      <Server size={16} className="text-emerald-500 shrink-0" />
+                      <Code size="sm" className="font-mono truncate">
+                        {resource.uri}
+                      </Code>
+                    </div>
+                    <span className="text-sm text-default-500 sm:ml-auto shrink-0">
+                      {resource.desc}
+                    </span>
+                  </div>
+                </CardBody>
+              </Card>
+            ))}
+          </div>
+        </section>
+
+        {/* Usage Example */}
+        <section className="mb-16">
+          <div className="flex items-center gap-3 mb-6">
+            <div className="w-10 h-10 rounded-xl bg-violet-100 dark:bg-violet-950/40 flex items-center justify-center">
+              <Terminal size={20} className="text-violet-600 dark:text-violet-400" />
+            </div>
+            <div>
+              <h2 className="text-2xl font-bold">Usage Example</h2>
+              <p className="text-sm text-default-500">Ask Claude naturally after connecting</p>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <Card className="bg-indigo-50/50 dark:bg-indigo-950/20 border border-indigo-100 dark:border-indigo-900/30">
+              <CardBody className="p-5">
+                <p className="text-sm font-medium text-indigo-700 dark:text-indigo-300 mb-2">
+                  You ask:
+                </p>
+                <p className="text-default-700 dark:text-default-300 italic">{`"What are the top 5 largest countries in Europe by number of states?"`}</p>
+              </CardBody>
+            </Card>
+            <Card className="bg-cyan-50/50 dark:bg-cyan-950/20 border border-cyan-100 dark:border-cyan-900/30">
+              <CardBody className="p-5">
+                <p className="text-sm font-medium text-cyan-700 dark:text-cyan-300 mb-2">
+                  Claude uses:
+                </p>
+                <div className="space-y-1">
+                  <Code size="sm" className="font-mono">
+                    get_countries_by_region("Europe")
+                  </Code>
+                  <p className="text-xs text-default-500">then for each country:</p>
+                  <Code size="sm" className="font-mono">
+                    get_states(countryId)
+                  </Code>
+                </div>
+              </CardBody>
+            </Card>
+          </div>
+        </section>
       </div>
-
-      {/* Main Content Tabs */}
-      <Tabs 
-        selectedKey={selectedTab}
-        onSelectionChange={(key) => setSelectedTab(key.toString())}
-        className="mb-8"
-      >
-        <Tab key="installation" title="Installation">
-          <div className="space-y-6 mt-6">
-            <Card>
-              <CardHeader>
-                <h3 className="text-xl font-semibold">1. Install the MCP Server</h3>
-              </CardHeader>
-              <CardBody>
-                <p className="mb-4 text-default-600">
-                  Install the MCP server globally using npm:
-                </p>
-                <Snippet symbol="" variant="bordered">
-                  npm install -g @tansuasici/country-state-city-mcp
-                </Snippet>
-              </CardBody>
-            </Card>
-
-            <Card>
-              <CardHeader>
-                <h3 className="text-xl font-semibold">2. Configuration</h3>
-              </CardHeader>
-              <CardBody>
-                <p className="mb-4 text-default-600">
-                  Add the server to your MCP configuration file:
-                </p>
-                
-                <Snippet symbol="" variant="bordered" className="text-sm">
-                  {`{
-  "mcpServers": {
-    "country-state-city": {
-      "command": "npx",
-      "args": ["@tansuasici/country-state-city-mcp"]
-    }
-  }
-}`}
-                </Snippet>
-              </CardBody>
-            </Card>
-
-            <Card>
-              <CardHeader>
-                <h3 className="text-xl font-semibold">3. Start Using</h3>
-              </CardHeader>
-              <CardBody>
-                <p className="text-default-600">
-                  Restart your application after updating the configuration.
-                </p>
-                <div className="flex items-center gap-2 mt-4 text-success">
-                  <CheckCircle className="w-5 h-5" />
-                  <span>The location data tools will be available immediately!</span>
-                </div>
-              </CardBody>
-            </Card>
-          </div>
-        </Tab>
-
-        <Tab key="tools" title="Available Tools">
-          <div className="grid md:grid-cols-2 gap-6 mt-6">
-            <Card>
-              <CardHeader>
-                <div className="flex items-center gap-2">
-                  <Globe className="w-5 h-5 text-primary" />
-                  <h3 className="text-lg font-semibold">Country Tools</h3>
-                </div>
-              </CardHeader>
-              <CardBody>
-                <ul className="space-y-2">
-                  <li className="flex items-start gap-2">
-                    <Code size="sm">getAllCountries</Code>
-                    <span className="text-sm text-default-600">Get all countries</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <Code size="sm">getCountryById</Code>
-                    <span className="text-sm text-default-600">Get by ID</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <Code size="sm">getCountryByIso2</Code>
-                    <span className="text-sm text-default-600">Get by ISO2</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <Code size="sm">getCountryByIso3</Code>
-                    <span className="text-sm text-default-600">Get by ISO3</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <Code size="sm">searchCountries</Code>
-                    <span className="text-sm text-default-600">Search by name</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <Code size="sm">getCountriesByRegion</Code>
-                    <span className="text-sm text-default-600">Filter by region</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <Code size="sm">getCountriesBySubregion</Code>
-                    <span className="text-sm text-default-600">Filter by subregion</span>
-                  </li>
-                </ul>
-              </CardBody>
-            </Card>
-
-            <Card>
-              <CardHeader>
-                <div className="flex items-center gap-2">
-                  <FileJson className="w-5 h-5 text-secondary" />
-                  <h3 className="text-lg font-semibold">State/Province Tools</h3>
-                </div>
-              </CardHeader>
-              <CardBody>
-                <ul className="space-y-2">
-                  <li className="flex items-start gap-2">
-                    <Code size="sm">getAllStates</Code>
-                    <span className="text-sm text-default-600">Get all states</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <Code size="sm">getStateById</Code>
-                    <span className="text-sm text-default-600">Get by ID</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <Code size="sm">getStatesByCountryId</Code>
-                    <span className="text-sm text-default-600">Get by country</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <Code size="sm">getStatesByCountryCode</Code>
-                    <span className="text-sm text-default-600">Get by ISO code</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <Code size="sm">searchStates</Code>
-                    <span className="text-sm text-default-600">Search by name</span>
-                  </li>
-                </ul>
-              </CardBody>
-            </Card>
-
-            <Card>
-              <CardHeader>
-                <div className="flex items-center gap-2">
-                  <Settings className="w-5 h-5 text-warning" />
-                  <h3 className="text-lg font-semibold">City Tools</h3>
-                </div>
-              </CardHeader>
-              <CardBody>
-                <ul className="space-y-2">
-                  <li className="flex items-start gap-2">
-                    <Code size="sm">getAllCities</Code>
-                    <span className="text-sm text-default-600">Get all cities</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <Code size="sm">getCityById</Code>
-                    <span className="text-sm text-default-600">Get by ID</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <Code size="sm">getCitiesByStateId</Code>
-                    <span className="text-sm text-default-600">Get by state</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <Code size="sm">getCitiesByCountryId</Code>
-                    <span className="text-sm text-default-600">Get by country</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <Code size="sm">searchCities</Code>
-                    <span className="text-sm text-default-600">Search by name</span>
-                  </li>
-                </ul>
-              </CardBody>
-            </Card>
-
-            <Card>
-              <CardHeader>
-                <div className="flex items-center gap-2">
-                  <Sparkles className="w-5 h-5 text-success" />
-                  <h3 className="text-lg font-semibold">Utility Tools</h3>
-                </div>
-              </CardHeader>
-              <CardBody>
-                <ul className="space-y-2">
-                  <li className="flex items-start gap-2">
-                    <Code size="sm">getStats</Code>
-                    <span className="text-sm text-default-600">Database statistics</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <Code size="sm">getAllRegions</Code>
-                    <span className="text-sm text-default-600">List all regions</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <Code size="sm">getAllSubregions</Code>
-                    <span className="text-sm text-default-600">List subregions</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <Code size="sm">getAllTimezones</Code>
-                    <span className="text-sm text-default-600">List timezones</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <Code size="sm">getAllCurrencies</Code>
-                    <span className="text-sm text-default-600">List currencies</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <Code size="sm">exportData</Code>
-                    <span className="text-sm text-default-600">Export data</span>
-                  </li>
-                </ul>
-              </CardBody>
-            </Card>
-          </div>
-        </Tab>
-
-        <Tab key="examples" title="Usage Examples">
-          <div className="space-y-6 mt-6">
-            <Card>
-              <CardHeader>
-                <h3 className="text-xl font-semibold">Example Queries</h3>
-              </CardHeader>
-              <CardBody className="space-y-4">
-                <div className="p-4 bg-default-100 rounded-lg">
-                  <p className="font-semibold mb-2">Finding Countries:</p>
-                  <p className="text-default-600 italic">"Show me all countries in Europe"</p>
-                  <p className="text-default-600 italic">"Get the country with ISO code TR"</p>
-                  <p className="text-default-600 italic">"Find countries that use EUR currency"</p>
-                </div>
-
-                <div className="p-4 bg-default-100 rounded-lg">
-                  <p className="font-semibold mb-2">Working with States:</p>
-                  <p className="text-default-600 italic">"List all states in Turkey"</p>
-                  <p className="text-default-600 italic">"Show me provinces in Canada"</p>
-                  <p className="text-default-600 italic">"Find states that contain 'California'"</p>
-                </div>
-
-                <div className="p-4 bg-default-100 rounded-lg">
-                  <p className="font-semibold mb-2">City Searches:</p>
-                  <p className="text-default-600 italic">"Find all cities named Istanbul"</p>
-                  <p className="text-default-600 italic">"Show cities in California"</p>
-                  <p className="text-default-600 italic">"List the largest cities in Germany"</p>
-                </div>
-
-                <div className="p-4 bg-default-100 rounded-lg">
-                  <p className="font-semibold mb-2">Data Export:</p>
-                  <p className="text-default-600 italic">"Export all European countries as CSV"</p>
-                  <p className="text-default-600 italic">"Give me country data in YAML format"</p>
-                  <p className="text-default-600 italic">"Create an XML file with Asian countries"</p>
-                </div>
-
-                <div className="p-4 bg-default-100 rounded-lg">
-                  <p className="font-semibold mb-2">Statistics & Analysis:</p>
-                  <p className="text-default-600 italic">"Show me database statistics"</p>
-                  <p className="text-default-600 italic">"How many countries are in each region?"</p>
-                  <p className="text-default-600 italic">"List all available timezones"</p>
-                </div>
-              </CardBody>
-            </Card>
-
-            <Card>
-              <CardHeader>
-                <h3 className="text-xl font-semibold">Advanced Use Cases</h3>
-              </CardHeader>
-              <CardBody className="space-y-4">
-                <div>
-                  <h4 className="font-semibold mb-2">Travel Planning:</h4>
-                  <p className="text-default-600">
-                    Use the MCP server to help plan trips by getting comprehensive location data,
-                    including coordinates, timezones, and currency information.
-                  </p>
-                </div>
-
-                <div>
-                  <h4 className="font-semibold mb-2">Data Analysis:</h4>
-                  <p className="text-default-600">
-                    Export location data in various formats for analysis in other tools,
-                    or analyze patterns in global geographic distribution.
-                  </p>
-                </div>
-
-                <div>
-                  <h4 className="font-semibold mb-2">Application Development:</h4>
-                  <p className="text-default-600">
-                    Quickly prototype location-based features by generating
-                    code that uses the location data directly.
-                  </p>
-                </div>
-              </CardBody>
-            </Card>
-          </div>
-        </Tab>
-
-        <Tab key="resources" title="Resources">
-          <div className="space-y-6 mt-6">
-            <Card>
-              <CardHeader>
-                <h3 className="text-xl font-semibold">Direct Data Access</h3>
-              </CardHeader>
-              <CardBody>
-                <p className="mb-4 text-default-600">
-                  The MCP server provides direct access to raw data through resources:
-                </p>
-                <div className="space-y-3">
-                  <div className="flex items-center gap-3">
-                    <Code>countries</Code>
-                    <span className="text-default-600">- Complete country dataset</span>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <Code>states</Code>
-                    <span className="text-default-600">- All states/provinces data</span>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <Code>cities</Code>
-                    <span className="text-default-600">- Full cities database</span>
-                  </div>
-                </div>
-              </CardBody>
-            </Card>
-
-            <Card>
-              <CardHeader>
-                <h3 className="text-xl font-semibold">Pre-configured Prompts</h3>
-              </CardHeader>
-              <CardBody>
-                <div className="space-y-4">
-                  <div>
-                    <h4 className="font-semibold mb-2">travel_planner</h4>
-                    <p className="text-default-600">
-                      Interactive travel planning assistant that uses location data
-                      to help plan trips with detailed information about destinations.
-                    </p>
-                  </div>
-                  <div>
-                    <h4 className="font-semibold mb-2">location_comparison</h4>
-                    <p className="text-default-600">
-                      Compare different locations based on various criteria like
-                      timezone differences, currencies, and geographic regions.
-                    </p>
-                  </div>
-                  <div>
-                    <h4 className="font-semibold mb-2">data_export</h4>
-                    <p className="text-default-600">
-                      Guided data export wizard that helps format and filter
-                      location data for specific use cases.
-                    </p>
-                  </div>
-                </div>
-              </CardBody>
-            </Card>
-
-            <Card>
-              <CardHeader>
-                <h3 className="text-xl font-semibold">Links & Documentation</h3>
-              </CardHeader>
-              <CardBody className="space-y-3">
-                <Link 
-                  href="https://www.npmjs.com/package/@tansuasici/country-state-city-mcp"
-                  target="_blank"
-                  className="flex items-center gap-2"
-                >
-                  <Download className="w-4 h-4" />
-                  NPM Package
-                </Link>
-                <Link 
-                  href="https://github.com/tansuasici/CountryStateCity"
-                  target="_blank"
-                  className="flex items-center gap-2"
-                >
-                  <FileJson className="w-4 h-4" />
-                  GitHub Repository
-                </Link>
-                <Link 
-                  href="https://modelcontextprotocol.io"
-                  target="_blank"
-                  className="flex items-center gap-2"
-                >
-                  <Globe className="w-4 h-4" />
-                  MCP Documentation
-                </Link>
-              </CardBody>
-            </Card>
-          </div>
-        </Tab>
-      </Tabs>
-
-      {/* CTA Section */}
-      <Card className="mt-8 bg-gradient-to-r from-primary-500 to-secondary-500 text-white">
-        <CardBody className="text-center p-8">
-          <h2 className="text-2xl font-bold mb-4">Ready to Get Started?</h2>
-          <p className="mb-6">
-            Install the MCP server and enhance your applications with comprehensive location data
-          </p>
-          <div className="flex gap-4 justify-center">
-            <Button
-              as={Link}
-              href="https://www.npmjs.com/package/@tansuasici/country-state-city-mcp"
-              target="_blank"
-              color="default"
-              size="lg"
-              startContent={<Download />}
-            >
-              Install Package
-            </Button>
-            <Button
-              as={Link}
-              href="https://github.com/tansuasici/CountryStateCity"
-              target="_blank"
-              variant="bordered"
-              size="lg"
-              className="border-white text-white"
-            >
-              View on GitHub
-            </Button>
-          </div>
-        </CardBody>
-      </Card>
     </div>
   );
 }

@@ -1,29 +1,25 @@
 'use client';
 
-import {
-  Link,
-  Chip,
-  Divider,
-  Image
-} from "@heroui/react";
-import { 
-  MapPin,
-  FileText,
-  Heart
-} from "lucide-react";
+import { Link, Chip, Divider, Image } from '@heroui/react';
+import { MapPin, FileText, Heart } from 'lucide-react';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   const links = {
     resources: [
-      { name: "Documentation", href: "/docs" },
-      { name: "Map", href: "/map" }
+      { name: 'Documentation', href: '/docs' },
+      { name: 'Map', href: '/map' },
+      { name: 'MCP', href: '/mcp' },
     ],
     developers: [
-      { name: "NPM Package", href: "https://www.npmjs.com/package/@tansuasici/country-state-city", isExternal: true },
-      { name: "GitHub", href: "https://github.com/tansuasici/CountryStateCity", isExternal: true }
-    ]
+      {
+        name: 'NPM Package',
+        href: 'https://www.npmjs.com/package/@tansuasici/country-state-city',
+        isExternal: true,
+      },
+      { name: 'GitHub', href: 'https://github.com/tansuasici/CountryStateCity', isExternal: true },
+    ],
   };
 
   return (
@@ -57,7 +53,7 @@ export default function Footer() {
             <ul className="space-y-2">
               {links.resources.map((link) => (
                 <li key={link.name}>
-                  <Link 
+                  <Link
                     href={link.href}
                     size="sm"
                     color="foreground"
@@ -70,14 +66,13 @@ export default function Footer() {
             </ul>
           </div>
 
-
           {/* Developers Links */}
           <div>
             <h4 className="font-semibold mb-3">Developers</h4>
             <ul className="space-y-2">
               {links.developers.map((link) => (
                 <li key={link.name}>
-                  <Link 
+                  <Link
                     href={link.href}
                     size="sm"
                     color="foreground"

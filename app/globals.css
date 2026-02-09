@@ -4,27 +4,30 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Custom layer for HeroUI overrides */
 @layer base {
   :root {
     --background: 250 250 250;
     --foreground: 17 24 28;
+    --accent-glow: 79 70 229;
+    --grid-color: rgba(79, 70, 229, 0.06);
+    --gradient-start: #4f46e5;
+    --gradient-mid: #7c3aed;
+    --gradient-end: #06b6d4;
   }
-  
+
   .dark {
     --background: 13 13 13;
     --foreground: 236 237 238;
+    --grid-color: rgba(99, 102, 241, 0.07);
   }
 }
 
 @layer utilities {
-  /* Ensure text colors work properly */
   .text-balance {
     text-wrap: balance;
   }
 }
 
-/* Fix for HeroUI components */
 html {
   scroll-behavior: smooth;
 }
@@ -35,4 +38,160 @@ body {
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* ---- Dot Grid Background ---- */
+.dot-grid {
+  background-image: radial-gradient(circle, var(--grid-color) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+/* ---- Gradient Text ---- */
+.gradient-text {
+  background: linear-gradient(135deg, var(--gradient-start), var(--gradient-mid), var(--gradient-end));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ---- Hero Gradient Mesh ---- */
+.hero-mesh {
+  position: relative;
+  overflow: hidden;
+}
+.hero-mesh::before {
+  content: '';
+  position: absolute;
+  inset: -40%;
+  background:
+    radial-gradient(ellipse at 20% 50%, rgba(79,70,229,0.12) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 20%, rgba(6,182,212,0.10) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 80%, rgba(124,58,237,0.08) 0%, transparent 50%);
+  animation: mesh-drift 20s ease-in-out infinite alternate;
+  pointer-events: none;
+  z-index: 0;
+}
+.dark .hero-mesh::before {
+  background:
+    radial-gradient(ellipse at 20% 50%, rgba(79,70,229,0.18) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 20%, rgba(6,182,212,0.14) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 80%, rgba(124,58,237,0.12) 0%, transparent 50%);
+}
+
+@keyframes mesh-drift {
+  0% { transform: translate(0, 0) rotate(0deg); }
+  100% { transform: translate(30px, -20px) rotate(3deg); }
+}
+
+/* ---- Glow Card ---- */
+.glow-card {
+  position: relative;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.glow-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px -8px rgba(79, 70, 229, 0.15);
+}
+.dark .glow-card:hover {
+  box-shadow: 0 12px 40px -8px rgba(79, 70, 229, 0.25);
+}
+
+/* ---- Gradient Border ---- */
+.gradient-border {
+  position: relative;
+  background: transparent;
+}
+.gradient-border::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.gradient-border:hover::before {
+  opacity: 1;
+}
+
+/* ---- Staggered Fade In ---- */
+.fade-in-up {
+  animation: fadeInUp 0.6s ease-out both;
+}
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.stagger-1 { animation-delay: 0.1s; }
+.stagger-2 { animation-delay: 0.2s; }
+.stagger-3 { animation-delay: 0.3s; }
+.stagger-4 { animation-delay: 0.4s; }
+.stagger-5 { animation-delay: 0.5s; }
+
+/* ---- Pulse Glow ---- */
+.pulse-glow {
+  animation: pulseGlow 3s ease-in-out infinite;
+}
+@keyframes pulseGlow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(79, 70, 229, 0); }
+  50% { box-shadow: 0 0 24px 4px rgba(79, 70, 229, 0.15); }
+}
+
+/* ---- Number Ticker Animation ---- */
+.number-ticker {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+}
+
+/* ---- Code Block Styling ---- */
+.code-block-enhanced {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+}
+.code-block-enhanced::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--gradient-start), var(--gradient-mid), var(--gradient-end));
+}
+
+/* ---- Floating Badge ---- */
+.floating-badge {
+  animation: float 3s ease-in-out infinite;
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+/* ---- Section Divider ---- */
+.section-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(79, 70, 229, 0.2), transparent);
+  margin: 4rem 0;
+}
+
+/* ---- Smooth Snippet Override ---- */
+.snippet-enhanced [data-slot="pre"] {
+  background: linear-gradient(135deg, #1e1b4b, #0f172a) !important;
+  border-radius: 12px;
+}
+.snippet-enhanced [data-slot="copyButton"] {
+  color: rgba(255, 255, 255, 0.6);
 }

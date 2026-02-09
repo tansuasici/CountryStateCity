@@ -1,267 +1,165 @@
 # Country State City
 
-A modern web application and API platform built with Next.js 15 and TypeScript, providing comprehensive location data for 250+ countries, 5,000+ states, and 150,000+ cities worldwide.
+Complete world location data — 250+ countries, 5,000+ states, 150,000+ cities — as an NPM package, MCP server, and interactive web app.
 
-![Next.js](https://img.shields.io/badge/Next.js-15.0-black?style=flat&logo=next.js)
-![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue?style=flat&logo=typescript)
-![HeroUI](https://img.shields.io/badge/HeroUI-Latest-purple?style=flat)
-![License](https://img.shields.io/badge/License-MIT-green?style=flat)
+[![npm version](https://img.shields.io/npm/v/@tansuasici/country-state-city?color=blue)](https://www.npmjs.com/package/@tansuasici/country-state-city)
+[![npm downloads](https://img.shields.io/npm/dm/@tansuasici/country-state-city)](https://www.npmjs.com/package/@tansuasici/country-state-city)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+[![Next.js](https://img.shields.io/badge/Next.js-16.1-black?logo=next.js)](https://nextjs.org)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?logo=typescript)](https://www.typescriptlang.org)
 
-## 🌟 Features
+**[Live Demo](https://countrystatecity.xyz)** &bull; **[NPM Package](https://www.npmjs.com/package/@tansuasici/country-state-city)** &bull; **[Documentation](https://countrystatecity.xyz/docs)**
 
-- **🌍 Complete Global Coverage**: 250+ countries, 5,000+ states, 150,000+ cities
-- **📊 Multiple Data Formats**: JSON, CSV, XML, and YAML support
-- **🎨 Modern UI**: Built with HeroUI components and Tailwind CSS
-- **⚡ Fast Performance**: Optimized API responses under 100ms
-- **🔍 Advanced Search**: Powerful filtering and search capabilities
-- **📱 Responsive Design**: Mobile-first approach with dark mode support
-- **🔧 RESTful API**: Comprehensive API endpoints
-- **📦 NPM Package**: Easy integration with your projects
-- **🛡️ ISO Standards**: ISO 3166-1 compliant country codes
+## Features
 
-## 📋 Prerequisites
+- **250+ Countries, 5K+ States, 150K+ Cities** — ISO 3166-1 compliant
+- **Multiple Formats** — JSON, CSV, XML, YAML output
+- **MCP Server** — Connect to Claude Desktop and AI assistants
+- **TypeScript** — Full type definitions included
+- **Dual Entry Points** — Separate browser (ESM) and Node.js (CJS/ESM) builds
+- **Search** — Filter countries, states, and cities by name
+- **Interactive Playground** — Test the API at [countrystatecity.xyz/docs](https://countrystatecity.xyz/docs)
 
-- Node.js 18.0 or later
-- npm or yarn package manager
-
-
-## 📚 API Documentation
-
-
-### Sample API Endpoints
-
-```bash
-# Get all countries
-GET /api/countries
-
-# Get states by country ID
-GET /api/countries/231/states
-
-# Get cities by state ID  
-GET /api/states/1416/cities
-
-# Search with filters
-GET /api/countries?search=united&limit=10
-```
-
-### Example Response
-
-```json
-{
-  "success": true,
-  "data": [
-    {
-      "id": 231,
-      "name": "United States",
-      "iso2": "US",
-      "iso3": "USA",
-      "capital": "Washington",
-      "currency": "USD",
-      "emoji": "🇺🇸"
-    }
-  ],
-  "total": 1,
-  "page": 1,
-  "limit": 10
-}
-```
-
-## 📦 NPM Package
-
-Install our NPM package for easy integration:
+## Quick Start
 
 ```bash
 npm install @tansuasici/country-state-city
 ```
 
-### Basic Usage
-
-```javascript
+```typescript
 import { CountryStateCity } from '@tansuasici/country-state-city';
 
-// Get all countries
 const countries = CountryStateCity.getAllCountries();
+const turkey = CountryStateCity.getCountryByIso2('TR');
+const states = CountryStateCity.getStatesByCountryId(225);
+const cities = CountryStateCity.getCitiesByStateId(2175);
 
-// Get country by ID
-const country = CountryStateCity.getCountryById(231);
+// Search
+const results = CountryStateCity.searchCountries('United');
 
-// Get country by ISO code
-const usa = CountryStateCity.getCountryByIso2('US');
-const turkey = CountryStateCity.getCountryByIso3('TUR');
-
-// Get states by country
-const states = CountryStateCity.getStatesByCountryId(231);
-
-// Get cities by state
-const cities = CountryStateCity.getCitiesByStateId(1416);
-
-// Search functionality
-const searchResults = CountryStateCity.searchCountries('United');
-const stateResults = CountryStateCity.searchStates('California', 231);
-const cityResults = CountryStateCity.searchCities('New York', null, 231);
+// Different formats
+const csv = CountryStateCity.getAllCountries('csv');
+const xml = CountryStateCity.getStatesByCountryId(231, 'xml');
+const yaml = CountryStateCity.getCitiesByStateId(1416, 'yaml');
 ```
 
-### Export Data in Different Formats
+## MCP Integration
 
-```javascript
-import { CountryStateCity } from '@tansuasici/country-state-city';
+Use location data directly in Claude Desktop and other MCP-compatible AI assistants.
 
-// Export as JSON (default)
-const countriesJson = CountryStateCity.getAllCountries();
+Add to your `claude_desktop_config.json`:
 
-// Export as CSV
-const countriesCsv = CountryStateCity.getAllCountries('csv');
-
-// Export as XML
-const statesXml = CountryStateCity.getStatesByCountryId(231, 'xml');
-
-// Export as YAML
-const citiesYaml = CountryStateCity.getCitiesByStateId(1416, 'yaml');
+```json
+{
+  "mcpServers": {
+    "country-state-city": {
+      "command": "npx",
+      "args": ["@tansuasici/country-state-city", "mcp"]
+    }
+  }
+}
 ```
 
-### All Available Methods
+**11 Tools** — `search_countries`, `get_country`, `get_countries_by_region`, `get_states`, `search_states`, `get_cities`, `search_cities`, `get_stats`, `get_regions`, `get_timezones`, `get_currencies`
 
-#### Country Methods
+**5 Resources** — `://countries`, `://countries/{iso2}`, `://countries/{iso2}/states`, `://states/{id}/cities`, `://stats`
 
-```javascript
-// Get all countries
+## API Reference
+
+### Country Methods
+
+```typescript
 CountryStateCity.getAllCountries(format?: 'json' | 'csv' | 'xml' | 'yaml');
-
-// Get country by ID
 CountryStateCity.getCountryById(id: number);
-
-// Get country by ISO2 code (e.g., 'US')
 CountryStateCity.getCountryByIso2(iso2: string);
-
-// Get country by ISO3 code (e.g., 'USA')
 CountryStateCity.getCountryByIso3(iso3: string);
-
-// Search countries by name
 CountryStateCity.searchCountries(query: string);
-
-// Get countries by region (e.g., 'Asia', 'Europe')
 CountryStateCity.getCountriesByRegion(region: string);
-
-// Get countries by subregion (e.g., 'Western Europe')
 CountryStateCity.getCountriesBySubregion(subregion: string);
 ```
 
-#### State Methods
+### State Methods
 
-```javascript
-// Get all states
+```typescript
 CountryStateCity.getAllStates(format?: 'json' | 'csv' | 'xml' | 'yaml');
-
-// Get state by ID
 CountryStateCity.getStateById(id: number);
-
-// Get states by country ID
 CountryStateCity.getStatesByCountryId(countryId: number, format?: string);
-
-// Get states by country code
 CountryStateCity.getStatesByCountryCode(countryCode: string, format?: string);
-
-// Search states
 CountryStateCity.searchStates(query: string, countryId?: number);
 ```
 
-#### City Methods
+### City Methods
 
-```javascript
-// Get all cities (use with caution - large dataset)
+```typescript
 CountryStateCity.getAllCities(format?: 'json' | 'csv' | 'xml' | 'yaml');
-
-// Get city by ID
 CountryStateCity.getCityById(id: number);
-
-// Get cities by state ID
 CountryStateCity.getCitiesByStateId(stateId: number, format?: string);
-
-// Get cities by country ID
 CountryStateCity.getCitiesByCountryId(countryId: number, format?: string);
-
-// Search cities
 CountryStateCity.searchCities(query: string, stateId?: number, countryId?: number);
 ```
 
-#### Utility Methods
-
-```javascript
-// Get statistics
-CountryStateCity.getStats();
-// Returns: { countries: 250, states: 5000, cities: 150000 }
-
-// Get all regions
-CountryStateCity.getAllRegions();
-// Returns: ['Africa', 'Americas', 'Antarctica', 'Asia', 'Europe', 'Oceania']
-
-// Get all subregions
-CountryStateCity.getAllSubregions();
-// Returns: ['Caribbean', 'Central America', 'Central Asia', ...]
-
-// Get all timezones
-CountryStateCity.getAllTimezones();
-// Returns: ['Africa/Abidjan', 'Africa/Accra', ...]
-
-// Get all currencies
-CountryStateCity.getAllCurrencies();
-// Returns: [{ code: 'USD', name: 'US Dollar', symbol: '$' }, ...]
-
-// Export data in specific format
-CountryStateCity.exportData(
-  dataType: 'countries' | 'states' | 'cities',
-  format: 'json' | 'csv' | 'xml' | 'yaml',
-  options?: FormatOptions
-);
-```
-
-### TypeScript Support
-
-The package includes full TypeScript support with type definitions:
+### Utility Methods
 
 ```typescript
-import { 
+CountryStateCity.getStats();
+CountryStateCity.getAllRegions();
+CountryStateCity.getAllSubregions();
+CountryStateCity.getAllTimezones();
+CountryStateCity.getAllCurrencies();
+CountryStateCity.exportData(dataType, format, options?);
+```
+
+### TypeScript
+
+```typescript
+import {
   CountryStateCity,
   Country,
   State,
   City,
   DataFormat,
-  FormatOptions
+  FormatOptions,
 } from '@tansuasici/country-state-city';
-
-// Type-safe operations
-const country: Country | undefined = CountryStateCity.getCountryById(231);
-const states: State[] = CountryStateCity.getStatesByCountryId(231) as State[];
-const cities: City[] = CountryStateCity.getCitiesByStateId(1416) as City[];
 ```
 
-
-## 🧪 Testing
+## Development
 
 ```bash
-# Run development server
+# Install dependencies
+npm install
+
+# Start dev server
 npm run dev
 
-# Build for production
-npm run build
+# Build NPM package
+npm run build:lib
 
-# Start production server
-npm start
+# Build MCP server
+npm run build:mcp
 
-# Lint code
+# Run tests
+npm test
+
+# Lint
 npm run lint
 ```
 
+## Tech Stack
 
-## ⚖️ License
+- **Framework**: Next.js 16 (App Router, static export)
+- **UI**: HeroUI + Tailwind CSS
+- **Language**: TypeScript 5
+- **Build**: Rollup (NPM package), esbuild (MCP server)
+- **Testing**: Vitest
+- **Hosting**: Firebase Hosting
 
-This project is licensed under the MIT License.
+## Contributing
 
-## 🙏 Acknowledgments
+Contributions are welcome! Please read [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
 
-- Data sources and contributors
-- Open source community
-- HeroUI team for the excellent component library
+## License
+
+MIT — see [LICENSE](LICENSE) for details.
 
 ---
 

@@ -10,23 +10,13 @@ import {
   NavbarMenuItem,
   Link,
   Button,
-  Switch
-} from "@heroui/react";
-import { useState, useEffect } from "react";
-import { usePathname } from "next/navigation";
-import { 
-  FileText, 
-  Github, 
-  Moon, 
-  Sun,
-  Home,
-  BookOpen,
-  HelpCircle,
-  Map,
-  Cpu
-} from "lucide-react";
-import { useTheme } from "next-themes";
-import { Image } from "@heroui/react";
+  Switch,
+} from '@heroui/react';
+import { useState, useEffect } from 'react';
+import { usePathname } from 'next/navigation';
+import { FileText, Github, Moon, Sun, Home, BookOpen, HelpCircle, Map, Cpu } from 'lucide-react';
+import { useTheme } from 'next-themes';
+import { Image } from '@heroui/react';
 
 export default function Navigation() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -39,26 +29,19 @@ export default function Navigation() {
   }, []);
 
   const menuItems = [
-    { name: "Home", href: "/", icon: Home },
-    { name: "Map", href: "/map", icon: Map },
-    { name: "Documentation", href: "/docs", icon: BookOpen },
-    { name: "MCP", href: "/mcp", icon: Cpu }
+    { name: 'Home', href: '/', icon: Home },
+    { name: 'Map', href: '/map', icon: Map },
+    { name: 'MCP', href: '/mcp', icon: Cpu },
+    { name: 'Docs', href: '/docs', icon: BookOpen },
   ];
 
   if (!mounted) return null;
 
   return (
-    <Navbar 
-      onMenuOpenChange={setIsMenuOpen}
-      isMenuOpen={isMenuOpen}
-      isBordered
-      maxWidth="xl"
-    >
+    <Navbar onMenuOpenChange={setIsMenuOpen} isMenuOpen={isMenuOpen} isBordered maxWidth="xl">
       {/* Mobile Menu Toggle */}
       <NavbarContent className="sm:hidden" justify="start">
-        <NavbarMenuToggle
-          aria-label={isMenuOpen ? "Close menu" : "Open menu"}
-        />
+        <NavbarMenuToggle aria-label={isMenuOpen ? 'Close menu' : 'Open menu'} />
       </NavbarContent>
 
       {/* Brand */}
@@ -82,39 +65,55 @@ export default function Navigation() {
       {/* Desktop Menu */}
       <NavbarContent className="hidden sm:flex gap-4" justify="center">
         <NavbarItem>
-          <Link 
+          <Link
             color="foreground"
             href="/"
-            className={pathname === "/" ? "font-bold text-default-900 dark:text-white" : "text-default-600 dark:text-default-400"}
+            className={
+              pathname === '/'
+                ? 'font-bold text-default-900 dark:text-white'
+                : 'text-default-600 dark:text-default-400'
+            }
           >
             Home
           </Link>
         </NavbarItem>
         <NavbarItem>
-          <Link 
+          <Link
             color="foreground"
             href="/map"
-            className={pathname === "/map" ? "font-bold text-default-900 dark:text-white" : "text-default-600 dark:text-default-400"}
+            className={
+              pathname === '/map'
+                ? 'font-bold text-default-900 dark:text-white'
+                : 'text-default-600 dark:text-default-400'
+            }
           >
             Map
           </Link>
         </NavbarItem>
         <NavbarItem>
-          <Link 
+          <Link
             color="foreground"
-            href="/docs"
-            className={pathname === "/docs" ? "font-bold text-default-900 dark:text-white" : "text-default-600 dark:text-default-400"}
+            href="/mcp"
+            className={
+              pathname === '/mcp'
+                ? 'font-bold text-default-900 dark:text-white'
+                : 'text-default-600 dark:text-default-400'
+            }
           >
-            Documentation
+            MCP
           </Link>
         </NavbarItem>
         <NavbarItem>
-          <Link 
+          <Link
             color="foreground"
-            href="/mcp"
-            className={pathname === "/mcp" ? "font-bold text-default-900 dark:text-white" : "text-default-600 dark:text-default-400"}
+            href="/docs"
+            className={
+              pathname === '/docs'
+                ? 'font-bold text-default-900 dark:text-white'
+                : 'text-default-600 dark:text-default-400'
+            }
           >
-            MCP
+            Docs
           </Link>
         </NavbarItem>
       </NavbarContent>
@@ -138,7 +137,7 @@ export default function Navigation() {
         {menuItems.map((item, index) => (
           <NavbarMenuItem key={`${item.name}-${index}`}>
             <Link
-              className={`w-full flex items-center gap-2 ${pathname === item.href ? "font-bold text-default-900 dark:text-white" : "text-default-600 dark:text-default-400"}`}
+              className={`w-full flex items-center gap-2 ${pathname === item.href ? 'font-bold text-default-900 dark:text-white' : 'text-default-600 dark:text-default-400'}`}
               color="foreground"
               href={item.href}
               size="lg"
