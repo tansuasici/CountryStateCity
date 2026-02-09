@@ -27,7 +27,8 @@ export function registerResources(server: McpServer) {
   // Single country detail by ISO2 code
   server.resource(
     'country-by-iso2',
-    new ResourceTemplate('country-state-city://countries/{iso2}', 'Country detail by ISO2 code'),
+    new ResourceTemplate('country-state-city://countries/{iso2}', { list: undefined }),
+    { description: 'Country detail by ISO2 code' },
     async (uri, params) => {
       const iso2 = params.iso2 as string;
       const country = CountryStateCity.getCountryByIso2(iso2);
@@ -59,7 +60,8 @@ export function registerResources(server: McpServer) {
   // States for a country by ISO2 code
   server.resource(
     'states-by-country',
-    new ResourceTemplate('country-state-city://countries/{iso2}/states', 'States for a country'),
+    new ResourceTemplate('country-state-city://countries/{iso2}/states', { list: undefined }),
+    { description: 'States for a country' },
     async (uri, params) => {
       const iso2 = params.iso2 as string;
       const states = CountryStateCity.getStatesByCountryCode(iso2);
@@ -79,7 +81,8 @@ export function registerResources(server: McpServer) {
   // Cities for a state by state ID
   server.resource(
     'cities-by-state',
-    new ResourceTemplate('country-state-city://states/{id}/cities', 'Cities for a state'),
+    new ResourceTemplate('country-state-city://states/{id}/cities', { list: undefined }),
+    { description: 'Cities for a state' },
     async (uri, params) => {
       const stateId = Number(params.id);
       const cities = CountryStateCity.getCitiesByStateId(stateId) as any[];
