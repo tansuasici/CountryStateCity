@@ -105,6 +105,7 @@
     "autoprefixer": "^10.4.17",
     "firebase": "^12.1.0",
     "framer-motion": "^12.23.12",
+    "js-yaml": "^4.1.1",
     "leaflet": "^1.9.4",
     "lucide-react": "^0.539.0",
     "next": "^16.1.6",
@@ -113,7 +114,8 @@
     "react": ">=17.0.0",
     "react-dom": ">=17.0.0",
     "react-leaflet": "^5.0.0",
-    "tailwindcss": "^3.4.1"
+    "tailwindcss": "^3.4.1",
+    "xml-js": "^1.6.11"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.3",
