@@ -25,3 +25,5 @@ jobs:
       - run: npx eslint .
       - run: npm test
       - run: npm run build:lib
+        env:
+          NODE_OPTIONS: '--max-old-space-size=8192'
