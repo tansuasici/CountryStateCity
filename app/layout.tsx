@@ -8,7 +8,7 @@ import Footer from '@/components/Footer';
 const dmSans = DM_Sans({ subsets: ['latin'], variable: '--font-sans' });
 const jetbrainsMono = JetBrains_Mono({ subsets: ['latin'], variable: '--font-mono' });
 
-const siteUrl = 'https://countrystatecity.xyz';
+const siteUrl = 'https://countrystatecity.tansuasici.com';
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),

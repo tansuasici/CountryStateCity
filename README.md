@@ -8,7 +8,7 @@ Complete world location data — 250+ countries, 5,000+ states, 150,000+ cities 
 [![Next.js](https://img.shields.io/badge/Next.js-16.1-black?logo=next.js)](https://nextjs.org)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?logo=typescript)](https://www.typescriptlang.org)
 
-**[Live Demo](https://countrystatecity.xyz)** &bull; **[NPM Package](https://www.npmjs.com/package/@tansuasici/country-state-city)** &bull; **[Documentation](https://countrystatecity.xyz/docs)**
+**[Live Demo](https://countrystatecity.tansuasici.com)** &bull; **[NPM Package](https://www.npmjs.com/package/@tansuasici/country-state-city)** &bull; **[Documentation](https://countrystatecity.tansuasici.com/docs)**
 
 ## Features
 
@@ -18,7 +18,7 @@ Complete world location data — 250+ countries, 5,000+ states, 150,000+ cities 
 - **TypeScript** — Full type definitions included
 - **Dual Entry Points** — Separate browser (ESM) and Node.js (CJS/ESM) builds
 - **Search** — Filter countries, states, and cities by name
-- **Interactive Playground** — Test the API at [countrystatecity.xyz/docs](https://countrystatecity.xyz/docs)
+- **Interactive Playground** — Test the API at [countrystatecity.tansuasici.com/docs](https://countrystatecity.tansuasici.com/docs)
 
 ## Quick Start
 

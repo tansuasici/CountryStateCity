@@ -8,7 +8,7 @@ Complete world countries, states, and cities data in JSON, CSV, XML, and YAML fo
 ## 🚀 Features
 
 - ✅ **250+ Countries** with complete ISO codes, currencies, timezones
-- ✅ **5,000+ States/Provinces** with state codes and geo coordinates  
+- ✅ **5,000+ States/Provinces** with state codes and geo coordinates
 - ✅ **150,000+ Cities** with latitude/longitude data
 - ✅ **Multiple Formats**: JSON, CSV, XML, YAML export support
 - ✅ **TypeScript Support** with full type definitions
@@ -124,7 +124,7 @@ searchStates(query: string, countryId?: number): State[]
 // Get all cities (use with caution - large dataset)
 getAllCities(format?: DataFormat): City[] | string
 
-// Get city by ID  
+// Get city by ID
 getCityById(id: number): City | undefined
 
 // Get cities by filters
@@ -199,7 +199,7 @@ import { CountryStateCity } from '@tansuasici/country-state-city';
 
 export function CountrySelector() {
   const countries = CountryStateCity.getAllCountries();
-  
+
   return (
     <select>
       {countries.map(country => (
@@ -221,11 +221,11 @@ import { CountryStateCity } from '@tansuasici/country-state-city';
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const region = searchParams.get('region');
-  
-  const countries = region 
+
+  const countries = region
     ? CountryStateCity.getCountriesByRegion(region)
     : CountryStateCity.getAllCountries();
-    
+
   return Response.json(countries);
 }
 ```
@@ -239,14 +239,14 @@ import { CountryStateCity } from '@tansuasici/country-state-city';
 export function useCountryData(countryId?: number) {
   const [states, setStates] = useState([]);
   const [cities, setCities] = useState([]);
-  
+
   useEffect(() => {
     if (countryId) {
       setStates(CountryStateCity.getStatesByCountryId(countryId));
       setCities(CountryStateCity.getCitiesByCountryId(countryId));
     }
   }, [countryId]);
-  
+
   return { states, cities };
 }
 ```
@@ -279,15 +279,15 @@ export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const page = parseInt(searchParams.get('page') || '1');
   const limit = parseInt(searchParams.get('limit') || '50');
-  
+
   const cities = CountryStateCity.getCitiesByCountryId(225);
   const paginated = cities.slice((page - 1) * limit, page * limit);
-  
+
   return Response.json({
     data: paginated,
     total: cities.length,
     page,
-    limit
+    limit,
   });
 }
 ```
@@ -390,11 +390,12 @@ MIT
 
 - [NPM Package](https://www.npmjs.com/package/@tansuasici/country-state-city)
 - [GitHub Repository](https://github.com/tansuasici/CountryStateCity)
-- [Live Demo](https://countrystatecity.xyz)
+- [Live Demo](https://countrystatecity.tansuasici.com)
 
 ## 💡 Support
 
 If you find this package helpful, please consider:
+
 - ⭐ Starring the GitHub repository
 - 🐛 Reporting issues or bugs
 - 💬 Providing feedback and suggestions

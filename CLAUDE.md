@@ -4,7 +4,7 @@
 
 This is a **dual-purpose project**: a Next.js web application (showcase site) AND an NPM package (`@tansuasici/country-state-city`) providing world location data (250+ countries, 5000+ states, 150,000+ cities).
 
-- **Website**: https://countrystatecity.xyz
+- **Website**: https://countrystatecity.tansuasici.com
 - **NPM Package**: `@tansuasici/country-state-city` (v2.0.11)
 - **License**: MIT
 - **Author**: Tansu Asici

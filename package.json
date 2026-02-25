@@ -96,7 +96,7 @@
   "bugs": {
     "url": "https://github.com/tansuasici/CountryStateCity/issues"
   },
-  "homepage": "https://countrystatecity.xyz",
+  "homepage": "https://countrystatecity.tansuasici.com",
   "dependencies": {
     "@heroui/react": "^2.7.8",
     "@modelcontextprotocol/sdk": "^1.26.0",
