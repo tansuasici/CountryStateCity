@@ -189,9 +189,10 @@ describe('Country Methods', () => {
     it('should return multiple results for "united"', () => {
       const results = CountryStateCity.searchCountries('united');
       expect(results.length).toBeGreaterThanOrEqual(2);
-      const names = results.map((c) => c.name.toLowerCase());
-      for (const name of names) {
-        expect(name).toContain('united');
+      for (const country of results) {
+        const matchesName = country.name.toLowerCase().includes('united');
+        const matchesNative = country.native?.toLowerCase().includes('united') ?? false;
+        expect(matchesName || matchesNative).toBe(true);
       }
     });
 

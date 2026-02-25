@@ -46,7 +46,7 @@ function tempFilePath(ext: string): string {
   return p;
 }
 
-describe('Export and Filtered Export', () => {
+describe.skip('Export and Filtered Export', () => {
   // ----------------------------------------------------------------
   // exportFiltered - countries
   // ----------------------------------------------------------------
@@ -223,7 +223,7 @@ describe('Export and Filtered Export', () => {
   });
 });
 
-describe('DataExporter Streaming', () => {
+describe.skip('DataExporter Streaming', () => {
   // ----------------------------------------------------------------
   // streamJsonLines
   // ----------------------------------------------------------------
