@@ -246,9 +246,9 @@ describe('MCP Tools - City Operations', () => {
 
   describe('search_cities', () => {
     it('returns results for a valid query', () => {
-      const results = CountryStateCity.searchCities('istanbul');
+      const results = CountryStateCity.searchCities('new york');
       expect(results.length).toBeGreaterThan(0);
-      expect(results[0].name.toLowerCase()).toContain('istanbul');
+      expect(results[0].name.toLowerCase()).toContain('new york');
     });
 
     it('filters by stateId', () => {
@@ -263,11 +263,11 @@ describe('MCP Tools - City Operations', () => {
     });
 
     it('filters by countryId', () => {
-      const turkey = CountryStateCity.getCountryByIso2('TR')!;
-      const results = CountryStateCity.searchCities('ankara', undefined, turkey.id);
+      const us = CountryStateCity.getCountryByIso2('US')!;
+      const results = CountryStateCity.searchCities('new york', undefined, us.id);
       expect(results.length).toBeGreaterThan(0);
       results.forEach((c) => {
-        expect(c.countryId).toBe(turkey.id);
+        expect(c.countryId).toBe(us.id);
       });
     });
 

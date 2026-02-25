@@ -132,22 +132,28 @@ export class CountryStateCity {
         for (const path of paths) {
           try {
             const data = readFileSync(path, 'utf-8');
-            const optimizedData = JSON.parse(data);
+            const parsedData = JSON.parse(data);
 
-            // Convert optimized format back to full format
-            this.cities = optimizedData.map((city: any) => ({
-              id: city.i,
-              name: city.n,
-              stateId: city.s,
-              stateCode: '',
-              stateName: '',
-              countryId: city.c,
-              countryCode: '',
-              countryName: '',
-              latitude: String(city.la),
-              longitude: String(city.lo),
-              wikiDataId: city.w || '',
-            }));
+            // Detect format: optimized (short keys) vs full (standard keys)
+            if (parsedData.length > 0 && 'i' in parsedData[0]) {
+              // Optimized format - convert back to full format
+              this.cities = parsedData.map((city: any) => ({
+                id: city.i,
+                name: city.n,
+                stateId: city.s,
+                stateCode: '',
+                stateName: '',
+                countryId: city.c,
+                countryCode: '',
+                countryName: '',
+                latitude: String(city.la),
+                longitude: String(city.lo),
+                wikiDataId: city.w || '',
+              }));
+            } else {
+              // Full format - use directly
+              this.cities = parsedData;
+            }
 
             // Fill in missing data from states and countries
             const states = this.loadStates();
@@ -159,13 +165,13 @@ export class CountryStateCity {
                 const country = countries.find((c) => c.id === city.countryId);
 
                 if (state) {
-                  city.stateCode = state.stateCode;
-                  city.stateName = state.name;
+                  city.stateCode = state.stateCode || city.stateCode || '';
+                  city.stateName = state.name || city.stateName || '';
                 }
 
                 if (country) {
-                  city.countryCode = country.iso2;
-                  city.countryName = country.name;
+                  city.countryCode = country.iso2 || city.countryCode || '';
+                  city.countryName = country.name || city.countryName || '';
                 }
               });
             }
