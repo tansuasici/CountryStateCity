@@ -100,7 +100,6 @@
   "dependencies": {
     "@heroui/react": "^2.7.8",
     "@modelcontextprotocol/sdk": "^1.26.0",
-    "@tansuasici/country-state-city": "^2.0.9",
     "@types/leaflet": "^1.9.20",
     "autoprefixer": "^10.4.17",
     "firebase": "^12.1.0",
