@@ -19,6 +19,7 @@ export class CountryStateCity {
         const paths = [
           join(__dirname, 'data', 'country.json'),
           join(__dirname, '..', 'data', 'country.json'),
+          join(process.cwd(), 'data', 'country.json'),
           join(
             process.cwd(),
             'node_modules',
@@ -64,6 +65,7 @@ export class CountryStateCity {
         const paths = [
           join(__dirname, 'data', 'state.json'),
           join(__dirname, '..', 'data', 'state.json'),
+          join(process.cwd(), 'data', 'state.json'),
           join(
             process.cwd(),
             'node_modules',
@@ -109,6 +111,7 @@ export class CountryStateCity {
         const paths = [
           join(__dirname, 'data', 'city.json'),
           join(__dirname, '..', 'data', 'city.json'),
+          join(process.cwd(), 'data', 'city.json'),
           join(
             process.cwd(),
             'node_modules',

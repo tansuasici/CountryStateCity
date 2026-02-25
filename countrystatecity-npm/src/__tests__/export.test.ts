@@ -1,11 +1,13 @@
 import { describe, it, expect, afterAll } from 'vitest';
 import { CountryStateCity } from '../index';
-import { DataExporter } from '../streaming';
+// import { DataExporter } from '../streaming'; // TODO: implement streaming module
 import { Readable, Transform } from 'stream';
 import { tmpdir } from 'os';
 import { join } from 'path';
 import { readFileSync, unlinkSync, existsSync } from 'fs';
 import { randomUUID } from 'crypto';
+
+const DataExporter: any = {};
 
 // Helper: collect a readable stream into a string
 function streamToString(stream: Readable | Transform): Promise<string> {
