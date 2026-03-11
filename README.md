@@ -164,9 +164,3 @@ MIT — see [LICENSE](LICENSE) for details.
 <p align="center">
   Made with ❤️ by <a href="https://tansuasici.com/">tansuasici</a>
 </p>
-
-<p align="center">
-  <a href="https://countrystatecity.tansuasici.com">Website</a> •
-  <a href="https://countrystatecity.tansuasici.com/docs">Documentation</a> •
-  <a href="https://www.npmjs.com/package/@tansuasici/country-state-city">NPM</a>
-</p>
