@@ -1,14 +1,24 @@
 # Country State City
 
-Complete world location data — 250+ countries, 5,000+ states, 150,000+ cities — as an NPM package, MCP server, and interactive web app.
+<p align="center">
+  <img src="public/logo.png" alt="Country State City Logo" width="128" height="128">
+</p>
 
-[![npm version](https://img.shields.io/npm/v/@tansuasici/country-state-city?color=blue)](https://www.npmjs.com/package/@tansuasici/country-state-city)
-[![npm downloads](https://img.shields.io/npm/dm/@tansuasici/country-state-city)](https://www.npmjs.com/package/@tansuasici/country-state-city)
-[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
-[![Next.js](https://img.shields.io/badge/Next.js-16.1-black?logo=next.js)](https://nextjs.org)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?logo=typescript)](https://www.typescriptlang.org)
+<p align="center">
+  <strong>Complete World Location Data — NPM Package, MCP Server & Web App</strong>
+</p>
 
-**[Live Demo](https://countrystatecity.tansuasici.com)** &bull; **[NPM Package](https://www.npmjs.com/package/@tansuasici/country-state-city)** &bull; **[Documentation](https://countrystatecity.tansuasici.com/docs)**
+<p align="center">
+  <a href="https://www.npmjs.com/package/@tansuasici/country-state-city"><img src="https://img.shields.io/npm/v/@tansuasici/country-state-city?color=blue" alt="npm version"></a>
+  <a href="https://www.npmjs.com/package/@tansuasici/country-state-city"><img src="https://img.shields.io/npm/dm/@tansuasici/country-state-city" alt="npm downloads"></a>
+  <img src="https://img.shields.io/badge/License-MIT-green.svg" alt="License">
+</p>
+
+---
+
+## About
+
+Country State City provides 250+ countries, 5,000+ states, and 150,000+ cities as an NPM package, an MCP server for AI assistants, and an interactive web app — all ISO 3166-1 compliant.
 
 ## Features
 
@@ -18,7 +28,7 @@ Complete world location data — 250+ countries, 5,000+ states, 150,000+ cities 
 - **TypeScript** — Full type definitions included
 - **Dual Entry Points** — Separate browser (ESM) and Node.js (CJS/ESM) builds
 - **Search** — Filter countries, states, and cities by name
-- **Interactive Playground** — Test the API at [countrystatecity.tansuasici.com/docs](https://countrystatecity.tansuasici.com/docs)
+- **Interactive Playground** — Test the API at the live demo
 
 ## Quick Start
 
@@ -139,19 +149,7 @@ npm run build:mcp
 
 # Run tests
 npm test
-
-# Lint
-npm run lint
 ```
-
-## Tech Stack
-
-- **Framework**: Next.js 16 (App Router, static export)
-- **UI**: HeroUI + Tailwind CSS
-- **Language**: TypeScript 5
-- **Build**: Rollup (NPM package), esbuild (MCP server)
-- **Testing**: Vitest
-- **Hosting**: Firebase Hosting
 
 ## Contributing
 
@@ -163,6 +161,12 @@ MIT — see [LICENSE](LICENSE) for details.
 
 ---
 
-<div align="center">
-  <strong>Made with ❤️ for developers worldwide</strong>
-</div>
+<p align="center">
+  Made with ❤️ by <a href="https://tansuasici.com/">tansuasici</a>
+</p>
+
+<p align="center">
+  <a href="https://countrystatecity.tansuasici.com">Website</a> •
+  <a href="https://countrystatecity.tansuasici.com/docs">Documentation</a> •
+  <a href="https://www.npmjs.com/package/@tansuasici/country-state-city">NPM</a>
+</p>
