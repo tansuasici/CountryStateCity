@@ -1,0 +1,104 @@
+---
+title: Getting Started
+description: Complete world location data in JSON, CSV, XML, and YAML formats. 250+ countries, 5,000+ states, 150,000+ cities.
+---
+
+import { Callout } from 'fumadocs-ui/components/callout';
+import { Steps, Step } from 'fumadocs-ui/components/steps';
+import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
+
+## Overview
+
+**Country State City** is a comprehensive world location database available as an NPM package. It provides:
+
+- **250+** countries with full metadata (ISO codes, currencies, timezones, translations)
+- **5,000+** states and provinces
+- **150,000+** cities with coordinates
+
+All data is ISO 3166-1 compliant and available in JSON, CSV, XML, and YAML formats.
+
+## Quick Start
+
+<Steps>
+
+### Install the package
+
+```bash
+npm install @tansuasici/country-state-city
+```
+
+### Import and use
+
+```typescript
+import { CountryStateCity } from '@tansuasici/country-state-city';
+
+// Get all countries
+const countries = CountryStateCity.getAllCountries();
+
+// Get states by country
+const states = CountryStateCity.getStatesByCountryId(225); // Turkey
+
+// Get cities by state
+const cities = CountryStateCity.getCitiesByStateId(2175); // Istanbul
+```
+
+### Choose your format
+
+```typescript
+// JSON (default)
+const json = CountryStateCity.getAllCountries();
+
+// CSV
+const csv = CountryStateCity.getAllCountries('csv');
+
+// XML
+const xml = CountryStateCity.getAllCountries('xml');
+
+// YAML
+const yaml = CountryStateCity.getAllCountries('yaml');
+```
+
+</Steps>
+
+## Platform Support
+
+<Tabs items={['Node.js', 'Browser']}>
+
+<Tab value="Node.js">
+The Node.js build reads data from the filesystem using `fs` and `path`. It supports both CommonJS and ESM:
+
+```javascript
+// CommonJS
+const { CountryStateCity } = require('@tansuasici/country-state-city');
+
+// ESM
+import { CountryStateCity } from '@tansuasici/country-state-city';
+```
+</Tab>
+
+<Tab value="Browser">
+The browser build imports JSON data directly (no filesystem access). It's tree-shakeable and optimized for bundlers:
+
+```javascript
+import { CountryStateCity } from '@tansuasici/country-state-city';
+
+const countries = CountryStateCity.getAllCountries();
+```
+
+<Callout type="info">
+The browser build uses optimized/compressed city data that is decompressed at runtime for smaller bundle sizes.
+</Callout>
+</Tab>
+
+</Tabs>
+
+## Key Features
+
+| Feature | Description |
+|---------|-------------|
+| **Multiple Formats** | JSON, CSV, XML, YAML output |
+| **ISO Standards** | ISO 3166-1 compliant country codes |
+| **Full TypeScript** | Complete type definitions included |
+| **Tree-Shakeable** | Browser build is optimized for bundlers |
+| **MCP Integration** | Works with Claude Desktop and AI assistants |
+| **Dual Build** | Separate Node.js and Browser entry points |

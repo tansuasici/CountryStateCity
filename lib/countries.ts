@@ -1,4 +1,4 @@
-import { CountryStateCity } from '../countrystatecity-npm/src/index';
+import { CountryStateCity } from '../countrystatecity-npm/src/index.browser';
 import { Country, State, City } from '@/types';
 
 // Load data from NPM package

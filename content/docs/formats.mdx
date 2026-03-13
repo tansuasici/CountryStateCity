@@ -1,0 +1,115 @@
+---
+title: Output Formats
+description: Export location data in JSON, CSV, XML, and YAML formats.
+---
+
+import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
+
+Every method that returns data supports an optional `format` parameter. The default format is JSON.
+
+## Supported Formats
+
+<Tabs items={['JSON', 'CSV', 'XML', 'YAML']}>
+
+<Tab value="JSON">
+```typescript
+const countries = CountryStateCity.getAllCountries('json');
+```
+
+```json
+[
+  {
+    "id": 1,
+    "name": "Afghanistan",
+    "iso2": "AF",
+    "iso3": "AFG",
+    "phoneCode": "93",
+    "capital": "Kabul",
+    "currency": "AFN",
+    "emoji": "🇦🇫"
+  }
+]
+```
+</Tab>
+
+<Tab value="CSV">
+```typescript
+const csv = CountryStateCity.getAllCountries('csv');
+```
+
+```csv
+id,name,iso2,iso3,phoneCode,capital,currency,emoji
+1,Afghanistan,AF,AFG,93,Kabul,AFN,🇦🇫
+2,Albania,AL,ALB,355,Tirana,ALL,🇦🇱
+```
+</Tab>
+
+<Tab value="XML">
+```typescript
+const xml = CountryStateCity.getAllCountries('xml');
+```
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<countries>
+  <country>
+    <id>1</id>
+    <name>Afghanistan</name>
+    <iso2>AF</iso2>
+    <iso3>AFG</iso3>
+    <phoneCode>93</phoneCode>
+    <capital>Kabul</capital>
+  </country>
+</countries>
+```
+</Tab>
+
+<Tab value="YAML">
+```typescript
+const yaml = CountryStateCity.getAllCountries('yaml');
+```
+
+```yaml
+- id: 1
+  name: Afghanistan
+  iso2: AF
+  iso3: AFG
+  phoneCode: "93"
+  capital: Kabul
+  currency: AFN
+  emoji: "🇦🇫"
+```
+</Tab>
+
+</Tabs>
+
+## Format with Filters
+
+You can combine formats with data filtering:
+
+```typescript
+// Get Turkey's states as CSV
+const turkeyStatesCSV = CountryStateCity.getStatesByCountryId(225, 'csv');
+
+// Get Istanbul's cities as XML
+const istanbulCitiesXML = CountryStateCity.getCitiesByStateId(2175, 'xml');
+
+// Export with options
+const yamlData = CountryStateCity.exportData('cities', 'yaml', {
+  stateId: 2175,
+});
+```
+
+## Using the DataFormatter
+
+For more control over formatting, you can use the `DataFormatter` class directly:
+
+```typescript
+import { DataFormatter } from '@tansuasici/country-state-city';
+
+const countries = CountryStateCity.getAllCountries();
+
+// Format a subset
+const top10CSV = DataFormatter.format(countries.slice(0, 10), 'csv');
+const top10XML = DataFormatter.format(countries.slice(0, 10), 'xml');
+```

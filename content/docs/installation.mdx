@@ -1,0 +1,96 @@
+---
+title: Installation
+description: How to install and configure the Country State City package in your project.
+---
+
+import { Callout } from 'fumadocs-ui/components/callout';
+import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
+
+## Install
+
+<Tabs items={['npm', 'pnpm', 'yarn', 'bun']}>
+
+<Tab value="npm">
+```bash
+npm install @tansuasici/country-state-city
+```
+</Tab>
+
+<Tab value="pnpm">
+```bash
+pnpm add @tansuasici/country-state-city
+```
+</Tab>
+
+<Tab value="yarn">
+```bash
+yarn add @tansuasici/country-state-city
+```
+</Tab>
+
+<Tab value="bun">
+```bash
+bun add @tansuasici/country-state-city
+```
+</Tab>
+
+</Tabs>
+
+## Package Exports
+
+The package provides three separate builds for different environments:
+
+```json title="package.json exports"
+{
+  ".": {
+    "browser": "./dist/index.browser.js",
+    "node": {
+      "import": "./dist/index.node.mjs",
+      "require": "./dist/index.node.cjs"
+    }
+  }
+}
+```
+
+| Build | Format | Use Case |
+|-------|--------|----------|
+| `index.browser.js` | ESM | React, Next.js, Vite, Webpack |
+| `index.node.mjs` | ESM | Node.js with `import` |
+| `index.node.cjs` | CJS | Node.js with `require` |
+
+## Usage
+
+```typescript
+import { CountryStateCity } from '@tansuasici/country-state-city';
+
+// Get all countries
+const countries = CountryStateCity.getAllCountries();
+console.log(countries.length); // 250+
+
+// Get a specific country
+const turkey = CountryStateCity.getCountryById(225);
+console.log(turkey.name); // "Turkey"
+console.log(turkey.emoji); // "🇹🇷"
+
+// Get states
+const states = CountryStateCity.getStatesByCountryId(225);
+console.log(states.length); // 81
+
+// Get cities
+const cities = CountryStateCity.getCitiesByStateId(2175);
+console.log(cities[0].name); // City name
+```
+
+## Direct Data Access
+
+You can also import the raw JSON data directly:
+
+```typescript
+import countries from '@tansuasici/country-state-city/data/countries.json';
+import states from '@tansuasici/country-state-city/data/states.json';
+import cities from '@tansuasici/country-state-city/data/cities.json';
+```
+
+<Callout type="warn">
+The cities JSON file is ~44MB. Only import it directly if you need all cities at once. For most use cases, use the `getCitiesByStateId()` or `getCitiesByCountryId()` methods instead.
+</Callout>

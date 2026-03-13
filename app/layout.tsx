@@ -1,9 +1,8 @@
-import type { Metadata, Viewport } from 'next';
+import { RootProvider } from 'fumadocs-ui/provider/next';
 import { DM_Sans, JetBrains_Mono } from 'next/font/google';
+import type { Metadata, Viewport } from 'next';
+import type { ReactNode } from 'react';
 import './globals.css';
-import { Providers } from './providers';
-import Navigation from '@/components/Navigation';
-import Footer from '@/components/Footer';
 
 const dmSans = DM_Sans({ subsets: ['latin'], variable: '--font-sans' });
 const jetbrainsMono = JetBrains_Mono({ subsets: ['latin'], variable: '--font-mono' });
@@ -13,8 +12,8 @@ const siteUrl = 'https://countrystatecity.tansuasici.com';
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: 'Country State City Data - World Location Database | JSON, CSV, XML, YAML',
-    template: '%s | Country State City Data',
+    default: 'Country State City - World Location Database | JSON, CSV, XML, YAML',
+    template: '%s | Country State City',
   },
   description:
     'Free comprehensive world location database with 250+ countries, 5,000+ states, and 150,000+ cities. Available in JSON, CSV, XML, and YAML formats. ISO 3166-1 compliant NPM package for developers.',
@@ -25,10 +24,7 @@ export const metadata: Metadata = {
     'location database',
     'world countries json',
     'countries api',
-    'states api',
-    'cities api',
     'iso 3166',
-    'country codes',
     'npm package',
     'typescript',
     'react',
@@ -37,41 +33,24 @@ export const metadata: Metadata = {
     'csv',
     'xml',
     'yaml',
-    'geography data',
-    'location picker',
-    'country selector',
   ],
   authors: [{ name: 'Tansu Asici', url: 'https://tansuasici.com' }],
   creator: 'Tansu Asici',
   publisher: 'Tansu Asici',
-  formatDetection: {
-    email: false,
-    address: false,
-    telephone: false,
-  },
-  alternates: {
-    canonical: siteUrl,
-  },
+  alternates: { canonical: siteUrl },
   openGraph: {
-    title: 'Country State City Data - World Location Database',
+    title: 'Country State City - World Location Database',
     description:
-      'Free comprehensive world location database with 250+ countries, 5,000+ states, and 150,000+ cities. Available in JSON, CSV, XML, and YAML formats.',
+      'Free comprehensive world location database with 250+ countries, 5,000+ states, and 150,000+ cities.',
     type: 'website',
     locale: 'en_US',
     url: siteUrl,
-    siteName: 'Country State City Data',
-    images: [
-      {
-        url: '/og-image.png',
-        width: 1200,
-        height: 630,
-        alt: 'Country State City Data - World Location Database',
-      },
-    ],
+    siteName: 'Country State City',
+    images: [{ url: '/og-image.png', width: 1200, height: 630, alt: 'Country State City' }],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Country State City Data - World Location Database',
+    title: 'Country State City - World Location Database',
     description:
       'Free comprehensive world location database with 250+ countries, 5,000+ states, and 150,000+ cities.',
     images: ['/og-image.png'],
@@ -87,9 +66,6 @@ export const metadata: Metadata = {
       'max-image-preview': 'large',
       'max-snippet': -1,
     },
-  },
-  verification: {
-    google: 'your-google-verification-code',
   },
   category: 'technology',
 };
@@ -113,25 +89,13 @@ const jsonLd = {
   description:
     'Free comprehensive world location database with 250+ countries, 5,000+ states, and 150,000+ cities.',
   url: siteUrl,
-  author: {
-    '@type': 'Person',
-    name: 'Tansu Asici',
-    url: 'https://tansuasici.com',
-  },
-  offers: {
-    '@type': 'Offer',
-    price: '0',
-    priceCurrency: 'USD',
-  },
-  softwareVersion: '2.0.11',
+  author: { '@type': 'Person', name: 'Tansu Asici', url: 'https://tansuasici.com' },
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+  softwareVersion: '2.0.13',
   downloadUrl: 'https://www.npmjs.com/package/@tansuasici/country-state-city',
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
@@ -143,17 +107,8 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body
-        className={`${dmSans.variable} ${jetbrainsMono.variable} font-sans min-h-screen bg-background text-foreground`}
-        suppressHydrationWarning
-      >
-        <Providers>
-          <div className="flex flex-col min-h-screen">
-            <Navigation />
-            <main className="flex-1 flex flex-col">{children}</main>
-            <Footer />
-          </div>
-        </Providers>
+      <body className={`${dmSans.variable} ${jetbrainsMono.variable} font-sans`}>
+        <RootProvider>{children}</RootProvider>
       </body>
     </html>
   );

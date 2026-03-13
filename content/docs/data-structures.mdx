@@ -1,0 +1,116 @@
+---
+title: Data Structures
+description: TypeScript interfaces for Country, State, City, and Timezone data.
+---
+
+## Country
+
+```typescript
+interface Country {
+  id: number;
+  name: string;
+  iso2: string;           // "TR", "US", "DE"
+  iso3: string;           // "TUR", "USA", "DEU"
+  numericCode: string;    // "792", "840", "276"
+  phoneCode: string;      // "90", "1", "49"
+  capital: string;        // "Ankara", "Washington", "Berlin"
+  currency: string;       // "TRY", "USD", "EUR"
+  currencyName: string;   // "Turkish lira", "US Dollar", "Euro"
+  currencySymbol: string; // "₺", "$", "€"
+  tld: string;            // ".tr", ".us", ".de"
+  native: string;         // "Türkiye", "United States"
+  region: string;         // "Asia", "Americas", "Europe"
+  regionId?: number;
+  subregion: string;      // "Western Asia", "Northern America"
+  subregionId?: number;
+  nationality?: string;   // "Turkish", "American", "German"
+  timezones: Timezone[];
+  translations: Record<string, string>;
+  latitude: string;       // "39.00000000"
+  longitude: string;      // "35.00000000"
+  emoji: string;          // "🇹🇷"
+  emojiU: string;         // "U+1F1F9 U+1F1F7"
+}
+```
+
+### Example
+
+```json
+{
+  "id": 225,
+  "name": "Turkey",
+  "iso2": "TR",
+  "iso3": "TUR",
+  "phoneCode": "90",
+  "capital": "Ankara",
+  "currency": "TRY",
+  "currencySymbol": "₺",
+  "region": "Asia",
+  "subregion": "Western Asia",
+  "emoji": "🇹🇷",
+  "latitude": "39.00000000",
+  "longitude": "35.00000000"
+}
+```
+
+## State
+
+```typescript
+interface State {
+  id: number;
+  name: string;           // "Istanbul", "California"
+  countryId: number;      // 225, 233
+  countryCode: string;    // "TR", "US"
+  countryName: string;    // "Turkey", "United States"
+  stateCode: string;      // "34", "CA"
+  type: string | null;    // "province", "state", "region"
+  latitude: string;       // "41.01384310"
+  longitude: string;      // "28.94966760"
+}
+```
+
+## City
+
+```typescript
+interface City {
+  id: number;
+  name: string;           // "Kadikoy", "Los Angeles"
+  stateId: number;
+  stateCode: string;      // "34", "CA"
+  stateName: string;      // "Istanbul", "California"
+  countryId: number;
+  countryCode: string;    // "TR", "US"
+  countryName: string;    // "Turkey", "United States"
+  latitude: string;       // "40.98187890"
+  longitude: string;      // "29.06450670"
+  wikiDataId: string;     // "Q193073"
+}
+```
+
+## Timezone
+
+```typescript
+interface Timezone {
+  zoneName: string;       // "Europe/Istanbul"
+  gmtOffset: number;      // 10800
+  gmtOffsetName: string;  // "UTC+03:00"
+  abbreviation: string;   // "TRT"
+  tzName: string;         // "Turkey Time"
+}
+```
+
+## Optimized City Format
+
+The internal city data uses a compressed format for smaller file sizes:
+
+| Compressed | Full Field |
+|-----------|-----------|
+| `i` | `id` |
+| `n` | `name` |
+| `s` | `stateId` |
+| `c` | `countryId` |
+| `la` | `latitude` |
+| `lo` | `longitude` |
+| `w` | `wikiDataId` |
+
+> This compression reduces the city data from ~44MB to ~13MB. The library decompresses automatically at runtime.

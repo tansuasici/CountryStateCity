@@ -45,6 +45,9 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
+# fumadocs
+.source/
+
 # dist folders
 dist/
 /dist/

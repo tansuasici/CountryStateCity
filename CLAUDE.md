@@ -2,10 +2,10 @@
 
 ## Project Overview
 
-This is a **dual-purpose project**: a Next.js web application (showcase site) AND an NPM package (`@tansuasici/country-state-city`) providing world location data (250+ countries, 5000+ states, 150,000+ cities).
+This is a **dual-purpose project**: a Next.js web application (documentation site) AND an NPM package (`@tansuasici/country-state-city`) providing world location data (250+ countries, 5000+ states, 150,000+ cities).
 
 - **Website**: https://countrystatecity.tansuasici.com
-- **NPM Package**: `@tansuasici/country-state-city` (v2.0.11)
+- **NPM Package**: `@tansuasici/country-state-city`
 - **License**: MIT
 - **Author**: Tansu Asici
 
@@ -13,65 +13,74 @@ This is a **dual-purpose project**: a Next.js web application (showcase site) AN
 
 - **Framework**: Next.js 16 (App Router, static export via `output: "export"`)
 - **Language**: TypeScript 5
-- **UI Library**: HeroUI (formerly NextUI) + Tailwind CSS 3
+- **Docs Framework**: Fumadocs (fumadocs-core, fumadocs-ui, fumadocs-mdx)
+- **CSS**: Tailwind CSS 4
 - **Icons**: lucide-react
-- **Theme**: next-themes (dark/light mode)
 - **Map**: Leaflet + react-leaflet
 - **Build (NPM lib)**: Rollup (3 builds: browser ESM, Node CJS, Node ESM)
 - **Hosting**: Firebase Hosting (static `out/` directory)
-- **Font**: Inter (Google Fonts)
+- **Font**: DM Sans + JetBrains Mono (Google Fonts)
 
 ## Project Structure
 
 ```
 country-state-city/
 ├── app/                          # Next.js App Router pages
-│   ├── layout.tsx                # Root layout (metadata, SEO, JSON-LD)
-│   ├── page.tsx                  # Homepage (hero, features, stats)
-│   ├── providers.tsx             # HeroUI + theme providers
-│   ├── docs/page.tsx             # Documentation page + playground
-│   ├── map/page.tsx              # Interactive world map page
+│   ├── layout.tsx                # Root layout (RootProvider, metadata, SEO, JSON-LD)
+│   ├── globals.css               # Tailwind v4 + Fumadocs CSS imports
+│   ├── (home)/                   # Route group: homepage + map
+│   │   ├── layout.tsx            # HomeLayout (Fumadocs)
+│   │   ├── page.tsx              # Homepage (hero, features, stats)
+│   │   └── map/page.tsx          # Interactive world map
+│   ├── docs/                     # Documentation section
+│   │   ├── layout.tsx            # DocsLayout with sidebar
+│   │   └── [[...slug]]/page.tsx  # Catch-all docs page renderer
 │   ├── sitemap.ts                # Dynamic sitemap
-│   ├── robots.ts                 # Robots.txt config
-│   ├── globals.css               # Global styles
-│   └── theme-config.ts           # Theme configuration
+│   └── robots.ts                 # Robots.txt config
+├── content/docs/                 # MDX documentation files
+│   ├── meta.json                 # Sidebar navigation order
+│   ├── index.mdx                 # Getting Started
+│   ├── installation.mdx          # Installation guide
+│   ├── api-reference.mdx         # API Reference
+│   ├── data-structures.mdx       # TypeScript interfaces
+│   ├── formats.mdx               # Output formats (JSON/CSV/XML/YAML)
+│   ├── mcp.mdx                   # MCP Integration guide
+│   ├── playground.mdx            # Interactive playground
+│   └── contributing.mdx          # Contributing guide
 ├── components/
-│   ├── CountryStateCity.tsx       # Country > State > City cascading selector
 │   ├── WorldMap.tsx               # Leaflet map component
-│   ├── DataPlayground.tsx         # Interactive API playground
-│   ├── Navigation.tsx             # Top navbar with dark mode toggle
-│   └── Footer.tsx                 # Site footer
+│   ├── DataPlaygroundMDX.tsx      # Interactive API playground (MDX-embedded)
+│   └── mdx.tsx                   # MDX component provider
 ├── lib/
-│   ├── countries.ts               # Data access helpers (wraps NPM package)
-│   ├── data.ts                    # DataService class (alternative data access)
-│   ├── formatters.ts              # CSV/XML/YAML formatters for web app
-│   └── firebase.ts                # Firebase config
+│   ├── source.ts                 # Fumadocs source loader
+│   ├── layout.shared.tsx         # Shared nav/link config for Fumadocs layouts
+│   ├── countries.ts              # Data access helpers (wraps browser build)
+│   ├── data.ts                   # DataService class
+│   ├── formatters.ts             # CSV/XML/YAML formatters for web app
+│   └── firebase.ts               # Firebase config
 ├── types/
-│   └── index.ts                   # TypeScript interfaces (Country, State, City, Timezone)
-├── data/                          # Raw JSON data files
-│   ├── country.json               # All countries
-│   ├── state.json                 # All states
-│   ├── city.json                  # All cities (optimized format)
-│   ├── city-optimized.json        # Cities in compressed format
-│   ├── city-array.json            # Cities in array format
-│   └── cities/                    # Per-country city files (e.g., tr.json, us.json)
-├── countrystatecity-npm/          # NPM package source
+│   └── index.ts                  # TypeScript interfaces (Country, State, City, Timezone)
+├── data/                         # Raw JSON data files
+│   ├── country.json              # All countries
+│   ├── state.json                # All states
+│   ├── city.json                 # All cities (optimized format)
+│   └── cities/                   # Per-country city files
+├── countrystatecity-npm/         # NPM package source
 │   ├── src/
-│   │   ├── index.ts               # Node entry (reads JSON from filesystem)
-│   │   ├── index.browser.ts       # Browser entry (imports JSON directly)
-│   │   ├── index.node.ts          # Node-specific entry
-│   │   ├── types.ts               # Package type definitions
-│   │   └── formatters.ts          # Package formatters (CSV, XML, YAML)
-│   ├── dist/                      # Built package output
-│   └── test.js                    # Package tests
-├── public/                        # Static assets (logo, favicon, etc.)
-├── rollup.config.js               # Rollup config for NPM package build
-├── tsconfig.json                  # Next.js TypeScript config
-├── tsconfig.lib.json              # Library-specific TypeScript config
-├── next.config.ts                 # Next.js config (static export)
-├── tailwind.config.ts             # Tailwind CSS config
-├── firebase.json                  # Firebase Hosting config
-└── package.json                   # Dependencies and scripts
+│   │   ├── index.ts              # Node entry (reads JSON from filesystem)
+│   │   ├── index.browser.ts      # Browser entry (imports JSON directly)
+│   │   ├── index.node.ts         # Node-specific entry
+│   │   ├── types.ts              # Package type definitions
+│   │   └── formatters.ts         # Package formatters
+│   └── dist/                     # Built package output
+├── countrystatecity-mcp/         # MCP server source
+├── source.config.ts              # Fumadocs MDX collection config
+├── next.config.mjs               # Next.js config (wrapped with createMDX)
+├── postcss.config.mjs            # PostCSS config (@tailwindcss/postcss)
+├── rollup.config.js              # Rollup config for NPM package build
+├── tsconfig.json                 # TypeScript config (includes collections/* alias)
+├── firebase.json                 # Firebase Hosting config
+└── package.json                  # Dependencies and scripts
 ```
 
 ## Key Commands
@@ -80,9 +89,9 @@ country-state-city/
 npm run dev              # Start dev server (Turbopack)
 npm run build:prod       # Build for production (auto version bump)
 npm run build:lib        # Build NPM package with Rollup
-npm run build:lib:tsc    # TypeScript compile for library
+npm run build:mcp        # Build MCP server with esbuild
 npm run lint             # Run ESLint
-npm run start            # Start production server
+npm run test             # Run tests with Vitest
 ```
 
 ## Architecture Notes
@@ -95,6 +104,15 @@ npm run start            # Start production server
    - `index.node.cjs` (CommonJS, reads files from disk via `fs`)
    - `index.node.mjs` (ESM for Node, reads files from disk via `fs`)
 
+### Fumadocs Setup
+
+- `source.config.ts` defines MDX collections (`content/docs/`)
+- `lib/source.ts` creates the Fumadocs loader with `/docs` base URL
+- `lib/layout.shared.tsx` provides shared nav config (logo, links)
+- `components/mdx.tsx` provides MDX component mappings
+- `.source/` directory is auto-generated (gitignored)
+- Path alias: `collections/*` → `.source/*`
+
 ### Data Format
 
 - City data uses an **optimized/compressed format** in `city.json`:
@@ -104,10 +122,10 @@ npm run start            # Start production server
 
 ### Component Patterns
 
-- All page components use `"use client"` directive (client-side rendering)
-- Data loading uses dynamic `import()` for code-splitting
-- HeroUI components for all UI elements (Autocomplete, Card, Button, etc.)
-- Cascading selection pattern: Country -> State -> City
+- Interactive components use `"use client"` directive
+- Docs pages are server-rendered via Fumadocs
+- Browser build (`index.browser`) must be used for website imports (no `fs` module)
+- Static imports preferred over dynamic `import()` for reliability
 
 ### NPM Package API
 
@@ -122,7 +140,8 @@ The `CountryStateCity` class uses static methods with lazy loading:
 
 ### Path Aliases
 
-- `@/` maps to the project root (configured in tsconfig.json)
+- `@/` maps to the project root
+- `collections/*` maps to `.source/*` (Fumadocs generated)
 
 ## Environment Files
 
@@ -142,5 +161,5 @@ The `CountryStateCity` class uses static methods with lazy loading:
 - City data is very large (~150K records). Always use lazy loading and pagination
 - The NPM package has separate browser/node entry points to handle fs/path differences
 - The site is fully static (no API routes) - all data is bundled at build time
-- HeroUI requires `transpilePackages` config in next.config.ts
-- All components are client-side (`"use client"`) due to interactive features
+- All components importing from the NPM source must use `index.browser` (not `index`)
+- Fumadocs MDX components use specific import paths (e.g. `fumadocs-ui/components/callout`)

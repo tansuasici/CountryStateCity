@@ -1,31 +1,15 @@
-@import "./heroui-theme.css";
+@import 'tailwindcss';
+@import 'fumadocs-ui/css/neutral.css';
+@import 'fumadocs-ui/css/preset.css';
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@theme {
+  --font-sans: 'DM Sans', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', Menlo, monospace;
 
-@layer base {
-  :root {
-    --background: 250 250 250;
-    --foreground: 17 24 28;
-    --accent-glow: 79 70 229;
-    --grid-color: rgba(79, 70, 229, 0.06);
-    --gradient-start: #4f46e5;
-    --gradient-mid: #7c3aed;
-    --gradient-end: #06b6d4;
-  }
-
-  .dark {
-    --background: 13 13 13;
-    --foreground: 236 237 238;
-    --grid-color: rgba(99, 102, 241, 0.07);
-  }
-}
-
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+  --color-accent-glow: rgb(79, 70, 229);
+  --color-gradient-start: #4f46e5;
+  --color-gradient-mid: #7c3aed;
+  --color-gradient-end: #06b6d4;
 }
 
 html {
@@ -33,7 +17,6 @@ html {
 }
 
 body {
-  @apply bg-background text-foreground;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -42,13 +25,16 @@ body {
 
 /* ---- Dot Grid Background ---- */
 .dot-grid {
-  background-image: radial-gradient(circle, var(--grid-color) 1px, transparent 1px);
+  background-image: radial-gradient(circle, rgba(79, 70, 229, 0.06) 1px, transparent 1px);
   background-size: 24px 24px;
+}
+:is(.dark) .dot-grid {
+  background-image: radial-gradient(circle, rgba(99, 102, 241, 0.07) 1px, transparent 1px);
 }
 
 /* ---- Gradient Text ---- */
 .gradient-text {
-  background: linear-gradient(135deg, var(--gradient-start), var(--gradient-mid), var(--gradient-end));
+  background: linear-gradient(135deg, var(--color-gradient-start), var(--color-gradient-mid), var(--color-gradient-end));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -71,7 +57,7 @@ body {
   pointer-events: none;
   z-index: 0;
 }
-.dark .hero-mesh::before {
+:is(.dark) .hero-mesh::before {
   background:
     radial-gradient(ellipse at 20% 50%, rgba(79,70,229,0.18) 0%, transparent 50%),
     radial-gradient(ellipse at 80% 20%, rgba(6,182,212,0.14) 0%, transparent 50%),
@@ -92,7 +78,7 @@ body {
   transform: translateY(-4px);
   box-shadow: 0 12px 40px -8px rgba(79, 70, 229, 0.15);
 }
-.dark .glow-card:hover {
+:is(.dark) .glow-card:hover {
   box-shadow: 0 12px 40px -8px rgba(79, 70, 229, 0.25);
 }
 
@@ -107,7 +93,7 @@ body {
   inset: 0;
   border-radius: inherit;
   padding: 1px;
-  background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+  background: linear-gradient(135deg, var(--color-gradient-start), var(--color-gradient-end));
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;
@@ -124,16 +110,9 @@ body {
   animation: fadeInUp 0.6s ease-out both;
 }
 @keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(24px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
 }
-
 .stagger-1 { animation-delay: 0.1s; }
 .stagger-2 { animation-delay: 0.2s; }
 .stagger-3 { animation-delay: 0.3s; }
@@ -149,7 +128,7 @@ body {
   50% { box-shadow: 0 0 24px 4px rgba(79, 70, 229, 0.15); }
 }
 
-/* ---- Number Ticker Animation ---- */
+/* ---- Number Ticker ---- */
 .number-ticker {
   font-variant-numeric: tabular-nums;
   font-feature-settings: "tnum";
@@ -168,7 +147,7 @@ body {
   left: 0;
   right: 0;
   height: 2px;
-  background: linear-gradient(90deg, var(--gradient-start), var(--gradient-mid), var(--gradient-end));
+  background: linear-gradient(90deg, var(--color-gradient-start), var(--color-gradient-mid), var(--color-gradient-end));
 }
 
 /* ---- Floating Badge ---- */
@@ -185,13 +164,4 @@ body {
   height: 1px;
   background: linear-gradient(90deg, transparent, rgba(79, 70, 229, 0.2), transparent);
   margin: 4rem 0;
-}
-
-/* ---- Smooth Snippet Override ---- */
-.snippet-enhanced [data-slot="pre"] {
-  background: linear-gradient(135deg, #1e1b4b, #0f172a) !important;
-  border-radius: 12px;
-}
-.snippet-enhanced [data-slot="copyButton"] {
-  color: rgba(255, 255, 255, 0.6);
 }

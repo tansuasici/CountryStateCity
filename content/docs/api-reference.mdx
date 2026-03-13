@@ -1,0 +1,250 @@
+---
+title: API Reference
+description: Complete API reference for all CountryStateCity methods.
+---
+
+import { Callout } from 'fumadocs-ui/components/callout';
+
+## Country Methods
+
+### getAllCountries
+
+Returns all countries in the database.
+
+```typescript
+const countries = CountryStateCity.getAllCountries();
+// Returns: Country[]
+
+// With format
+const csv = CountryStateCity.getAllCountries('csv');
+// Returns: string (CSV formatted)
+```
+
+**Parameters:**
+- `format` (optional): `'json' | 'csv' | 'xml' | 'yaml'` — Output format
+
+---
+
+### getCountryById
+
+Get a single country by its numeric ID.
+
+```typescript
+const turkey = CountryStateCity.getCountryById(225);
+// Returns: Country | undefined
+```
+
+**Parameters:**
+- `id`: `number` — Country ID
+
+---
+
+### getCountryByIso2
+
+Get a country by its ISO 3166-1 alpha-2 code.
+
+```typescript
+const turkey = CountryStateCity.getCountryByIso2('TR');
+// Returns: Country | undefined
+```
+
+**Parameters:**
+- `code`: `string` — Two-letter country code (e.g. `'TR'`, `'US'`)
+
+---
+
+### getCountryByIso3
+
+Get a country by its ISO 3166-1 alpha-3 code.
+
+```typescript
+const turkey = CountryStateCity.getCountryByIso3('TUR');
+// Returns: Country | undefined
+```
+
+**Parameters:**
+- `code`: `string` — Three-letter country code (e.g. `'TUR'`, `'USA'`)
+
+---
+
+### searchCountries
+
+Search countries by name (partial match, case-insensitive).
+
+```typescript
+const results = CountryStateCity.searchCountries('united');
+// Returns: Country[] (United States, United Kingdom, UAE, etc.)
+```
+
+**Parameters:**
+- `query`: `string` — Search term
+
+## State Methods
+
+### getAllStates
+
+Returns all states/provinces in the database.
+
+```typescript
+const states = CountryStateCity.getAllStates();
+// Returns: State[]
+```
+
+**Parameters:**
+- `format` (optional): `'json' | 'csv' | 'xml' | 'yaml'` — Output format
+
+---
+
+### getStateById
+
+Get a single state by its numeric ID.
+
+```typescript
+const istanbul = CountryStateCity.getStateById(2175);
+// Returns: State | undefined
+```
+
+**Parameters:**
+- `id`: `number` — State ID
+
+---
+
+### getStatesByCountryId
+
+Get all states for a specific country.
+
+```typescript
+const turkeyStates = CountryStateCity.getStatesByCountryId(225);
+// Returns: State[] (81 provinces)
+```
+
+**Parameters:**
+- `countryId`: `number` — Country ID
+- `format` (optional): `'json' | 'csv' | 'xml' | 'yaml'` — Output format
+
+---
+
+### searchStates
+
+Search states by name, optionally filtered by country.
+
+```typescript
+const results = CountryStateCity.searchStates('istanbul');
+// Returns: State[]
+
+const filtered = CountryStateCity.searchStates('ist', 225);
+// Returns: State[] (only in Turkey)
+```
+
+**Parameters:**
+- `query`: `string` — Search term
+- `countryId` (optional): `number` — Filter by country
+
+## City Methods
+
+### getAllCities
+
+Returns all cities in the database.
+
+```typescript
+const cities = CountryStateCity.getAllCities();
+// Returns: City[] (~150,000 records)
+```
+
+<Callout type="warn">
+This returns a very large dataset. Use `getCitiesByStateId` or `getCitiesByCountryId` for filtered results.
+</Callout>
+
+**Parameters:**
+- `format` (optional): `'json' | 'csv' | 'xml' | 'yaml'` — Output format
+
+---
+
+### getCityById
+
+Get a single city by its numeric ID.
+
+```typescript
+const city = CountryStateCity.getCityById(107785);
+// Returns: City | undefined
+```
+
+**Parameters:**
+- `id`: `number` — City ID
+
+---
+
+### getCitiesByStateId
+
+Get all cities for a specific state.
+
+```typescript
+const cities = CountryStateCity.getCitiesByStateId(2175);
+// Returns: City[]
+```
+
+**Parameters:**
+- `stateId`: `number` — State ID
+- `format` (optional): `'json' | 'csv' | 'xml' | 'yaml'` — Output format
+
+---
+
+### getCitiesByCountryId
+
+Get all cities for a specific country.
+
+```typescript
+const cities = CountryStateCity.getCitiesByCountryId(225);
+// Returns: City[]
+```
+
+**Parameters:**
+- `countryId`: `number` — Country ID
+- `format` (optional): `'json' | 'csv' | 'xml' | 'yaml'` — Output format
+
+---
+
+### searchCities
+
+Search cities by name with optional filters.
+
+```typescript
+const results = CountryStateCity.searchCities('ankara');
+// Returns: City[]
+
+const filtered = CountryStateCity.searchCities('ank', undefined, 225);
+// Returns: City[] (only in Turkey)
+```
+
+**Parameters:**
+- `query`: `string` — Search term
+- `stateId` (optional): `number` — Filter by state
+- `countryId` (optional): `number` — Filter by country
+
+## Utility Methods
+
+### getStats
+
+Get database statistics.
+
+```typescript
+const stats = CountryStateCity.getStats();
+// Returns: { countries: 250, states: 5000, cities: 150000 }
+```
+
+---
+
+### exportData
+
+Export data in a specific format.
+
+```typescript
+const csvData = CountryStateCity.exportData('countries', 'csv');
+const xmlData = CountryStateCity.exportData('states', 'xml', { countryId: 225 });
+const yamlData = CountryStateCity.exportData('cities', 'yaml', { stateId: 2175 });
+```
+
+**Parameters:**
+- `type`: `'countries' | 'states' | 'cities'`
+- `format`: `'json' | 'csv' | 'xml' | 'yaml'`
+- `options` (optional): `{ countryId?: number, stateId?: number }`

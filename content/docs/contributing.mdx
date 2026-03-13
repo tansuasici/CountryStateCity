@@ -1,0 +1,76 @@
+---
+title: Contributing
+description: How to contribute to the Country State City project.
+---
+
+import { Callout } from 'fumadocs-ui/components/callout';
+import { Steps, Step } from 'fumadocs-ui/components/steps';
+
+## Contributing Guide
+
+We welcome contributions! Here's how to get started.
+
+<Steps>
+
+### Fork and clone
+
+```bash
+git clone https://github.com/your-username/CountryStateCity.git
+cd CountryStateCity/country-state-city
+npm install
+```
+
+### Create a branch
+
+Use the naming convention:
+
+- `feature/description` — new features
+- `fix/description` — bug fixes
+- `docs/description` — documentation changes
+- `refactor/description` — code refactoring
+
+```bash
+git checkout -b feature/add-new-data
+```
+
+### Make your changes
+
+- Run `npm run dev` for development
+- Run `npm run lint` to check code style
+- Run `npm test` to run tests
+
+### Submit a pull request
+
+Push your branch and open a PR against `main`.
+
+</Steps>
+
+## Project Structure
+
+| Directory | Purpose |
+|-----------|---------|
+| `app/` | Next.js pages (documentation website) |
+| `components/` | React components |
+| `content/docs/` | MDX documentation files |
+| `data/` | Raw JSON data files |
+| `countrystatecity-npm/` | NPM package source |
+| `countrystatecity-mcp/` | MCP server source |
+| `lib/` | Shared utilities |
+| `types/` | TypeScript interfaces |
+
+## Data Updates
+
+To update country, state, or city data:
+
+1. Edit the relevant JSON file in `data/`
+2. Run tests to verify data integrity
+3. Update `city-optimized.json` if city data changed
+4. Build the library: `npm run build:lib`
+
+<Callout type="warn">
+City data uses a compressed format (`i/n/s/c/la/lo/w`). Make sure to update both `city.json` and `city-optimized.json` if modifying city records.
+</Callout>
+
+## License
+
+This project is licensed under the MIT License.

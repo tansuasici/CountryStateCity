@@ -1,0 +1,16 @@
+{
+  "title": "Documentation",
+  "pages": [
+    "index",
+    "installation",
+    "---API---",
+    "api-reference",
+    "data-structures",
+    "formats",
+    "---Integrations---",
+    "mcp",
+    "---Extras---",
+    "playground",
+    "contributing"
+  ]
+}
