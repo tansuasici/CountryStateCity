@@ -199,7 +199,13 @@ export default function WorldMap({
         integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
         crossOrigin=""
       />
-      <MapContainer center={center} zoom={zoom} className="h-full w-full" scrollWheelZoom={true}>
+      <MapContainer
+        center={center}
+        zoom={zoom}
+        className="h-full w-full"
+        scrollWheelZoom={true}
+        zoomControl={false}
+      >
         <TileLayer key={tileUrl} attribution={attribution} url={tileUrl} />
         <MapControls onMapReady={onMapReady} />
         {allMarkers.map((marker, index) => (
