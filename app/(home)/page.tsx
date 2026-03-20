@@ -13,6 +13,7 @@ import {
   Cpu,
   Package,
 } from 'lucide-react';
+import pkg from '../../package.json';
 
 export default function HomePage() {
   const [stats, setStats] = useState({ countries: 0, states: 0, cities: 0 });
@@ -65,7 +66,7 @@ export default function HomePage() {
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-indigo-100/80 dark:bg-indigo-950/40 border border-indigo-200 dark:border-indigo-800/40 mb-6 fade-in-up floating-badge">
               <Package size={14} className="text-indigo-600 dark:text-indigo-400" />
               <span className="text-xs font-semibold text-indigo-700 dark:text-indigo-300 tracking-wide uppercase">
-                v2.0.13
+                v{pkg.version}
               </span>
             </div>
 
