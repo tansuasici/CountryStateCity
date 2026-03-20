@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import {
   Globe,
   Building,
@@ -12,11 +12,83 @@ import {
   Shield,
   Cpu,
   Package,
+  Check,
+  Copy,
+  Terminal,
+  Github,
 } from 'lucide-react';
+import { Button, buttonVariants } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { Card, CardContent } from '@/components/ui/card';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Separator } from '@/components/ui/separator';
+import { cn } from '@/lib/utils';
 import pkg from '../../package.json';
+
+function AnimatedCounter({ target, duration = 1500 }: { target: number; duration?: number }) {
+  const [count, setCount] = useState(0);
+  const ref = useRef<HTMLSpanElement>(null);
+  const started = useRef(false);
+
+  useEffect(() => {
+    if (!ref.current || started.current || target === 0) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !started.current) {
+          started.current = true;
+          const start = performance.now();
+          const step = (now: number) => {
+            const elapsed = now - start;
+            const progress = Math.min(elapsed / duration, 1);
+            const eased = 1 - Math.pow(1 - progress, 3);
+            setCount(Math.floor(eased * target));
+            if (progress < 1) requestAnimationFrame(step);
+          };
+          requestAnimationFrame(step);
+        }
+      },
+      { threshold: 0.3 }
+    );
+    observer.observe(ref.current);
+    return () => observer.disconnect();
+  }, [target, duration]);
+
+  return (
+    <span ref={ref} className="tabular-nums">
+      {count.toLocaleString()}
+    </span>
+  );
+}
+
+function CopyButton({ text }: { text: string }) {
+  const [copied, setCopied] = useState(false);
+  const copy = useCallback(() => {
+    navigator.clipboard.writeText(text);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  }, [text]);
+  return (
+    <Button
+      variant="ghost"
+      size="icon"
+      className="h-7 w-7 text-muted-foreground hover:text-foreground"
+      onClick={copy}
+    >
+      {copied ? <Check className="h-3.5 w-3.5" /> : <Copy className="h-3.5 w-3.5" />}
+    </Button>
+  );
+}
+
+const installCommands: Record<string, string> = {
+  npm: 'npm install @tansuasici/country-state-city',
+  yarn: 'yarn add @tansuasici/country-state-city',
+  pnpm: 'pnpm add @tansuasici/country-state-city',
+  bun: 'bun add @tansuasici/country-state-city',
+};
 
 export default function HomePage() {
   const [stats, setStats] = useState({ countries: 0, states: 0, cities: 0 });
+  const [activeTab, setActiveTab] = useState('npm');
 
   useEffect(() => {
     const loadStats = async () => {
@@ -26,227 +98,227 @@ export default function HomePage() {
     loadStats();
   }, []);
 
-  const features = [
-    {
-      icon: FileText,
-      title: 'Multiple Formats',
-      description: 'Export as JSON, CSV, XML, or YAML with a single method call',
-      gradient: 'from-amber-500 to-orange-600',
-      bg: 'bg-amber-50 dark:bg-amber-950/20',
-    },
-    {
-      icon: Shield,
-      title: 'ISO Standards',
-      description: 'ISO 3166-1 compliant country codes trusted by enterprise apps',
-      gradient: 'from-emerald-500 to-teal-600',
-      bg: 'bg-emerald-50 dark:bg-emerald-950/20',
-    },
-    {
-      icon: Globe,
-      title: 'Global Coverage',
-      description: 'Comprehensive data from 250+ countries with coordinates and metadata',
-      gradient: 'from-blue-500 to-indigo-600',
-      bg: 'bg-blue-50 dark:bg-blue-950/20',
-    },
-    {
-      icon: Code2,
-      title: 'Developer Ready',
-      description: 'Full TypeScript support, tree-shakeable, works in Node.js and browsers',
-      gradient: 'from-violet-500 to-purple-600',
-      bg: 'bg-violet-50 dark:bg-violet-950/20',
-    },
-  ];
-
   return (
-    <div className="dot-grid min-h-screen">
-      <div className="container mx-auto px-4 py-8 max-w-7xl">
-        {/* Hero Section */}
-        <section className="hero-mesh rounded-3xl px-6 py-20 md:py-28 mb-20">
-          <div className="relative z-10 text-center max-w-3xl mx-auto">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-indigo-100/80 dark:bg-indigo-950/40 border border-indigo-200 dark:border-indigo-800/40 mb-6 fade-in-up floating-badge">
-              <Package size={14} className="text-indigo-600 dark:text-indigo-400" />
-              <span className="text-xs font-semibold text-indigo-700 dark:text-indigo-300 tracking-wide uppercase">
-                v{pkg.version}
-              </span>
-            </div>
+    <div className="min-h-screen">
+      <div className="mx-auto max-w-5xl px-6 py-12">
+        {/* Hero */}
+        <section className="py-20 text-center">
+          <Badge variant="secondary" className="mb-6">
+            <Package className="mr-1.5 h-3 w-3" />v{pkg.version}
+          </Badge>
 
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 tracking-tight fade-in-up stagger-1">
-              <span className="gradient-text">Country State City</span>
-            </h1>
+          <h1 className="text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl">
+            Country State City
+          </h1>
 
-            <p className="text-lg md:text-xl text-fd-muted-foreground mb-10 max-w-xl mx-auto leading-relaxed fade-in-up stagger-2">
-              Complete world location data. Simple, fast, reliable.
-              <br className="hidden md:block" />
-              JSON, CSV, XML, YAML &mdash; your choice.
-            </p>
+          <p className="mx-auto mt-4 max-w-xl text-lg text-muted-foreground">
+            Complete world location data. Simple, fast, reliable.
+            <br />
+            JSON, CSV, XML, YAML &mdash; your choice.
+          </p>
 
-            <div className="flex gap-3 justify-center flex-wrap fade-in-up stagger-3">
-              <Link
-                href="/docs"
-                className="inline-flex items-center gap-2 px-8 py-3 rounded-xl bg-fd-primary text-fd-primary-foreground font-semibold hover:opacity-90 transition-opacity"
-              >
-                Get Started
-                <ArrowRight size={18} />
-              </Link>
-              <Link
-                href="/docs/mcp"
-                className="inline-flex items-center gap-2 px-8 py-3 rounded-xl bg-fd-secondary text-fd-secondary-foreground font-semibold hover:opacity-90 transition-opacity"
-              >
-                <Cpu size={18} />
-                MCP Integration
-              </Link>
-            </div>
+          <div className="mt-8 flex items-center justify-center gap-3">
+            <Link href="/docs" className={cn(buttonVariants({ size: 'lg' }))}>
+              Get Started
+              <ArrowRight className="ml-2 h-4 w-4" />
+            </Link>
+            <Link
+              href="/docs/mcp"
+              className={cn(buttonVariants({ variant: 'outline', size: 'lg' }))}
+            >
+              <Cpu className="mr-2 h-4 w-4" />
+              MCP Integration
+            </Link>
+          </div>
 
-            <div className="mt-8 fade-in-up stagger-4">
-              <code className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-fd-card border border-fd-border font-mono text-sm">
-                <span className="text-fd-muted-foreground">$</span>
-                npm install @tansuasici/country-state-city
-              </code>
-            </div>
+          {/* Install command with tabs */}
+          <div className="mx-auto mt-8 max-w-lg">
+            <Tabs value={activeTab} onValueChange={setActiveTab}>
+              <TabsList className="mb-2 h-8">
+                {Object.keys(installCommands).map((pm) => (
+                  <TabsTrigger key={pm} value={pm} className="text-xs px-3 h-6">
+                    {pm}
+                  </TabsTrigger>
+                ))}
+              </TabsList>
+              {Object.entries(installCommands).map(([pm, cmd]) => (
+                <TabsContent key={pm} value={pm} className="mt-0">
+                  <div className="flex items-center justify-between rounded-lg border bg-muted/50 px-4 py-2.5 font-mono text-sm">
+                    <div className="flex items-center gap-2 text-muted-foreground overflow-x-auto">
+                      <Terminal className="h-3.5 w-3.5 shrink-0" />
+                      <span>{cmd}</span>
+                    </div>
+                    <CopyButton text={cmd} />
+                  </div>
+                </TabsContent>
+              ))}
+            </Tabs>
           </div>
         </section>
 
-        {/* Stats Row */}
-        <section className="mb-20 fade-in-up stagger-3">
-          <div className="grid grid-cols-3 gap-4 max-w-2xl mx-auto">
+        <Separator />
+
+        {/* Stats */}
+        <section className="py-16">
+          <div className="grid grid-cols-3 gap-8 text-center">
             {[
-              { label: 'Countries', value: stats.countries, icon: Globe, color: 'text-indigo-500' },
-              { label: 'States', value: stats.states, icon: Building, color: 'text-emerald-500' },
-              { label: 'Cities', value: stats.cities, icon: MapPin, color: 'text-amber-500' },
+              { label: 'Countries', value: stats.countries, icon: Globe },
+              { label: 'States', value: stats.states, icon: Building },
+              { label: 'Cities', value: stats.cities, icon: MapPin },
             ].map((stat) => (
-              <div key={stat.label} className="text-center">
-                <stat.icon className={`mx-auto mb-2 ${stat.color}`} size={28} />
-                <p className="text-3xl md:text-4xl font-bold number-ticker">
-                  {stat.value.toLocaleString()}
+              <div key={stat.label}>
+                <stat.icon className="mx-auto mb-2 h-5 w-5 text-muted-foreground" />
+                <p className="text-3xl font-bold tracking-tight sm:text-4xl">
+                  <AnimatedCounter target={stat.value} />
                 </p>
-                <p className="text-sm text-fd-muted-foreground mt-1">{stat.label}</p>
+                <p className="mt-1 text-sm text-muted-foreground">{stat.label}</p>
               </div>
             ))}
           </div>
         </section>
 
-        <div className="section-divider" />
+        <Separator />
 
-        {/* Features Grid */}
-        <section className="mb-20">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold mb-3">Built for Developers</h2>
-            <p className="text-fd-muted-foreground text-lg">
+        {/* Features */}
+        <section className="py-16">
+          <div className="text-center mb-10">
+            <h2 className="text-2xl font-bold tracking-tight sm:text-3xl">Built for Developers</h2>
+            <p className="mt-2 text-muted-foreground">
               Everything you need to work with location data
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {features.map((feature, index) => (
-              <div
-                key={index}
-                className={`glow-card gradient-border p-6 rounded-xl border border-fd-border ${feature.bg}`}
-              >
-                <div className="flex items-start gap-4">
-                  <div
-                    className={`w-12 h-12 rounded-xl bg-gradient-to-br ${feature.gradient} flex items-center justify-center shrink-0`}
-                  >
-                    <feature.icon size={22} className="text-white" />
+          <div className="grid gap-4 sm:grid-cols-2">
+            {[
+              {
+                icon: FileText,
+                title: 'Multiple Formats',
+                description: 'Export as JSON, CSV, XML, or YAML with a single method call.',
+              },
+              {
+                icon: Shield,
+                title: 'ISO Standards',
+                description: 'ISO 3166-1 compliant country codes trusted by enterprise apps.',
+              },
+              {
+                icon: Globe,
+                title: 'Global Coverage',
+                description:
+                  'Comprehensive data from 250+ countries with coordinates and metadata.',
+              },
+              {
+                icon: Code2,
+                title: 'Developer Ready',
+                description:
+                  'Full TypeScript support, tree-shakeable, works in Node.js and browsers.',
+              },
+            ].map((feature) => (
+              <Card key={feature.title} className="transition-colors hover:bg-muted/50">
+                <CardContent className="flex items-start gap-4 p-6">
+                  <div className="rounded-lg border bg-background p-2.5">
+                    <feature.icon className="h-5 w-5 text-foreground" />
                   </div>
                   <div>
-                    <h3 className="text-lg font-bold mb-1">{feature.title}</h3>
-                    <p className="text-sm text-fd-muted-foreground leading-relaxed">
+                    <h3 className="font-semibold">{feature.title}</h3>
+                    <p className="mt-1 text-sm text-muted-foreground leading-relaxed">
                       {feature.description}
                     </p>
                   </div>
-                </div>
-              </div>
+                </CardContent>
+              </Card>
             ))}
           </div>
         </section>
 
-        <div className="section-divider" />
+        <Separator />
 
         {/* MCP Highlight */}
-        <section className="mb-20">
-          <div className="hero-mesh overflow-hidden border border-indigo-200/50 dark:border-indigo-800/30 rounded-2xl p-8 md:p-12">
-            <div className="relative z-10 flex flex-col md:flex-row items-center gap-8">
-              <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-indigo-500 to-cyan-500 flex items-center justify-center shrink-0 pulse-glow">
-                <Cpu size={36} className="text-white" />
+        <section className="py-16">
+          <Card>
+            <CardContent className="flex flex-col items-center gap-6 p-8 sm:flex-row sm:p-10">
+              <div className="rounded-xl border bg-muted p-4">
+                <Cpu className="h-8 w-8" />
               </div>
-              <div className="flex-1 text-center md:text-left">
-                <span className="inline-block px-3 py-1 rounded-full bg-indigo-100 dark:bg-indigo-900/40 text-xs font-semibold text-indigo-700 dark:text-indigo-300 mb-3">
-                  New
-                </span>
-                <h2 className="text-2xl md:text-3xl font-bold mb-2">MCP Integration</h2>
-                <p className="text-fd-muted-foreground max-w-lg">
+              <div className="flex-1 text-center sm:text-left">
+                <div className="flex items-center justify-center gap-2 sm:justify-start">
+                  <h2 className="text-xl font-bold">MCP Integration</h2>
+                  <Badge variant="secondary" className="text-xs">
+                    New
+                  </Badge>
+                </div>
+                <p className="mt-2 text-sm text-muted-foreground max-w-md">
                   Connect directly to Claude Desktop and other MCP-compatible AI assistants. Query
                   countries, states, and cities through natural language.
                 </p>
               </div>
-              <Link
-                href="/docs/mcp"
-                className="inline-flex items-center gap-2 px-8 py-3 rounded-xl bg-fd-primary text-fd-primary-foreground font-semibold hover:opacity-90 transition-opacity shrink-0"
-              >
+              <Link href="/docs/mcp" className={cn(buttonVariants())}>
                 Learn More
-                <ArrowRight size={18} />
+                <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
-            </div>
-          </div>
+            </CardContent>
+          </Card>
         </section>
+
+        <Separator />
 
         {/* Quick Start */}
-        <section className="mb-20">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold mb-3">Quick Start</h2>
-            <p className="text-fd-muted-foreground text-lg">Up and running in seconds</p>
+        <section className="py-16">
+          <div className="text-center mb-10">
+            <h2 className="text-2xl font-bold tracking-tight sm:text-3xl">Quick Start</h2>
+            <p className="mt-2 text-muted-foreground">Up and running in seconds</p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="code-block-enhanced border border-fd-border rounded-xl overflow-hidden">
-              <div className="flex items-center gap-2 px-5 py-3 border-b border-fd-border">
-                <div className="flex gap-1.5">
-                  <span className="w-3 h-3 rounded-full bg-red-400/80" />
-                  <span className="w-3 h-3 rounded-full bg-amber-400/80" />
-                  <span className="w-3 h-3 rounded-full bg-green-400/80" />
-                </div>
-                <span className="text-xs text-fd-muted-foreground font-mono ml-2">install.sh</span>
+          <div className="grid gap-4 sm:grid-cols-2">
+            {/* Install */}
+            <Card>
+              <div className="flex items-center gap-2 border-b px-4 py-3">
+                <Terminal className="h-4 w-4 text-muted-foreground" />
+                <span className="text-xs font-medium text-muted-foreground">Terminal</span>
               </div>
-              <div className="p-5 bg-fd-card">
-                <code className="font-mono text-sm">
-                  <span className="text-fd-muted-foreground">$ </span>
+              <CardContent className="p-4">
+                <pre className="font-mono text-sm">
+                  <span className="text-muted-foreground">$ </span>
                   npm install @tansuasici/country-state-city
-                </code>
-              </div>
-            </div>
+                </pre>
+              </CardContent>
+            </Card>
 
-            <div className="code-block-enhanced border border-fd-border rounded-xl overflow-hidden">
-              <div className="flex items-center gap-2 px-5 py-3 border-b border-fd-border">
-                <div className="flex gap-1.5">
-                  <span className="w-3 h-3 rounded-full bg-red-400/80" />
-                  <span className="w-3 h-3 rounded-full bg-amber-400/80" />
-                  <span className="w-3 h-3 rounded-full bg-green-400/80" />
-                </div>
-                <span className="text-xs text-fd-muted-foreground font-mono ml-2">app.ts</span>
+            {/* Usage */}
+            <Card>
+              <div className="flex items-center gap-2 border-b px-4 py-3">
+                <Code2 className="h-4 w-4 text-muted-foreground" />
+                <span className="text-xs font-medium text-muted-foreground">app.ts</span>
               </div>
-              <pre className="p-5 text-sm font-mono overflow-x-auto bg-[#1e1b4b] dark:bg-[#0f0d1e] text-indigo-100">
-                {`import { CountryStateCity }
-  from '@tansuasici/country-state-city';
-
-const countries = CountryStateCity.getAllCountries();
-const states = CountryStateCity.getStatesByCountryId(225);`}
-              </pre>
-            </div>
+              <CardContent className="p-4">
+                <pre className="font-mono text-sm leading-relaxed overflow-x-auto">
+                  <span className="text-muted-foreground">{'import'}</span>
+                  {' { CountryStateCity }\n  '}
+                  <span className="text-muted-foreground">{'from'}</span>
+                  {" '@tansuasici/country-state-city';\n\n"}
+                  <span className="text-muted-foreground">{'const'}</span>
+                  {' countries = CountryStateCity.getAllCountries();\n'}
+                  <span className="text-muted-foreground">{'const'}</span>
+                  {' states = CountryStateCity.getStatesByCountryId(225);'}
+                </pre>
+              </CardContent>
+            </Card>
           </div>
         </section>
 
+        <Separator />
+
         {/* Footer */}
-        <footer className="border-t border-fd-border pt-8 pb-4">
-          <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
-            <p className="text-sm text-fd-muted-foreground">
-              &copy; {new Date().getFullYear()} Country State City. All rights reserved.
+        <footer className="py-8">
+          <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
+            <p className="text-sm text-muted-foreground">
+              &copy; {new Date().getFullYear()} Country State City
             </p>
-            <div className="flex items-center gap-4 text-sm text-fd-muted-foreground">
+            <div className="flex items-center gap-4 text-sm text-muted-foreground">
               <a
                 href="https://tansuasici.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hover:text-fd-foreground transition-colors"
+                className="hover:text-foreground transition-colors"
               >
                 tansuasici
               </a>
@@ -254,7 +326,7 @@ const states = CountryStateCity.getStatesByCountryId(225);`}
                 href="https://github.com/tansuasici/CountryStateCity"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hover:text-fd-foreground transition-colors"
+                className="hover:text-foreground transition-colors"
               >
                 GitHub
               </a>
@@ -262,7 +334,7 @@ const states = CountryStateCity.getStatesByCountryId(225);`}
                 href="https://www.npmjs.com/package/@tansuasici/country-state-city"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hover:text-fd-foreground transition-colors"
+                className="hover:text-foreground transition-colors"
               >
                 NPM
               </a>

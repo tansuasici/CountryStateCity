@@ -2,7 +2,6 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import {
-  Map,
   Globe,
   Building,
   MapPin,
@@ -11,7 +10,13 @@ import {
   Info,
   MapPinned,
   Trash2,
+  Map,
 } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Separator } from '@/components/ui/separator';
 import WorldMap from '@/components/WorldMap';
 import { Country, State, City } from '@/types';
 
@@ -150,254 +155,265 @@ export default function MapPage() {
   );
 
   return (
-    <div className="container mx-auto p-4 max-w-7xl">
+    <div className="mx-auto max-w-7xl px-6 py-8">
       {/* Header */}
-      <div className="mb-8">
-        <div className="flex items-center gap-3 mb-4">
-          <div className="p-2 bg-indigo-100 dark:bg-indigo-900/20 rounded-xl">
-            <Map className="text-indigo-600 dark:text-indigo-400" size={32} />
+      <div className="mb-6">
+        <div className="flex items-center gap-3 mb-3">
+          <div className="rounded-lg border bg-muted p-2">
+            <Map className="h-6 w-6" />
           </div>
           <div>
-            <h1 className="text-3xl font-bold">Interactive World Map</h1>
-            <p className="text-fd-muted-foreground">
+            <h1 className="text-2xl font-bold tracking-tight">Interactive World Map</h1>
+            <p className="text-sm text-muted-foreground">
               Explore countries, states, and cities on the map
             </p>
           </div>
         </div>
-        <div className="flex gap-4 mt-4">
-          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-fd-secondary text-fd-secondary-foreground text-sm">
-            <Globe size={14} /> {stats.countries} Countries
-          </span>
-          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-fd-secondary text-fd-secondary-foreground text-sm">
-            <Building size={14} /> {stats.states.toLocaleString()} States
-          </span>
-          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-fd-secondary text-fd-secondary-foreground text-sm">
-            <MapPin size={14} /> {stats.cities.toLocaleString()} Cities
-          </span>
+        <div className="flex gap-2 mt-3">
+          <Badge variant="secondary">
+            <Globe className="mr-1 h-3 w-3" /> {stats.countries} Countries
+          </Badge>
+          <Badge variant="secondary">
+            <Building className="mr-1 h-3 w-3" /> {stats.states.toLocaleString()} States
+          </Badge>
+          <Badge variant="secondary">
+            <MapPin className="mr-1 h-3 w-3" /> {stats.cities.toLocaleString()} Cities
+          </Badge>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-4">
         {/* Left Panel */}
-        <div className="lg:col-span-1 space-y-4">
+        <div className="space-y-4 lg:col-span-1">
           {/* Location Search */}
-          <div className="rounded-xl border border-fd-border bg-fd-card p-4 space-y-4">
-            <h3 className="text-lg font-semibold flex items-center gap-2">
-              <Search size={20} /> Location Search
-            </h3>
+          <Card>
+            <CardHeader className="pb-3">
+              <CardTitle className="flex items-center gap-2 text-base">
+                <Search className="h-4 w-4" /> Location Search
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-3">
+              {/* Country */}
+              <div>
+                <label className="text-xs font-medium text-muted-foreground mb-1 block">
+                  Country
+                </label>
+                <Input
+                  placeholder="Search countries..."
+                  value={
+                    selectedCountry
+                      ? `${selectedCountry.emoji} ${selectedCountry.name}`
+                      : countrySearch
+                  }
+                  onChange={(e) => {
+                    setCountrySearch(e.target.value);
+                    setSelectedCountry(null);
+                  }}
+                />
+                {countrySearch && !selectedCountry && (
+                  <div className="mt-1 max-h-48 overflow-y-auto rounded-md border bg-popover">
+                    {filteredCountries.slice(0, 20).map((country) => (
+                      <button
+                        key={country.id}
+                        onClick={() => {
+                          setSelectedCountry(country);
+                          setCountrySearch('');
+                        }}
+                        className="flex w-full items-center gap-2 px-3 py-1.5 text-sm hover:bg-accent text-left"
+                      >
+                        <span>{country.emoji}</span> {country.name}
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
 
-            {/* Country */}
-            <div>
-              <label className="text-sm font-medium text-fd-muted-foreground mb-1 block">
-                Country
-              </label>
-              <input
-                type="text"
-                placeholder="Search countries..."
-                value={
-                  selectedCountry
-                    ? `${selectedCountry.emoji} ${selectedCountry.name}`
-                    : countrySearch
-                }
-                onChange={(e) => {
-                  setCountrySearch(e.target.value);
-                  setSelectedCountry(null);
-                }}
-                className="w-full px-3 py-2 rounded-lg border border-fd-border bg-fd-background text-sm focus:outline-none focus:ring-2 focus:ring-fd-ring"
-              />
-              {countrySearch && !selectedCountry && (
-                <div className="mt-1 max-h-48 overflow-y-auto rounded-lg border border-fd-border bg-fd-card">
-                  {filteredCountries.slice(0, 20).map((country) => (
-                    <button
-                      key={country.id}
-                      onClick={() => {
-                        setSelectedCountry(country);
-                        setCountrySearch('');
-                      }}
-                      className="w-full px-3 py-2 text-left text-sm hover:bg-fd-accent flex items-center gap-2"
-                    >
-                      <span>{country.emoji}</span> {country.name}
-                    </button>
-                  ))}
+              {/* State */}
+              {states.length > 0 && (
+                <div>
+                  <label className="text-xs font-medium text-muted-foreground mb-1 block">
+                    State/Province
+                  </label>
+                  <Input
+                    placeholder="Search states..."
+                    value={selectedState ? selectedState.name : stateSearch}
+                    onChange={(e) => {
+                      setStateSearch(e.target.value);
+                      setSelectedState(null);
+                    }}
+                  />
+                  {stateSearch && !selectedState && (
+                    <div className="mt-1 max-h-48 overflow-y-auto rounded-md border bg-popover">
+                      {filteredStates.slice(0, 20).map((state) => (
+                        <button
+                          key={state.id}
+                          onClick={() => {
+                            setSelectedState(state);
+                            setStateSearch('');
+                          }}
+                          className="w-full px-3 py-1.5 text-sm hover:bg-accent text-left"
+                        >
+                          {state.name}
+                        </button>
+                      ))}
+                    </div>
+                  )}
                 </div>
               )}
-            </div>
 
-            {/* State */}
-            {states.length > 0 && (
-              <div>
-                <label className="text-sm font-medium text-fd-muted-foreground mb-1 block">
-                  State/Province
-                </label>
-                <input
-                  type="text"
-                  placeholder="Search states..."
-                  value={selectedState ? selectedState.name : stateSearch}
-                  onChange={(e) => {
-                    setStateSearch(e.target.value);
-                    setSelectedState(null);
-                  }}
-                  className="w-full px-3 py-2 rounded-lg border border-fd-border bg-fd-background text-sm focus:outline-none focus:ring-2 focus:ring-fd-ring"
-                />
-                {stateSearch && !selectedState && (
-                  <div className="mt-1 max-h-48 overflow-y-auto rounded-lg border border-fd-border bg-fd-card">
-                    {filteredStates.slice(0, 20).map((state) => (
-                      <button
-                        key={state.id}
-                        onClick={() => {
-                          setSelectedState(state);
-                          setStateSearch('');
-                        }}
-                        className="w-full px-3 py-2 text-left text-sm hover:bg-fd-accent"
-                      >
-                        {state.name}
-                      </button>
-                    ))}
-                  </div>
-                )}
+              {/* City */}
+              {cities.length > 0 && (
+                <div>
+                  <label className="text-xs font-medium text-muted-foreground mb-1 block">
+                    City
+                  </label>
+                  <Input
+                    placeholder="Search cities..."
+                    value={selectedCity ? selectedCity.name : citySearch}
+                    onChange={(e) => {
+                      setCitySearch(e.target.value);
+                      setSelectedCity(null);
+                    }}
+                  />
+                  {citySearch && !selectedCity && (
+                    <div className="mt-1 max-h-48 overflow-y-auto rounded-md border bg-popover">
+                      {filteredCities.slice(0, 20).map((city) => (
+                        <button
+                          key={city.id}
+                          onClick={() => {
+                            setSelectedCity(city);
+                            setCitySearch('');
+                          }}
+                          className="w-full px-3 py-1.5 text-sm hover:bg-accent text-left"
+                        >
+                          {city.name}
+                        </button>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              )}
+
+              <div className="flex gap-2 pt-1">
+                <Button
+                  variant="outline"
+                  size="icon"
+                  className="h-9 w-9 text-destructive"
+                  onClick={clearAll}
+                  disabled={!selectedCountry && !selectedState && !selectedCity}
+                >
+                  <Trash2 className="h-4 w-4" />
+                </Button>
+                <Button
+                  className="flex-1"
+                  onClick={locateOnMap}
+                  disabled={!selectedCountry && !selectedState && !selectedCity}
+                >
+                  <MapPinned className="mr-2 h-4 w-4" /> Locate
+                </Button>
               </div>
-            )}
-
-            {/* City */}
-            {cities.length > 0 && (
-              <div>
-                <label className="text-sm font-medium text-fd-muted-foreground mb-1 block">
-                  City
-                </label>
-                <input
-                  type="text"
-                  placeholder="Search cities..."
-                  value={selectedCity ? selectedCity.name : citySearch}
-                  onChange={(e) => {
-                    setCitySearch(e.target.value);
-                    setSelectedCity(null);
-                  }}
-                  className="w-full px-3 py-2 rounded-lg border border-fd-border bg-fd-background text-sm focus:outline-none focus:ring-2 focus:ring-fd-ring"
-                />
-                {citySearch && !selectedCity && (
-                  <div className="mt-1 max-h-48 overflow-y-auto rounded-lg border border-fd-border bg-fd-card">
-                    {filteredCities.slice(0, 20).map((city) => (
-                      <button
-                        key={city.id}
-                        onClick={() => {
-                          setSelectedCity(city);
-                          setCitySearch('');
-                        }}
-                        className="w-full px-3 py-2 text-left text-sm hover:bg-fd-accent"
-                      >
-                        {city.name}
-                      </button>
-                    ))}
-                  </div>
-                )}
-              </div>
-            )}
-
-            <div className="flex gap-2">
-              <button
-                onClick={clearAll}
-                disabled={!selectedCountry && !selectedState && !selectedCity}
-                className="p-2 rounded-lg border border-fd-border text-red-500 hover:bg-red-50 dark:hover:bg-red-950/20 disabled:opacity-40"
-              >
-                <Trash2 size={16} />
-              </button>
-              <button
-                onClick={locateOnMap}
-                disabled={!selectedCountry && !selectedState && !selectedCity}
-                className="flex-1 flex items-center justify-center gap-2 px-4 py-2 rounded-lg bg-fd-primary text-fd-primary-foreground text-sm font-medium hover:opacity-90 disabled:opacity-40"
-              >
-                <MapPinned size={16} /> Locate
-              </button>
-            </div>
-          </div>
+            </CardContent>
+          </Card>
 
           {/* Quick Actions */}
-          <div className="rounded-xl border border-fd-border bg-fd-card p-4 space-y-2">
-            <h3 className="text-lg font-semibold flex items-center gap-2">
-              <Layers size={20} /> Quick Actions
-            </h3>
-            <button
-              onClick={handleShowMultipleCountries}
-              className="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm hover:bg-fd-accent text-left"
-            >
-              <Globe size={16} /> Show Top 10 Countries
-            </button>
-            <button
-              onClick={handleShowCapitals}
-              className="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm hover:bg-fd-accent text-left"
-            >
-              <Building size={16} /> Show World Capitals
-            </button>
-          </div>
+          <Card>
+            <CardHeader className="pb-3">
+              <CardTitle className="flex items-center gap-2 text-base">
+                <Layers className="h-4 w-4" /> Quick Actions
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-1">
+              <Button
+                variant="ghost"
+                className="w-full justify-start h-9 text-sm"
+                onClick={handleShowMultipleCountries}
+              >
+                <Globe className="mr-2 h-4 w-4" /> Show Top 10 Countries
+              </Button>
+              <Button
+                variant="ghost"
+                className="w-full justify-start h-9 text-sm"
+                onClick={handleShowCapitals}
+              >
+                <Building className="mr-2 h-4 w-4" /> Show World Capitals
+              </Button>
+            </CardContent>
+          </Card>
 
           {/* Location Details */}
           {selectedCountry && (
-            <div className="rounded-xl border border-fd-border bg-fd-card p-4">
-              <h3 className="text-lg font-semibold flex items-center gap-2 mb-3">
-                <Info size={20} /> Location Details
-              </h3>
-              <div className="space-y-3">
+            <Card>
+              <CardHeader className="pb-3">
+                <CardTitle className="flex items-center gap-2 text-base">
+                  <Info className="h-4 w-4" /> Details
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-3">
                 <div className="flex items-center gap-2">
                   <span className="text-2xl">{selectedCountry.emoji}</span>
                   <div>
-                    <p className="font-semibold">{selectedCountry.name}</p>
-                    <p className="text-xs text-fd-muted-foreground">{selectedCountry.native}</p>
+                    <p className="font-semibold text-sm">{selectedCountry.name}</p>
+                    <p className="text-xs text-muted-foreground">{selectedCountry.native}</p>
                   </div>
                 </div>
-                <hr className="border-fd-border" />
-                <div className="text-sm space-y-1">
+                <Separator />
+                <div className="text-sm space-y-1.5">
                   {selectedCountry.capital && (
                     <div className="flex justify-between">
-                      <span className="text-fd-muted-foreground">Capital:</span>
+                      <span className="text-muted-foreground">Capital</span>
                       <span>{selectedCountry.capital}</span>
                     </div>
                   )}
                   {selectedCountry.currency && (
                     <div className="flex justify-between">
-                      <span className="text-fd-muted-foreground">Currency:</span>
+                      <span className="text-muted-foreground">Currency</span>
                       <span>{selectedCountry.currency}</span>
                     </div>
                   )}
                   {selectedCountry.phoneCode && (
                     <div className="flex justify-between">
-                      <span className="text-fd-muted-foreground">Phone:</span>
+                      <span className="text-muted-foreground">Phone</span>
                       <span>+{selectedCountry.phoneCode}</span>
                     </div>
                   )}
                   {selectedCountry.region && (
                     <div className="flex justify-between">
-                      <span className="text-fd-muted-foreground">Region:</span>
+                      <span className="text-muted-foreground">Region</span>
                       <span>{selectedCountry.region}</span>
                     </div>
                   )}
                 </div>
                 {selectedState && (
-                  <div className="mt-3">
-                    <p className="font-semibold flex items-center gap-2">
-                      <Building size={16} /> {selectedState.name}
-                    </p>
-                    {selectedState.stateCode && (
-                      <p className="text-xs text-fd-muted-foreground">
-                        Code: {selectedState.stateCode}
+                  <>
+                    <Separator />
+                    <div>
+                      <p className="font-semibold text-sm flex items-center gap-1.5">
+                        <Building className="h-3.5 w-3.5" /> {selectedState.name}
                       </p>
-                    )}
-                  </div>
+                      {selectedState.stateCode && (
+                        <p className="text-xs text-muted-foreground">
+                          Code: {selectedState.stateCode}
+                        </p>
+                      )}
+                    </div>
+                  </>
                 )}
                 {selectedCity && (
-                  <div className="mt-3">
-                    <p className="font-semibold flex items-center gap-2">
-                      <MapPin size={16} /> {selectedCity.name}
+                  <>
+                    <Separator />
+                    <p className="font-semibold text-sm flex items-center gap-1.5">
+                      <MapPin className="h-3.5 w-3.5" /> {selectedCity.name}
                     </p>
-                  </div>
+                  </>
                 )}
-              </div>
-            </div>
+              </CardContent>
+            </Card>
           )}
         </div>
 
         {/* Right Panel - Map */}
         <div className="lg:col-span-3">
-          <div className="rounded-xl border border-fd-border overflow-hidden">
+          <Card className="overflow-hidden">
             <WorldMap
               selectedCountry={selectedCountry}
               selectedState={selectedState}
@@ -406,7 +422,7 @@ export default function MapPage() {
               height="600px"
               onMapReady={handleMapReady}
             />
-          </div>
+          </Card>
         </div>
       </div>
     </div>
