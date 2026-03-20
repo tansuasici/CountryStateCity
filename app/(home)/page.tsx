@@ -110,7 +110,7 @@ export default function HomePage() {
             </Badge>
           </div>
 
-          <h1 className="animate-fade-up delay-100 font-[family-name:var(--font-display)] text-5xl leading-[1.1] tracking-tight sm:text-6xl md:text-7xl">
+          <h1 className="animate-fade-up delay-100 font-extrabold text-5xl leading-[1.1] tracking-tight sm:text-6xl md:text-7xl">
             World location data,
             <br />
             <span className="text-primary">beautifully structured.</span>
@@ -173,7 +173,7 @@ export default function HomePage() {
             ].map((stat) => (
               <div key={stat.label} className="text-center">
                 <stat.icon className="mx-auto mb-3 h-5 w-5 text-primary/70" />
-                <p className="font-[family-name:var(--font-display)] text-4xl tracking-tight sm:text-5xl">
+                <p className="font-extrabold text-4xl tracking-tight sm:text-5xl">
                   <AnimatedCounter target={stat.value} />
                 </p>
                 <p className="mt-1.5 text-sm text-muted-foreground tracking-wide uppercase">
@@ -191,7 +191,7 @@ export default function HomePage() {
           <p className="text-sm font-medium text-primary tracking-wide uppercase mb-3">
             Capabilities
           </p>
-          <h2 className="font-[family-name:var(--font-display)] text-3xl tracking-tight sm:text-4xl mb-4">
+          <h2 className="font-extrabold text-3xl tracking-tight sm:text-4xl mb-4">
             Built for developers
           </h2>
           <p className="text-muted-foreground max-w-md mb-10">
@@ -254,9 +254,7 @@ export default function HomePage() {
             </div>
             <div className="flex-1">
               <div className="flex items-center gap-2.5 mb-2">
-                <h2 className="font-[family-name:var(--font-display)] text-2xl tracking-tight">
-                  MCP Integration
-                </h2>
+                <h2 className="font-extrabold text-2xl tracking-tight">MCP Integration</h2>
                 <Badge variant="secondary" className="text-[10px] uppercase tracking-wider">
                   New
                 </Badge>
@@ -280,7 +278,7 @@ export default function HomePage() {
           <p className="text-sm font-medium text-primary tracking-wide uppercase mb-3">
             Quick Start
           </p>
-          <h2 className="font-[family-name:var(--font-display)] text-3xl tracking-tight sm:text-4xl mb-10">
+          <h2 className="font-extrabold text-3xl tracking-tight sm:text-4xl mb-10">
             Up and running in seconds
           </h2>
 

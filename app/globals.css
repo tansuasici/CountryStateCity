@@ -9,7 +9,7 @@
 @theme {
   --font-sans: var(--font-geist-sans, 'Geist', system-ui, sans-serif);
   --font-mono: var(--font-geist-mono, 'Geist Mono', monospace);
-  --font-display: var(--font-dm-serif-display, 'DM Serif Display', Georgia, serif);
+  --font-display: var(--font-sans);
 }
 
 @theme inline {

@@ -1,5 +1,5 @@
 import { RootProvider } from 'fumadocs-ui/provider/next';
-import { Geist, Geist_Mono, DM_Serif_Display } from 'next/font/google';
+import { Geist, Geist_Mono } from 'next/font/google';
 import type { Metadata, Viewport } from 'next';
 import type { ReactNode } from 'react';
 import pkg from '../package.json';
@@ -7,11 +7,6 @@ import './globals.css';
 
 const geist = Geist({ subsets: ['latin'], variable: '--font-sans' });
 const geistMono = Geist_Mono({ subsets: ['latin'], variable: '--font-mono' });
-const dmSerif = DM_Serif_Display({
-  weight: '400',
-  subsets: ['latin'],
-  variable: '--font-display',
-});
 
 const siteUrl = 'https://countrystatecity.tansuasici.com';
 
@@ -113,9 +108,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body
-        className={`${geist.variable} ${geistMono.variable} ${dmSerif.variable} font-sans antialiased`}
-      >
+      <body className={`${geist.variable} ${geistMono.variable} font-sans antialiased`}>
         <RootProvider>{children}</RootProvider>
       </body>
     </html>
