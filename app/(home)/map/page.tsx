@@ -413,7 +413,7 @@ export default function MapPage() {
 
         {/* Right Panel - Map */}
         <div className="lg:col-span-3">
-          <Card className="overflow-hidden">
+          <div className="overflow-hidden rounded-lg">
             <WorldMap
               selectedCountry={selectedCountry}
               selectedState={selectedState}
@@ -422,7 +422,7 @@ export default function MapPage() {
               height="600px"
               onMapReady={handleMapReady}
             />
-          </Card>
+          </div>
         </div>
       </div>
     </div>

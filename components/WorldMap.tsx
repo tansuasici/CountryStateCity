@@ -5,11 +5,14 @@ import dynamic from 'next/dynamic';
 import { MapPin, Globe, ZoomIn, ZoomOut, Home } from 'lucide-react';
 import { Country, State, City } from '@/types';
 
+const TILE_LIGHT = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+const TILE_DARK = 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png';
+
 const MapContainer = dynamic(() => import('react-leaflet').then((mod) => mod.MapContainer), {
   ssr: false,
   loading: () => (
     <div className="h-full flex items-center justify-center">
-      <div className="animate-spin w-8 h-8 border-2 border-fd-primary border-t-transparent rounded-full" />
+      <div className="animate-spin w-8 h-8 border-2 border-primary border-t-transparent rounded-full" />
     </div>
   ),
 });
@@ -55,19 +58,19 @@ const MapControlsInner = dynamic(
           <div className="absolute top-4 right-4 z-[1000] flex flex-col gap-2">
             <button
               onClick={() => map.zoomIn()}
-              className="w-8 h-8 flex items-center justify-center rounded-lg bg-white/90 dark:bg-neutral-800/90 backdrop-blur border border-neutral-200 dark:border-neutral-700 hover:bg-white dark:hover:bg-neutral-700"
+              className="w-8 h-8 flex items-center justify-center rounded-lg bg-background/90 backdrop-blur border hover:bg-muted"
             >
               <ZoomIn size={18} />
             </button>
             <button
               onClick={() => map.zoomOut()}
-              className="w-8 h-8 flex items-center justify-center rounded-lg bg-white/90 dark:bg-neutral-800/90 backdrop-blur border border-neutral-200 dark:border-neutral-700 hover:bg-white dark:hover:bg-neutral-700"
+              className="w-8 h-8 flex items-center justify-center rounded-lg bg-background/90 backdrop-blur border hover:bg-muted"
             >
               <ZoomOut size={18} />
             </button>
             <button
               onClick={() => map.setView([20, 0], 2)}
-              className="w-8 h-8 flex items-center justify-center rounded-lg bg-white/90 dark:bg-neutral-800/90 backdrop-blur border border-neutral-200 dark:border-neutral-700 hover:bg-white dark:hover:bg-neutral-700"
+              className="w-8 h-8 flex items-center justify-center rounded-lg bg-background/90 backdrop-blur border hover:bg-muted"
             >
               <Home size={18} />
             </button>
@@ -91,9 +94,19 @@ export default function WorldMap({
   onMapReady,
 }: WorldMapProps) {
   const [isClient, setIsClient] = useState(false);
+  const [isDark, setIsDark] = useState(false);
 
   useEffect(() => {
     setIsClient(true);
+
+    // Detect dark mode
+    const html = document.documentElement;
+    setIsDark(html.classList.contains('dark'));
+    const observer = new MutationObserver(() => {
+      setIsDark(html.classList.contains('dark'));
+    });
+    observer.observe(html, { attributes: true, attributeFilter: ['class'] });
+
     import('leaflet').then((leaflet) => {
       delete (leaflet.default.Icon.Default.prototype as any)._getIconUrl;
       leaflet.default.Icon.Default.mergeOptions({
@@ -103,6 +116,8 @@ export default function WorldMap({
         shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-shadow.png',
       });
     });
+
+    return () => observer.disconnect();
   }, []);
 
   const getMapConfig = () => {
@@ -165,14 +180,16 @@ export default function WorldMap({
 
   if (!isClient) {
     return (
-      <div
-        style={{ height }}
-        className="flex items-center justify-center bg-fd-secondary rounded-lg"
-      >
-        <div className="animate-spin w-8 h-8 border-2 border-fd-primary border-t-transparent rounded-full" />
+      <div style={{ height }} className="flex items-center justify-center bg-muted rounded-lg">
+        <div className="animate-spin w-8 h-8 border-2 border-primary border-t-transparent rounded-full" />
       </div>
     );
   }
+
+  const tileUrl = isDark ? TILE_DARK : TILE_LIGHT;
+  const attribution = isDark
+    ? '&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a> &copy; <a href="https://carto.com/">CARTO</a>'
+    : '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
 
   return (
     <div style={{ height }} className="relative rounded-lg overflow-hidden">
@@ -183,10 +200,7 @@ export default function WorldMap({
         crossOrigin=""
       />
       <MapContainer center={center} zoom={zoom} className="h-full w-full" scrollWheelZoom={true}>
-        <TileLayer
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        />
+        <TileLayer key={tileUrl} attribution={attribution} url={tileUrl} />
         <MapControls onMapReady={onMapReady} />
         {allMarkers.map((marker, index) => (
           <Marker key={`${marker.type}-${index}`} position={[marker.lat, marker.lng]}>

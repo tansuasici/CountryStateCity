@@ -1,15 +1,19 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { Play, Copy, Download, Globe, Building, MapPin } from 'lucide-react';
+import { useState, useEffect, useCallback } from 'react';
+import { Play, Copy, Download, Check, Search } from 'lucide-react';
 import { CountryStateCity as CSC } from '../countrystatecity-npm/src/index.browser';
 import { formatCountries, formatStates, formatCities } from '@/lib/formatters';
 import { Country, State, City } from '@/types';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
 
 export default function DataPlaygroundMDX() {
   const [selectedAction, setSelectedAction] = useState('getCountries');
   const [selectedCountry, setSelectedCountry] = useState('');
   const [selectedState, setSelectedState] = useState('');
+  const [searchQuery, setSearchQuery] = useState('');
   const [selectedFormat, setSelectedFormat] = useState('json');
   const [result, setResult] = useState('');
   const [countries, setCountries] = useState<Country[]>([]);
@@ -50,8 +54,24 @@ export default function DataPlaygroundMDX() {
           if (selectedState)
             data = (CSC.getCitiesByStateId(Number(selectedState)) as City[]).slice(0, 20);
           break;
+        case 'searchCountries':
+          if (searchQuery) data = CSC.searchCountries(searchQuery);
+          break;
+        case 'searchStates':
+          if (searchQuery)
+            data = CSC.searchStates(
+              searchQuery,
+              selectedCountry ? Number(selectedCountry) : undefined
+            );
+          break;
         default:
           data = { message: 'Select an action to execute' };
+      }
+
+      if (!data) {
+        setResult('No results found. Make sure you filled in the required fields.');
+        setLoading(false);
+        return;
       }
 
       const dataArray = Array.isArray(data) ? data : [data];
@@ -87,13 +107,13 @@ export default function DataPlaygroundMDX() {
     }
   };
 
-  const copyResult = () => {
+  const copyResult = useCallback(() => {
     navigator.clipboard.writeText(result);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
-  };
+  }, [result]);
 
-  const downloadResult = () => {
+  const downloadResult = useCallback(() => {
     const blob = new Blob([result], { type: 'text/plain' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
@@ -103,40 +123,52 @@ export default function DataPlaygroundMDX() {
     a.click();
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
-  };
+  }, [result, selectedFormat]);
+
+  const needsCountry =
+    selectedAction === 'getCountryById' ||
+    selectedAction === 'getStatesByCountryId' ||
+    selectedAction === 'getCitiesByStateId' ||
+    selectedAction === 'searchStates';
+
+  const needsSearch = selectedAction === 'searchCountries' || selectedAction === 'searchStates';
 
   return (
     <div className="space-y-6 p-6">
       <div>
-        <h2 className="text-2xl font-bold mb-2">Interactive Playground</h2>
-        <p className="text-fd-muted-foreground">Test the API and explore available data</p>
+        <h2 className="text-2xl font-bold mb-1">Interactive Playground</h2>
+        <p className="text-sm text-muted-foreground">Test the API and explore available data</p>
       </div>
 
       {/* Controls */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <div>
-          <label className="text-sm font-medium mb-1 block">Action</label>
+          <label className="text-xs font-medium text-muted-foreground mb-1 block">Action</label>
           <select
             value={selectedAction}
             onChange={(e) => setSelectedAction(e.target.value)}
-            className="w-full px-3 py-2 rounded-lg border border-fd-border bg-fd-background text-sm focus:outline-none focus:ring-2 focus:ring-fd-ring"
+            className="w-full h-9 px-3 rounded-lg border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-ring"
           >
-            <option value="getCountries">Get Countries (First 10)</option>
-            <option value="getCountryById">Get Country by ID</option>
-            <option value="getStatesByCountryId">Get States by Country</option>
-            <option value="getCitiesByStateId">Get Cities by State</option>
+            <optgroup label="Get Data">
+              <option value="getCountries">Get Countries (First 10)</option>
+              <option value="getCountryById">Get Country by ID</option>
+              <option value="getStatesByCountryId">Get States by Country</option>
+              <option value="getCitiesByStateId">Get Cities by State</option>
+            </optgroup>
+            <optgroup label="Search">
+              <option value="searchCountries">Search Countries</option>
+              <option value="searchStates">Search States</option>
+            </optgroup>
           </select>
         </div>
 
-        {(selectedAction === 'getCountryById' ||
-          selectedAction === 'getStatesByCountryId' ||
-          selectedAction === 'getCitiesByStateId') && (
+        {needsCountry && (
           <div>
-            <label className="text-sm font-medium mb-1 block">Country</label>
+            <label className="text-xs font-medium text-muted-foreground mb-1 block">Country</label>
             <select
               value={selectedCountry}
               onChange={(e) => setSelectedCountry(e.target.value)}
-              className="w-full px-3 py-2 rounded-lg border border-fd-border bg-fd-background text-sm focus:outline-none focus:ring-2 focus:ring-fd-ring"
+              className="w-full h-9 px-3 rounded-lg border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-ring"
             >
               <option value="">Select country...</option>
               {countries.map((c) => (
@@ -150,11 +182,11 @@ export default function DataPlaygroundMDX() {
 
         {selectedAction === 'getCitiesByStateId' && states.length > 0 && (
           <div>
-            <label className="text-sm font-medium mb-1 block">State</label>
+            <label className="text-xs font-medium text-muted-foreground mb-1 block">State</label>
             <select
               value={selectedState}
               onChange={(e) => setSelectedState(e.target.value)}
-              className="w-full px-3 py-2 rounded-lg border border-fd-border bg-fd-background text-sm focus:outline-none focus:ring-2 focus:ring-fd-ring"
+              className="w-full h-9 px-3 rounded-lg border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-ring"
             >
               <option value="">Select state...</option>
               {states.map((s) => (
@@ -166,12 +198,29 @@ export default function DataPlaygroundMDX() {
           </div>
         )}
 
+        {needsSearch && (
+          <div>
+            <label className="text-xs font-medium text-muted-foreground mb-1 block">
+              Search Query
+            </label>
+            <div className="relative">
+              <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
+              <Input
+                placeholder="e.g. Turkey, California..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="pl-8"
+              />
+            </div>
+          </div>
+        )}
+
         <div>
-          <label className="text-sm font-medium mb-1 block">Format</label>
+          <label className="text-xs font-medium text-muted-foreground mb-1 block">Format</label>
           <select
             value={selectedFormat}
             onChange={(e) => setSelectedFormat(e.target.value)}
-            className="w-full px-3 py-2 rounded-lg border border-fd-border bg-fd-background text-sm focus:outline-none focus:ring-2 focus:ring-fd-ring"
+            className="w-full h-9 px-3 rounded-lg border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-ring"
           >
             <option value="json">JSON</option>
             <option value="csv">CSV</option>
@@ -183,44 +232,34 @@ export default function DataPlaygroundMDX() {
 
       {/* Execute */}
       <div className="flex gap-2">
-        <button
-          onClick={executeAction}
-          disabled={loading}
-          className="flex items-center gap-2 px-4 py-2 rounded-lg bg-fd-primary text-fd-primary-foreground text-sm font-medium hover:opacity-90 disabled:opacity-50"
-        >
-          <Play size={16} />
+        <Button onClick={executeAction} disabled={loading}>
+          <Play className="mr-1.5 h-4 w-4" />
           {loading ? 'Loading...' : 'Execute'}
-        </button>
+        </Button>
         {result && (
           <>
-            <button
-              onClick={copyResult}
-              className="flex items-center gap-2 px-4 py-2 rounded-lg border border-fd-border text-sm hover:bg-fd-accent"
-            >
-              <Copy size={16} />
+            <Button variant="outline" onClick={copyResult}>
+              {copied ? <Check className="mr-1.5 h-4 w-4" /> : <Copy className="mr-1.5 h-4 w-4" />}
               {copied ? 'Copied!' : 'Copy'}
-            </button>
-            <button
-              onClick={downloadResult}
-              className="flex items-center gap-2 px-4 py-2 rounded-lg border border-fd-border text-sm hover:bg-fd-accent"
-            >
-              <Download size={16} />
+            </Button>
+            <Button variant="outline" onClick={downloadResult}>
+              <Download className="mr-1.5 h-4 w-4" />
               Download
-            </button>
+            </Button>
           </>
         )}
       </div>
 
       {/* Result */}
       {result && (
-        <div className="rounded-xl border border-fd-border overflow-hidden">
-          <div className="px-4 py-2 border-b border-fd-border bg-fd-muted/50">
+        <Card>
+          <div className="border-b px-4 py-2">
             <span className="text-sm font-medium">Result</span>
           </div>
-          <pre className="p-4 text-sm font-mono overflow-auto max-h-[400px] bg-fd-card">
-            {result}
-          </pre>
-        </div>
+          <CardContent className="p-0">
+            <pre className="p-4 text-sm font-mono overflow-auto max-h-[400px]">{result}</pre>
+          </CardContent>
+        </Card>
       )}
     </div>
   );
