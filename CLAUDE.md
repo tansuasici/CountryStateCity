@@ -115,10 +115,11 @@ npm run test             # Run tests with Vitest
 
 ### Data Format
 
-- City data uses an **optimized/compressed format** in `city.json`:
-  - `i` = id, `n` = name, `s` = stateId, `c` = countryId, `la` = latitude, `lo` = longitude, `w` = wikiDataId
-  - Both browser and node builds handle decompression at runtime
-- Country and state data use standard full-field JSON format
+- Two city datasets live in `data/`:
+  - `city.json` (~42 MB) — **full** field format (`id`, `name`, `stateId`, `stateCode`, `stateName`, `countryId`, ...). Used by the **Node** build (read from disk on demand).
+  - `city-optimized.json` (~12 MB) — **compressed** format (`i`=id, `n`=name, `s`=stateId, `c`=countryId, `la`=latitude, `lo`=longitude, `w`=wikiDataId). Used by the **browser** build, which decompresses to full City objects at runtime (`loadCities()` in `index.browser.ts`).
+- Country and state data use standard full-field JSON format.
+- The web app shows dataset totals via `lib/stats.ts` constants — it does NOT load the city dataset just to display counts.
 
 ### Component Patterns
 

@@ -23,6 +23,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Separator } from '@/components/ui/separator';
 import { cn } from '@/lib/utils';
 import pkg from '../../package.json';
+import { STATS } from '@/lib/stats';
 
 /* ---- Animated Counter ---- */
 function AnimatedCounter({ target, duration = 1800 }: { target: number; duration?: number }) {
@@ -88,16 +89,8 @@ const installCommands: Record<string, string> = {
 };
 
 export default function HomePage() {
-  const [stats, setStats] = useState({ countries: 0, states: 0, cities: 0 });
+  const stats = STATS;
   const [activeTab, setActiveTab] = useState('npm');
-
-  useEffect(() => {
-    const loadStats = async () => {
-      const { getStats } = await import('@/lib/countries');
-      setStats(getStats());
-    };
-    loadStats();
-  }, []);
 
   return (
     <div className="min-h-screen">
