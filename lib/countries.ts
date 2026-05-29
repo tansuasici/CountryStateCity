@@ -1,10 +1,13 @@
 import { CountryStateCity } from '../countrystatecity-npm/src/index.browser';
 import { Country, State, City } from '@/types';
+import { STATS } from '@/lib/stats';
 
-// Load data from NPM package
+// Countries (~250) and states (~5k) are small and are read eagerly.
+// Cities (~148k) are intentionally NOT loaded here — they are only
+// decompressed on first city access, keeping the heavy dataset out of
+// the initial page load.
 const countries: Country[] = CountryStateCity.getAllCountries() as Country[];
 const states: State[] = CountryStateCity.getAllStates() as State[];
-const cities: City[] = CountryStateCity.getAllCities() as City[];
 
 // Helper functions for data access
 export const getCountries = (limit?: number): Country[] => {
@@ -29,16 +32,18 @@ export const getStateById = (id: number): State | undefined => {
   return states.find((state) => state.id === id);
 };
 
+// City accessors delegate to the package, which lazy-loads + decompresses
+// the city dataset on first use (keeps it out of the initial bundle path).
 export const getCitiesByStateId = (stateId: number): City[] => {
-  return cities.filter((city) => city.stateId === stateId);
+  return CountryStateCity.getCitiesByStateId(stateId) as City[];
 };
 
 export const getCityById = (id: number): City | undefined => {
-  return cities.find((city) => city.id === id);
+  return CountryStateCity.getCityById(id) as City | undefined;
 };
 
 export const getCitiesByCountryId = (countryId: number): City[] => {
-  return cities.filter((city) => city.countryId === countryId);
+  return CountryStateCity.getCitiesByCountryId(countryId) as City[];
 };
 
 // Search functions
@@ -69,26 +74,18 @@ export const searchStates = (query: string, countryId?: number): State[] => {
 };
 
 export const searchCities = (query: string, stateId?: number, countryId?: number): City[] => {
-  const searchTerm = query.toLowerCase();
-  let filteredCities = cities;
-
-  if (stateId) {
-    filteredCities = cities.filter((city) => city.stateId === stateId);
-  } else if (countryId) {
-    filteredCities = cities.filter((city) => city.countryId === countryId);
-  }
-
-  return filteredCities.filter((city) => city.name.toLowerCase().includes(searchTerm));
+  return CountryStateCity.searchCities(query, stateId, countryId) as City[];
 };
 
-// Statistics
+// Statistics — uses precomputed totals so this never forces the full
+// city dataset to load just to display a count.
 export const getStats = () => {
   return {
     countries: countries.length,
     states: states.length,
-    cities: cities.length,
+    cities: STATS.cities,
   };
 };
 
-// Export all data for different formats
-export { countries, states, cities };
+// Export country/state data for direct use (cities load on demand).
+export { countries, states };
