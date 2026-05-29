@@ -111,7 +111,7 @@
     "js-yaml": "^4.1.1",
     "leaflet": "^1.9.4",
     "lucide-react": "^0.539.0",
-    "next": "^16.2.0",
+    "next": "^16.2.6",
     "postcss": "^8.4.33",
     "react": ">=17.0.0",
     "react-dom": ">=17.0.0",
@@ -124,7 +124,7 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.3",
-    "@rollup/plugin-commonjs": "^28.0.6",
+    "@rollup/plugin-commonjs": "^29.0.3",
     "@rollup/plugin-json": "^6.1.0",
     "@rollup/plugin-node-resolve": "^16.0.1",
     "@rollup/plugin-terser": "^0.4.4",
@@ -132,9 +132,9 @@
     "@types/leaflet": "^1.9.21",
     "@types/mdx": "^2.0.13",
     "@types/node": "^20",
-    "@types/react": "^19",
+    "@types/react": "^19.2.15",
     "@types/react-dom": "^19",
-    "@vitest/coverage-v8": "^4.0.18",
+    "@vitest/coverage-v8": "^4.1.7",
     "env-cmd": "^10.1.0",
     "esbuild": "^0.25.9",
     "eslint-config-next": "^16.2.0",
@@ -145,7 +145,7 @@
     "rollup": "^4.49.0",
     "tsx": "^4.21.0",
     "typescript": "^5",
-    "vitest": "^4.0.18"
+    "vitest": "^4.1.7"
   },
   "peerDependencies": {
     "react": ">=17.0.0",
