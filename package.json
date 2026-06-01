@@ -131,7 +131,7 @@
     "fumadocs-ui": "^16.6.16",
     "husky": "^9.1.7",
     "leaflet": "^1.9.4",
-    "lint-staged": "^16.2.7",
+    "lint-staged": "^17.0.7",
     "lucide-react": "^0.539.0",
     "next": "^16.2.6",
     "postcss": "^8.4.33",
