@@ -10,6 +10,7 @@
     "---Hosted API---",
     "hosted-api",
     "graphql",
+    "errors",
     "api-policy",
     "api-playground",
     "---",

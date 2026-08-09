@@ -1,0 +1,90 @@
+---
+title: Errors
+description: Error response shape, status and error codes, rate-limit headers, and retry guidance for the hosted API.
+---
+
+import { Callout } from 'fumadocs-ui/components/callout';
+
+Every failed request returns the same envelope, so a single handler covers all of them:
+
+```json
+{
+  "error": {
+    "code": "rate_limit_exceeded",
+    "message": "Rate limit exceeded."
+  },
+  "meta": {
+    "apiVersion": "v1",
+    "dataVersion": "2026-08-06.1",
+    "source": "countrystatecity"
+  }
+}
+```
+
+Branch on `error.code` rather than on `message`. Messages are written for humans and may be
+reworded; codes are part of the contract and change only with a new major version.
+
+## Status and error codes
+
+| Status | `error.code` | Cause | What to do |
+| --- | --- | --- | --- |
+| `400` | `invalid_fields` | A query or body parameter failed validation | Fix the parameter. The message names the offending field |
+| `401` | `invalid_api_key` | Missing or unrecognised `x-api-key` header | Check the header name and that the key is active |
+| `404` | `country_not_found` | The requested country code has no record | Verify the ISO code against [Data coverage](/docs/data-coverage) |
+| `405` | `method_not_allowed` | Wrong HTTP verb for the route | Data routes are `GET`; GraphQL is `POST` |
+| `413` | `body_too_large` | Payload exceeded the documented cap | Split the batch. See [Limits & policy](/docs/api-policy) |
+| `429` | `rate_limit_exceeded` | Per-key rate limit exhausted | Back off until `X-RateLimit-Reset`, then retry |
+| `500` | `internal_error` | Unexpected server-side failure | Retry with backoff. Report with the `X-Request-Id` |
+| `503` | — | API-key configuration is absent, so data routes fail closed | Transient on our side; retry with backoff |
+
+<Callout type="info">
+  `503` is a deployment state, not a per-request fault: the service refuses to serve data routes
+  rather than serve them unauthenticated. Public discovery and health routes stay available.
+</Callout>
+
+## Response headers
+
+Present on every response, including errors:
+
+| Header | Meaning |
+| --- | --- |
+| `X-Request-Id` | Unique per request. Include it in any bug report |
+| `X-RateLimit-Limit` | Requests allowed in the current window |
+| `X-RateLimit-Remaining` | Requests left in the current window |
+| `X-RateLimit-Reset` | When the window resets |
+| `X-Data-Version` | Dataset snapshot the response was served from |
+| `X-Cache` | Whether the response came from cache |
+
+## Handling rate limits
+
+Read the remaining budget from the headers rather than counting requests yourself — the window is
+enforced per key, so other processes sharing the key also consume it.
+
+```javascript
+async function request(path, { retries = 3 } = {}) {
+  const response = await fetch(`https://countrystatecity.tansuasici.com${path}`, {
+    headers: { 'x-api-key': process.env.CSC_API_KEY },
+  });
+
+  if (response.status === 429 && retries > 0) {
+    const reset = Number(response.headers.get('X-RateLimit-Reset')) || 1;
+    await new Promise((resolve) => setTimeout(resolve, reset * 1000));
+    return request(path, { retries: retries - 1 });
+  }
+
+  if (!response.ok) {
+    const { error } = await response.json();
+    throw new Error(`${error.code}: ${error.message}`);
+  }
+
+  return response.json();
+}
+```
+
+Retry `429`, `500`, and `503`. Do not retry `400`, `401`, `404`, `405`, or `413` — they fail the
+same way every time until the request itself changes.
+
+<Callout type="warn">
+  Keep the API key server-side. A key in a browser bundle is readable by anyone, and the rate limit
+  is shared across every caller using it.
+</Callout>
