@@ -29,6 +29,12 @@ environment variables; do not embed them in browser bundles.
 | Hosted reverse-geocoding batch | 1,000 points and 128 KiB |
 | GraphQL request body | 32 KiB |
 
+Every authenticated request carries `X-RateLimit-Limit`, `X-RateLimit-Remaining`, and
+`X-RateLimit-Reset`. Read the remaining budget from those headers instead of counting requests
+locally — the window is enforced per key, so anything else sharing the key draws from the same
+allowance. `X-RateLimit-Reset` is a Unix timestamp in seconds. See [Errors](/docs/errors) for the
+`429` shape and a retry example.
+
 <Callout type="warn">
   Plan quotas are currently marked as a product hypothesis in the machine-readable policy. Treat
   them as the current operating contract, not a permanent pricing guarantee.
@@ -38,7 +44,8 @@ environment variables; do not embed them in browser bundles.
 
 Cacheable responses use a 60-second private TTL and a 300-second stale-while-revalidate window.
 Use `ETag` with `If-None-Match` for conditional requests. `X-Cache` reports cache behavior and
-`X-Data-Version` identifies the exact dataset snapshot.
+`X-Data-Version` identifies the exact dataset snapshot. `X-Request-Id` is unique per request —
+include it when reporting a problem.
 
 ## Versioning and deprecation
 

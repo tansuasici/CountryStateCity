@@ -1,0 +1,103 @@
+---
+title: Errors
+description: Error response shape, status and error codes, rate-limit headers, and retry guidance for the hosted API.
+---
+
+import { Callout } from 'fumadocs-ui/components/callout';
+
+REST failures return the same envelope, so a single handler covers them:
+
+```json
+{
+  "error": {
+    "code": "rate_limit_exceeded",
+    "message": "Rate limit exceeded."
+  },
+  "meta": {
+    "apiVersion": "v1",
+    "dataVersion": "sha256:14b24c…",
+    "source": {
+      "name": "CountryStateCity derivative database",
+      "license": {
+        "id": "ODbL-1.0"
+      }
+    }
+  }
+}
+```
+
+Branch on `error.code` rather than on `message`. Messages are written for humans and may be
+reworded; codes are part of the contract and change only with a new major version. GraphQL
+validation and execution failures use the standard GraphQL `errors` array instead of this REST
+envelope.
+
+## Status and error codes
+
+| Status | `error.code` | Cause | What to do |
+| --- | --- | --- | --- |
+| `400` | `invalid_fields`, `invalid_limit`, `invalid_offset` | Field selection or pagination failed validation | Fix the parameter named by the message |
+| `400` | `country_required`, `query_too_short` | A required query parameter is missing or too short | Supply the required value |
+| `400` | `invalid_types`, `invalid_coordinate` | Entity types or WGS84 coordinates failed validation | Use a supported type or valid coordinate |
+| `400` | `invalid_json`, `points_required`, `batch_too_large`, `query_required` | A POST body is invalid | Correct the JSON, required value, or batch size |
+| `401` | `invalid_api_key` | Missing or unrecognised `x-api-key` header | Check the header name and that the key is active |
+| `404` | `country_not_found`, `not_found` | The requested country or API route has no record | Verify the ISO code or route |
+| `405` | `method_not_allowed` | Wrong HTTP verb for the route | Data routes are `GET`; GraphQL is `POST` |
+| `413` | `body_too_large` | Payload exceeded the documented cap | Split the batch. See [Limits & policy](/docs/api-policy) |
+| `429` | `rate_limit_exceeded` | Per-key rate limit exhausted | Back off until `X-RateLimit-Reset`, then retry |
+| `500` | `internal_error` | Unexpected server-side failure | Retry with backoff. Report with the `X-Request-Id` |
+| `503` | `authentication_not_configured` | API-key configuration is absent, so data routes fail closed | Transient on our side; retry with backoff |
+
+<Callout type="info">
+  `503` is a deployment state, not a per-request fault: the service refuses to serve data routes
+  rather than serve them unauthenticated. Public discovery and health routes stay available.
+</Callout>
+
+## Response headers
+
+Normal API responses and REST errors carry the common headers below. Rate-limit headers are added
+only after a private request has supplied a valid API key; public routes, `401`, and `503`
+responses therefore do not carry them.
+
+| Header | Meaning |
+| --- | --- |
+| `X-Request-Id` | Unique per request. Include it in any bug report |
+| `X-RateLimit-Limit` | Requests allowed in the current window |
+| `X-RateLimit-Remaining` | Requests left in the current window |
+| `X-RateLimit-Reset` | Unix timestamp in seconds when the window resets |
+| `X-Data-Version` | Dataset snapshot the response was served from |
+| `X-Cache` | Whether the response came from cache |
+
+## Handling rate limits
+
+Read the remaining budget from the headers rather than counting requests yourself — the window is
+enforced per key, so other processes sharing the key also consume it.
+
+```javascript
+async function request(path, { retries = 3 } = {}) {
+  const response = await fetch(`https://countrystatecity.tansuasici.com${path}`, {
+    headers: { 'x-api-key': process.env.CSC_API_KEY },
+  });
+
+  if (response.status === 429 && retries > 0) {
+    const resetAt = Number(response.headers.get('X-RateLimit-Reset')) * 1000;
+    const delayMs = Number.isFinite(resetAt) ? Math.max(0, resetAt - Date.now()) : 1_000;
+    await new Promise((resolve) => setTimeout(resolve, delayMs));
+    return request(path, { retries: retries - 1 });
+  }
+
+  if (!response.ok) {
+    const { error } = await response.json();
+    throw new Error(`${error.code}: ${error.message}`);
+  }
+
+  return response.json();
+}
+```
+
+Retry `429`, `500`, and `503`. Do not retry `400`, `401`, `404`, `405`, or `413` — they fail the
+same way every time until the request itself changes.
+
+<Callout type="warn">
+  Keep the API key server-side. A key in a browser bundle is readable by anyone, and the rate limit
+  is shared across every caller using it.
+</Callout>
