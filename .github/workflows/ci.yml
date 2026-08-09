@@ -37,8 +37,7 @@ jobs:
       - run: npm run test:web-boundaries
       - run: npm run data:web-maplibre
       - run: npm run test:web-maplibre
-      - run: npm run data:version-diff
-      - run: npm run data:web-version-diffs
+      - run: npm run test:version-diff
       - run: npm run test:web-version-diffs
       - run: npm run test:identity
       - run: npm run test:data-sync
