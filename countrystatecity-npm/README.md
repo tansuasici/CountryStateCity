@@ -1,27 +1,31 @@
 # @tansuasici/country-state-city
 
-[![npm version](https://badge.fury.io/js/@tansuasici%2Fcountry-state-city.svg)](https://www.npmjs.com/package/@tansuasici/country-state-city)
-[![Code: MIT](https://img.shields.io/badge/Code-MIT-yellow.svg)](../LICENSE)
-[![Data: ODbL 1.0](https://img.shields.io/badge/Data-ODbL--1.0-blue.svg)](../DATA_LICENSE.md)
+[![npm version](https://img.shields.io/npm/v/@tansuasici/country-state-city)](https://www.npmjs.com/package/@tansuasici/country-state-city)
+[![npm downloads](https://img.shields.io/npm/dm/@tansuasici/country-state-city)](https://www.npmjs.com/package/@tansuasici/country-state-city)
+[![Code: MIT](https://img.shields.io/badge/Code-MIT-green.svg)](https://github.com/tansuasici/CountryStateCity/blob/main/LICENSE)
+[![Data: ODbL 1.0](https://img.shields.io/badge/Data-ODbL--1.0-blue.svg)](https://github.com/tansuasici/CountryStateCity/blob/main/DATA_LICENSE.md)
 
-Complete world countries, states, and cities data in JSON, CSV, XML, and YAML formats. Optimized for both **Node.js** and **Browser** environments with automatic environment detection.
+Versioned world location data for Node.js and browsers, with TypeScript types, multiple export formats, ranked search, nearest-centre lookup, timezone helpers, Türkiye districts, optional boundaries, and an MCP server.
 
-## 🚀 Features
+## Dataset
 
-- ✅ **250 Country/Area Records** with ISO-assigned codes and a documented user-assigned XK exception
-- ✅ **5,000+ States/Provinces** with state codes and geo coordinates
-- ✅ **150,000+ Cities** with latitude/longitude data
-- ✅ **Multiple Formats**: JSON, CSV, XML, YAML export support
-- ✅ **TypeScript Support** with full type definitions
-- ✅ **Optimized Distribution**: One compact city asset shared by Node, browser, and MCP entrypoints
-- ✅ **Tree-Shakeable**: Modern ES modules support
-- ✅ **Zero Config**: Automatic environment detection (browser/Node.js)
-- ✅ **Immutable Public IDs**: Namespaced IDs with versioned successor/redirect migrations
+| Layer                     | Records | Notes                                                              |
+| ------------------------- | ------: | ------------------------------------------------------------------ |
+| Countries and territories |     250 | ISO metadata, translations, timezones, currencies                  |
+| Administrative areas      |   4,963 | Explicit level, type, lifecycle, parent, and coordinate provenance |
+| Populated places          | 147,739 | Compact distribution with lazy full-object reconstruction          |
+| Türkiye districts         |     922 | Province parents, aliases, stable IDs, coordinate review status    |
 
-## 📦 Installation
+The package publishes machine-readable provenance, coverage, quality, normalization, identity, and migration contracts alongside the data.
+
+## Installation
 
 ```bash
 npm install @tansuasici/country-state-city
+```
+
+```bash
+pnpm add @tansuasici/country-state-city
 ```
 
 ```bash
@@ -29,417 +33,237 @@ yarn add @tansuasici/country-state-city
 ```
 
 ```bash
-pnpm add @tansuasici/country-state-city
+bun add @tansuasici/country-state-city
 ```
 
-## 🎯 Usage
+## Quick start
 
-### Basic Setup
-
-```javascript
+```typescript
 import { CountryStateCity, toPublicId } from '@tansuasici/country-state-city';
 
-// Get all countries
-const countries = CountryStateCity.getAllCountries();
-console.log(countries.length); // 250+ countries
-
-// Get specific country
 const turkey = CountryStateCity.getCountryByIso2('TR');
-const stableCountryId = toPublicId('country', turkey.id);
-console.log(turkey);
-// {
-//   id: 225,
-//   name: 'Türkiye',
-//   iso2: 'TR',
-//   iso3: 'TUR',
-//   capital: 'Ankara',
-//   currency: 'TRY',
-//   ...
-// }
+const provinces = CountryStateCity.getStatesByCountryId(225);
+const istanbulPlaces = CountryStateCity.getCitiesByStateId(2170);
+const districts = CountryStateCity.getDistrictsByStateId(2170);
 
-// Get states of a country
-const states = CountryStateCity.getStatesByCountryId(225);
-console.log(states.length); // 81 provinces
-
-// Get cities of a state
-const istanbulCities = CountryStateCity.getCitiesByStateId(3981);
-console.log(istanbulCities); // Cities in Istanbul province
+const stableCountryId = turkey ? toPublicId('country', turkey.id) : null;
 ```
 
-### Environment-Specific Imports
+All collection methods return objects by default and can serialize directly to JSON, CSV, XML, or YAML:
 
-The library automatically detects your environment (browser/Node.js). However, you can explicitly import the version you need:
+```typescript
+const csv = CountryStateCity.getAllCountries('csv');
+const xml = CountryStateCity.getStatesByCountryCode('TR', 'xml');
+const yaml = CountryStateCity.getDistrictsByStateId(2170, 'yaml');
+```
 
-```javascript
-// Browser/Client-side (no fs dependencies)
+## Entry points
+
+The default export resolves to the appropriate Node.js or browser build. Explicit entry points are also available:
+
+```typescript
+// Browser/client code
 import { CountryStateCity } from '@tansuasici/country-state-city/browser';
 
-// Node.js/Server-side (uses fs for better performance)
+// Node.js/server code
 import { CountryStateCity } from '@tansuasici/country-state-city/node';
 
 // CommonJS
 const { CountryStateCity } = require('@tansuasici/country-state-city');
 ```
 
-The browser entrypoint references the package's JSON assets instead of embedding duplicate copies. Modern bundlers can split and cache those assets. For direct data access, import `data/cities.optimized.json`; its keys are `i` (ID), `n` (name), `s` (state ID), `c` (country ID), `la`/`lo` (coordinates), and optional `w` (Wikidata QID). The regular API reconstructs complete `City` objects lazily.
+The browser entry is approximately 35.5 kB before its separately cached data assets. The complete v3 package is approximately 3.81 MB packed and 23.29 MB unpacked. City data is reconstructed lazily from one compact asset rather than duplicated inside every runtime bundle.
 
-Boundary geometry is also opt-in. The package includes the version manifest and only the Türkiye overview topology; regional/detailed profiles and full GeoJSON files remain website downloads so the core install stays within its size budget.
+## Core API
+
+### Countries
 
 ```typescript
-const boundaryManifest = await import(
+CountryStateCity.getAllCountries(format?, options?);
+CountryStateCity.getCountryById(id);
+CountryStateCity.getCountryByIso2(iso2);
+CountryStateCity.getCountryByIso3(iso3);
+CountryStateCity.searchCountries(query);
+CountryStateCity.getCountriesByRegion(region);
+CountryStateCity.getCountriesBySubregion(subregion);
+CountryStateCity.getCountryTranslation(countryCode, locale);
+```
+
+### States and cities
+
+```typescript
+CountryStateCity.getAllStates(format?, options?);
+CountryStateCity.getStateById(id);
+CountryStateCity.getStatesByCountryId(countryId, format?, options?);
+CountryStateCity.getStatesByCountryCode(countryCode, format?, options?);
+CountryStateCity.searchStates(query, countryId?);
+
+CountryStateCity.getAllCities(format?, options?);
+CountryStateCity.getCityById(id);
+CountryStateCity.getCitiesByStateId(stateId, format?, options?);
+CountryStateCity.getCitiesByCountryId(countryId, format?, options?);
+CountryStateCity.searchCities(query, stateId?, countryId?);
+```
+
+The legacy state/city collections retain imported rows for compatibility. Use the canonical methods when comparable administrative and settlement layers are required:
+
+```typescript
+const admin1 = CountryStateCity.getAdministrativeAreas({
+  countryCode: 'TR',
+  level: 1,
+  lifecycleStatus: 'current',
+});
+
+const settlements = CountryStateCity.getSettlements({
+  countryCode: 'TR',
+  lifecycleStatus: 'current',
+});
+```
+
+### Türkiye districts
+
+The explicit district layer currently covers Türkiye:
+
+```typescript
+CountryStateCity.getAllDistricts(format?, options?);
+CountryStateCity.getDistrictById(id);
+CountryStateCity.getDistrictByPublicId(publicId);
+CountryStateCity.getDistrictsByStateId(stateId, format?, options?);
+CountryStateCity.getDistrictsByCountryCode(countryCode);
+CountryStateCity.searchDistricts(query, stateId?);
+```
+
+CountryStateCity does not invent official codes that its validation source does not publish. `officialDistrictCode` is therefore `null`, with an explicit status field explaining why.
+
+## Ranked location search
+
+`searchLocations()` searches countries, states, cities, and districts together. Results include a stable canonical ID, score, match reason, and matched alias metadata.
+
+```typescript
+const matches = CountryStateCity.searchLocations('İstanbull', {
+  countryCode: 'TR',
+  entityTypes: ['state', 'city', 'district'],
+  typoTolerance: true,
+  limit: 10,
+});
+```
+
+## Spatial lookup
+
+Nearest-centre lookup uses lazy 3D spatial indexes, handles the antimeridian, and returns distance, confidence, and the immutable data version:
+
+```typescript
+const nearest = CountryStateCity.nearestCenters(
+  { latitude: 40.9811, longitude: 29.0651 },
+  {
+    countryCode: 'TR',
+    entityTypes: ['state', 'city', 'district'],
+    limitPerType: 2,
+    maxDistanceKm: 100,
+  }
+);
+
+const batch = CountryStateCity.nearestCentersBatch([
+  { latitude: 40.9811, longitude: 29.0651 },
+  { latitude: 39.9334, longitude: 32.8597 },
+]);
+```
+
+A centre match is not proof of administrative containment. For that, import compatible GeoJSON and use `PolygonLookupIndex` or `locatePointInPolygons()`. Versioned polygon coverage currently includes Türkiye admin-1/admin-2 only.
+
+```typescript
+import { PolygonLookupIndex } from '@tansuasici/country-state-city';
+
+const index = new PolygonLookupIndex(featureCollection);
+const result = index.locate({ latitude: 40.9811, longitude: 29.0651 });
+```
+
+## Timezones
+
+Stored offsets age as daylight-saving rules change. Observe an IANA timezone at the instant you need instead:
+
+```typescript
+const zones = CountryStateCity.getAllTimezones();
+const observation = CountryStateCity.getTimezoneOffset('Europe/Istanbul', '2026-08-09T12:00:00Z');
+```
+
+## Direct data imports
+
+Use public package exports instead of repository-relative paths:
+
+```typescript
+import countries from '@tansuasici/country-state-city/data/countries.json' with { type: 'json' };
+import states from '@tansuasici/country-state-city/data/states.json' with { type: 'json' };
+import compactCities from '@tansuasici/country-state-city/data/cities.optimized.json' with { type: 'json' };
+import turkeyDistricts from '@tansuasici/country-state-city/data/districts/tr.json' with { type: 'json' };
+import qualityReport from '@tansuasici/country-state-city/data/quality-report.json' with { type: 'json' };
+```
+
+Compact city keys are `i` (ID), `n` (name), `s` (state ID), `c` (country ID), `la`/`lo` (coordinates), and optional `w` (Wikidata QID). Use the class API for complete `City` objects.
+
+Boundary geometry is opt-in. The package contains a boundary manifest and a lightweight Türkiye overview topology; larger regional and detailed profiles remain separate downloads.
+
+```typescript
+const { default: manifest } = await import(
   '@tansuasici/country-state-city/data/boundaries/manifest.json',
   { with: { type: 'json' } }
 );
-const turkeyOverview = await import(
+
+const { default: turkeyOverview } = await import(
   '@tansuasici/country-state-city/data/boundaries/tr/overview.json',
   { with: { type: 'json' } }
 );
 ```
 
-## 📖 API Reference
+## Stable IDs and migrations
 
-### Country Methods
-
-```typescript
-// Get all countries
-getAllCountries(format?: 'json' | 'csv' | 'xml' | 'yaml'): Country[] | string
-
-// Get country by ID
-getCountryById(id: number): Country | undefined
-
-// Get country by ISO codes
-getCountryByIso2(iso2: string): Country | undefined
-getCountryByIso3(iso3: string): Country | undefined
-
-// Search countries
-searchCountries(query: string): Country[]
-
-// Filter by region
-getCountriesByRegion(region: string): Country[]
-getCountriesBySubregion(subregion: string): Country[]
-getCountryTranslation(countryCode: string, locale: CountryTranslationLocale | 'kr' | 'br' | 'cn'): string | null | undefined
-```
-
-### State/Province Methods
+Persist namespaced public IDs instead of assuming that upstream numeric IDs never change:
 
 ```typescript
-// Get all states
-getAllStates(format?: DataFormat): State[] | string
+import { parsePublicId, toPublicId } from '@tansuasici/country-state-city';
 
-// Get state by ID
-getStateById(id: number): State | undefined
-
-// Get states by country
-getStatesByCountryId(countryId: number): State[]
-getStatesByCountryCode(countryCode: string): State[]
-
-// Search states
-searchStates(query: string, countryId?: number): State[]
+const publicId = toPublicId('city', 107863); // csc:city:107863
+const parsed = parsePublicId(publicId);
 ```
 
-### City Methods
+Version-pair redirects and successors are published under `data/migrations/`.
 
-```typescript
-// Get all cities (use with caution - large dataset)
-getAllCities(format?: DataFormat): City[] | string
+## MCP server
 
-// Get city by ID
-getCityById(id: number): City | undefined
+The package includes a stdio MCP server for compatible AI clients:
 
-// Get cities by filters
-getCitiesByStateId(stateId: number): City[]
-getCitiesByCountryId(countryId: number): City[]
-
-// Search cities
-searchCities(query: string, stateId?: number, countryId?: number): City[]
-```
-
-### Canonical Administrative Areas and Settlements
-
-Legacy state/city methods preserve every imported row. These methods provide comparable, lifecycle-aware layers:
-
-```typescript
-getAdministrativeAreas({ countryCode?, level?, lifecycleStatus? }): Array<State | City>
-getSettlements({ countryCode?, stateId?, lifecycleStatus? }): City[]
-```
-
-`getAdministrativeAreas()` defaults to current level 1. `getSettlements()` excludes source city rows classified as administrative areas. Use `lifecycleStatus: 'all'` when a migration or historical view must include non-current records.
-
-### Utility Methods
-
-```typescript
-// Get statistics
-getStats(): {
-  countries: number;
-  states: number;
-  cities: number;
-}
-
-getCoverageReport(): CoverageReport
-getCountryCoverage(countryCode: string): CountryCoverage | undefined
-
-// Get unique values
-getAllRegions(): string[]
-getAllSubregions(): string[]
-getAllTimezones(): string[]
-getTimezoneOffset(zoneName: string, at?: Date | string | number): TimezoneOffsetObservation
-getAllCurrencies(): Currency[]
-
-// Export data
-exportData(
-  dataType: 'countries' | 'states' | 'cities',
-  format: 'json' | 'csv' | 'xml' | 'yaml'
-): string
-```
-
-## 🎨 Export Formats
-
-Export data in multiple formats:
-
-```javascript
-// JSON (default)
-const countriesJson = CountryStateCity.getAllCountries();
-
-// CSV
-const countriesCsv = CountryStateCity.getAllCountries('csv');
-// name,iso2,iso3,capital,currency...
-// "Türkiye","TR","TUR","Ankara","TRY"...
-
-// XML
-const countriesXml = CountryStateCity.getAllCountries('xml');
-// <?xml version="1.0" encoding="UTF-8"?>
-// <countries>
-//   <country>
-//     <name>Türkiye</name>
-//     <iso2>TR</iso2>
-//   </country>
-// </countries>
-
-// YAML
-const countriesYaml = CountryStateCity.getAllCountries('yaml');
-// - name: Türkiye
-//   iso2: TR
-//   iso3: TUR
-```
-
-## 🔧 Framework Integration
-
-### Next.js App Router
-
-```typescript
-// app/components/CountrySelector.tsx
-'use client';
-import { CountryStateCity } from '@tansuasici/country-state-city';
-
-export function CountrySelector() {
-  const countries = CountryStateCity.getAllCountries();
-
-  return (
-    <select>
-      {countries.map(country => (
-        <option key={country.id} value={country.id}>
-          {country.emoji} {country.name}
-        </option>
-      ))}
-    </select>
-  );
-}
-```
-
-### API Route Example
-
-```typescript
-// app/api/locations/countries/route.ts
-import { CountryStateCity } from '@tansuasici/country-state-city';
-
-export async function GET(request: Request) {
-  const { searchParams } = new URL(request.url);
-  const region = searchParams.get('region');
-
-  const countries = region
-    ? CountryStateCity.getCountriesByRegion(region)
-    : CountryStateCity.getAllCountries();
-
-  return Response.json(countries);
-}
-```
-
-### React Hook Example
-
-```typescript
-import { useState, useEffect } from 'react';
-import { CountryStateCity } from '@tansuasici/country-state-city';
-
-export function useCountryData(countryId?: number) {
-  const [states, setStates] = useState([]);
-  const [cities, setCities] = useState([]);
-
-  useEffect(() => {
-    if (countryId) {
-      setStates(CountryStateCity.getStatesByCountryId(countryId));
-      setCities(CountryStateCity.getCitiesByCountryId(countryId));
+```json
+{
+  "mcpServers": {
+    "country-state-city": {
+      "command": "npx",
+      "args": ["-y", "@tansuasici/country-state-city"]
     }
-  }, [countryId]);
-
-  return { states, cities };
+  }
 }
 ```
 
-## ⚡ Performance Optimization
+## Migrating to v3
 
-### Bundle Sizes
+- `data/cities.json` was removed. Use the class API or `data/cities.optimized.json`.
+- Country and state coordinates can be `null` when a trustworthy value is unavailable.
+- Country translations use typed locale keys and can contain `null` values.
+- State and city records include explicit entity, administrative level, parent, lifecycle, validity, confidence, and source fields.
+- Nearest-centre lookup and polygon containment are separate APIs by design.
 
-- **Browser Bundle**: ~30MB (includes all data)
-- **Node.js Bundle**: ~16KB (loads data from files)
+Review nullable fields when upgrading TypeScript consumers. Prefer the immutable `csc:*` IDs for persisted references.
 
-### Recommendations for Production
+## Hosted API and documentation
 
-1. **Use API Endpoints**: Instead of loading all data client-side:
+- [Website and map](https://countrystatecity.tansuasici.com)
+- [Hosted REST and GraphQL API](https://countrystatecity.tansuasici.com/docs/hosted-api)
+- [Interactive API playground](https://countrystatecity.tansuasici.com/docs/api-playground)
+- [GitHub repository](https://github.com/tansuasici/CountryStateCity)
+- [npm package](https://www.npmjs.com/package/@tansuasici/country-state-city)
 
-```typescript
-// ❌ Avoid in client components
-const allCities = CountryStateCity.getAllCities(); // 150,000+ records
+## License and attribution
 
-// ✅ Better approach
-const response = await fetch('/api/cities?country=TR&search=Istanbul');
-const cities = await response.json();
-```
+- Package source: [MIT](https://github.com/tansuasici/CountryStateCity/blob/main/LICENSE)
+- Country, state, and city database: [ODbL 1.0](https://github.com/tansuasici/CountryStateCity/blob/main/DATA_LICENSE.md)
 
-2. **Implement Pagination**:
-
-```typescript
-// API route with pagination
-export async function GET(request: Request) {
-  const { searchParams } = new URL(request.url);
-  const page = parseInt(searchParams.get('page') || '1');
-  const limit = parseInt(searchParams.get('limit') || '50');
-
-  const cities = CountryStateCity.getCitiesByCountryId(225);
-  const paginated = cities.slice((page - 1) * limit, page * limit);
-
-  return Response.json({
-    data: paginated,
-    total: cities.length,
-    page,
-    limit,
-  });
-}
-```
-
-3. **Use Code Splitting**:
-
-```typescript
-// Dynamic import
-const loadCountryData = async () => {
-  const { CountryStateCity } = await import('@tansuasici/country-state-city');
-  return CountryStateCity.getAllCountries();
-};
-```
-
-## 🎯 Common Issues & Solutions
-
-### Issue: Module not found errors in Next.js
-
-**Solution:** The library automatically detects the environment. If you face issues:
-
-```javascript
-// For Client Components
-'use client';
-import { CountryStateCity } from '@tansuasici/country-state-city/browser';
-
-// For Server Components/API Routes
-import { CountryStateCity } from '@tansuasici/country-state-city/node';
-```
-
-## 📊 Data Types
-
-```typescript
-interface Country {
-  id: number;
-  name: string;
-  iso2: string;
-  iso3: string;
-  numericCode: string;
-  phoneCode: string;
-  capital: string;
-  currency: string;
-  currencyName: string;
-  currencySymbol: string;
-  tld: string;
-  native: string;
-  region: string;
-  subregion: string;
-  timezones: Timezone[];
-  translations: Record<string, string>;
-  latitude: string;
-  longitude: string;
-  emoji: string;
-  emojiU: string;
-}
-
-interface State {
-  id: number;
-  name: string;
-  countryId: number;
-  countryCode: string;
-  countryName: string;
-  stateCode: string;
-  type: string | null;
-  latitude: string | null;
-  longitude: string | null;
-  coordinateType:
-    'point-on-surface' | 'source-point-unspecified' | 'child-place-median' | 'unavailable';
-  coordinateSource: string;
-  coordinateVerifiedAt: string | null;
-  coordinateValidation: string;
-  coordinateStatus: 'verified' | 'derived' | 'exception' | 'review-required';
-}
-
-interface City {
-  id: number;
-  name: string;
-  stateId: number;
-  stateCode: string;
-  stateName: string;
-  countryId: number;
-  countryCode: string;
-  countryName: string;
-  latitude: string;
-  longitude: string;
-  wikiDataId: string;
-}
-
-interface Timezone {
-  zoneName: string;
-  gmtOffset: number;
-  gmtOffsetName: string;
-  abbreviation: string;
-  tzName: string;
-}
-```
-
-## 🤝 Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
-
-## 📄 License
-
-- Package source code: [MIT](../LICENSE)
-- Country, state, and city database: [ODbL 1.0](../DATA_LICENSE.md)
-
-The data is derived from [Countries States Cities Database](https://github.com/dr5hn/countries-states-cities-database). Attribution is required; provenance and the pinned verification baseline are recorded in [`data/provenance.json`](../data/provenance.json).
-
-## 🔗 Links
-
-- [NPM Package](https://www.npmjs.com/package/@tansuasici/country-state-city)
-- [GitHub Repository](https://github.com/tansuasici/CountryStateCity)
-- [Live Demo](https://countrystatecity.tansuasici.com)
-
-## 💡 Support
-
-If you find this package helpful, please consider:
-
-- ⭐ Starring the GitHub repository
-- 🐛 Reporting issues or bugs
-- 💬 Providing feedback and suggestions
-- 🤝 Contributing to the codebase
+The core data is derived from the [Countries States Cities Database](https://github.com/dr5hn/countries-states-cities-database). Attribution is required. Machine-readable source, verification, and transformation details are published in `data/provenance.json`.
