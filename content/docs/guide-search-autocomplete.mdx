@@ -53,19 +53,26 @@ export function LocationSearch({ onSelect }: { onSelect: (m: LocationSearchMatch
       return;
     }
 
+    let active = true;
+
     // Debounce: the index is in memory, but re-ranking on every keystroke is wasted work.
     const timer = setTimeout(async () => {
       const { CountryStateCity } = await import('@tansuasici/country-state-city');
-      setMatches(
-        CountryStateCity.searchLocations(query, {
-          entityTypes: ['country', 'state', 'city', 'district'],
-          typoTolerance: true,
-          limit: 8,
-        })
-      );
+      if (active) {
+        setMatches(
+          CountryStateCity.searchLocations(query, {
+            entityTypes: ['country', 'state', 'city', 'district'],
+            typoTolerance: true,
+            limit: 8,
+          })
+        );
+      }
     }, 150);
 
-    return () => clearTimeout(timer);
+    return () => {
+      active = false;
+      clearTimeout(timer);
+    };
   }, [query]);
 
   return (
@@ -123,7 +130,7 @@ The same ranking is available over HTTP when you do not want the dataset in your
 
 ```bash
 curl -H "x-api-key: $CSC_API_KEY" \
-  "https://countrystatecity.tansuasici.com/api/v1/search?q=Kadikoy&countryCode=TR"
+  "https://countrystatecity.tansuasici.com/api/v1/search?q=Kadikoy&country=TR"
 ```
 
 See [Location search](/docs/location-search) for the alias contract and ranking rules.

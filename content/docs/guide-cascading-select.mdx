@@ -31,17 +31,22 @@ not.
 
 ## Countries and states only
 
-If your form stops at state level, everything stays small and synchronous.
+If your form stops at state level, import the two published JSON subpaths instead of the main
+browser entry. This avoids pulling the city and district payloads into the bundle.
 
 ```tsx
 import { useMemo, useState } from 'react';
-import { CountryStateCity, type Country } from '@tansuasici/country-state-city';
+import countriesData from '@tansuasici/country-state-city/data/countries.json';
+import statesData from '@tansuasici/country-state-city/data/states.json';
+import type { Country, State } from '@tansuasici/country-state-city';
+
+const countries = countriesData as Country[];
+const allStates = statesData as State[];
 
 export function CountryStatePicker() {
   const [countryId, setCountryId] = useState<number | null>(null);
-  const countries = useMemo(() => CountryStateCity.getAllCountries() as Country[], []);
   const states = useMemo(
-    () => (countryId ? CountryStateCity.getStatesByCountryId(countryId) : []),
+    () => (countryId ? allStates.filter((state) => state.countryId === countryId) : []),
     [countryId]
   );
 
@@ -69,8 +74,8 @@ export function CountryStatePicker() {
 }
 ```
 
-`getAllCountries()` returns typed objects when `format` is omitted; it returns a string when you
-pass `'csv'`, `'xml'`, or `'yaml'`, which is why the cast above is needed in TypeScript.
+The JSON modules are exported package entry points, so this does not rely on an internal file path.
+The casts restore the package types after JSON-module inference.
 
 ## Adding cities
 
@@ -83,12 +88,12 @@ Keeps the client bundle small. Each step is a request, so track loading state.
 ```tsx
 import { useEffect, useState } from 'react';
 
-function useCities(stateId: number | null) {
+function useCities(countryCode: string | null, subdivisionCode: string | null) {
   const [cities, setCities] = useState<Array<{ id: number; name: string }>>([]);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    if (!stateId) {
+    if (!countryCode || !subdivisionCode) {
       setCities([]);
       return;
     }
@@ -96,7 +101,13 @@ function useCities(stateId: number | null) {
     const controller = new AbortController();
     setLoading(true);
 
-    fetch(`/api/v1/places?stateId=${stateId}&limit=100`, { signal: controller.signal })
+    const query = new URLSearchParams({
+      country: countryCode,
+      subdivision: subdivisionCode,
+      limit: '100',
+    });
+
+    fetch(`/api/v1/places?${query}`, { signal: controller.signal })
       .then((response) => {
         if (!response.ok) throw new Error(`Request failed: ${response.status}`);
         return response.json();
@@ -105,10 +116,12 @@ function useCities(stateId: number | null) {
       .catch((error) => {
         if (error.name !== 'AbortError') setCities([]);
       })
-      .finally(() => setLoading(false));
+      .finally(() => {
+        if (!controller.signal.aborted) setLoading(false);
+      });
 
     return () => controller.abort();
-  }, [stateId]);
+  }, [countryCode, subdivisionCode]);
 
   return { cities, loading };
 }
