@@ -20,6 +20,14 @@ import {
 import WorldMap, { type MapMarker } from '@/components/WorldMap';
 import SearchableLocationSelect from '@/components/SearchableLocationSelect';
 import { Button } from '@/components/ui/button';
+import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 import {
   getCityDisplayName,
   getCountryDisplayName,
@@ -34,6 +42,12 @@ import type {
   BoundaryProfileKey,
   LoadedBoundaryLayer,
 } from '@/lib/boundaries';
+
+const BOUNDARY_PROFILE_LABELS: Record<string, string> = {
+  overview: 'Overview',
+  regional: 'Regional',
+  detailed: 'Detailed',
+};
 
 export default function MapPage() {
   const [countries, setCountries] = useState<Country[]>([]);
@@ -368,7 +382,7 @@ export default function MapPage() {
             key="map-panel-toggle"
             type="button"
             onClick={() => setPanelOpen(true)}
-            className="map-panel-toggle absolute left-4 top-[4.5rem] z-[1000] flex items-center gap-2 rounded-lg border bg-background/95 px-3 py-2 text-sm font-medium shadow-lg backdrop-blur-sm"
+            className="map-panel-toggle absolute left-4 top-[4.5rem] z-30 flex items-center gap-2 rounded-lg border bg-background/95 px-3 py-2 text-sm font-medium shadow-lg backdrop-blur-sm"
             initial={reduceMotion ? { opacity: 0 } : { opacity: 0, x: -10 }}
             animate={{ opacity: 1, x: 0 }}
             exit={reduceMotion ? { opacity: 0 } : { opacity: 0, x: -8 }}
@@ -382,7 +396,7 @@ export default function MapPage() {
       </AnimatePresence>
 
       <m.div
-        className="map-stats absolute bottom-4 left-1/2 z-[1000] border"
+        className="map-stats absolute bottom-4 left-1/2 z-30 border"
         initial={{ opacity: 0, y: 10, x: '-50%' }}
         animate={{ opacity: 1, y: 0, x: compactViewport ? 0 : '-50%' }}
         transition={{ delay: 0.18, duration: 0.42 }}
@@ -407,7 +421,7 @@ export default function MapPage() {
         {panelOpen ? (
           <m.aside
             key="map-explorer-panel"
-            className="map-explorer-panel absolute left-4 top-[4.5rem] bottom-16 z-[1000] flex w-80 flex-col overflow-hidden border"
+            className="map-explorer-panel absolute left-4 top-[4.5rem] z-30 flex max-h-[calc(100svh-8.5rem)] w-80 flex-col overflow-hidden border"
             data-boundary-level={boundaryLevel}
             data-boundary-features={boundaryLayer?.data.features.length ?? 0}
             initial={
@@ -687,24 +701,24 @@ export default function MapPage() {
                     <span>Map layer</span>
                   </div>
                   {hasPolygonCoverage ? (
-                    <div className="boundary-level-switch" aria-label="Map representation">
-                      {(
-                        [
-                          ['points', 'Centers'],
-                          ['admin1', 'Provinces'],
-                          ['admin2', 'Districts'],
-                        ] as const
-                      ).map(([value, label]) => (
-                        <button
-                          type="button"
-                          key={value}
-                          aria-pressed={boundaryLevel === value}
-                          onClick={() => setBoundaryLevel(value)}
-                        >
-                          {label}
-                        </button>
-                      ))}
-                    </div>
+                    <Tabs
+                      value={boundaryLevel}
+                      onValueChange={(value) => setBoundaryLevel(value as BoundaryLevel)}
+                    >
+                      <TabsList className="w-full" aria-label="Map representation">
+                        {(
+                          [
+                            ['points', 'Centers'],
+                            ['admin1', 'Provinces'],
+                            ['admin2', 'Districts'],
+                          ] as const
+                        ).map(([value, label]) => (
+                          <TabsTrigger key={value} value={value} className="text-xs">
+                            {label}
+                          </TabsTrigger>
+                        ))}
+                      </TabsList>
+                    </Tabs>
                   ) : (
                     <p className="boundary-availability">
                       Center points. Province and district polygons are available for the Türkiye
@@ -714,29 +728,40 @@ export default function MapPage() {
 
                   {selectedCountry?.iso2 === 'TR' && boundaryLevel !== 'points' ? (
                     <>
-                      <div className="boundary-profile-switch" aria-label="Boundary detail">
-                        {(
-                          [
-                            ['overview', 'Overview'],
-                            ['regional', 'Regional'],
-                            ['detailed', 'Detailed'],
-                          ] as const
-                        ).map(([value, label]) => (
-                          <button
-                            type="button"
-                            key={value}
-                            aria-pressed={boundaryProfile === value}
-                            onClick={() => setBoundaryProfile(value)}
-                          >
-                            <span>{label}</span>
-                            <small>
-                              {boundaryCountry
-                                ? formatBytes(boundaryCountry.profiles[value].bytes)
-                                : '—'}
-                            </small>
-                          </button>
-                        ))}
-                      </div>
+                      {/*
+                        Detail is a fidelity/size trade-off, not a peer of the
+                        layer choice — a second identical pill row read as a
+                        duplicate control, so it collapses to one labelled line.
+                      */}
+                      <label className="mt-3 flex items-center justify-between gap-2">
+                        <span className="text-xs text-muted-foreground">Detail</span>
+                        <Select
+                          value={boundaryProfile}
+                          onValueChange={(value) => setBoundaryProfile(value as BoundaryProfileKey)}
+                        >
+                          <SelectTrigger size="sm" className="min-w-[9.5rem]">
+                            <SelectValue>
+                              {(value: string) => BOUNDARY_PROFILE_LABELS[value] ?? value}
+                            </SelectValue>
+                          </SelectTrigger>
+                          <SelectContent>
+                            {(
+                              Object.entries(BOUNDARY_PROFILE_LABELS) as Array<
+                                [BoundaryProfileKey, string]
+                              >
+                            ).map(([value, label]) => (
+                              <SelectItem key={value} value={value}>
+                                <span>{label}</span>
+                                <span className="ml-auto font-mono text-[0.62rem] text-muted-foreground">
+                                  {boundaryCountry
+                                    ? formatBytes(boundaryCountry.profiles[value].bytes)
+                                    : '—'}
+                                </span>
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      </label>
                       {boundaryLoading ? (
                         <p className="explorer-loading-line" role="status">
                           Loading {boundaryProfile} boundary profile…
@@ -786,30 +811,31 @@ export default function MapPage() {
                   <div className="explorer-section-heading">
                     <span>Collections</span>
                   </div>
-                  <button
-                    type="button"
-                    onClick={handleShowMultipleCountries}
-                    className="explorer-collection"
-                  >
-                    <Globe aria-hidden="true" />
-                    <span>
-                      <strong>Country sample</strong>
-                      <small>10 center points</small>
-                    </span>
-                    <ArrowRight aria-hidden="true" />
-                  </button>
-                  <button
-                    type="button"
-                    onClick={handleShowCapitals}
-                    className="explorer-collection"
-                  >
-                    <Building aria-hidden="true" />
-                    <span>
-                      <strong>World capitals</strong>
-                      <small>20 capital locations</small>
-                    </span>
-                    <ArrowRight aria-hidden="true" />
-                  </button>
+                  {(
+                    [
+                      [Globe, 'Country sample', '10 center points', handleShowMultipleCountries],
+                      [Building, 'World capitals', '20 capital locations', handleShowCapitals],
+                    ] as const
+                  ).map(([Icon, title, detail, onSelect]) => (
+                    <Button
+                      key={title}
+                      variant="ghost"
+                      onClick={onSelect}
+                      className="group h-auto w-full justify-start gap-3 px-2 py-3"
+                    >
+                      <Icon aria-hidden="true" className="text-primary" />
+                      <span className="flex min-w-0 flex-col items-start gap-0.5">
+                        <span className="text-[0.78rem] font-semibold">{title}</span>
+                        <span className="text-[0.62rem] font-normal text-muted-foreground">
+                          {detail}
+                        </span>
+                      </span>
+                      <ArrowRight
+                        aria-hidden="true"
+                        className="ml-auto text-muted-foreground transition-transform group-hover:translate-x-0.5"
+                      />
+                    </Button>
+                  ))}
                 </section>
               ) : null}
             </div>

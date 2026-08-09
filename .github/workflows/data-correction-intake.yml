@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
-      - uses: actions/setup-node@v6
+      - uses: actions/setup-node@v7
         with:
           node-version: 22
       - name: Validate source, license, values, identity, and attestation
@@ -22,7 +22,7 @@ jobs:
         continue-on-error: true
         run: node scripts/validate-data-correction.mjs --event "$GITHUB_EVENT_PATH" --output "$GITHUB_OUTPUT"
       - name: Apply abuse controls and route the review queue
-        uses: actions/github-script@v8
+        uses: actions/github-script@v9
         env:
           VALID: ${{ steps.intake.outputs.valid }}
           FINGERPRINT: ${{ steps.intake.outputs.fingerprint }}
