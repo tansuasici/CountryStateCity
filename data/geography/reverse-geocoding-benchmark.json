@@ -1,0 +1,156 @@
+{
+  "schemaVersion": 1,
+  "generatedFromDataVersion": "sha256:753742bdb65d7ff73082fce925b75ab6228efb217f0226a9d87bad5ef5556c74",
+  "method": "Labeled canonical centre points with deterministic sub-kilometre perturbations; polygon labels use reviewed Türkiye admin boundaries.",
+  "nearestCityCases": [
+    {
+      "label": "Kadıköy",
+      "latitude": 40.9811,
+      "longitude": 29.0651,
+      "expectedId": 107863,
+      "countryCode": "TR"
+    },
+    {
+      "label": "Tokyo",
+      "latitude": 35.69,
+      "longitude": 139.692,
+      "expectedId": 64500,
+      "countryCode": "JP"
+    },
+    {
+      "label": "Sydney",
+      "latitude": -33.86785,
+      "longitude": 151.20732,
+      "expectedId": 7408,
+      "countryCode": "AU"
+    },
+    {
+      "label": "Toronto",
+      "latitude": 43.701,
+      "longitude": -79.416,
+      "expectedId": 17121,
+      "countryCode": "CA"
+    },
+    {
+      "label": "Berlin",
+      "latitude": 52.525,
+      "longitude": 13.411,
+      "expectedId": 24053,
+      "countryCode": "DE"
+    },
+    {
+      "label": "Paris",
+      "latitude": 48.854,
+      "longitude": 2.349,
+      "expectedId": 44856,
+      "countryCode": "FR"
+    },
+    {
+      "label": "Cairo",
+      "latitude": 30.063,
+      "longitude": 31.25,
+      "expectedId": 31802,
+      "countryCode": "EG"
+    },
+    {
+      "label": "Cape Town",
+      "latitude": -33.926,
+      "longitude": 18.424,
+      "expectedId": 131059,
+      "countryCode": "ZA"
+    },
+    {
+      "label": "Buenos Aires",
+      "latitude": -34.614,
+      "longitude": -58.377,
+      "expectedId": 704,
+      "countryCode": "AR"
+    },
+    {
+      "label": "Santiago",
+      "latitude": -33.457,
+      "longitude": -70.648,
+      "expectedId": 19111,
+      "countryCode": "CL"
+    },
+    {
+      "label": "Reykjavík",
+      "latitude": 64.136,
+      "longitude": -21.895,
+      "expectedId": 135206,
+      "countryCode": "IS"
+    },
+    {
+      "label": "Honolulu",
+      "latitude": 21.307,
+      "longitude": -157.858,
+      "expectedId": 118623,
+      "countryCode": "US"
+    },
+    {
+      "label": "Auckland",
+      "latitude": -36.849,
+      "longitude": 174.764,
+      "expectedId": 79773,
+      "countryCode": "NZ"
+    },
+    {
+      "label": "Singapore",
+      "latitude": 1.29,
+      "longitude": 103.85,
+      "expectedId": 104057,
+      "countryCode": "SG"
+    },
+    {
+      "label": "Dubai",
+      "latitude": 25.066,
+      "longitude": 55.172,
+      "expectedId": 32,
+      "countryCode": "AE"
+    },
+    {
+      "label": "Mumbai",
+      "latitude": 19.073,
+      "longitude": 72.883,
+      "expectedId": 133024,
+      "countryCode": "IN"
+    },
+    {
+      "label": "Seoul",
+      "latitude": 37.566,
+      "longitude": 126.979,
+      "expectedId": 65498,
+      "countryCode": "KR"
+    },
+    {
+      "label": "Mexico City",
+      "latitude": 19.429,
+      "longitude": -99.128,
+      "expectedId": 72102,
+      "countryCode": "MX"
+    },
+    {
+      "label": "New York City",
+      "latitude": 40.715,
+      "longitude": -74.006,
+      "expectedId": 122795,
+      "countryCode": "US"
+    }
+  ],
+  "turkeyPolygonCases": [
+    {
+      "label": "Kadıköy centre",
+      "latitude": 40.981096,
+      "longitude": 29.06514473,
+      "expectedProvinceCode": "34",
+      "expectedDistrict": "Kadıköy"
+    },
+    {
+      "label": "Aladağ centre",
+      "latitude": 37.55854,
+      "longitude": 35.40196,
+      "expectedProvinceCode": "01",
+      "expectedDistrict": "Aladağ"
+    }
+  ]
+}

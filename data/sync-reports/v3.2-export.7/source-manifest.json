@@ -1,0 +1,44 @@
+{
+  "schemaVersion": 1,
+  "source": {
+    "id": "dr5hn-countries-states-cities-database",
+    "repository": "https://github.com/dr5hn/countries-states-cities-database",
+    "release": "v3.2-export.7",
+    "revision": "624a208c3928937d1262ab1646d0b8fc9cacceee",
+    "publishedAt": "2026-07-29T09:01:18Z",
+    "license": {
+      "id": "ODbL-1.0",
+      "url": "https://github.com/dr5hn/countries-states-cities-database/blob/624a208c3928937d1262ab1646d0b8fc9cacceee/LICENSE"
+    }
+  },
+  "assets": {
+    "countries": {
+      "url": "https://raw.githubusercontent.com/dr5hn/countries-states-cities-database/624a208c3928937d1262ab1646d0b8fc9cacceee/json/countries.json",
+      "compression": "none",
+      "bytes": 506767,
+      "sha256": "b93a99bc384bcc958de3b8ea9434a0ab34520ce6ae4e330953677ce9817e7dd5",
+      "verifiedSha256": "b93a99bc384bcc958de3b8ea9434a0ab34520ce6ae4e330953677ce9817e7dd5"
+    },
+    "states": {
+      "url": "https://raw.githubusercontent.com/dr5hn/countries-states-cities-database/624a208c3928937d1262ab1646d0b8fc9cacceee/json/states.json",
+      "compression": "none",
+      "bytes": 6477910,
+      "sha256": "f2389263a1706f405755b728f16747963f179a594ca9559d6f216cfe4b04b2f3",
+      "verifiedSha256": "f2389263a1706f405755b728f16747963f179a594ca9559d6f216cfe4b04b2f3"
+    },
+    "cities": {
+      "url": "https://github.com/dr5hn/countries-states-cities-database/releases/download/v3.2-export.7/json-cities.json.gz",
+      "compression": "gzip",
+      "bytes": 24979134,
+      "sha256": "311575e7b90512b15cc1ba6c9e897b3e8f3905a9c6e09db344a7dc1cac1ba2f5",
+      "verifiedSha256": "311575e7b90512b15cc1ba6c9e897b3e8f3905a9c6e09db344a7dc1cac1ba2f5"
+    }
+  },
+  "patchFile": "data/patches/overrides.json",
+  "patchDigest": "8b7b467f3cbf01e79e61fbd18f1a06899f47e28b7105faa4b7ee6a8caf55a96d",
+  "counts": {
+    "countries": 250,
+    "states": 5308,
+    "cities": 152970
+  }
+}

@@ -18,10 +18,17 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
           cache: 'npm'
       - run: npm ci
+      - run: npm run test:data-quality
+      - run: npm run test:data-quality-regressions
+      - run: npm run test:quality-dashboard
+      - run: npm run test:web-version-diffs
       - run: npm test
       - run: npm run build:lib
         env:
           NODE_OPTIONS: '--max-old-space-size=8192'
+      - run: npm run build:mcp
+      - run: npm run test:package-size
+      - run: npm run test:packed-entrypoints
       - run: npm publish --provenance --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

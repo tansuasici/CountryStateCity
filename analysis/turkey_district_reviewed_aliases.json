@@ -1,0 +1,58 @@
+{
+  "schemaVersion": 1,
+  "legacyCityAliases": [
+    {
+      "districtSourceId": "icisleri:06:kahramankazan",
+      "legacyCityId": 107956,
+      "legacyName": "Kazan",
+      "canonicalName": "Kahramankazan",
+      "reason": "The district was renamed; GeoNames 7732167 publishes the current name."
+    },
+    {
+      "districtSourceId": "icisleri:09:efeler",
+      "legacyCityId": 999001,
+      "legacyName": "Merkez",
+      "canonicalName": "Efeler",
+      "reason": "The legacy centre record predates the current Efeler district name; GeoNames 9564466 publishes the current name."
+    },
+    {
+      "districtSourceId": "icisleri:67:eregli",
+      "legacyCityId": 107590,
+      "legacyName": "Karadeniz Ereğli",
+      "canonicalName": "Ereğli",
+      "reason": "The current district name is Ereğli; GeoNames 7733006 provides the open-data source identity."
+    }
+  ],
+  "geoNamesAliases": [
+    {
+      "districtSourceId": "icisleri:28:sebinkarahisar",
+      "geoNameId": 8631626,
+      "reason": "GeoNames separates the compound name as Şebin Karahisar."
+    },
+    {
+      "districtSourceId": "icisleri:30:semdinli",
+      "geoNameId": 8630849,
+      "reason": "GeoNames currently contains the spelling Şemdinni."
+    },
+    {
+      "districtSourceId": "icisleri:42:cihanbeyli",
+      "geoNameId": 7932392,
+      "reason": "GeoNames appends the English District suffix."
+    },
+    {
+      "districtSourceId": "icisleri:55:19-mayis",
+      "geoNameId": 8631699,
+      "reason": "GeoNames spells the numeric name as Ondokuzmayıs."
+    },
+    {
+      "districtSourceId": "icisleri:59:marmaraereglisi",
+      "geoNameId": 8632555,
+      "reason": "GeoNames separates Marmara and Ereğlisi."
+    },
+    {
+      "districtSourceId": "icisleri:65:muradiye",
+      "geoNameId": 7911042,
+      "reason": "GeoNames includes the historical Berkri alias in the primary label."
+    }
+  ]
+}

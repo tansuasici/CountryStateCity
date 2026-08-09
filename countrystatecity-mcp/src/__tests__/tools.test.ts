@@ -6,7 +6,7 @@ describe('MCP Tools - Country Operations', () => {
     it('returns results for a valid query', () => {
       const results = CountryStateCity.searchCountries('turkey');
       expect(results.length).toBeGreaterThan(0);
-      expect(results[0].name).toContain('Turkey');
+      expect(results[0].name).toContain('Türkiye');
     });
 
     it('returns results for partial name match', () => {
@@ -47,7 +47,7 @@ describe('MCP Tools - Country Operations', () => {
     it('retrieves a country by iso2 code', () => {
       const country = CountryStateCity.getCountryByIso2('TR');
       expect(country).toBeDefined();
-      expect(country!.name).toBe('Turkey');
+      expect(country!.name).toBe('Türkiye');
       expect(country!.iso3).toBe('TUR');
     });
 

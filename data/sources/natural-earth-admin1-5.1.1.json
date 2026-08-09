@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "source": {
+    "id": "natural-earth-admin1-states-provinces-5.1.1",
+    "name": "Natural Earth Admin 1 – States, Provinces",
+    "version": "5.1.1",
+    "scale": "1:10m",
+    "pageUrl": "https://www.naturalearthdata.com/downloads/10m-cultural-vectors/10m-admin-1-states-provinces/",
+    "downloadUrl": "https://naturalearth.s3.amazonaws.com/5.1.1/10m_cultural/ne_10m_admin_1_states_provinces.zip",
+    "license": {
+      "id": "Public-Domain",
+      "url": "https://www.naturalearthdata.com/about/terms-of-use/"
+    },
+    "bytes": 14909524,
+    "sha256": "efc59726337323058f9446210adc96673179cd344e053666ee3d28cb58ba2b05",
+    "matchField": "iso_3166_2",
+    "coordinateMethod": "Shapely representative_point (point guaranteed inside the matched polygon)"
+  },
+  "fallbackSource": {
+    "id": "dr5hn-states-v3.2-export.7",
+    "revision": "624a208c3928937d1262ab1646d0b8fc9cacceee",
+    "file": ".data-sync/cache/states-f2389263a1706f405755b728f16747963f179a594ca9559d6f216cfe4b04b2f3.asset",
+    "bytes": 6477910,
+    "sha256": "f2389263a1706f405755b728f16747963f179a594ca9559d6f216cfe4b04b2f3",
+    "coordinateMethod": "source-point-unspecified"
+  },
+  "countryValidationReference": "data/geography/city-coordinate-policy.json",
+  "verifiedAt": "2026-08-08",
+  "majorOutlierThresholdKm": 25
+}

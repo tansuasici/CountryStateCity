@@ -1,20 +1,22 @@
 # @tansuasici/country-state-city
 
 [![npm version](https://badge.fury.io/js/@tansuasici%2Fcountry-state-city.svg)](https://www.npmjs.com/package/@tansuasici/country-state-city)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Code: MIT](https://img.shields.io/badge/Code-MIT-yellow.svg)](../LICENSE)
+[![Data: ODbL 1.0](https://img.shields.io/badge/Data-ODbL--1.0-blue.svg)](../DATA_LICENSE.md)
 
 Complete world countries, states, and cities data in JSON, CSV, XML, and YAML formats. Optimized for both **Node.js** and **Browser** environments with automatic environment detection.
 
 ## 🚀 Features
 
-- ✅ **250+ Countries** with complete ISO codes, currencies, timezones
+- ✅ **250 Country/Area Records** with ISO-assigned codes and a documented user-assigned XK exception
 - ✅ **5,000+ States/Provinces** with state codes and geo coordinates
 - ✅ **150,000+ Cities** with latitude/longitude data
 - ✅ **Multiple Formats**: JSON, CSV, XML, YAML export support
 - ✅ **TypeScript Support** with full type definitions
-- ✅ **Optimized Builds**: Separate bundles for browser (30MB) and Node.js (16KB)
+- ✅ **Optimized Distribution**: One compact city asset shared by Node, browser, and MCP entrypoints
 - ✅ **Tree-Shakeable**: Modern ES modules support
 - ✅ **Zero Config**: Automatic environment detection (browser/Node.js)
+- ✅ **Immutable Public IDs**: Namespaced IDs with versioned successor/redirect migrations
 
 ## 📦 Installation
 
@@ -35,7 +37,7 @@ pnpm add @tansuasici/country-state-city
 ### Basic Setup
 
 ```javascript
-import { CountryStateCity } from '@tansuasici/country-state-city';
+import { CountryStateCity, toPublicId } from '@tansuasici/country-state-city';
 
 // Get all countries
 const countries = CountryStateCity.getAllCountries();
@@ -43,10 +45,11 @@ console.log(countries.length); // 250+ countries
 
 // Get specific country
 const turkey = CountryStateCity.getCountryByIso2('TR');
+const stableCountryId = toPublicId('country', turkey.id);
 console.log(turkey);
 // {
 //   id: 225,
-//   name: 'Turkey',
+//   name: 'Türkiye',
 //   iso2: 'TR',
 //   iso3: 'TUR',
 //   capital: 'Ankara',
@@ -78,6 +81,21 @@ import { CountryStateCity } from '@tansuasici/country-state-city/node';
 const { CountryStateCity } = require('@tansuasici/country-state-city');
 ```
 
+The browser entrypoint references the package's JSON assets instead of embedding duplicate copies. Modern bundlers can split and cache those assets. For direct data access, import `data/cities.optimized.json`; its keys are `i` (ID), `n` (name), `s` (state ID), `c` (country ID), `la`/`lo` (coordinates), and optional `w` (Wikidata QID). The regular API reconstructs complete `City` objects lazily.
+
+Boundary geometry is also opt-in. The package includes the version manifest and only the Türkiye overview topology; regional/detailed profiles and full GeoJSON files remain website downloads so the core install stays within its size budget.
+
+```typescript
+const boundaryManifest = await import(
+  '@tansuasici/country-state-city/data/boundaries/manifest.json',
+  { with: { type: 'json' } }
+);
+const turkeyOverview = await import(
+  '@tansuasici/country-state-city/data/boundaries/tr/overview.json',
+  { with: { type: 'json' } }
+);
+```
+
 ## 📖 API Reference
 
 ### Country Methods
@@ -99,6 +117,7 @@ searchCountries(query: string): Country[]
 // Filter by region
 getCountriesByRegion(region: string): Country[]
 getCountriesBySubregion(subregion: string): Country[]
+getCountryTranslation(countryCode: string, locale: CountryTranslationLocale | 'kr' | 'br' | 'cn'): string | null | undefined
 ```
 
 ### State/Province Methods
@@ -135,6 +154,17 @@ getCitiesByCountryId(countryId: number): City[]
 searchCities(query: string, stateId?: number, countryId?: number): City[]
 ```
 
+### Canonical Administrative Areas and Settlements
+
+Legacy state/city methods preserve every imported row. These methods provide comparable, lifecycle-aware layers:
+
+```typescript
+getAdministrativeAreas({ countryCode?, level?, lifecycleStatus? }): Array<State | City>
+getSettlements({ countryCode?, stateId?, lifecycleStatus? }): City[]
+```
+
+`getAdministrativeAreas()` defaults to current level 1. `getSettlements()` excludes source city rows classified as administrative areas. Use `lifecycleStatus: 'all'` when a migration or historical view must include non-current records.
+
 ### Utility Methods
 
 ```typescript
@@ -145,10 +175,14 @@ getStats(): {
   cities: number;
 }
 
+getCoverageReport(): CoverageReport
+getCountryCoverage(countryCode: string): CountryCoverage | undefined
+
 // Get unique values
 getAllRegions(): string[]
 getAllSubregions(): string[]
 getAllTimezones(): string[]
+getTimezoneOffset(zoneName: string, at?: Date | string | number): TimezoneOffsetObservation
 getAllCurrencies(): Currency[]
 
 // Export data
@@ -169,21 +203,21 @@ const countriesJson = CountryStateCity.getAllCountries();
 // CSV
 const countriesCsv = CountryStateCity.getAllCountries('csv');
 // name,iso2,iso3,capital,currency...
-// "Turkey","TR","TUR","Ankara","TRY"...
+// "Türkiye","TR","TUR","Ankara","TRY"...
 
 // XML
 const countriesXml = CountryStateCity.getAllCountries('xml');
 // <?xml version="1.0" encoding="UTF-8"?>
 // <countries>
 //   <country>
-//     <name>Turkey</name>
+//     <name>Türkiye</name>
 //     <iso2>TR</iso2>
 //   </country>
 // </countries>
 
 // YAML
 const countriesYaml = CountryStateCity.getAllCountries('yaml');
-// - name: Turkey
+// - name: Türkiye
 //   iso2: TR
 //   iso3: TUR
 ```
@@ -351,8 +385,14 @@ interface State {
   countryName: string;
   stateCode: string;
   type: string | null;
-  latitude: string;
-  longitude: string;
+  latitude: string | null;
+  longitude: string | null;
+  coordinateType:
+    'point-on-surface' | 'source-point-unspecified' | 'child-place-median' | 'unavailable';
+  coordinateSource: string;
+  coordinateVerifiedAt: string | null;
+  coordinateValidation: string;
+  coordinateStatus: 'verified' | 'derived' | 'exception' | 'review-required';
 }
 
 interface City {
@@ -384,7 +424,10 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## 📄 License
 
-MIT
+- Package source code: [MIT](../LICENSE)
+- Country, state, and city database: [ODbL 1.0](../DATA_LICENSE.md)
+
+The data is derived from [Countries States Cities Database](https://github.com/dr5hn/countries-states-cities-database). Attribution is required; provenance and the pinned verification baseline are recorded in [`data/provenance.json`](../data/provenance.json).
 
 ## 🔗 Links
 

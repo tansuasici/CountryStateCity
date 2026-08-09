@@ -9,36 +9,46 @@ description: TypeScript interfaces for Country, State, City, and Timezone data.
 interface Country {
   id: number;
   name: string;
-  iso2: string;           // "TR", "US", "DE"
-  iso3: string;           // "TUR", "USA", "DEU"
-  numericCode: string;    // "792", "840", "276"
-  phoneCode: string;      // "90", "1", "49"
-  capital: string;        // "Ankara", "Washington", "Berlin"
-  currency: string;       // "TRY", "USD", "EUR"
-  currencyName: string;   // "Turkish lira", "US Dollar", "Euro"
+  iso2: string; // "TR", "US", "DE"
+  iso3: string; // "TUR", "USA", "DEU"
+  numericCode: string; // "792", "840", "276"
+  phoneCode: string; // "90", "1", "49"
+  capital: string; // "Ankara", "Washington", "Berlin"
+  currency: string; // "TRY", "USD", "EUR"
+  currencyName: string; // "Turkish lira", "US Dollar", "Euro"
   currencySymbol: string; // "₺", "$", "€"
-  tld: string;            // ".tr", ".us", ".de"
-  native: string;         // "Türkiye", "United States"
-  region: string;         // "Asia", "Americas", "Europe"
+  tld: string; // ".tr", ".us", ".de"
+  native: string; // "Türkiye", "United States"
+  region: string; // "Asia", "Americas", "Europe"
   regionId?: number;
-  subregion: string;      // "Western Asia", "Northern America"
+  subregion: string; // "Western Asia", "Northern America"
   subregionId?: number;
-  nationality?: string;   // "Turkish", "American", "German"
+  nationality?: string; // "Turkish", "American", "German"
   timezones: Timezone[];
-  translations: Record<string, string>;
-  latitude: string;       // "39.00000000"
-  longitude: string;      // "35.00000000"
-  emoji: string;          // "🇹🇷"
-  emojiU: string;         // "U+1F1F9 U+1F1F7"
+  translations: Record<CountryTranslationLocale, string | null>;
+  translationMissingLocales: CountryTranslationLocale[];
+  translationSource: string;
+  latitude: string | null; // "39.00000000" or null
+  longitude: string | null; // "35.00000000" or null
+  emoji: string; // "🇹🇷"
+  emojiU: string; // "U+1F1F9 U+1F1F7"
+  codeAuthority: string; // "ISO 3166/MA"
+  codeStatus: 'officially-assigned' | 'user-assigned';
+  metadataSource: string; // "country-metadata-policy:v1"
+  metadataVerifiedAt: string; // "2026-08-08"
 }
 ```
+
+`null` is used when no single defensible centre exists. Use `getCountryCoverage(iso2)` to distinguish `missing`, `notApplicable`, and `unknown`; see [Data coverage](/docs/data-coverage).
+
+`XK` is a user-assigned code, not an officially assigned ISO 3166 code. Country name and currency changes, aliases, effective dates, and sources are versioned in `data/country-metadata-policy.json`.
 
 ### Example
 
 ```json
 {
   "id": 225,
-  "name": "Turkey",
+  "name": "Türkiye",
   "iso2": "TR",
   "iso3": "TUR",
   "phoneCode": "90",
@@ -49,7 +59,10 @@ interface Country {
   "subregion": "Western Asia",
   "emoji": "🇹🇷",
   "latitude": "39.00000000",
-  "longitude": "35.00000000"
+  "longitude": "35.00000000",
+  "codeAuthority": "ISO 3166/MA",
+  "codeStatus": "officially-assigned",
+  "metadataVerifiedAt": "2026-08-08"
 }
 ```
 
@@ -58,59 +71,96 @@ interface Country {
 ```typescript
 interface State {
   id: number;
-  name: string;           // "Istanbul", "California"
-  countryId: number;      // 225, 233
-  countryCode: string;    // "TR", "US"
-  countryName: string;    // "Turkey", "United States"
-  stateCode: string;      // "34", "CA"
-  type: string | null;    // "province", "state", "region"
-  latitude: string;       // "41.01384310"
-  longitude: string;      // "28.94966760"
+  name: string; // "Istanbul", "California"
+  countryId: number; // 225, 233
+  countryCode: string; // "TR", "US"
+  countryName: string; // "Türkiye", "United States"
+  stateCode: string; // "34", "CA"
+  type: StateType | null; // canonical lower-case enum
+  typeStatus: 'available' | 'unknown';
+  typeReasonCode: 'source-type-missing' | null;
+  typeSource: string;
+  latitude: string | null; // "41.01384310" or null with an exception
+  longitude: string | null; // "28.94966760" or null with an exception
+  coordinateType:
+    'point-on-surface' | 'source-point-unspecified' | 'child-place-median' | 'unavailable';
+  coordinateSource: string;
+  coordinateVerifiedAt: string | null;
+  coordinateValidation: string;
+  coordinateStatus: 'verified' | 'derived' | 'exception' | 'review-required';
+  entityType: 'administrative-area';
+  administrativeLevel: number; // 1, 2, ...
+  placeType: string; // "province", "state", "department", ...
+  parentId: number; // countryId
+  lifecycleStatus: 'current' | 'historical' | 'review-required';
+  validFrom: string | null;
+  validTo: string | null;
 }
 ```
+
+State coordinates are not all the same kind of “centre.” The record makes the method explicit. A matched Natural Earth Admin-1 polygon uses `point-on-surface`; source points keep `source-point-unspecified`; missing defensible points stay `null` with `coordinateStatus: 'exception'`. Source hashes, the 25 km country-boundary audit, and every exception are published in `data/geography/state-coordinate-policy.json`.
+
+Country translations use one BCP 47 key set. Use `getCountryTranslation(code, locale)` while migrating legacy `kr`, `br`, and `cn` calls to `ko`, `pt-BR`, and `zh-CN`. Missing translations are `null`, never silently replaced by English. The exact enum, aliases, and 3.0 migration plan are in `data/schema-normalization-policy.json`.
 
 ## City
 
 ```typescript
 interface City {
   id: number;
-  name: string;           // "Kadikoy", "Los Angeles"
+  name: string; // "Kadikoy", "Los Angeles"
   stateId: number;
-  stateCode: string;      // "34", "CA"
-  stateName: string;      // "Istanbul", "California"
+  stateCode: string; // "34", "CA"
+  stateName: string; // "Istanbul", "California"
   countryId: number;
-  countryCode: string;    // "TR", "US"
-  countryName: string;    // "Turkey", "United States"
-  latitude: string;       // "40.98187890"
-  longitude: string;      // "29.06450670"
-  wikiDataId: string;     // "Q193073"
+  countryCode: string; // "TR", "US"
+  countryName: string; // "Türkiye", "United States"
+  latitude: string; // "40.98187890"
+  longitude: string; // "29.06450670"
+  wikiDataId: string; // "Q193073"
+  entityType: 'administrative-area' | 'settlement';
+  administrativeLevel: number | null;
+  placeType: string;
+  parentId: number; // stateId
+  lifecycleStatus: 'current' | 'historical' | 'review-required';
+  validFrom: string | null;
+  validTo: string | null;
 }
 ```
+
+The legacy `state` and `city` arrays preserve upstream rows for compatibility. Use `getAdministrativeAreas({ level, countryCode, lifecycleStatus, sourceLayer })` for comparable administrative levels; it defaults to current level 1 from the source-state layer. Use `sourceLayer: 'all'` to include administrative-area-like source-city rows. Use `getSettlements({ countryCode, stateId, lifecycleStatus })` for populated-place rows. Country mappings, confidence rules, historical dates, and the migration contract are published in `data/entity-level-policy.json`.
+
+`wikiDataId` is optional supplemental metadata, not a stable or primary identity. Every published non-empty QID is unique in the current snapshot. Confidence, verification reason, Wikidata revision, and rejected/duplicate cleanup evidence are published in `data/identity/wikidata-qid-verification.json`; use the `csc:city:<id>` public ID for durable references.
 
 ## Timezone
 
 ```typescript
 interface Timezone {
-  zoneName: string;       // "Europe/Istanbul"
-  gmtOffset: number;      // 10800
-  gmtOffsetName: string;  // "UTC+03:00"
-  abbreviation: string;   // "TRT"
-  tzName: string;         // "Turkey Time"
+  zoneName: string; // "Europe/Istanbul"
+  gmtOffset: number; // 10800
+  gmtOffsetName: string; // "UTC+03:00"
+  abbreviation: string; // "TRT"
+  tzName: string; // "Turkey Time"
+  observedAt: string; // instant for gmtOffset/gmtOffsetName
+  offsetSource: string;
+  zoneNameAuthority: 'IANA Time Zone Database';
+  labelStatus: 'legacy-descriptive-not-authoritative';
 }
 ```
+
+`zoneName` is authoritative. The stored offset is only the observation at `observedAt` and can differ at another instant because of daylight-saving or rule changes. Calculate runtime values with `CountryStateCity.getTimezoneOffset('America/New_York', new Date())`; see `data/timezone-policy.json`.
 
 ## Optimized City Format
 
 The internal city data uses a compressed format for smaller file sizes:
 
-| Compressed | Full Field |
-|-----------|-----------|
-| `i` | `id` |
-| `n` | `name` |
-| `s` | `stateId` |
-| `c` | `countryId` |
-| `la` | `latitude` |
-| `lo` | `longitude` |
-| `w` | `wikiDataId` |
+| Compressed | Full Field   |
+| ---------- | ------------ |
+| `i`        | `id`         |
+| `n`        | `name`       |
+| `s`        | `stateId`    |
+| `c`        | `countryId`  |
+| `la`       | `latitude`   |
+| `lo`       | `longitude`  |
+| `w`        | `wikiDataId` |
 
 > This compression reduces the city data from ~44MB to ~13MB. The library decompresses automatically at runtime.

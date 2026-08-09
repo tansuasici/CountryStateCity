@@ -1,0 +1,103 @@
+{
+  "schemaVersion": 1,
+  "datasetVersion": "2026-08-06.1",
+  "generatedAt": "2026-08-06T12:15:20Z",
+  "countries": {
+    "TR": {
+      "countryCode": "TR",
+      "countryName": "Türkiye",
+      "pilot": true,
+      "administrativeLevels": [
+        1,
+        2
+      ],
+      "geometryModel": "district-first-derived-coverage-v1",
+      "source": {
+        "name": "OpenStreetMap",
+        "license": "ODbL-1.0",
+        "attribution": "© OpenStreetMap contributors",
+        "licenseUrl": "https://www.openstreetmap.org/copyright",
+        "overpassEndpoint": "https://overpass-api.de/api/interpreter",
+        "snapshotDate": "2026-08-06T12:15:20Z",
+        "relationQuery": "boundary=administrative + admin_level=4/6"
+      },
+      "usage": "Administrative visualization and spatial lookup; not cadastral or legal use.",
+      "identity": {
+        "province": {
+          "id": "csc:state:*",
+          "codeField": "officialCode",
+          "fallbackCodeField": "stateCode"
+        },
+        "district": {
+          "id": "csc:district:*",
+          "codeField": "officialCode",
+          "missingCodeStatus": "not-published-by-validation-source"
+        }
+      },
+      "profiles": {
+        "overview": {
+          "filename": "turkey-admin-z0-4.topojson",
+          "format": "topojson",
+          "mediaType": "application/topo+json",
+          "zoom": [
+            0,
+            4
+          ],
+          "toleranceMeters": 5000,
+          "npmExport": "@tansuasici/country-state-city/data/boundaries/tr/overview.json",
+          "bytes": 962634,
+          "sha256": "4e99efe4e18c8d716376fb17aa019bbc63fae4234ef8af4d85e47635eae8b7d8",
+          "url": "/data/boundaries/2026-08-06.1/tr/turkey-admin-z0-4.topojson"
+        },
+        "regional": {
+          "filename": "turkey-admin-z5-7.topojson",
+          "format": "topojson",
+          "mediaType": "application/topo+json",
+          "zoom": [
+            5,
+            7
+          ],
+          "toleranceMeters": 1000,
+          "bytes": 2350625,
+          "sha256": "443fd8d6afbeb432842a2d8d23513bd162ea735fbdd361924b19c8d2ab01f164",
+          "url": "/data/boundaries/2026-08-06.1/tr/turkey-admin-z5-7.topojson"
+        },
+        "detailed": {
+          "filename": "turkey-admin-z8-plus.topojson",
+          "format": "topojson",
+          "mediaType": "application/topo+json",
+          "zoom": [
+            8,
+            16
+          ],
+          "toleranceMeters": 100,
+          "bytes": 11083226,
+          "sha256": "5f2c83a5d48b979540a43adc2bac40b85e549a01f48314e08b66d4eecdb3d713",
+          "url": "/data/boundaries/2026-08-06.1/tr/turkey-admin-z8-plus.topojson"
+        }
+      },
+      "downloads": {
+        "admin1": {
+          "filename": "turkey-provinces.geojson",
+          "format": "geojson",
+          "mediaType": "application/geo+json",
+          "administrativeLevel": 1,
+          "features": 81,
+          "bytes": 12694821,
+          "sha256": "dca46fea4d95e055ba5a8432a55e3a63a3d72e68899907a77ecb9d0fdd32bd67",
+          "url": "/data/boundaries/2026-08-06.1/tr/turkey-provinces.geojson"
+        },
+        "admin2": {
+          "filename": "turkey-districts.geojson",
+          "format": "geojson",
+          "mediaType": "application/geo+json",
+          "administrativeLevel": 2,
+          "features": 922,
+          "bytes": 22926217,
+          "sha256": "2112d8d59006eba220c497d45ba7f7fa3856f9ebb6f529d3175a034a1aad51bc",
+          "url": "/data/boundaries/2026-08-06.1/tr/turkey-districts.geojson"
+        }
+      }
+    }
+  }
+}

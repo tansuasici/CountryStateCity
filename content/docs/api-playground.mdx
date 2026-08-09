@@ -1,0 +1,40 @@
+---
+title: Hosted API Playground
+description: Run authenticated CountryStateCity REST requests and copy SDK-ready examples.
+full: true
+---
+
+import HostedApiPlayground from '@/components/HostedApiPlayground';
+
+Use your API key to run a request against the current origin. The key stays in component memory and is not stored in local storage, cookies, or the URL.
+
+<HostedApiPlayground />
+
+## JavaScript
+
+```ts
+const response = await fetch('https://countrystatecity.tansuasici.com/api/v1/countries?limit=3', {
+  headers: { 'x-api-key': process.env.CSC_API_KEY! },
+});
+
+if (!response.ok) throw new Error(`CountryStateCity API: ${response.status}`);
+const { data, meta } = await response.json();
+```
+
+## Python
+
+```python
+import os
+import requests
+
+response = requests.get(
+    "https://countrystatecity.tansuasici.com/api/v1/countries",
+    params={"limit": 3, "fields": "id,name,iso2"},
+    headers={"x-api-key": os.environ["CSC_API_KEY"]},
+    timeout=10,
+)
+response.raise_for_status()
+payload = response.json()
+```
+
+See [Hosted API](/docs/hosted-api) for versioning, deprecation, quotas, and cache behavior.

@@ -1,5 +1,5 @@
-blank_issues_enabled: true
+blank_issues_enabled: false
 contact_links:
   - name: Documentation
-    url: https://github.com/nicnhus22/countrystatecity
+    url: https://countrystatecity.tansuasici.com/docs
     about: Check the documentation before opening an issue

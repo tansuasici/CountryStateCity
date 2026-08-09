@@ -1,0 +1,55 @@
+{
+  "schemaVersion": 1,
+  "activatedAt": "2026-08-08",
+  "intake": {
+    "authentication": "GitHub account required by Issue Forms",
+    "anonymousSubmissions": false,
+    "maximumOpenSubmissionsPerAuthorPer24Hours": 5,
+    "duplicateKey": ["publicId", "field", "proposedValue", "sourceUrl"],
+    "requiredFields": [
+      "entityType",
+      "publicId",
+      "field",
+      "currentValue",
+      "proposedValue",
+      "sourceUrl",
+      "sourceLicense",
+      "explanation",
+      "attestation"
+    ]
+  },
+  "sources": {
+    "requireHttps": true,
+    "blockedHosts": ["localhost", "127.0.0.1", "bit.ly", "tinyurl.com"],
+    "allowedLicenses": [
+      "ODbL-1.0",
+      "CC0-1.0",
+      "CC-BY-4.0",
+      "Public domain",
+      "UN-M49",
+      "Other (explain below)"
+    ],
+    "otherLicenseRequiresTermsUrl": true
+  },
+  "review": {
+    "queueLabel": "data-correction:review",
+    "firstResponseSlaHours": 72,
+    "decisionSlaHours": 168,
+    "acceptedRequiresReviewer": true,
+    "productionRequiresAcceptedLedgerEntry": true
+  },
+  "auditTrail": {
+    "required": [
+      "contributionId",
+      "contributor",
+      "submittedAt",
+      "sourceUrl",
+      "license",
+      "reviewer",
+      "reviewedAt",
+      "issueUrl",
+      "decision"
+    ],
+    "retention": "indefinite in repository history"
+  }
+}

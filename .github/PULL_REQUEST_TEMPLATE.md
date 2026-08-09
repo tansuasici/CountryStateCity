@@ -15,6 +15,8 @@
 - [ ] I have added tests that prove my fix is effective or that my feature works
 - [ ] I have updated the documentation accordingly
 - [ ] Lint and formatting checks pass
+- [ ] Data corrections include source URL/license and pass `npm run test:contributions`
+- [ ] Community corrections link an accepted contribution ID, contributor, reviewer, and issue audit trail
 
 ## Related Issues
 

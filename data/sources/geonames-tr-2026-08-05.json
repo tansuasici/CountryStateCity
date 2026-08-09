@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "snapshotDate": "2026-08-05",
+  "source": {
+    "producer": "GeoNames",
+    "title": "GeoNames Gazetteer extract for Türkiye",
+    "url": "https://download.geonames.org/export/dump/",
+    "license": {
+      "id": "CC-BY-4.0",
+      "url": "https://creativecommons.org/licenses/by/4.0/",
+      "attribution": "Contains GeoNames data, licensed under CC BY 4.0."
+    }
+  },
+  "files": [
+    {
+      "name": "TR.zip",
+      "url": "https://download.geonames.org/export/dump/TR.zip",
+      "bytes": 3554216,
+      "sha256": "b751bcc6b627cdee1eda7605fc4bc0c34334039ec17eecc644e8c0d70d1377b4"
+    },
+    {
+      "name": "admin1CodesASCII.txt",
+      "url": "https://download.geonames.org/export/dump/admin1CodesASCII.txt",
+      "bytes": 151572,
+      "sha256": "34784457b76b988a669dff7c3e4b104e4902c0875643cff019281ac79dfa2992"
+    },
+    {
+      "name": "admin2Codes.txt",
+      "url": "https://download.geonames.org/export/dump/admin2Codes.txt",
+      "bytes": 2370359,
+      "sha256": "bffd5ca6729e011fb65935c752575c50256812774113faf520d6f33833911d86"
+    }
+  ]
+}

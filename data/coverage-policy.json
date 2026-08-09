@@ -1,0 +1,191 @@
+{
+  "schemaVersion": 1,
+  "policyVersion": "2026-08-07",
+  "reviewedAt": "2026-08-07",
+  "sourceRelease": "v3.2-export.7",
+  "scope": {
+    "countryGrain": "ISO-like country or territory records shipped by the pinned source release",
+    "stateGrain": "Mixed administrative subdivisions retained from the source; semantic normalization is tracked separately",
+    "cityGrain": "Source-defined populated places; record counts do not imply an exhaustive settlement register"
+  },
+  "contract": {
+    "expectedCountryRecords": 250,
+    "requiredCountryMetadata": ["capital", "native", "region", "subregion"],
+    "requiredGapClassificationRate": 1,
+    "maximumSentinelCoordinatePairs": 0,
+    "minimumRowsAreCompletenessProof": false
+  },
+  "statuses": {
+    "available": "One or more records are published; this does not by itself prove exhaustiveness.",
+    "missing": "Records or metadata are expected but absent from the pinned source snapshot.",
+    "notApplicable": "The field or hierarchy is not meaningful for this entity under the documented rule.",
+    "unknown": "The snapshot is empty and applicability or authoritative completeness has not yet been verified."
+  },
+  "reasonCodes": {
+    "no-state-records-in-source": "The pinned source contains no state/subdivision row for this country or territory.",
+    "no-city-records-in-source": "The pinned source contains no populated-place row for this country or territory.",
+    "child-coverage-unverified": "The state exists, but the snapshot contains no child place and no authoritative completeness decision.",
+    "upstream-field-empty": "The pinned source leaves a required country metadata field empty.",
+    "no-standard-admin-hierarchy": "No standard state-like administrative hierarchy is applicable to the uninhabited territory.",
+    "no-permanent-settlement": "Official territorial information reports no permanent resident settlement to model as a city.",
+    "no-official-capital": "The territory has no fixed official capital.",
+    "un-m49-region-not-assigned": "UN M49 intentionally leaves the region and subregion blank.",
+    "aggregate-has-no-single-centre": "The record is an aggregation of separate islands and has no defensible single centre coordinate.",
+    "aggregate-child-place-scope-unverified": "The aggregate contains separate islands, but a complete child-place register has not been verified.",
+    "coordinate-missing-in-source": "The source does not provide a usable representative centre coordinate.",
+    "partial-coordinate": "Only one member of the latitude/longitude pair is populated."
+  },
+  "defaultRules": {
+    "states": {
+      "status": "missing",
+      "reasonCode": "no-state-records-in-source"
+    },
+    "cities": {
+      "status": "missing",
+      "reasonCode": "no-city-records-in-source"
+    },
+    "stateChildren": {
+      "status": "unknown",
+      "reasonCode": "child-coverage-unverified"
+    },
+    "metadata": {
+      "status": "missing",
+      "reasonCode": "upstream-field-empty"
+    },
+    "coordinate": {
+      "status": "missing",
+      "reasonCode": "coordinate-missing-in-source"
+    }
+  },
+  "countryRules": {
+    "AQ": {
+      "states": {
+        "status": "notApplicable",
+        "reasonCode": "no-standard-admin-hierarchy"
+      },
+      "cities": {
+        "status": "notApplicable",
+        "reasonCode": "no-permanent-settlement"
+      },
+      "metadata": {
+        "capital": {
+          "status": "notApplicable",
+          "reasonCode": "no-official-capital"
+        },
+        "region": {
+          "status": "notApplicable",
+          "reasonCode": "un-m49-region-not-assigned"
+        },
+        "subregion": {
+          "status": "notApplicable",
+          "reasonCode": "un-m49-region-not-assigned"
+        }
+      }
+    },
+    "BV": {
+      "states": {
+        "status": "notApplicable",
+        "reasonCode": "no-standard-admin-hierarchy"
+      },
+      "cities": {
+        "status": "notApplicable",
+        "reasonCode": "no-permanent-settlement"
+      },
+      "metadata": {
+        "capital": {
+          "status": "notApplicable",
+          "reasonCode": "no-official-capital"
+        }
+      }
+    },
+    "HM": {
+      "states": {
+        "status": "notApplicable",
+        "reasonCode": "no-standard-admin-hierarchy"
+      },
+      "cities": {
+        "status": "notApplicable",
+        "reasonCode": "no-permanent-settlement"
+      },
+      "metadata": {
+        "capital": {
+          "status": "notApplicable",
+          "reasonCode": "no-official-capital"
+        }
+      }
+    },
+    "TF": {
+      "cities": {
+        "status": "notApplicable",
+        "reasonCode": "no-permanent-settlement"
+      }
+    },
+    "GS": {
+      "cities": {
+        "status": "notApplicable",
+        "reasonCode": "no-permanent-settlement"
+      }
+    },
+    "TK": {
+      "metadata": {
+        "capital": {
+          "status": "notApplicable",
+          "reasonCode": "no-official-capital"
+        }
+      }
+    },
+    "UM": {
+      "cities": {
+        "status": "unknown",
+        "reasonCode": "aggregate-child-place-scope-unverified"
+      },
+      "metadata": {
+        "capital": {
+          "status": "notApplicable",
+          "reasonCode": "no-official-capital"
+        }
+      },
+      "coordinate": {
+        "status": "notApplicable",
+        "reasonCode": "aggregate-has-no-single-centre"
+      }
+    }
+  },
+  "sources": [
+    {
+      "id": "pinned-upstream",
+      "role": "record-count-baseline",
+      "url": "https://github.com/dr5hn/countries-states-cities-database/releases/tag/v3.2-export.7"
+    },
+    {
+      "id": "un-m49",
+      "role": "country-area and statistical-region verification",
+      "url": "https://unstats.un.org/unsd/methodology/m49/overview/"
+    },
+    {
+      "id": "us-census-ansi",
+      "role": "United States Minor Outlying Islands aggregation verification",
+      "url": "https://www.census.gov/library/reference/code-lists/ansi.2010.html"
+    },
+    {
+      "id": "australian-antarctic-program",
+      "role": "Antarctica and Heard Island population verification",
+      "url": "https://www.antarctica.gov.au/antarctic-operations/stations-and-field-locations/heard-island/"
+    },
+    {
+      "id": "taaf",
+      "role": "French Southern Territories permanent-population verification",
+      "url": "https://taaf.fr/collectivites/presentation/"
+    },
+    {
+      "id": "gsgssi",
+      "role": "South Georgia and South Sandwich Islands permanent-population verification",
+      "url": "https://gov.gs/about-sgssi/"
+    },
+    {
+      "id": "tokelau-government",
+      "role": "Tokelau capital applicability verification",
+      "url": "https://www.tokelau.org.nz/About+Us/Government/Self+Determination+Package/Tokelau+and+Self+Determination.html"
+    }
+  ]
+}

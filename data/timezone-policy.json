@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "policyVersion": "timezone-policy:v1",
+  "verifiedAt": "2026-08-08",
+  "authoritativeField": "zoneName",
+  "zoneNameAuthority": "IANA Time Zone Database",
+  "ianaReference": {
+    "url": "https://www.iana.org/time-zones",
+    "currentReleaseAtVerification": "2026c",
+    "runtimeGenerationTzdb": "2026a"
+  },
+  "offsetSnapshot": {
+    "observedAt": "2026-01-15T00:00:00.000Z",
+    "source": "ECMA-402 Intl.DateTimeFormat with IANA tzdb",
+    "format": "UTC±HH:MM",
+    "zero": "UTC+00:00",
+    "warning": "gmtOffset and gmtOffsetName are observations at observedAt, not current-time values. Use getTimezoneOffset(zoneName, at) for the requested instant."
+  },
+  "legacyLabels": {
+    "fields": ["abbreviation", "tzName"],
+    "status": "legacy-descriptive-not-authoritative"
+  }
+}

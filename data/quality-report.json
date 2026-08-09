@@ -1,0 +1,2735 @@
+{
+  "schemaVersion": 1,
+  "policyVersion": "quality-gate:v1",
+  "generatedAt": "2026-08-08T00:00:00.000Z",
+  "dataVersion": "sha256:14b24c8fae071faa764fafa92e2affb73432a906495989566384578af3362bfd",
+  "gate": {
+    "passed": true,
+    "blockingSeverities": [
+      "critical",
+      "high"
+    ],
+    "unresolvedBlockingFindings": 0,
+    "checksPassed": 13,
+    "checksTotal": 13
+  },
+  "entities": {
+    "country": {
+      "records": 250
+    },
+    "state": {
+      "records": 4963
+    },
+    "city": {
+      "records": 147739
+    },
+    "district": {
+      "records": 922
+    }
+  },
+  "checks": [
+    {
+      "id": "schema-required-fields",
+      "title": "Required schema fields are populated",
+      "severity": "critical",
+      "entity": "all",
+      "status": "passed",
+      "observed": 0,
+      "excepted": 0,
+      "unresolved": 0,
+      "sample": []
+    },
+    {
+      "id": "unique-identities",
+      "title": "Public numeric IDs are unique per entity",
+      "severity": "critical",
+      "entity": "all",
+      "status": "passed",
+      "observed": 0,
+      "excepted": 0,
+      "unresolved": 0,
+      "sample": []
+    },
+    {
+      "id": "referential-integrity",
+      "title": "Every parent reference resolves",
+      "severity": "critical",
+      "entity": "state,city",
+      "status": "passed",
+      "observed": 0,
+      "excepted": 0,
+      "unresolved": 0,
+      "sample": []
+    },
+    {
+      "id": "parent-denormalization",
+      "title": "Denormalized parent fields match canonical parents",
+      "severity": "high",
+      "entity": "state,city",
+      "status": "passed",
+      "observed": 0,
+      "excepted": 0,
+      "unresolved": 0,
+      "sample": []
+    },
+    {
+      "id": "normalized-duplicates",
+      "title": "Normalized names are unique within a parent unless reviewed",
+      "severity": "high",
+      "entity": "state,city",
+      "status": "passed",
+      "observed": 2,
+      "excepted": 2,
+      "unresolved": 0,
+      "sample": [
+        {
+          "entity": "state",
+          "countryCode": "TW",
+          "ids": [
+            3408,
+            3418
+          ],
+          "name": "Chiayi"
+        },
+        {
+          "entity": "state",
+          "countryCode": "TW",
+          "ids": [
+            3423,
+            3417
+          ],
+          "name": "Hsinchu"
+        }
+      ]
+    },
+    {
+      "id": "coordinate-ranges",
+      "title": "Coordinates are paired and within WGS84 ranges",
+      "severity": "critical",
+      "entity": "all",
+      "status": "passed",
+      "observed": 0,
+      "excepted": 0,
+      "unresolved": 0,
+      "sample": []
+    },
+    {
+      "id": "coverage-contract",
+      "title": "Every null or coverage gap is classified",
+      "severity": "high",
+      "entity": "all",
+      "status": "passed",
+      "observed": 0,
+      "excepted": 0,
+      "unresolved": 0,
+      "sample": [],
+      "classifiedGaps": 1650,
+      "totalGaps": 1650
+    },
+    {
+      "id": "wikidata-qids",
+      "title": "Published supplemental QIDs are valid, unique, and verified",
+      "severity": "high",
+      "entity": "city",
+      "status": "passed",
+      "observed": 0,
+      "excepted": 0,
+      "unresolved": 0,
+      "sample": [],
+      "retainedAssignments": 85757,
+      "clearedAssignments": 61948
+    },
+    {
+      "id": "iana-timezones",
+      "title": "Timezone IDs and observed static offsets are valid",
+      "severity": "high",
+      "entity": "country",
+      "status": "passed",
+      "observed": 0,
+      "excepted": 0,
+      "unresolved": 0,
+      "sample": []
+    },
+    {
+      "id": "country-polygon-outliers",
+      "title": "Country polygon outliers are corrected or explicitly classified",
+      "severity": "high",
+      "entity": "city",
+      "status": "passed",
+      "observed": 632,
+      "excepted": 632,
+      "unresolved": 0,
+      "sample": [],
+      "corrected": 5,
+      "unresolvedBeforeException": 0,
+      "reference": "natural-earth-admin0-countries-5.1.1"
+    },
+    {
+      "id": "state-coordinate-outliers",
+      "title": "State coordinates are verified, derived, or explicitly excepted",
+      "severity": "high",
+      "entity": "state",
+      "status": "passed",
+      "observed": 51,
+      "excepted": 51,
+      "unresolved": 0,
+      "sample": [],
+      "reviewedMajorOutliers": 317,
+      "unresolvedBeforeException": 0
+    },
+    {
+      "id": "artifact-parity",
+      "title": "Raw, optimized, shard, npm, and manifest artifacts match by hash",
+      "severity": "critical",
+      "entity": "distribution",
+      "status": "passed",
+      "observed": 0,
+      "excepted": 0,
+      "unresolved": 0,
+      "sample": [],
+      "generatedFiles": 197,
+      "dataVersion": "sha256:6374df145d95607bb72c76066fc9d63997782c081f844dc2ab4f4369655401fb"
+    },
+    {
+      "id": "exception-governance",
+      "title": "Exceptions have an owner, rationale, evidence, and future expiry",
+      "severity": "high",
+      "entity": "policy",
+      "status": "passed",
+      "observed": 0,
+      "excepted": 0,
+      "unresolved": 0,
+      "sample": [],
+      "activeExceptions": 3,
+      "nextExpiry": "2027-02-08"
+    }
+  ],
+  "exceptions": [
+    {
+      "id": "normalized-state-name-taiwan-city-county-pairs",
+      "checkId": "normalized-duplicates",
+      "severity": "high",
+      "expectedCount": 2,
+      "owner": "data-maintainers",
+      "expiresAt": "2027-02-08"
+    },
+    {
+      "id": "city-country-polygon-reviewed-exceptions",
+      "checkId": "country-polygon-outliers",
+      "severity": "high",
+      "expectedCount": 632,
+      "owner": "data-maintainers",
+      "expiresAt": "2027-02-08"
+    },
+    {
+      "id": "state-coordinate-reviewed-exceptions",
+      "checkId": "state-coordinate-outliers",
+      "severity": "high",
+      "expectedCount": 51,
+      "owner": "data-maintainers",
+      "expiresAt": "2027-02-08"
+    }
+  ],
+  "countryDrilldown": [
+    {
+      "countryId": 1,
+      "countryCode": "AF",
+      "countryName": "Afghanistan",
+      "states": 33,
+      "cities": 92,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 2,
+      "countryCode": "AX",
+      "countryName": "Aland Islands",
+      "states": 0,
+      "cities": 0,
+      "coverageGaps": 2,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 3,
+      "countryCode": "AL",
+      "countryName": "Albania",
+      "states": 47,
+      "cities": 130,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 1,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 4,
+      "countryCode": "DZ",
+      "countryName": "Algeria",
+      "states": 58,
+      "cities": 293,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 5,
+      "countryCode": "AS",
+      "countryName": "American Samoa",
+      "states": 0,
+      "cities": 0,
+      "coverageGaps": 2,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 6,
+      "countryCode": "AD",
+      "countryName": "Andorra",
+      "states": 7,
+      "cities": 10,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 7,
+      "countryCode": "AO",
+      "countryName": "Angola",
+      "states": 17,
+      "cities": 48,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 1
+    },
+    {
+      "countryId": 8,
+      "countryCode": "AI",
+      "countryName": "Anguilla",
+      "states": 0,
+      "cities": 0,
+      "coverageGaps": 2,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 9,
+      "countryCode": "AQ",
+      "countryName": "Antarctica",
+      "states": 0,
+      "cities": 0,
+      "coverageGaps": 4,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 10,
+      "countryCode": "AG",
+      "countryName": "Antigua And Barbuda",
+      "states": 8,
+      "cities": 9,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 11,
+      "countryCode": "AR",
+      "countryName": "Argentina",
+      "states": 24,
+      "cities": 963,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 40
+    },
+    {
+      "countryId": 12,
+      "countryCode": "AM",
+      "countryName": "Armenia",
+      "states": 11,
+      "cities": 308,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 1
+    },
+    {
+      "countryId": 13,
+      "countryCode": "AW",
+      "countryName": "Aruba",
+      "states": 0,
+      "cities": 0,
+      "coverageGaps": 2,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 14,
+      "countryCode": "AU",
+      "countryName": "Australia",
+      "states": 8,
+      "cities": 4139,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 88
+    },
+    {
+      "countryId": 15,
+      "countryCode": "AT",
+      "countryName": "Austria",
+      "states": 9,
+      "cities": 2361,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 1
+    },
+    {
+      "countryId": 16,
+      "countryCode": "AZ",
+      "countryName": "Azerbaijan",
+      "states": 75,
+      "cities": 178,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 1
+    },
+    {
+      "countryId": 17,
+      "countryCode": "BS",
+      "countryName": "Bahamas",
+      "states": 42,
+      "cities": 21,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 5,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 18,
+      "countryCode": "BH",
+      "countryName": "Bahrain",
+      "states": 5,
+      "cities": 9,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 19,
+      "countryCode": "BD",
+      "countryName": "Bangladesh",
+      "states": 70,
+      "cities": 141,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 1
+    },
+    {
+      "countryId": 20,
+      "countryCode": "BB",
+      "countryName": "Barbados",
+      "states": 11,
+      "cities": 7,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 21,
+      "countryCode": "BY",
+      "countryName": "Belarus",
+      "states": 7,
+      "cities": 329,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 1
+    },
+    {
+      "countryId": 22,
+      "countryCode": "BE",
+      "countryName": "Belgium",
+      "states": 13,
+      "cities": 550,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 2
+    },
+    {
+      "countryId": 23,
+      "countryCode": "BZ",
+      "countryName": "Belize",
+      "states": 6,
+      "cities": 13,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 24,
+      "countryCode": "BJ",
+      "countryName": "Benin",
+      "states": 12,
+      "cities": 36,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 25,
+      "countryCode": "BM",
+      "countryName": "Bermuda",
+      "states": 11,
+      "cities": 0,
+      "coverageGaps": 1,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 26,
+      "countryCode": "BT",
+      "countryName": "Bhutan",
+      "states": 19,
+      "cities": 24,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 27,
+      "countryCode": "BO",
+      "countryName": "Bolivia",
+      "states": 9,
+      "cities": 228,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 26
+    },
+    {
+      "countryId": 155,
+      "countryCode": "BQ",
+      "countryName": "Bonaire, Sint Eustatius and Saba",
+      "states": 0,
+      "cities": 0,
+      "coverageGaps": 2,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 28,
+      "countryCode": "BA",
+      "countryName": "Bosnia and Herzegovina",
+      "states": 13,
+      "cities": 232,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 29,
+      "countryCode": "BW",
+      "countryName": "Botswana",
+      "states": 10,
+      "cities": 75,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 1
+    },
+    {
+      "countryId": 30,
+      "countryCode": "BV",
+      "countryName": "Bouvet Island",
+      "states": 0,
+      "cities": 0,
+      "coverageGaps": 3,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 31,
+      "countryCode": "BR",
+      "countryName": "Brazil",
+      "states": 27,
+      "cities": 5640,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 51
+    },
+    {
+      "countryId": 32,
+      "countryCode": "IO",
+      "countryName": "British Indian Ocean Territory",
+      "states": 0,
+      "cities": 0,
+      "coverageGaps": 2,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 33,
+      "countryCode": "BN",
+      "countryName": "Brunei",
+      "states": 4,
+      "cities": 9,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 34,
+      "countryCode": "BG",
+      "countryName": "Bulgaria",
+      "states": 28,
+      "cities": 504,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 35,
+      "countryCode": "BF",
+      "countryName": "Burkina Faso",
+      "states": 57,
+      "cities": 92,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 4
+    },
+    {
+      "countryId": 36,
+      "countryCode": "BI",
+      "countryName": "Burundi",
+      "states": 18,
+      "cities": 17,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 37,
+      "countryCode": "KH",
+      "countryName": "Cambodia",
+      "states": 23,
+      "cities": 106,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 2
+    },
+    {
+      "countryId": 38,
+      "countryCode": "CM",
+      "countryName": "Cameroon",
+      "states": 10,
+      "cities": 139,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 1
+    },
+    {
+      "countryId": 39,
+      "countryCode": "CA",
+      "countryName": "Canada",
+      "states": 13,
+      "cities": 1079,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 9
+    },
+    {
+      "countryId": 40,
+      "countryCode": "CV",
+      "countryName": "Cape Verde",
+      "states": 23,
+      "cities": 24,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 41,
+      "countryCode": "KY",
+      "countryName": "Cayman Islands",
+      "states": 0,
+      "cities": 0,
+      "coverageGaps": 2,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 42,
+      "countryCode": "CF",
+      "countryName": "Central African Republic",
+      "states": 17,
+      "cities": 43,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 1
+    },
+    {
+      "countryId": 43,
+      "countryCode": "TD",
+      "countryName": "Chad",
+      "states": 23,
+      "cities": 41,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 44,
+      "countryCode": "CL",
+      "countryName": "Chile",
+      "states": 16,
+      "cities": 346,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 5
+    },
+    {
+      "countryId": 45,
+      "countryCode": "CN",
+      "countryName": "China",
+      "states": 34,
+      "cities": 1296,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 15
+    },
+    {
+      "countryId": 46,
+      "countryCode": "CX",
+      "countryName": "Christmas Island",
+      "states": 0,
+      "cities": 0,
+      "coverageGaps": 2,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 47,
+      "countryCode": "CC",
+      "countryName": "Cocos (Keeling) Islands",
+      "states": 0,
+      "cities": 0,
+      "coverageGaps": 2,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 48,
+      "countryCode": "CO",
+      "countryName": "Colombia",
+      "states": 33,
+      "cities": 1124,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 13
+    },
+    {
+      "countryId": 49,
+      "countryCode": "KM",
+      "countryName": "Comoros",
+      "states": 3,
+      "cities": 88,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 50,
+      "countryCode": "CG",
+      "countryName": "Congo",
+      "states": 12,
+      "cities": 17,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 52,
+      "countryCode": "CK",
+      "countryName": "Cook Islands",
+      "states": 0,
+      "cities": 0,
+      "coverageGaps": 2,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 53,
+      "countryCode": "CR",
+      "countryName": "Costa Rica",
+      "states": 7,
+      "cities": 159,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 3
+    },
+    {
+      "countryId": 54,
+      "countryCode": "CI",
+      "countryName": "Côte d'Ivoire",
+      "states": 31,
+      "cities": 85,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 1,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 55,
+      "countryCode": "HR",
+      "countryName": "Croatia",
+      "states": 20,
+      "cities": 664,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 1
+    },
+    {
+      "countryId": 56,
+      "countryCode": "CU",
+      "countryName": "Cuba",
+      "states": 16,
+      "cities": 187,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 249,
+      "countryCode": "CW",
+      "countryName": "Curaçao",
+      "states": 0,
+      "cities": 0,
+      "coverageGaps": 2,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 57,
+      "countryCode": "CY",
+      "countryName": "Cyprus",
+      "states": 6,
+      "cities": 95,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 58,
+      "countryCode": "CZ",
+      "countryName": "Czech Republic",
+      "states": 90,
+      "cities": 1355,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 1
+    },
+    {
+      "countryId": 51,
+      "countryCode": "CD",
+      "countryName": "Democratic Republic of the Congo",
+      "states": 26,
+      "cities": 69,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 59,
+      "countryCode": "DK",
+      "countryName": "Denmark",
+      "states": 5,
+      "cities": 429,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 60,
+      "countryCode": "DJ",
+      "countryName": "Djibouti",
+      "states": 6,
+      "cities": 12,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 61,
+      "countryCode": "DM",
+      "countryName": "Dominica",
+      "states": 10,
+      "cities": 17,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 62,
+      "countryCode": "DO",
+      "countryName": "Dominican Republic",
+      "states": 31,
+      "cities": 207,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 63,
+      "countryCode": "TL",
+      "countryName": "Timor-Leste",
+      "states": 12,
+      "cities": 50,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 64,
+      "countryCode": "EC",
+      "countryName": "Ecuador",
+      "states": 24,
+      "cities": 115,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 3
+    },
+    {
+      "countryId": 65,
+      "countryCode": "EG",
+      "countryName": "Egypt",
+      "states": 27,
+      "cities": 140,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 3
+    },
+    {
+      "countryId": 66,
+      "countryCode": "SV",
+      "countryName": "El Salvador",
+      "states": 14,
+      "cities": 100,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 67,
+      "countryCode": "GQ",
+      "countryName": "Equatorial Guinea",
+      "states": 9,
+      "cities": 24,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 1
+    },
+    {
+      "countryId": 68,
+      "countryCode": "ER",
+      "countryName": "Eritrea",
+      "states": 6,
+      "cities": 11,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 69,
+      "countryCode": "EE",
+      "countryName": "Estonia",
+      "states": 15,
+      "cities": 162,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 2
+    },
+    {
+      "countryId": 70,
+      "countryCode": "ET",
+      "countryName": "Ethiopia",
+      "states": 11,
+      "cities": 144,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 10
+    },
+    {
+      "countryId": 71,
+      "countryCode": "FK",
+      "countryName": "Falkland Islands",
+      "states": 0,
+      "cities": 0,
+      "coverageGaps": 2,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 72,
+      "countryCode": "FO",
+      "countryName": "Faroe Islands",
+      "states": 0,
+      "cities": 0,
+      "coverageGaps": 2,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 73,
+      "countryCode": "FJ",
+      "countryName": "Fiji Islands",
+      "states": 19,
+      "cities": 20,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 5,
+      "lowConfidenceQids": 1
+    },
+    {
+      "countryId": 74,
+      "countryCode": "FI",
+      "countryName": "Finland",
+      "states": 21,
+      "cities": 402,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 1,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 75,
+      "countryCode": "FR",
+      "countryName": "France",
+      "states": 123,
+      "cities": 8894,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 6,
+      "lowConfidenceQids": 8
+    },
+    {
+      "countryId": 76,
+      "countryCode": "GF",
+      "countryName": "French Guiana",
+      "states": 0,
+      "cities": 0,
+      "coverageGaps": 2,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 77,
+      "countryCode": "PF",
+      "countryName": "French Polynesia",
+      "states": 0,
+      "cities": 0,
+      "coverageGaps": 2,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 78,
+      "countryCode": "TF",
+      "countryName": "French Southern Territories",
+      "states": 0,
+      "cities": 0,
+      "coverageGaps": 2,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 79,
+      "countryCode": "GA",
+      "countryName": "Gabon",
+      "states": 9,
+      "cities": 28,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 80,
+      "countryCode": "GM",
+      "countryName": "Gambia",
+      "states": 6,
+      "cities": 104,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 1
+    },
+    {
+      "countryId": 81,
+      "countryCode": "GE",
+      "countryName": "Georgia",
+      "states": 14,
+      "cities": 112,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 1
+    },
+    {
+      "countryId": 82,
+      "countryCode": "DE",
+      "countryName": "Germany",
+      "states": 16,
+      "cities": 7097,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 8
+    },
+    {
+      "countryId": 83,
+      "countryCode": "GH",
+      "countryName": "Ghana",
+      "states": 16,
+      "cities": 121,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 21
+    },
+    {
+      "countryId": 84,
+      "countryCode": "GI",
+      "countryName": "Gibraltar",
+      "states": 0,
+      "cities": 0,
+      "coverageGaps": 2,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 85,
+      "countryCode": "GR",
+      "countryName": "Greece",
+      "states": 38,
+      "cities": 1025,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 3,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 86,
+      "countryCode": "GL",
+      "countryName": "Greenland",
+      "states": 0,
+      "cities": 0,
+      "coverageGaps": 2,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 87,
+      "countryCode": "GD",
+      "countryName": "Grenada",
+      "states": 7,
+      "cities": 7,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 88,
+      "countryCode": "GP",
+      "countryName": "Guadeloupe",
+      "states": 0,
+      "cities": 0,
+      "coverageGaps": 2,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 89,
+      "countryCode": "GU",
+      "countryName": "Guam",
+      "states": 0,
+      "cities": 0,
+      "coverageGaps": 2,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 90,
+      "countryCode": "GT",
+      "countryName": "Guatemala",
+      "states": 21,
+      "cities": 382,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 91,
+      "countryCode": "GG",
+      "countryName": "Guernsey and Alderney",
+      "states": 0,
+      "cities": 0,
+      "coverageGaps": 2,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 92,
+      "countryCode": "GN",
+      "countryName": "Guinea",
+      "states": 40,
+      "cities": 54,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 7
+    },
+    {
+      "countryId": 93,
+      "countryCode": "GW",
+      "countryName": "Guinea-Bissau",
+      "states": 11,
+      "cities": 14,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 1,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 94,
+      "countryCode": "GY",
+      "countryName": "Guyana",
+      "states": 10,
+      "cities": 14,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 95,
+      "countryCode": "HT",
+      "countryName": "Haiti",
+      "states": 10,
+      "cities": 124,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 96,
+      "countryCode": "HM",
+      "countryName": "Heard Island and McDonald Islands",
+      "states": 0,
+      "cities": 0,
+      "coverageGaps": 3,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 97,
+      "countryCode": "HN",
+      "countryName": "Honduras",
+      "states": 18,
+      "cities": 545,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 98,
+      "countryCode": "HK",
+      "countryName": "Hong Kong S.A.R.",
+      "states": 18,
+      "cities": 0,
+      "coverageGaps": 1,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 99,
+      "countryCode": "HU",
+      "countryName": "Hungary",
+      "states": 42,
+      "cities": 1005,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 1
+    },
+    {
+      "countryId": 100,
+      "countryCode": "IS",
+      "countryName": "Iceland",
+      "states": 8,
+      "cities": 74,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 5
+    },
+    {
+      "countryId": 101,
+      "countryCode": "IN",
+      "countryName": "India",
+      "states": 36,
+      "cities": 4241,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 104
+    },
+    {
+      "countryId": 102,
+      "countryCode": "ID",
+      "countryName": "Indonesia",
+      "states": 34,
+      "cities": 889,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 62
+    },
+    {
+      "countryId": 103,
+      "countryCode": "IR",
+      "countryName": "Iran",
+      "states": 31,
+      "cities": 1090,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 2
+    },
+    {
+      "countryId": 104,
+      "countryCode": "IQ",
+      "countryName": "Iraq",
+      "states": 18,
+      "cities": 81,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 105,
+      "countryCode": "IE",
+      "countryName": "Ireland",
+      "states": 29,
+      "cities": 372,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 5
+    },
+    {
+      "countryId": 106,
+      "countryCode": "IL",
+      "countryName": "Israel",
+      "states": 6,
+      "cities": 150,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 107,
+      "countryCode": "IT",
+      "countryName": "Italy",
+      "states": 128,
+      "cities": 9948,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 16
+    },
+    {
+      "countryId": 108,
+      "countryCode": "JM",
+      "countryName": "Jamaica",
+      "states": 14,
+      "cities": 840,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 109,
+      "countryCode": "JP",
+      "countryName": "Japan",
+      "states": 47,
+      "cities": 1671,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 3
+    },
+    {
+      "countryId": 110,
+      "countryCode": "JE",
+      "countryName": "Jersey",
+      "states": 0,
+      "cities": 0,
+      "coverageGaps": 2,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 111,
+      "countryCode": "JO",
+      "countryName": "Jordan",
+      "states": 12,
+      "cities": 82,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 112,
+      "countryCode": "KZ",
+      "countryName": "Kazakhstan",
+      "states": 17,
+      "cities": 260,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 5
+    },
+    {
+      "countryId": 113,
+      "countryCode": "KE",
+      "countryName": "Kenya",
+      "states": 47,
+      "cities": 110,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 3
+    },
+    {
+      "countryId": 114,
+      "countryCode": "KI",
+      "countryName": "Kiribati",
+      "states": 3,
+      "cities": 38,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 248,
+      "countryCode": "XK",
+      "countryName": "Kosovo",
+      "states": 7,
+      "cities": 0,
+      "coverageGaps": 1,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 117,
+      "countryCode": "KW",
+      "countryName": "Kuwait",
+      "states": 6,
+      "cities": 25,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 118,
+      "countryCode": "KG",
+      "countryName": "Kyrgyzstan",
+      "states": 9,
+      "cities": 53,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 2
+    },
+    {
+      "countryId": 119,
+      "countryCode": "LA",
+      "countryName": "Laos",
+      "states": 19,
+      "cities": 76,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 1,
+      "lowConfidenceQids": 2
+    },
+    {
+      "countryId": 120,
+      "countryCode": "LV",
+      "countryName": "Latvia",
+      "states": 118,
+      "cities": 125,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 121,
+      "countryCode": "LB",
+      "countryName": "Lebanon",
+      "states": 8,
+      "cities": 26,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 122,
+      "countryCode": "LS",
+      "countryName": "Lesotho",
+      "states": 10,
+      "cities": 12,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 123,
+      "countryCode": "LR",
+      "countryName": "Liberia",
+      "states": 15,
+      "cities": 18,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 124,
+      "countryCode": "LY",
+      "countryName": "Libya",
+      "states": 21,
+      "cities": 51,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 125,
+      "countryCode": "LI",
+      "countryName": "Liechtenstein",
+      "states": 11,
+      "cities": 11,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 126,
+      "countryCode": "LT",
+      "countryName": "Lithuania",
+      "states": 69,
+      "cities": 129,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 1
+    },
+    {
+      "countryId": 127,
+      "countryCode": "LU",
+      "countryName": "Luxembourg",
+      "states": 15,
+      "cities": 144,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 128,
+      "countryCode": "MO",
+      "countryName": "Macau S.A.R.",
+      "states": 0,
+      "cities": 0,
+      "coverageGaps": 2,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 129,
+      "countryCode": "MK",
+      "countryName": "North Macedonia",
+      "states": 84,
+      "cities": 197,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 130,
+      "countryCode": "MG",
+      "countryName": "Madagascar",
+      "states": 6,
+      "cities": 9,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 131,
+      "countryCode": "MW",
+      "countryName": "Malawi",
+      "states": 30,
+      "cities": 61,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 3
+    },
+    {
+      "countryId": 132,
+      "countryCode": "MY",
+      "countryName": "Malaysia",
+      "states": 16,
+      "cities": 179,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 1
+    },
+    {
+      "countryId": 133,
+      "countryCode": "MV",
+      "countryName": "Maldives",
+      "states": 26,
+      "cities": 21,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 4,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 134,
+      "countryCode": "ML",
+      "countryName": "Mali",
+      "states": 11,
+      "cities": 47,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 3
+    },
+    {
+      "countryId": 135,
+      "countryCode": "MT",
+      "countryName": "Malta",
+      "states": 67,
+      "cities": 68,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 136,
+      "countryCode": "IM",
+      "countryName": "Isle of Man",
+      "states": 0,
+      "cities": 0,
+      "coverageGaps": 2,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 137,
+      "countryCode": "MH",
+      "countryName": "Marshall Islands",
+      "states": 2,
+      "cities": 0,
+      "coverageGaps": 1,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 138,
+      "countryCode": "MQ",
+      "countryName": "Martinique",
+      "states": 0,
+      "cities": 0,
+      "coverageGaps": 2,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 139,
+      "countryCode": "MR",
+      "countryName": "Mauritania",
+      "states": 15,
+      "cities": 15,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 140,
+      "countryCode": "MU",
+      "countryName": "Mauritius",
+      "states": 17,
+      "cities": 97,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 1,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 141,
+      "countryCode": "YT",
+      "countryName": "Mayotte",
+      "states": 0,
+      "cities": 0,
+      "coverageGaps": 2,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 142,
+      "countryCode": "MX",
+      "countryName": "Mexico",
+      "states": 32,
+      "cities": 9174,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 31
+    },
+    {
+      "countryId": 143,
+      "countryCode": "FM",
+      "countryName": "Micronesia",
+      "states": 4,
+      "cities": 81,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 144,
+      "countryCode": "MD",
+      "countryName": "Moldova",
+      "states": 36,
+      "cities": 72,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 145,
+      "countryCode": "MC",
+      "countryName": "Monaco",
+      "states": 3,
+      "cities": 0,
+      "coverageGaps": 1,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 146,
+      "countryCode": "MN",
+      "countryName": "Mongolia",
+      "states": 21,
+      "cities": 38,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 147,
+      "countryCode": "ME",
+      "countryName": "Montenegro",
+      "states": 22,
+      "cities": 34,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 148,
+      "countryCode": "MS",
+      "countryName": "Montserrat",
+      "states": 0,
+      "cities": 0,
+      "coverageGaps": 2,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 149,
+      "countryCode": "MA",
+      "countryName": "Morocco",
+      "states": 87,
+      "cities": 224,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 16
+    },
+    {
+      "countryId": 150,
+      "countryCode": "MZ",
+      "countryName": "Mozambique",
+      "states": 11,
+      "cities": 38,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 1
+    },
+    {
+      "countryId": 151,
+      "countryCode": "MM",
+      "countryName": "Myanmar",
+      "states": 15,
+      "cities": 74,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 152,
+      "countryCode": "NA",
+      "countryName": "Namibia",
+      "states": 14,
+      "cities": 48,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 3
+    },
+    {
+      "countryId": 153,
+      "countryCode": "NR",
+      "countryName": "Nauru",
+      "states": 14,
+      "cities": 7,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 154,
+      "countryCode": "NP",
+      "countryName": "Nepal",
+      "states": 19,
+      "cities": 55,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 156,
+      "countryCode": "NL",
+      "countryName": "Netherlands",
+      "states": 15,
+      "cities": 1740,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 157,
+      "countryCode": "NC",
+      "countryName": "New Caledonia",
+      "states": 0,
+      "cities": 0,
+      "coverageGaps": 2,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 158,
+      "countryCode": "NZ",
+      "countryName": "New Zealand",
+      "states": 17,
+      "cities": 158,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 2
+    },
+    {
+      "countryId": 159,
+      "countryCode": "NI",
+      "countryName": "Nicaragua",
+      "states": 17,
+      "cities": 155,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 2
+    },
+    {
+      "countryId": 160,
+      "countryCode": "NE",
+      "countryName": "Niger",
+      "states": 7,
+      "cities": 70,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 11
+    },
+    {
+      "countryId": 161,
+      "countryCode": "NG",
+      "countryName": "Nigeria",
+      "states": 37,
+      "cities": 424,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 162,
+      "countryCode": "NU",
+      "countryName": "Niue",
+      "states": 0,
+      "cities": 0,
+      "coverageGaps": 2,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 163,
+      "countryCode": "NF",
+      "countryName": "Norfolk Island",
+      "states": 0,
+      "cities": 0,
+      "coverageGaps": 2,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 115,
+      "countryCode": "KP",
+      "countryName": "North Korea",
+      "states": 11,
+      "cities": 80,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 164,
+      "countryCode": "MP",
+      "countryName": "Northern Mariana Islands",
+      "states": 0,
+      "cities": 0,
+      "coverageGaps": 2,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 165,
+      "countryCode": "NO",
+      "countryName": "Norway",
+      "states": 21,
+      "cities": 668,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 5
+    },
+    {
+      "countryId": 166,
+      "countryCode": "OM",
+      "countryName": "Oman",
+      "states": 13,
+      "cities": 28,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 167,
+      "countryCode": "PK",
+      "countryName": "Pakistan",
+      "states": 8,
+      "cities": 458,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 4
+    },
+    {
+      "countryId": 168,
+      "countryCode": "PW",
+      "countryName": "Palau",
+      "states": 16,
+      "cities": 16,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 169,
+      "countryCode": "PS",
+      "countryName": "Palestine",
+      "states": 0,
+      "cities": 0,
+      "coverageGaps": 2,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 170,
+      "countryCode": "PA",
+      "countryName": "Panama",
+      "states": 13,
+      "cities": 600,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 4
+    },
+    {
+      "countryId": 171,
+      "countryCode": "PG",
+      "countryName": "Papua New Guinea",
+      "states": 21,
+      "cities": 101,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 14
+    },
+    {
+      "countryId": 172,
+      "countryCode": "PY",
+      "countryName": "Paraguay",
+      "states": 17,
+      "cities": 140,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 1
+    },
+    {
+      "countryId": 173,
+      "countryCode": "PE",
+      "countryName": "Peru",
+      "states": 25,
+      "cities": 483,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 48
+    },
+    {
+      "countryId": 174,
+      "countryCode": "PH",
+      "countryName": "Philippines",
+      "states": 97,
+      "cities": 6520,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 39
+    },
+    {
+      "countryId": 175,
+      "countryCode": "PN",
+      "countryName": "Pitcairn Island",
+      "states": 0,
+      "cities": 0,
+      "coverageGaps": 2,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 176,
+      "countryCode": "PL",
+      "countryName": "Poland",
+      "states": 16,
+      "cities": 3126,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 3
+    },
+    {
+      "countryId": 177,
+      "countryCode": "PT",
+      "countryName": "Portugal",
+      "states": 20,
+      "cities": 1313,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 178,
+      "countryCode": "PR",
+      "countryName": "Puerto Rico",
+      "states": 0,
+      "cities": 0,
+      "coverageGaps": 2,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 179,
+      "countryCode": "QA",
+      "countryName": "Qatar",
+      "states": 8,
+      "cities": 15,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 180,
+      "countryCode": "RE",
+      "countryName": "Reunion",
+      "states": 0,
+      "cities": 0,
+      "coverageGaps": 2,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 181,
+      "countryCode": "RO",
+      "countryName": "Romania",
+      "states": 42,
+      "cities": 8081,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 182,
+      "countryCode": "RU",
+      "countryName": "Russia",
+      "states": 84,
+      "cities": 5545,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 89
+    },
+    {
+      "countryId": 183,
+      "countryCode": "RW",
+      "countryName": "Rwanda",
+      "states": 5,
+      "cities": 12,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 184,
+      "countryCode": "SH",
+      "countryName": "Saint Helena",
+      "states": 0,
+      "cities": 0,
+      "coverageGaps": 2,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 185,
+      "countryCode": "KN",
+      "countryName": "Saint Kitts And Nevis",
+      "states": 15,
+      "cities": 13,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 186,
+      "countryCode": "LC",
+      "countryName": "Saint Lucia",
+      "states": 12,
+      "cities": 481,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 187,
+      "countryCode": "PM",
+      "countryName": "Saint Pierre and Miquelon",
+      "states": 0,
+      "cities": 0,
+      "coverageGaps": 2,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 188,
+      "countryCode": "VC",
+      "countryName": "Saint Vincent And the Grenadines",
+      "states": 6,
+      "cities": 9,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 189,
+      "countryCode": "BL",
+      "countryName": "Saint Barthélemy",
+      "states": 0,
+      "cities": 0,
+      "coverageGaps": 2,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 190,
+      "countryCode": "MF",
+      "countryName": "Saint-Martin (French part)",
+      "states": 0,
+      "cities": 0,
+      "coverageGaps": 2,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 191,
+      "countryCode": "WS",
+      "countryName": "Samoa",
+      "states": 11,
+      "cities": 20,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 192,
+      "countryCode": "SM",
+      "countryName": "San Marino",
+      "states": 9,
+      "cities": 9,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 193,
+      "countryCode": "ST",
+      "countryName": "Sao Tome and Principe",
+      "states": 2,
+      "cities": 5,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 194,
+      "countryCode": "SA",
+      "countryName": "Saudi Arabia",
+      "states": 13,
+      "cities": 563,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 1
+    },
+    {
+      "countryId": 195,
+      "countryCode": "SN",
+      "countryName": "Senegal",
+      "states": 14,
+      "cities": 73,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 2
+    },
+    {
+      "countryId": 196,
+      "countryCode": "RS",
+      "countryName": "Serbia",
+      "states": 26,
+      "cities": 334,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 1
+    },
+    {
+      "countryId": 197,
+      "countryCode": "SC",
+      "countryName": "Seychelles",
+      "states": 24,
+      "cities": 8,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 198,
+      "countryCode": "SL",
+      "countryName": "Sierra Leone",
+      "states": 4,
+      "cities": 90,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 199,
+      "countryCode": "SG",
+      "countryName": "Singapore",
+      "states": 5,
+      "cities": 2,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 250,
+      "countryCode": "SX",
+      "countryName": "Sint Maarten (Dutch part)",
+      "states": 0,
+      "cities": 0,
+      "coverageGaps": 2,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 200,
+      "countryCode": "SK",
+      "countryName": "Slovakia",
+      "states": 8,
+      "cities": 233,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 201,
+      "countryCode": "SI",
+      "countryName": "Slovenia",
+      "states": 211,
+      "cities": 311,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 202,
+      "countryCode": "SB",
+      "countryName": "Solomon Islands",
+      "states": 10,
+      "cities": 7,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 203,
+      "countryCode": "SO",
+      "countryName": "Somalia",
+      "states": 16,
+      "cities": 46,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 3,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 204,
+      "countryCode": "ZA",
+      "countryName": "South Africa",
+      "states": 9,
+      "cities": 314,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 19
+    },
+    {
+      "countryId": 205,
+      "countryCode": "GS",
+      "countryName": "South Georgia and the South Sandwich Islands",
+      "states": 0,
+      "cities": 0,
+      "coverageGaps": 2,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 116,
+      "countryCode": "KR",
+      "countryName": "South Korea",
+      "states": 17,
+      "cities": 309,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 206,
+      "countryCode": "SS",
+      "countryName": "South Sudan",
+      "states": 10,
+      "cities": 1,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 207,
+      "countryCode": "ES",
+      "countryName": "Spain",
+      "states": 28,
+      "cities": 6692,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 6
+    },
+    {
+      "countryId": 208,
+      "countryCode": "LK",
+      "countryName": "Sri Lanka",
+      "states": 33,
+      "cities": 147,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 11
+    },
+    {
+      "countryId": 209,
+      "countryCode": "SD",
+      "countryName": "Sudan",
+      "states": 18,
+      "cities": 71,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 210,
+      "countryCode": "SR",
+      "countryName": "Suriname",
+      "states": 10,
+      "cities": 13,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 211,
+      "countryCode": "SJ",
+      "countryName": "Svalbard And Jan Mayen Islands",
+      "states": 0,
+      "cities": 0,
+      "coverageGaps": 2,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 212,
+      "countryCode": "SZ",
+      "countryName": "Swaziland",
+      "states": 4,
+      "cities": 34,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 213,
+      "countryCode": "SE",
+      "countryName": "Sweden",
+      "states": 20,
+      "cities": 1072,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 16
+    },
+    {
+      "countryId": 214,
+      "countryCode": "CH",
+      "countryName": "Switzerland",
+      "states": 26,
+      "cities": 1506,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 1
+    },
+    {
+      "countryId": 215,
+      "countryCode": "SY",
+      "countryName": "Syria",
+      "states": 14,
+      "cities": 142,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 5
+    },
+    {
+      "countryId": 216,
+      "countryCode": "TW",
+      "countryName": "Taiwan",
+      "states": 22,
+      "cities": 40,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 1,
+      "lowConfidenceQids": 2
+    },
+    {
+      "countryId": 217,
+      "countryCode": "TJ",
+      "countryName": "Tajikistan",
+      "states": 4,
+      "cities": 70,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 1
+    },
+    {
+      "countryId": 218,
+      "countryCode": "TZ",
+      "countryName": "Tanzania",
+      "states": 31,
+      "cities": 299,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 7
+    },
+    {
+      "countryId": 219,
+      "countryCode": "TH",
+      "countryName": "Thailand",
+      "states": 78,
+      "cities": 1240,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 11
+    },
+    {
+      "countryId": 220,
+      "countryCode": "TG",
+      "countryName": "Togo",
+      "states": 5,
+      "cities": 22,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 221,
+      "countryCode": "TK",
+      "countryName": "Tokelau",
+      "states": 0,
+      "cities": 0,
+      "coverageGaps": 3,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 222,
+      "countryCode": "TO",
+      "countryName": "Tonga",
+      "states": 5,
+      "cities": 8,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 223,
+      "countryCode": "TT",
+      "countryName": "Trinidad And Tobago",
+      "states": 16,
+      "cities": 25,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 224,
+      "countryCode": "TN",
+      "countryName": "Tunisia",
+      "states": 23,
+      "cities": 134,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 225,
+      "countryCode": "TR",
+      "countryName": "Türkiye",
+      "states": 81,
+      "cities": 1026,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 8
+    },
+    {
+      "countryId": 226,
+      "countryCode": "TM",
+      "countryName": "Turkmenistan",
+      "states": 6,
+      "cities": 30,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 227,
+      "countryCode": "TC",
+      "countryName": "Turks And Caicos Islands",
+      "states": 0,
+      "cities": 0,
+      "coverageGaps": 2,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 228,
+      "countryCode": "TV",
+      "countryName": "Tuvalu",
+      "states": 8,
+      "cities": 9,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 229,
+      "countryCode": "UG",
+      "countryName": "Uganda",
+      "states": 125,
+      "cities": 91,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 1
+    },
+    {
+      "countryId": 230,
+      "countryCode": "UA",
+      "countryName": "Ukraine",
+      "states": 25,
+      "cities": 1569,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 1,
+      "lowConfidenceQids": 9
+    },
+    {
+      "countryId": 231,
+      "countryCode": "AE",
+      "countryName": "United Arab Emirates",
+      "states": 7,
+      "cities": 39,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 232,
+      "countryCode": "GB",
+      "countryName": "United Kingdom",
+      "states": 247,
+      "cities": 3871,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 2,
+      "lowConfidenceQids": 5
+    },
+    {
+      "countryId": 233,
+      "countryCode": "US",
+      "countryName": "United States",
+      "states": 66,
+      "cities": 19818,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 15,
+      "lowConfidenceQids": 33
+    },
+    {
+      "countryId": 234,
+      "countryCode": "UM",
+      "countryName": "United States Minor Outlying Islands",
+      "states": 0,
+      "cities": 0,
+      "coverageGaps": 4,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 235,
+      "countryCode": "UY",
+      "countryName": "Uruguay",
+      "states": 19,
+      "cities": 155,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 236,
+      "countryCode": "UZ",
+      "countryName": "Uzbekistan",
+      "states": 14,
+      "cities": 135,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 2
+    },
+    {
+      "countryId": 237,
+      "countryCode": "VU",
+      "countryName": "Vanuatu",
+      "states": 6,
+      "cities": 7,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 238,
+      "countryCode": "VA",
+      "countryName": "Vatican City",
+      "states": 0,
+      "cities": 0,
+      "coverageGaps": 2,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 239,
+      "countryCode": "VE",
+      "countryName": "Venezuela",
+      "states": 25,
+      "cities": 135,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 240,
+      "countryCode": "VN",
+      "countryName": "Vietnam",
+      "states": 63,
+      "cities": 467,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 1
+    },
+    {
+      "countryId": 241,
+      "countryCode": "VG",
+      "countryName": "British Virgin Islands",
+      "states": 0,
+      "cities": 0,
+      "coverageGaps": 2,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 242,
+      "countryCode": "VI",
+      "countryName": "U.S. Virgin Islands",
+      "states": 0,
+      "cities": 0,
+      "coverageGaps": 2,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 243,
+      "countryCode": "WF",
+      "countryName": "Wallis And Futuna",
+      "states": 0,
+      "cities": 0,
+      "coverageGaps": 2,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 244,
+      "countryCode": "EH",
+      "countryName": "Western Sahara",
+      "states": 0,
+      "cities": 0,
+      "coverageGaps": 2,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 0
+    },
+    {
+      "countryId": 245,
+      "countryCode": "YE",
+      "countryName": "Yemen",
+      "states": 21,
+      "cities": 342,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 2
+    },
+    {
+      "countryId": 246,
+      "countryCode": "ZM",
+      "countryName": "Zambia",
+      "states": 10,
+      "cities": 71,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 1
+    },
+    {
+      "countryId": 247,
+      "countryCode": "ZW",
+      "countryName": "Zimbabwe",
+      "states": 10,
+      "cities": 109,
+      "coverageGaps": 0,
+      "stateCoordinateExceptions": 0,
+      "lowConfidenceQids": 7
+    }
+  ]
+}

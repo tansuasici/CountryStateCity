@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 1,
+  "verifiedAt": "2026-08-08",
+  "defaultCode": {
+    "codeAuthority": "ISO 3166/MA",
+    "codeStatus": "officially-assigned"
+  },
+  "codeExceptions": {
+    "XK": {
+      "codeAuthority": "CountryStateCity user-assigned",
+      "codeStatus": "user-assigned",
+      "reason": "XK/XKX/926 are user-assigned codes and are not universally assigned ISO 3166 code elements."
+    }
+  },
+  "metadataSource": "country-metadata-policy:v1",
+  "changes": {
+    "BG": {
+      "currency": "EUR",
+      "currencyName": "Euro",
+      "currencySymbol": "€",
+      "effectiveFrom": "2026-01-01",
+      "sourceId": "eu-bulgaria-euro"
+    },
+    "HR": {
+      "currency": "EUR",
+      "currencyName": "Euro",
+      "currencySymbol": "€",
+      "effectiveFrom": "2023-01-01",
+      "sourceId": "eu-croatia-euro"
+    },
+    "MK": {
+      "name": "North Macedonia",
+      "aliases": ["Macedonia"],
+      "effectiveFrom": "2019-02-14",
+      "sourceId": "un-m49"
+    },
+    "MR": {
+      "currency": "MRU",
+      "currencyName": "Mauritanian ouguiya",
+      "currencySymbol": "UM",
+      "effectiveFrom": "2018-01-01",
+      "sourceId": "iso-4217-amendment-165"
+    },
+    "TL": {
+      "name": "Timor-Leste",
+      "aliases": ["East Timor"],
+      "sourceId": "un-m49"
+    },
+    "TR": {
+      "name": "Türkiye",
+      "aliases": ["Turkey"],
+      "effectiveFrom": "2022-06-01",
+      "sourceId": "un-m49"
+    },
+    "CI": {
+      "name": "Côte d'Ivoire",
+      "aliases": ["Cote D'Ivoire (Ivory Coast)", "Ivory Coast"],
+      "sourceId": "un-m49"
+    }
+  },
+  "sources": {
+    "iso-3166": {
+      "url": "https://www.iso.org/iso-3166-country-codes.html",
+      "license": "ISO website terms"
+    },
+    "un-m49": {
+      "url": "https://unstats.un.org/unsd/methodology/m49/overview/",
+      "license": "UN terms of use"
+    },
+    "eu-bulgaria-euro": {
+      "url": "https://economy-finance.ec.europa.eu/euro/eu-countries-and-euro/bulgaria-and-euro_en",
+      "license": "European Commission reuse policy"
+    },
+    "eu-croatia-euro": {
+      "url": "https://economy-finance.ec.europa.eu/euro/eu-countries-and-euro/croatia-and-euro_en",
+      "license": "European Commission reuse policy"
+    },
+    "iso-4217-amendment-165": {
+      "url": "https://www.six-group.com/dam/download/financial-information/data-center/iso-currrency/amendments/dl_currency_iso_amendment_165.pdf",
+      "license": "ISO 4217 Maintenance Agency publication"
+    }
+  }
+}

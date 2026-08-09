@@ -1,0 +1,38 @@
+{
+  "sourceRelease": "v3.2-export.7",
+  "counts": {
+    "countries": 250,
+    "states": 5308,
+    "cities": 152970
+  },
+  "duplicateIds": {
+    "countries": [],
+    "states": [],
+    "cities": []
+  },
+  "orphanReferences": {
+    "states": [],
+    "cityCountries": [],
+    "cityStates": []
+  },
+  "exactDuplicateCities": [],
+  "coordinates": {
+    "countries": {
+      "missing": [],
+      "invalid": []
+    },
+    "states": {
+      "missing": [
+        5815,
+        5816,
+        5817
+      ],
+      "invalid": []
+    },
+    "cities": {
+      "missing": [],
+      "invalid": []
+    }
+  },
+  "passed": true
+}

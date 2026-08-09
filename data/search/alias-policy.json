@@ -1,0 +1,123 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-08-08T00:00:00.000Z",
+  "aliases": [
+    {
+      "publicId": "csc:state:2170",
+      "name": "İstanbul",
+      "languageTag": "tr",
+      "type": "local",
+      "validFrom": null,
+      "validTo": null,
+      "source": {
+        "id": "wikidata:Q406",
+        "url": "https://www.wikidata.org/wiki/Q406",
+        "retrievedAt": "2026-08-08"
+      }
+    },
+    {
+      "publicId": "csc:state:2170",
+      "name": "Constantinople",
+      "languageTag": "en",
+      "type": "historical",
+      "validFrom": null,
+      "validTo": "1930-03-28",
+      "source": {
+        "id": "wikidata:Q406",
+        "url": "https://www.wikidata.org/wiki/Q406",
+        "retrievedAt": "2026-08-08"
+      }
+    },
+    {
+      "publicId": "csc:city:107527",
+      "name": "Doğubeyazıt",
+      "languageTag": "tr",
+      "type": "common",
+      "validFrom": null,
+      "validTo": null,
+      "source": {
+        "id": "wikidata:Q1019220",
+        "url": "https://www.wikidata.org/wiki/Q1019220",
+        "retrievedAt": "2026-08-08"
+      }
+    },
+    {
+      "publicId": "csc:city:27540",
+      "name": "München",
+      "languageTag": "de",
+      "type": "local",
+      "validFrom": null,
+      "validTo": null,
+      "source": {
+        "id": "wikidata:Q1726",
+        "url": "https://www.wikidata.org/wiki/Q1726",
+        "retrievedAt": "2026-08-08"
+      }
+    },
+    {
+      "publicId": "csc:city:26818",
+      "name": "Cologne",
+      "languageTag": "en",
+      "type": "exonym",
+      "validFrom": null,
+      "validTo": null,
+      "source": {
+        "id": "wikidata:Q365",
+        "url": "https://www.wikidata.org/wiki/Q365",
+        "retrievedAt": "2026-08-08"
+      }
+    },
+    {
+      "publicId": "csc:city:109897",
+      "name": "Kiev",
+      "languageTag": "en",
+      "type": "historical",
+      "validFrom": null,
+      "validTo": "2019-06-11",
+      "source": {
+        "id": "wikidata:Q1899",
+        "url": "https://www.wikidata.org/wiki/Q1899",
+        "retrievedAt": "2026-08-08"
+      }
+    },
+    {
+      "publicId": "csc:city:99972",
+      "name": "Москва",
+      "languageTag": "ru",
+      "type": "local",
+      "validFrom": null,
+      "validTo": null,
+      "source": {
+        "id": "wikidata:Q649",
+        "url": "https://www.wikidata.org/wiki/Q649",
+        "retrievedAt": "2026-08-08"
+      }
+    },
+    {
+      "publicId": "csc:city:99972",
+      "name": "Moskva",
+      "languageTag": "und-Latn",
+      "type": "transliteration",
+      "validFrom": null,
+      "validTo": null,
+      "source": {
+        "id": "wikidata:Q649",
+        "url": "https://www.wikidata.org/wiki/Q649",
+        "retrievedAt": "2026-08-08"
+      }
+    },
+    {
+      "publicId": "csc:city:19332",
+      "name": "北京",
+      "languageTag": "zh-Hans",
+      "type": "local",
+      "validFrom": null,
+      "validTo": null,
+      "source": {
+        "id": "wikidata:Q956",
+        "url": "https://www.wikidata.org/wiki/Q956",
+        "retrievedAt": "2026-08-08"
+      }
+    }
+  ]
+}

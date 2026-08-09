@@ -1,0 +1,63 @@
+---
+title: Data coverage
+description: What the published country, state, and city counts mean—and where the pinned snapshot has known gaps.
+---
+
+# Data coverage
+
+CountryStateCity publishes **250 country/territory records, 4,963 administrative-area records, and 147,739 place records** in the current content-addressed snapshot. These are record counts, not a claim that every administrative unit or populated place on Earth is exhaustively represented.
+
+The machine-readable coverage contract is shipped as [`data/coverage-policy.json`](https://github.com/tansuasici/CountryStateCity/blob/main/data/coverage-policy.json), and its generated evidence is available in [`data/coverage-report.json`](https://github.com/tansuasici/CountryStateCity/blob/main/data/coverage-report.json).
+
+## Status meanings
+
+| Status          | Meaning                                                                         |
+| --------------- | ------------------------------------------------------------------------------- |
+| `available`     | At least one record is published. This alone does not prove completeness.       |
+| `missing`       | The field or expected layer is absent from the pinned source snapshot.          |
+| `notApplicable` | The field or hierarchy is not meaningful under a documented rule.               |
+| `unknown`       | The snapshot is empty and authoritative completeness has not yet been verified. |
+
+Every empty country/state/city layer and required metadata field carries one of these statuses plus a stable `reasonCode`. Empty arrays should therefore be interpreted together with coverage metadata rather than as proof that a place has no subdivisions or settlements.
+
+## Current snapshot
+
+| Check                                         |        Result |
+| --------------------------------------------- | ------------: |
+| Countries without state/subdivision rows      |            53 |
+| Countries without place rows                  |            58 |
+| Administrative areas without child place rows |         1,532 |
+| Classified gaps                               | 1,650 / 1,650 |
+| Sentinel `0,0` country coordinates            |             0 |
+
+Most of the 1,532 empty state-to-place relationships remain `unknown`: the state exists in the source, but a complete authoritative child register has not been verified. This is intentionally different from `notApplicable`.
+
+## API
+
+```ts
+import { CountryStateCity } from '@tansuasici/country-state-city';
+
+const report = CountryStateCity.getCoverageReport();
+const tokelau = CountryStateCity.getCountryCoverage('TK');
+
+console.log(report.summary.contract.passed); // true
+console.log(tokelau?.metadataGaps);
+// [{ field: 'capital', status: 'notApplicable', reasonCode: 'no-official-capital' }]
+```
+
+The MCP `get_stats` tool returns the same coverage summary alongside the production snapshot digest.
+
+## Coordinates and metadata
+
+`United States Minor Outlying Islands` is an aggregate of separate island territories. Its previous `0,0` value was a sentinel, not a geographic centre, and is now published as `latitude: null` and `longitude: null` with the reason `aggregate-has-no-single-centre`.
+
+Blank capitals are not automatically errors. For example, Tokelau has no fixed official capital, while uninhabited territories do not receive an invented capital. Missing values that have not been verified remain `missing`, never silently converted into guessed data.
+
+## Sources and limits
+
+- Record counts use the pinned `v3.2-export.7` Countries States Cities Database release.
+- Country/area and statistical-region checks use the UN M49 classification.
+- The United States Census Bureau definition is used to verify that `UM` is an aggregate of nine territories.
+- Official territorial sources are used for permanent-population and capital applicability exceptions.
+
+The state and city tables still mix administrative and populated-place grains inherited from the source. Their semantic normalization is versioned separately; consumers should not infer that every `state` is ISO admin-1 or every `city` is legally a city.

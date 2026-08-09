@@ -1,0 +1,85 @@
+{
+  "schemaVersion": 1,
+  "queries": [
+    {
+      "query": "Istanbul",
+      "options": { "countryCode": "TR", "entityTypes": ["state"] },
+      "expectedPublicId": "csc:state:2170"
+    },
+    {
+      "query": "İstanbul",
+      "options": { "countryCode": "TR", "entityTypes": ["state"] },
+      "expectedPublicId": "csc:state:2170"
+    },
+    {
+      "query": "Istanbull",
+      "options": { "countryCode": "TR", "entityTypes": ["state"] },
+      "expectedPublicId": "csc:state:2170"
+    },
+    {
+      "query": "Constantinople",
+      "options": { "countryCode": "TR", "entityTypes": ["state"] },
+      "expectedPublicId": "csc:state:2170"
+    },
+    {
+      "query": "Doğubeyazıt",
+      "options": { "countryCode": "TR", "stateCode": "04", "entityTypes": ["city"] },
+      "expectedPublicId": "csc:city:107527"
+    },
+    {
+      "query": "Dogubayazit",
+      "options": { "countryCode": "TR", "stateCode": "04", "entityTypes": ["city"] },
+      "expectedPublicId": "csc:city:107527"
+    },
+    {
+      "query": "München",
+      "options": { "countryCode": "DE", "entityTypes": ["city"] },
+      "expectedPublicId": "csc:city:27540"
+    },
+    {
+      "query": "Cologne",
+      "options": { "countryCode": "DE", "entityTypes": ["city"] },
+      "expectedPublicId": "csc:city:26818"
+    },
+    {
+      "query": "Kiev",
+      "options": { "countryCode": "UA", "stateCode": "30", "entityTypes": ["city"] },
+      "expectedPublicId": "csc:city:109897"
+    },
+    {
+      "query": "Москва",
+      "options": { "countryCode": "RU", "entityTypes": ["city"] },
+      "expectedPublicId": "csc:city:99972"
+    },
+    {
+      "query": "Moskva",
+      "options": { "countryCode": "RU", "entityTypes": ["city"] },
+      "expectedPublicId": "csc:city:99972"
+    },
+    {
+      "query": "北京",
+      "options": { "countryCode": "CN", "stateCode": "BJ", "entityTypes": ["city"] },
+      "expectedPublicId": "csc:city:19332"
+    },
+    {
+      "query": "Springfield",
+      "options": { "countryCode": "US", "stateCode": "IL", "entityTypes": ["city"] },
+      "expectedPublicId": "csc:city:126890"
+    },
+    {
+      "query": "Springfield",
+      "options": { "countryCode": "US", "stateCode": "MO", "entityTypes": ["city"] },
+      "expectedPublicId": "csc:city:126893"
+    },
+    {
+      "query": "Turkey",
+      "options": { "entityTypes": ["country"] },
+      "expectedPublicId": "csc:country:225"
+    },
+    {
+      "query": "Türkiye",
+      "options": { "entityTypes": ["country"] },
+      "expectedPublicId": "csc:country:225"
+    }
+  ]
+}

@@ -21,6 +21,7 @@ const csv = CountryStateCity.getAllCountries('csv');
 ```
 
 **Parameters:**
+
 - `format` (optional): `'json' | 'csv' | 'xml' | 'yaml'` — Output format
 
 ---
@@ -35,6 +36,7 @@ const turkey = CountryStateCity.getCountryById(225);
 ```
 
 **Parameters:**
+
 - `id`: `number` — Country ID
 
 ---
@@ -49,6 +51,7 @@ const turkey = CountryStateCity.getCountryByIso2('TR');
 ```
 
 **Parameters:**
+
 - `code`: `string` — Two-letter country code (e.g. `'TR'`, `'US'`)
 
 ---
@@ -63,6 +66,7 @@ const turkey = CountryStateCity.getCountryByIso3('TUR');
 ```
 
 **Parameters:**
+
 - `code`: `string` — Three-letter country code (e.g. `'TUR'`, `'USA'`)
 
 ---
@@ -77,6 +81,7 @@ const results = CountryStateCity.searchCountries('united');
 ```
 
 **Parameters:**
+
 - `query`: `string` — Search term
 
 ## State Methods
@@ -91,6 +96,7 @@ const states = CountryStateCity.getAllStates();
 ```
 
 **Parameters:**
+
 - `format` (optional): `'json' | 'csv' | 'xml' | 'yaml'` — Output format
 
 ---
@@ -100,11 +106,12 @@ const states = CountryStateCity.getAllStates();
 Get a single state by its numeric ID.
 
 ```typescript
-const istanbul = CountryStateCity.getStateById(2175);
+const istanbul = CountryStateCity.getStateById(2170);
 // Returns: State | undefined
 ```
 
 **Parameters:**
+
 - `id`: `number` — State ID
 
 ---
@@ -119,6 +126,7 @@ const turkeyStates = CountryStateCity.getStatesByCountryId(225);
 ```
 
 **Parameters:**
+
 - `countryId`: `number` — Country ID
 - `format` (optional): `'json' | 'csv' | 'xml' | 'yaml'` — Output format
 
@@ -137,6 +145,7 @@ const filtered = CountryStateCity.searchStates('ist', 225);
 ```
 
 **Parameters:**
+
 - `query`: `string` — Search term
 - `countryId` (optional): `number` — Filter by country
 
@@ -152,10 +161,12 @@ const cities = CountryStateCity.getAllCities();
 ```
 
 <Callout type="warn">
-This returns a very large dataset. Use `getCitiesByStateId` or `getCitiesByCountryId` for filtered results.
+  This returns a very large dataset. Use `getCitiesByStateId` or `getCitiesByCountryId` for filtered
+  results.
 </Callout>
 
 **Parameters:**
+
 - `format` (optional): `'json' | 'csv' | 'xml' | 'yaml'` — Output format
 
 ---
@@ -170,6 +181,7 @@ const city = CountryStateCity.getCityById(107785);
 ```
 
 **Parameters:**
+
 - `id`: `number` — City ID
 
 ---
@@ -179,11 +191,12 @@ const city = CountryStateCity.getCityById(107785);
 Get all cities for a specific state.
 
 ```typescript
-const cities = CountryStateCity.getCitiesByStateId(2175);
+const cities = CountryStateCity.getCitiesByStateId(2170);
 // Returns: City[]
 ```
 
 **Parameters:**
+
 - `stateId`: `number` — State ID
 - `format` (optional): `'json' | 'csv' | 'xml' | 'yaml'` — Output format
 
@@ -199,6 +212,7 @@ const cities = CountryStateCity.getCitiesByCountryId(225);
 ```
 
 **Parameters:**
+
 - `countryId`: `number` — Country ID
 - `format` (optional): `'json' | 'csv' | 'xml' | 'yaml'` — Output format
 
@@ -217,11 +231,28 @@ const filtered = CountryStateCity.searchCities('ank', undefined, 225);
 ```
 
 **Parameters:**
+
 - `query`: `string` — Search term
 - `stateId` (optional): `number` — Filter by state
 - `countryId` (optional): `number` — Filter by country
 
 ## Utility Methods
+
+### searchLocations
+
+Search canonical, translated, historical, local, and transliterated names with typo tolerance and parent-aware ranking.
+
+```typescript
+const matches = CountryStateCity.searchLocations('Doğubeyazıt', {
+  countryCode: 'TR',
+  stateCode: '04',
+  entityTypes: ['city'],
+});
+```
+
+Each match includes `canonicalId`, `score`, `matchReason`, canonical parent context, and auditable alias metadata. See [Multilingual location search](/docs/location-search).
+
+---
 
 ### getStats
 
@@ -229,8 +260,32 @@ Get database statistics.
 
 ```typescript
 const stats = CountryStateCity.getStats();
-// Returns: { countries: 250, states: 5000, cities: 150000 }
+// Returns current country, state, city, and district row counts
 ```
+
+---
+
+### getCoverageReport
+
+Returns the machine-readable coverage contract evidence for the current snapshot. Published row counts do not by themselves prove exhaustiveness.
+
+```typescript
+const coverage = CountryStateCity.getCoverageReport();
+console.log(coverage.summary.contract.passed); // true
+```
+
+---
+
+### getCountryCoverage
+
+Returns state, city, metadata, and coordinate coverage classifications for an ISO2 country/territory code.
+
+```typescript
+const coverage = CountryStateCity.getCountryCoverage('UM');
+// CountryCoverage | undefined
+```
+
+See [Data coverage](/docs/data-coverage) for status and reason-code semantics.
 
 ---
 
@@ -241,10 +296,11 @@ Export data in a specific format.
 ```typescript
 const csvData = CountryStateCity.exportData('countries', 'csv');
 const xmlData = CountryStateCity.exportData('states', 'xml', { countryId: 225 });
-const yamlData = CountryStateCity.exportData('cities', 'yaml', { stateId: 2175 });
+const yamlData = CountryStateCity.exportData('cities', 'yaml', { stateId: 2170 });
 ```
 
 **Parameters:**
+
 - `type`: `'countries' | 'states' | 'cities'`
 - `format`: `'json' | 'csv' | 'xml' | 'yaml'`
 - `options` (optional): `{ countryId?: number, stateId?: number }`

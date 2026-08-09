@@ -1,0 +1,53 @@
+---
+title: Hosted API
+description: Versioned REST and GraphQL access with API keys, caching, and source metadata.
+---
+
+import { Callout } from 'fumadocs-ui/components/callout';
+
+The hosted API exposes the same canonical snapshot as the npm package. REST is available under `/api/v1`; read-only GraphQL is available at `/api/graphql`.
+
+<Callout type="info">
+  The hosted layer is an opt-in product surface. The open dataset and downloadable npm package
+  remain available independently.
+</Callout>
+
+## Authentication
+
+Pass an API key in the `x-api-key` header. `/api`, `/api/v1/health`, `/api/openapi.json`, and `/api/policy.json` are public; data and GraphQL routes fail closed when authentication is not configured.
+
+```bash
+curl 'https://countrystatecity.tansuasici.com/api/v1/subdivisions?country=TR&limit=5' \
+  -H 'x-api-key: YOUR_API_KEY'
+```
+
+Keys are stored only as SHA-256 hashes in a root-readable environment file outside the application release. Logs contain only the configured key identifier, never the raw key or its hash.
+
+## REST endpoints
+
+| Method | Route                                                | Purpose                                                |
+| ------ | ---------------------------------------------------- | ------------------------------------------------------ |
+| `GET`  | `/api/v1/countries`                                  | Countries with search, pagination, and field selection |
+| `GET`  | `/api/v1/countries/:code`                            | Country by ISO-2, ISO-3, or numeric id                 |
+| `GET`  | `/api/v1/subdivisions?country=TR`                    | First-level administrative areas                       |
+| `GET`  | `/api/v1/places?country=TR&subdivision=34`           | Places scoped to a country and subdivision             |
+| `GET`  | `/api/v1/search?q=Kadikoy`                           | Cross-entity search                                    |
+| `GET`  | `/api/v1/reverse?latitude=40.9811&longitude=29.0651` | Nearest centres and optional Türkiye polygon lookup    |
+| `POST` | `/api/v1/reverse/batch`                              | Batch nearest-centre lookup for up to 1,000 points     |
+| `POST` | `/api/graphql`                                       | Read-only GraphQL queries                              |
+
+`limit` defaults to 25 and is capped at 100. Use `offset` for pagination and `fields=id,name,iso2` to request a REST field subset.
+
+Nearest-centre responses include haversine distance and a `center-distance` confidence. They do not claim containment. Add `polygon=true` for point-in-polygon results where versioned boundaries exist; current polygon coverage is Türkiye admin-1/admin-2. Boundary and overlap cases return all matches instead of choosing a jurisdiction.
+
+## Version and cache contract
+
+Every data response includes `meta.apiVersion`, `meta.dataVersion`, and `meta.source`. GraphQL responses carry the same values in `extensions.meta`. `ETag`/`If-None-Match`, `Cache-Control`, `X-Cache`, and `X-Data-Version` support conditional and observable caching.
+
+Breaking schema changes use a new major URL version. A deprecated version receives at least 180 days notice through documentation plus `Deprecation`, `Sunset`, and `Link` headers.
+
+## Rate limits and operations
+
+The initial free-plan hypothesis is 100 requests/minute and 50,000 requests/month per key. The service measures request volume, warm p95 latency, error rate, cache-hit rate, and active key count. Targets are 99% availability, warm p95 at or below 250 ms, and error rate below 1% over 30 days. The API runs as a single Node service behind Nginx, so there is no serverless cold-start path.
+
+The machine-readable contracts are available at [`/api/openapi.json`](/api/openapi.json) and [`/api/policy.json`](/api/policy.json).

@@ -1,0 +1,66 @@
+{
+  "schemaVersion": 1,
+  "policyVersion": "quality-gate:v1",
+  "generatedAt": "2026-08-08T00:00:00.000Z",
+  "releaseGate": {
+    "blockingSeverities": ["critical", "high"],
+    "maximumUnresolvedBlockingFindings": 0,
+    "requireFreshExceptionMetadata": true
+  },
+  "baselines": {
+    "countries": 250,
+    "states": 4963,
+    "cities": 147739,
+    "districts": 922,
+    "normalizedStateDuplicateGroups": 2,
+    "normalizedCityDuplicateGroups": 0,
+    "classifiedCountryPolygonOutliers": 632,
+    "stateCoordinateExceptions": 51
+  },
+  "requiredFields": {
+    "country": [
+      "id",
+      "name",
+      "iso2",
+      "iso3",
+      "numericCode",
+      "codeAuthority",
+      "codeStatus",
+      "metadataSource",
+      "metadataVerifiedAt"
+    ],
+    "state": [
+      "id",
+      "name",
+      "countryId",
+      "countryCode",
+      "countryName",
+      "stateCode",
+      "entityType",
+      "parentId",
+      "lifecycleStatus",
+      "entityLevelSource",
+      "coordinateStatus",
+      "typeStatus"
+    ],
+    "city": [
+      "id",
+      "name",
+      "stateId",
+      "stateCode",
+      "stateName",
+      "countryId",
+      "countryCode",
+      "countryName",
+      "entityType",
+      "parentId",
+      "lifecycleStatus",
+      "entityLevelSource"
+    ]
+  },
+  "documentation": {
+    "machineReadableReport": "data/quality-report.json",
+    "humanReadableReport": "data/quality-report.md",
+    "exceptionManifest": "data/quality-exceptions.json"
+  }
+}

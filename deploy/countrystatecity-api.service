@@ -1,0 +1,30 @@
+[Unit]
+Description=CountryStateCity REST and GraphQL API
+After=network.target
+
+[Service]
+Type=simple
+User=countrystatecity
+Group=countrystatecity
+WorkingDirectory=/opt/countrystatecity/current/server
+Environment=NODE_ENV=production
+EnvironmentFile=/etc/countrystatecity/api.env
+ExecStart=/usr/bin/node /opt/countrystatecity/current/server/dist/server.mjs
+Restart=on-failure
+RestartSec=3
+TimeoutStopSec=20
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+RestrictSUIDSGID=true
+LockPersonality=true
+CapabilityBoundingSet=
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
+MemoryMax=1G
+
+[Install]
+WantedBy=multi-user.target

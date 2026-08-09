@@ -71,7 +71,7 @@ describe.skip('Export and Filtered Export', () => {
       const parsed = JSON.parse(result);
       expect(parsed.length).toBe(1);
       expect(parsed[0].iso2).toBe('TR');
-      expect(parsed[0].name).toBe('Turkey');
+      expect(parsed[0].name).toBe('Türkiye');
     });
 
     it('should filter countries by countryId', () => {
@@ -440,7 +440,7 @@ describe.skip('DataExporter Streaming', () => {
       expect(existsSync(filePath)).toBe(true);
       const content = readFileSync(filePath, 'utf-8');
       expect(content).toContain('name:');
-      expect(content).toContain('Turkey');
+      expect(content).toContain('Türkiye');
     });
 
     it('should write a gzip-compressed file', async () => {

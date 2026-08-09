@@ -9,11 +9,12 @@
     "module": "esnext",
     "target": "es2015",
     "lib": ["es2015", "dom"],
+    "types": ["node"],
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "strict": true,
     "allowSyntheticDefaultImports": true
   },

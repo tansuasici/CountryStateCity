@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "policyDate": "2026-08-08",
+  "role": "supplemental-reference-only",
+  "primaryIdentity": "csc:city:<numeric-id>",
+  "source": {
+    "name": "Wikidata Query Service",
+    "url": "https://query.wikidata.org/sparql",
+    "documentation": "https://www.wikidata.org/wiki/Wikidata:SPARQL_query_service",
+    "license": "CC0-1.0"
+  },
+  "duplicatePolicy": {
+    "defaultAction": "clear-all-ambiguous-assignments",
+    "allowedAliases": []
+  },
+  "coordinateThresholdsMeters": {
+    "highConfidenceMaximum": 25000,
+    "automaticClearAbove": 100000
+  },
+  "confidence": {
+    "high": "Entity exists, country agrees and coordinate is within 25 km.",
+    "medium": "Entity exists and coordinate is within 25 km, but country metadata is absent or uses a territorial parent.",
+    "low": "Entity exists but country/coordinate evidence is incomplete or coordinate is 25–100 km away.",
+    "rejected": "Entity is missing, QID is duplicated, or coordinate is more than 100 km away."
+  },
+  "countryMismatchPolicy": "retain-with-low-confidence-unless-coordinate-also-fails",
+  "reason": "Wikidata P17 may describe a sovereign parent while the dataset uses a dependent-territory ISO code."
+}

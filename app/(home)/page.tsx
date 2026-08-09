@@ -1,352 +1,184 @@
-'use client';
-
 import Link from 'next/link';
-import { useState, useEffect, useRef, useCallback } from 'react';
-import {
-  Globe,
-  Building,
-  MapPin,
-  Code2,
-  FileText,
-  ArrowRight,
-  Shield,
-  Cpu,
-  Package,
-  Check,
-  Copy,
-  Terminal,
-} from 'lucide-react';
-import { Button, buttonVariants } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
-import { Card, CardContent } from '@/components/ui/card';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Separator } from '@/components/ui/separator';
-import { cn } from '@/lib/utils';
-import pkg from '../../package.json';
+import Image from 'next/image';
+import { ArrowRight, Braces, Database, GitFork, Sparkles } from 'lucide-react';
+import { DataFlowVisual } from '@/components/home/DataFlowVisual';
+import { DataJourney } from '@/components/home/DataJourney';
+import { HeroCoverage } from '@/components/home/HeroCoverage';
+import { HeroIntro } from '@/components/home/HeroIntro';
+import { MotionSection } from '@/components/home/MotionSection';
+import { CodeBlock, type CodeLine } from '@/components/ui/code-block';
 import { STATS } from '@/lib/stats';
 
-/* ---- Animated Counter ---- */
-function AnimatedCounter({ target, duration = 1800 }: { target: number; duration?: number }) {
-  const [count, setCount] = useState(0);
-  const ref = useRef<HTMLSpanElement>(null);
-  const started = useRef(false);
+const quickStartLines: CodeLine[] = [
+  [{ text: 'import ' }, { text: '{ CountryStateCity }', tone: 'muted' }],
+  [{ text: '  from ' }, { text: "'@tansuasici/country-state-city'", tone: 'accent' }, { text: ';' }],
+  [{ text: '' }],
+  [{ text: 'const turkey = CountryStateCity' }],
+  [{ text: '  .getCountryByIso2(' }, { text: "'TR'", tone: 'accent' }, { text: ');' }],
+  [{ text: '' }],
+  [{ text: 'const states = CountryStateCity' }],
+  [{ text: '  .getStatesByCountryId(turkey.id);' }],
+];
 
-  useEffect(() => {
-    if (!ref.current || started.current || target === 0) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting && !started.current) {
-          started.current = true;
-          const start = performance.now();
-          const step = (now: number) => {
-            const elapsed = now - start;
-            const progress = Math.min(elapsed / duration, 1);
-            const eased = 1 - Math.pow(1 - progress, 4);
-            setCount(Math.floor(eased * target));
-            if (progress < 1) requestAnimationFrame(step);
-          };
-          requestAnimationFrame(step);
-        }
-      },
-      { threshold: 0.3 }
-    );
-    observer.observe(ref.current);
-    return () => observer.disconnect();
-  }, [target, duration]);
+const quickStartSource = quickStartLines
+  .map((line) => line.map((token) => token.text).join(''))
+  .join('\n');
 
-  return (
-    <span ref={ref} className="tabular-nums">
-      {count.toLocaleString()}
-    </span>
-  );
-}
+const statRows = [
+  { index: '01', label: 'Countries', value: STATS.countries },
+  { index: '02', label: 'States', value: STATS.states },
+  { index: '03', label: 'Cities', value: STATS.cities },
+];
 
-/* ---- Copy Button ---- */
-function CopyButton({ text }: { text: string }) {
-  const [copied, setCopied] = useState(false);
-  const copy = useCallback(() => {
-    navigator.clipboard.writeText(text);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  }, [text]);
-  return (
-    <Button
-      variant="ghost"
-      size="icon"
-      className="h-7 w-7 text-muted-foreground hover:text-foreground"
-      onClick={copy}
-    >
-      {copied ? <Check className="h-3.5 w-3.5" /> : <Copy className="h-3.5 w-3.5" />}
-    </Button>
-  );
-}
-
-const installCommands: Record<string, string> = {
-  npm: 'npm install @tansuasici/country-state-city',
-  yarn: 'yarn add @tansuasici/country-state-city',
-  pnpm: 'pnpm add @tansuasici/country-state-city',
-  bun: 'bun add @tansuasici/country-state-city',
-};
+const capabilityRows = [
+  {
+    index: '01',
+    title: 'One typed API',
+    description:
+      'Country, state, and city lookups with TypeScript definitions for browser and Node.',
+    icon: Braces,
+  },
+  {
+    index: '02',
+    title: 'Four export formats',
+    description: 'Move the same records through JSON, CSV, XML, or YAML without a second dataset.',
+    icon: Database,
+  },
+  {
+    index: '03',
+    title: 'Natural-language access',
+    description: 'Use the included MCP server from compatible AI assistants and developer tools.',
+    icon: Sparkles,
+  },
+];
 
 export default function HomePage() {
-  const stats = STATS;
-  const [activeTab, setActiveTab] = useState('npm');
-
   return (
-    <div className="min-h-screen">
-      {/* Hero */}
-      <section className="grid-bg relative overflow-hidden border-b">
-        <div className="mx-auto max-w-5xl px-6 pb-24 pt-28 md:pb-32 md:pt-36">
-          <div className="animate-fade-up">
-            <Badge variant="outline" className="mb-8 border-primary/30 text-primary">
-              <Package className="mr-1.5 h-3 w-3" />v{pkg.version}
-            </Badge>
-          </div>
+    <div className="home-atlas overflow-x-clip">
+      <section className="atlas-hero">
+        <div className="atlas-hero-noise" aria-hidden="true" />
+        <div className="atlas-hero-inner">
+          <HeroIntro />
 
-          <h1 className="animate-fade-up delay-100 font-extrabold text-5xl leading-[1.1] tracking-tight sm:text-6xl md:text-7xl">
-            World location data,
-            <br />
-            <span className="text-primary">beautifully structured.</span>
-          </h1>
+          <DataFlowVisual />
 
-          <p className="animate-fade-up delay-200 mt-6 max-w-lg text-lg text-muted-foreground leading-relaxed">
-            250+ countries, 5,000+ states, 150,000+ cities. All with coordinates, ISO codes, and
-            metadata &mdash; in JSON, CSV, XML, or YAML.
-          </p>
-
-          <div className="animate-fade-up delay-300 mt-10 flex items-center gap-3">
-            <Link href="/docs" className={cn(buttonVariants({ size: 'lg' }))}>
-              Get Started
-              <ArrowRight className="ml-2 h-4 w-4" />
-            </Link>
-            <Link href="/map" className={cn(buttonVariants({ variant: 'outline', size: 'lg' }))}>
-              <Globe className="mr-2 h-4 w-4" />
-              Explore Map
-            </Link>
-          </div>
-
-          {/* Install command */}
-          <div className="animate-fade-up delay-400 mt-10 max-w-lg">
-            <Tabs value={activeTab} onValueChange={setActiveTab}>
-              <TabsList className="mb-2 h-8">
-                {Object.keys(installCommands).map((pm) => (
-                  <TabsTrigger key={pm} value={pm} className="text-xs px-3 h-6">
-                    {pm}
-                  </TabsTrigger>
-                ))}
-              </TabsList>
-              {Object.entries(installCommands).map(([pm, cmd]) => (
-                <TabsContent key={pm} value={pm} className="mt-0">
-                  <div className="flex items-center justify-between rounded-lg border bg-card px-4 py-2.5 font-mono text-sm shadow-sm">
-                    <div className="flex items-center gap-2 text-muted-foreground overflow-x-auto">
-                      <Terminal className="h-3.5 w-3.5 shrink-0 text-primary/60" />
-                      <span>{cmd}</span>
-                    </div>
-                    <CopyButton text={cmd} />
-                  </div>
-                </TabsContent>
-              ))}
-            </Tabs>
-          </div>
+          <HeroCoverage rows={statRows} />
         </div>
-
-        {/* Decorative gradient orb */}
-        <div className="pointer-events-none absolute -right-32 top-1/4 h-96 w-96 rounded-full bg-primary/5 blur-3xl" />
-        <div className="pointer-events-none absolute -left-16 bottom-0 h-64 w-64 rounded-full bg-chart-2/5 blur-3xl" />
       </section>
 
-      <div className="mx-auto max-w-5xl px-6">
-        {/* Stats */}
-        <section className="py-20">
-          <div className="grid grid-cols-3 gap-8">
-            {[
-              { label: 'Countries', value: stats.countries, icon: Globe },
-              { label: 'States', value: stats.states, icon: Building },
-              { label: 'Cities', value: stats.cities, icon: MapPin },
-            ].map((stat) => (
-              <div key={stat.label} className="text-center">
-                <stat.icon className="mx-auto mb-3 h-5 w-5 text-primary/70" />
-                <p className="font-extrabold text-4xl tracking-tight sm:text-5xl">
-                  <AnimatedCounter target={stat.value} />
-                </p>
-                <p className="mt-1.5 text-sm text-muted-foreground tracking-wide uppercase">
-                  {stat.label}
-                </p>
-              </div>
-            ))}
+      <main>
+        <MotionSection className="home-section home-proof">
+          <div className="section-heading">
+            <p>Trust the record</p>
+            <h2>Open data, without the black box.</h2>
           </div>
-        </section>
-
-        <Separator />
-
-        {/* Features */}
-        <section className="py-20">
-          <p className="text-sm font-medium text-primary tracking-wide uppercase mb-3">
-            Capabilities
-          </p>
-          <h2 className="font-extrabold text-3xl tracking-tight sm:text-4xl mb-4">
-            Built for developers
-          </h2>
-          <p className="text-muted-foreground max-w-md mb-10">
-            Everything you need to work with location data, from quick lookups to bulk exports.
-          </p>
-
-          <div className="grid gap-3 sm:grid-cols-2">
-            {[
-              {
-                icon: FileText,
-                title: 'Multiple Formats',
-                description: 'Export as JSON, CSV, XML, or YAML with a single method call.',
-              },
-              {
-                icon: Shield,
-                title: 'ISO 3166-1 Compliant',
-                description:
-                  'Country codes, subdivisions, and metadata that enterprise apps trust.',
-              },
-              {
-                icon: Globe,
-                title: 'Global Coverage',
-                description:
-                  '250+ countries with coordinates, timezones, currencies, and translations.',
-              },
-              {
-                icon: Code2,
-                title: 'TypeScript Native',
-                description:
-                  'Full type definitions, tree-shakeable, works in Node.js and browsers.',
-              },
-            ].map((feature) => (
-              <Card
-                key={feature.title}
-                className="group transition-colors hover:border-primary/20 hover:bg-primary/[0.02]"
-              >
-                <CardContent className="flex items-start gap-4 p-5">
-                  <div className="rounded-md border bg-muted p-2 transition-colors group-hover:border-primary/20 group-hover:bg-primary/5">
-                    <feature.icon className="h-4 w-4 text-primary" />
-                  </div>
-                  <div className="pt-0.5">
-                    <h3 className="font-semibold text-sm">{feature.title}</h3>
-                    <p className="mt-1 text-sm text-muted-foreground leading-relaxed">
-                      {feature.description}
-                    </p>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </section>
-
-        <Separator />
-
-        {/* MCP */}
-        <section className="py-20">
-          <div className="flex flex-col items-start gap-8 sm:flex-row sm:items-center">
-            <div className="rounded-xl border-2 border-dashed border-primary/20 bg-primary/[0.03] p-5">
-              <Cpu className="h-8 w-8 text-primary" />
+          <div className="proof-ledger">
+            <div>
+              <span>Sources</span>
+              <strong>Documented</strong>
+              <p>Every published layer keeps its license, attribution, and provenance visible.</p>
             </div>
-            <div className="flex-1">
-              <div className="flex items-center gap-2.5 mb-2">
-                <h2 className="font-extrabold text-2xl tracking-tight">MCP Integration</h2>
-                <Badge variant="secondary" className="text-[10px] uppercase tracking-wider">
-                  New
-                </Badge>
-              </div>
-              <p className="text-sm text-muted-foreground max-w-md leading-relaxed">
-                Connect directly to Claude Desktop and other MCP-compatible AI assistants. Query
-                countries, states, and cities through natural language.
+            <div>
+              <span>Quality</span>
+              <strong>Automated</strong>
+              <p>
+                Schema, identity, parent relationships, coordinates, and artifacts pass release
+                gates.
               </p>
             </div>
-            <Link href="/docs/mcp" className={cn(buttonVariants({ variant: 'outline' }))}>
-              Learn More
-              <ArrowRight className="ml-2 h-4 w-4" />
+            <div>
+              <span>Boundaries</span>
+              <strong>Türkiye pilot</strong>
+              <p>
+                Verified province and district polygons ship separately from global center points.
+              </p>
+            </div>
+            <Link href="/docs/data-quality" className="text-link">
+              Inspect quality and provenance <ArrowRight aria-hidden="true" />
             </Link>
           </div>
-        </section>
+        </MotionSection>
 
-        <Separator />
+        <DataJourney />
 
-        {/* Quick Start */}
-        <section className="py-20">
-          <p className="text-sm font-medium text-primary tracking-wide uppercase mb-3">
-            Quick Start
-          </p>
-          <h2 className="font-extrabold text-3xl tracking-tight sm:text-4xl mb-10">
-            Up and running in seconds
-          </h2>
-
-          <div className="grid gap-4 sm:grid-cols-2">
-            <Card className="overflow-hidden p-0">
-              <div className="flex items-center gap-2 border-b px-4 py-2.5 bg-muted/50">
-                <Terminal className="h-3.5 w-3.5 text-muted-foreground" />
-                <span className="text-xs font-medium text-muted-foreground">Terminal</span>
-              </div>
-              <div className="p-5">
-                <pre className="font-mono text-sm">
-                  <span className="text-primary/50">$ </span>
-                  npm install @tansuasici/country-state-city
-                </pre>
-              </div>
-            </Card>
-
-            <Card className="overflow-hidden p-0">
-              <div className="flex items-center gap-2 border-b px-4 py-2.5 bg-muted/50">
-                <Code2 className="h-3.5 w-3.5 text-muted-foreground" />
-                <span className="text-xs font-medium text-muted-foreground">app.ts</span>
-              </div>
-              <div className="p-5">
-                <pre className="font-mono text-sm leading-relaxed overflow-x-auto">
-                  <span className="text-primary/60">import</span>
-                  {' { CountryStateCity }\n  '}
-                  <span className="text-primary/60">from</span>
-                  {" '@tansuasici/country-state-city';\n\n"}
-                  <span className="text-primary/60">const</span>
-                  {' countries = CountryStateCity\n  .getAllCountries();\n'}
-                  <span className="text-primary/60">const</span>
-                  {' states = CountryStateCity\n  .getStatesByCountryId(225);'}
-                </pre>
-              </div>
-            </Card>
+        <MotionSection className="home-section home-capabilities">
+          <div className="section-heading">
+            <p>Built for developers</p>
+            <h2 className="capabilities-title">
+              <span>One dataset.</span>
+              <span>Every surface.</span>
+            </h2>
+            <span>
+              Search it in an application, load it in Node, explore it on a map, or query it through
+              MCP.
+            </span>
           </div>
-        </section>
-
-        <Separator />
-
-        {/* Footer */}
-        <footer className="py-10">
-          <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
-            <p className="text-xs text-muted-foreground">
-              &copy; {new Date().getFullYear()} Country State City &middot; MIT License
-            </p>
-            <div className="flex items-center gap-5 text-xs text-muted-foreground">
-              <a
-                href="https://tansuasici.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:text-foreground transition-colors"
-              >
-                tansuasici
-              </a>
-              <a
-                href="https://github.com/tansuasici/CountryStateCity"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:text-foreground transition-colors"
-              >
-                GitHub
-              </a>
-              <a
-                href="https://www.npmjs.com/package/@tansuasici/country-state-city"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:text-foreground transition-colors"
-              >
-                NPM
-              </a>
-            </div>
+          <div className="capability-ledger">
+            {capabilityRows.map((item) => (
+              <div className="capability-row" key={item.index}>
+                <span>{item.index}</span>
+                <item.icon aria-hidden="true" />
+                <h3>{item.title}</h3>
+                <p>{item.description}</p>
+              </div>
+            ))}
           </div>
-        </footer>
-      </div>
+        </MotionSection>
+
+        <MotionSection className="code-stage">
+          <div className="code-stage-copy">
+            <p>Quick start</p>
+            <h2>From install to first lookup in three lines.</h2>
+            <span>The same dataset powers typed APIs, raw JSON exports, and country shards.</span>
+            <Link href="/docs/api-reference" className="text-link text-link-light">
+              Read the API reference <ArrowRight aria-hidden="true" />
+            </Link>
+          </div>
+          <CodeBlock
+            className="self-center"
+            aria-label="TypeScript quick start example"
+            title="location.ts"
+            meta="TypeScript"
+            lines={quickStartLines}
+            copyText={quickStartSource}
+          />
+        </MotionSection>
+
+        <MotionSection className="home-final">
+          <div>
+            <p>Open data. Clear provenance.</p>
+            <h2>Put the world in your next build.</h2>
+          </div>
+          <div className="home-final-actions">
+            <Link href="/docs" className="atlas-button atlas-button-primary">
+              Read the docs <ArrowRight aria-hidden="true" />
+            </Link>
+            <a
+              href="https://github.com/tansuasici/CountryStateCity"
+              target="_blank"
+              rel="noreferrer"
+              className="atlas-button atlas-button-light"
+            >
+              <GitFork aria-hidden="true" /> View source
+            </a>
+          </div>
+        </MotionSection>
+      </main>
+
+      <footer className="atlas-footer">
+        <Link href="/" className="atlas-footer-brand">
+          <Image src="/logo.png" alt="" width={24} height={24} />
+          Country State City
+        </Link>
+        <p>
+          © {new Date().getFullYear()} · Code MIT · Data{' '}
+          <Link href="/docs/data-license">ODbL 1.0</Link>
+        </p>
+        <div>
+          <Link href="/map">Map</Link>
+          <Link href="/docs">Docs</Link>
+        </div>
+      </footer>
     </div>
   );
 }

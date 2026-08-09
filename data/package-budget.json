@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "policyVersion": "core-package:v1",
+  "reviewedAt": "2026-08-08",
+  "budgets": {
+    "maximumPackedBytes": 4000000,
+    "maximumUnpackedBytes": 24000000,
+    "maximumBrowserEntrypointBytes": 50000,
+    "maximumFiles": 70
+  },
+  "requiredFiles": [
+    "countrystatecity-npm/dist/index.browser.js",
+    "countrystatecity-npm/dist/index.node.cjs",
+    "countrystatecity-npm/dist/index.node.mjs",
+    "countrystatecity-mcp/dist/index.js",
+    "data/country.json",
+    "data/state.json",
+    "data/city-optimized.json"
+  ],
+  "forbiddenFiles": [
+    "data/city.json",
+    "data/identity/wikidata-qid-verification.json",
+    "countrystatecity-npm/dist/data/city.json"
+  ],
+  "singleCopyDatasets": {
+    "cities": ["data/city-optimized.json"],
+    "countries": ["data/country.json"],
+    "states": ["data/state.json"]
+  },
+  "distributionDecisions": {
+    "node": "The Node entrypoint reconstructs full City objects lazily from the single compact city asset instead of publishing the 89 MB canonical city source.",
+    "browser": "The browser entrypoint references package JSON assets with import attributes; it no longer embeds a second copy of country, state, city, district, or coverage data.",
+    "mcp": "The MCP bundle reuses the Node runtime and the same compact city asset.",
+    "countryShards": "Per-country shards remain deterministic repository/CDN artifacts but are excluded from the core npm package because shipping them beside the all-city compact asset would duplicate the dataset. A future optional shards package can publish them without changing the core API.",
+    "auditEvidence": "Large verification evidence such as the 39 MB per-city Wikidata QID report remains available in the source repository and release artifacts, not in the runtime package."
+  }
+}

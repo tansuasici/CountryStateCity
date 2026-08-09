@@ -8,71 +8,76 @@ export default [
   // Browser build
   {
     input: 'countrystatecity-npm/src/index.browser.ts',
+    external: (id) => id.startsWith('../../data/') || ['js-yaml', 'xml-js'].includes(id),
     output: {
       file: 'countrystatecity-npm/dist/index.browser.js',
       format: 'esm',
-      sourcemap: true
+      sourcemap: true,
     },
     plugins: [
       resolve({
         browser: true,
-        preferBuiltins: false
+        preferBuiltins: false,
       }),
       commonjs(),
       json(),
       typescript({
         tsconfig: './tsconfig.lib.json',
         declaration: false,
-        declarationMap: false
+        declarationMap: false,
+        outputToFilesystem: true,
       }),
       terser({
         compress: {
           keep_fargs: true,
-          keep_infinity: true
+          keep_infinity: true,
         },
         mangle: false,
         format: {
-          comments: false
-        }
-      })
+          comments: false,
+        },
+      }),
     ],
-    external: ['js-yaml', 'xml-js'] // These will be handled separately
+    // Data JSON remains a package asset. Consumer bundlers can split/cache it instead of
+    // receiving a second copy embedded in this entrypoint.
   },
-  
+
   // Node build (CommonJS)
   {
     input: 'countrystatecity-npm/src/index.node.ts',
     output: {
       file: 'countrystatecity-npm/dist/index.node.cjs',
       format: 'cjs',
-      sourcemap: true
+      exports: 'named',
+      sourcemap: true,
     },
     plugins: [
       resolve({
-        preferBuiltins: true
+        preferBuiltins: true,
       }),
       commonjs(),
       json(),
       typescript({
         tsconfig: './tsconfig.lib.json',
         declaration: false,
-        declarationMap: false
-      })
+        declarationMap: false,
+        outputToFilesystem: true,
+      }),
     ],
-    external: ['fs', 'path', 'js-yaml', 'xml-js']
+    external: ['fs', 'path', 'js-yaml', 'xml-js'],
   },
-  
+
   // Node build (ESM)
   {
     input: 'countrystatecity-npm/src/index.node.ts',
     output: {
       file: 'countrystatecity-npm/dist/index.node.mjs',
       format: 'esm',
-      sourcemap: true
+      sourcemap: true,
     },
     plugins: [
       resolve({
-        preferBuiltins: true
+        preferBuiltins: true,
       }),
       commonjs(),
       json(),
@@ -80,9 +85,10 @@ export default [
         tsconfig: './tsconfig.lib.json',
         declaration: true,
         declarationMap: true,
-        declarationDir: 'countrystatecity-npm/dist'
-      })
+        declarationDir: 'countrystatecity-npm/dist',
+        outputToFilesystem: true,
+      }),
     ],
-    external: ['fs', 'path', 'js-yaml', 'xml-js']
-  }
+    external: ['fs', 'path', 'js-yaml', 'xml-js'],
+  },
 ];

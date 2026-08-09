@@ -16,9 +16,9 @@ This is a **dual-purpose project**: a Next.js web application (documentation sit
 - **Docs Framework**: Fumadocs (fumadocs-core, fumadocs-ui, fumadocs-mdx)
 - **CSS**: Tailwind CSS 4
 - **Icons**: lucide-react
-- **Map**: Leaflet + react-leaflet
+- **Map**: MapLibre GL JS 3D globe projection
 - **Build (NPM lib)**: Rollup (3 builds: browser ESM, Node CJS, Node ESM)
-- **Hosting**: Firebase Hosting (static `out/` directory)
+- **Hosting**: Nginx static hosting (`out/`) plus a standalone Node REST/GraphQL service
 - **Font**: DM Sans + JetBrains Mono (Google Fonts)
 
 ## Project Structure
@@ -48,7 +48,7 @@ country-state-city/
 │   ├── playground.mdx            # Interactive playground
 │   └── contributing.mdx          # Contributing guide
 ├── components/
-│   ├── WorldMap.tsx               # Leaflet map component
+│   ├── WorldMap.tsx               # MapLibre 3D globe component
 │   ├── DataPlaygroundMDX.tsx      # Interactive API playground (MDX-embedded)
 │   └── mdx.tsx                   # MDX component provider
 ├── lib/
@@ -57,7 +57,7 @@ country-state-city/
 │   ├── countries.ts              # Data access helpers (wraps browser build)
 │   ├── data.ts                   # DataService class
 │   ├── formatters.ts             # CSV/XML/YAML formatters for web app
-│   └── firebase.ts               # Firebase config
+│   └── stats.ts                  # Dataset totals and release metadata
 ├── types/
 │   └── index.ts                  # TypeScript interfaces (Country, State, City, Timezone)
 ├── data/                         # Raw JSON data files
@@ -79,7 +79,7 @@ country-state-city/
 ├── postcss.config.mjs            # PostCSS config (@tailwindcss/postcss)
 ├── rollup.config.js              # Rollup config for NPM package build
 ├── tsconfig.json                 # TypeScript config (includes collections/* alias)
-├── firebase.json                 # Firebase Hosting config
+├── deploy/                       # Nginx and systemd production configuration
 └── package.json                  # Dependencies and scripts
 ```
 
@@ -98,7 +98,7 @@ npm run test             # Run tests with Vitest
 
 ### Dual Build System
 
-1. **Next.js build** (`next build`): Generates static site in `out/` for Firebase Hosting
+1. **Next.js build** (`next build`): Generates the Nginx-served static site in `out/`
 2. **Rollup build** (`rollup -c`): Generates NPM package in `countrystatecity-npm/dist/` with:
    - `index.browser.js` (ESM, tree-shakeable, imports JSON directly)
    - `index.node.cjs` (CommonJS, reads files from disk via `fs`)
@@ -153,7 +153,8 @@ The `CountryStateCity` class uses static methods with lazy loading:
 
 ## Deployment
 
-- **Website**: Firebase Hosting (static export from `out/` directory)
+- **Website**: Nginx serves the static `out/` export from `/opt/countrystatecity/current/web`
+- **Hosted API**: A systemd-managed Node service listens only on `127.0.0.1:5310`; Nginx proxies `/api`
 - **NPM Package**: Published to npm as `@tansuasici/country-state-city`
 - `prepublishOnly` hook runs `build:lib` before npm publish
 
@@ -164,3 +165,13 @@ The `CountryStateCity` class uses static methods with lazy loading:
 - The site is fully static (no API routes) - all data is bundled at build time
 - All components importing from the NPM source must use `index.browser` (not `index`)
 - Fumadocs MDX components use specific import paths (e.g. `fumadocs-ui/components/callout`)
+
+<!-- BEGIN:nextjs-agent-rules -->
+
+# This is NOT the Next.js you know
+
+This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` (resolved from this file's directory; in monorepos the `next` package may not be visible from the repo root) before writing any code. Heed deprecation notices.
+
+This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
+
+<!-- END:nextjs-agent-rules -->

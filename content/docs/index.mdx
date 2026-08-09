@@ -11,11 +11,11 @@ import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
 
 **Country State City** is a comprehensive world location database available as an NPM package. It provides:
 
-- **250+** countries with full metadata (ISO codes, currencies, timezones, translations)
+- **250** countries/areas with ISO-assigned codes plus one documented user-assigned Kosovo code
 - **5,000+** states and provinces
 - **150,000+** cities with coordinates
 
-All data is ISO 3166-1 compliant and available in JSON, CSV, XML, and YAML formats.
+Country codes are ISO 3166-1 based. The `XK`/Kosovo record uses a documented user-assigned code from ISO's reserved user-assigned range; inspect `codeStatus` and `codeAuthority` instead of assuming every row is officially assigned. Data is available in JSON, CSV, XML, and YAML formats.
 
 ## Quick Start
 
@@ -36,7 +36,7 @@ import { CountryStateCity } from '@tansuasici/country-state-city';
 const countries = CountryStateCity.getAllCountries();
 
 // Get states by country
-const states = CountryStateCity.getStatesByCountryId(225); // Turkey
+const states = CountryStateCity.getStatesByCountryId(225); // Türkiye
 
 // Get cities by state
 const cities = CountryStateCity.getCitiesByStateId(2175); // Istanbul
@@ -74,6 +74,7 @@ const { CountryStateCity } = require('@tansuasici/country-state-city');
 // ESM
 import { CountryStateCity } from '@tansuasici/country-state-city';
 ```
+
 </Tab>
 
 <Tab value="Browser">
@@ -94,11 +95,11 @@ The browser build uses optimized/compressed city data that is decompressed at ru
 
 ## Key Features
 
-| Feature | Description |
-|---------|-------------|
-| **Multiple Formats** | JSON, CSV, XML, YAML output |
-| **ISO Standards** | ISO 3166-1 compliant country codes |
-| **Full TypeScript** | Complete type definitions included |
-| **Tree-Shakeable** | Browser build is optimized for bundlers |
-| **MCP Integration** | Works with Claude Desktop and AI assistants |
-| **Dual Build** | Separate Node.js and Browser entry points |
+| Feature              | Description                                                           |
+| -------------------- | --------------------------------------------------------------------- |
+| **Multiple Formats** | JSON, CSV, XML, YAML output                                           |
+| **ISO Standards**    | ISO 3166-1 assigned codes plus an explicit user-assigned XK exception |
+| **Full TypeScript**  | Complete type definitions included                                    |
+| **Tree-Shakeable**   | Browser build is optimized for bundlers                               |
+| **MCP Integration**  | Works with Claude Desktop and AI assistants                           |
+| **Dual Build**       | Separate Node.js and Browser entry points                             |

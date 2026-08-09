@@ -1,0 +1,101 @@
+{
+  "schemaVersion": 1,
+  "sourceRelease": "v3.2-export.7",
+  "patches": [
+    {
+      "entity": "city",
+      "id": 148461,
+      "operation": "merge",
+      "changes": {
+        "latitude": "-33.61666667",
+        "longitude": "-78.86666667"
+      },
+      "reason": "Correct Juan Fernández commune coordinate",
+      "sourceUrl": "https://www.wikidata.org/wiki/Special:EntityData/Q14454.json",
+      "license": "CC0-1.0"
+    },
+    {
+      "entity": "city",
+      "id": 149096,
+      "operation": "merge",
+      "changes": {
+        "latitude": "7.87100000",
+        "longitude": "-2.31700000"
+      },
+      "reason": "Correct Tain District coordinate",
+      "sourceUrl": "https://www.wikidata.org/wiki/Special:EntityData/Q695048.json",
+      "license": "CC0-1.0"
+    },
+    {
+      "entity": "city",
+      "id": 133809,
+      "operation": "merge",
+      "changes": {
+        "latitude": "26.19545833",
+        "longitude": "93.86240278"
+      },
+      "reason": "Correct Sarupathar coordinate",
+      "sourceUrl": "https://www.wikidata.org/wiki/Special:EntityData/Q638291.json",
+      "license": "CC0-1.0"
+    },
+    {
+      "entity": "city",
+      "id": 132750,
+      "operation": "merge",
+      "changes": {
+        "latitude": "10.56510000",
+        "longitude": "72.64564000"
+      },
+      "reason": "Correct Lakshadweep District coordinate",
+      "sourceUrl": "https://www.geonames.org/9748019/lakshadweep.html",
+      "license": "CC-BY-4.0"
+    },
+    {
+      "entity": "country",
+      "id": 30,
+      "operation": "merge",
+      "changes": {
+        "region": "Americas",
+        "subregion": "South America"
+      },
+      "reason": "Fill Bouvet Island statistical region from UN M49",
+      "sourceUrl": "https://unstats.un.org/unsd/methodology/m49/overview/",
+      "license": "UN-M49"
+    },
+    {
+      "entity": "country",
+      "id": 54,
+      "operation": "merge",
+      "changes": {
+        "native": "Côte d’Ivoire"
+      },
+      "reason": "Fill the missing native country name using the UN terminology spelling",
+      "sourceUrl": "https://unstats.un.org/unsd/methodology/m49/overview/",
+      "license": "UN-M49"
+    },
+    {
+      "entity": "country",
+      "id": 96,
+      "operation": "merge",
+      "changes": {
+        "region": "Oceania",
+        "subregion": "Australia and New Zealand"
+      },
+      "reason": "Fill Heard Island and McDonald Islands statistical region from UN M49",
+      "sourceUrl": "https://unstats.un.org/unsd/methodology/m49/overview/",
+      "license": "UN-M49"
+    },
+    {
+      "entity": "country",
+      "id": 234,
+      "operation": "merge",
+      "changes": {
+        "latitude": null,
+        "longitude": null
+      },
+      "reason": "Remove the 0,0 sentinel because UM aggregates nine separate island territories and has no single defensible centre",
+      "sourceUrl": "https://www.census.gov/library/reference/code-lists/ansi.2010.html",
+      "license": "US-PUBLIC-DOMAIN"
+    }
+  ]
+}

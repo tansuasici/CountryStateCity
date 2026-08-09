@@ -1,0 +1,32 @@
+---
+title: Data License & Attribution
+description: Source provenance, ODbL 1.0 terms, attribution, and the separate MIT code license.
+---
+
+import { Callout } from 'fumadocs-ui/components/callout';
+
+## Two separate licenses
+
+Country State City uses separate licenses for software and data:
+
+| Layer                       | License                                                                 | Applies to                                                 |
+| --------------------------- | ----------------------------------------------------------------------- | ---------------------------------------------------------- |
+| Source code                 | [MIT](https://github.com/tansuasici/CountryStateCity/blob/main/LICENSE) | Application, package, MCP server, and build tooling        |
+| Country/state/city database | [ODbL 1.0](https://opendatacommons.org/licenses/odbl/1-0/)              | Canonical JSON, compact/sharded data, and database exports |
+
+## Data source
+
+The database is derived from [Countries States Cities Database](https://github.com/dr5hn/countries-states-cities-database), which is published under ODbL 1.0 with attribution required.
+
+The historical import recorded by this repository on August 10, 2025 did not preserve an exact upstream revision. We do not invent one. Current corrections are checked against the pinned comparison baseline [`0fc88a6`](https://github.com/dr5hn/countries-states-cities-database/commit/0fc88a640175d0950512a370e35a61d14936d0d0), verified on August 5, 2026. Full machine-readable details are available in [`data/provenance.json`](https://github.com/tansuasici/CountryStateCity/blob/main/data/provenance.json).
+
+## Attribution notice
+
+> Contains information from [Countries States Cities Database](https://github.com/dr5hn/countries-states-cities-database), which is made available under the [Open Database License (ODbL) v1.0](https://opendatacommons.org/licenses/odbl/1-0/).
+
+Keep this notice and both links with public database copies or substantial extracts. ODbL also contains share-alike and machine-readable access requirements for some public uses of derivative databases.
+
+<Callout type="warn" title="Legal review">
+  This page documents the project's current compliance implementation and is not legal advice. Have
+  qualified counsel confirm how ODbL applies to your distribution and produced-work model.
+</Callout>

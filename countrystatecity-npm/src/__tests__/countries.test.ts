@@ -137,10 +137,10 @@ describe('Country Methods', () => {
       expect(country).toBeUndefined();
     });
 
-    it('should find Turkey with "TR"', () => {
+    it('should find Türkiye with "TR"', () => {
       const country = CountryStateCity.getCountryByIso2('TR');
       expect(country).toBeDefined();
-      expect(country!.name).toBe('Turkey');
+      expect(country!.name).toBe('Türkiye');
       expect(country!.iso3).toBe('TUR');
     });
   });

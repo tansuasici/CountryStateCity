@@ -1,0 +1,76 @@
+{
+  "schemaVersion": 2,
+  "migrationId": "2026-08-city-id-deduplication",
+  "fromDataVersion": "2.0.14",
+  "toDataVersion": "2.0.15",
+  "publicIdNamespace": "csc",
+  "releasedAt": "2026-08-05",
+  "description": "Resolves four city primary-key conflicts. Because three previous IDs referred to two different entities, consumers must match the selector fields before replacing an ID.",
+  "sourceBaseline": {
+    "name": "countries-states-cities-database",
+    "commit": "0fc88a640175d0950512a370e35a61d14936d0d0",
+    "url": "https://github.com/dr5hn/countries-states-cities-database/commit/0fc88a640175d0950512a370e35a61d14936d0d0"
+  },
+  "migrations": [
+    {
+      "operation": "reassign",
+      "event": "identity-repair",
+      "previousPublicId": "csc:city:999001",
+      "successorPublicIds": ["csc:city:153353"],
+      "redirect": "selector-required",
+      "previousId": 999001,
+      "newId": 153353,
+      "selector": {
+        "name": "Merkez",
+        "stateId": 2168,
+        "countryId": 225
+      },
+      "reason": "The previous ID was also assigned to Aydın/Merkez. The upstream identity for Çankırı/Merkez is 153353."
+    },
+    {
+      "operation": "reassign",
+      "event": "identity-repair",
+      "previousPublicId": "csc:city:107999",
+      "successorPublicIds": ["csc:city:153355"],
+      "redirect": "selector-required",
+      "previousId": 107999,
+      "newId": 153355,
+      "selector": {
+        "name": "Derecik",
+        "stateId": 2190,
+        "countryId": 225
+      },
+      "reason": "The previous ID belongs to İzmir/Kiraz. The upstream identity for Hakkâri/Derecik is 153355."
+    },
+    {
+      "operation": "reassign",
+      "event": "identity-repair",
+      "previousPublicId": "csc:city:107850",
+      "successorPublicIds": ["csc:city:153357"],
+      "redirect": "selector-required",
+      "previousId": 107850,
+      "newId": 153357,
+      "selector": {
+        "name": "Aralık",
+        "stateId": 2166,
+        "countryId": 225
+      },
+      "reason": "The previous ID belongs to Isparta/Isparta. The upstream identity for Iğdır/Aralık is 153357."
+    },
+    {
+      "operation": "removeDuplicate",
+      "event": "merge",
+      "previousPublicId": "csc:city:149236",
+      "successorPublicIds": ["csc:city:149214"],
+      "redirect": "automatic",
+      "previousId": 149236,
+      "canonicalId": 149214,
+      "selector": {
+        "name": "Zhaoguli",
+        "stateId": 2276,
+        "countryId": 45
+      },
+      "reason": "Both rows described the same entity. Upstream retains ID 149214."
+    }
+  ]
+}

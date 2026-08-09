@@ -1,0 +1,355 @@
+{
+  "schemaVersion": 1,
+  "database": {
+    "name": "CountryStateCity derivative database",
+    "localVersion": "3.0.0",
+    "license": {
+      "id": "ODbL-1.0",
+      "name": "Open Data Commons Open Database License v1.0",
+      "url": "https://opendatacommons.org/licenses/odbl/1-0/"
+    },
+    "attribution": "Contains information from Countries States Cities Database and OpenStreetMap under ODbL v1.0, GeoNames under CC BY 4.0, Wikidata under CC0 1.0, Natural Earth public-domain validation data, UN M49 classifications, and United States Census Bureau public-domain geography references."
+  },
+  "policy": {
+    "requireSourceUrl": true,
+    "requireRevisionOrRelease": true,
+    "requireLicense": true,
+    "unknownSourceAction": "reject"
+  },
+  "sources": [
+    {
+      "id": "dr5hn-countries-states-cities-database",
+      "name": "Countries States Cities Database",
+      "url": "https://github.com/dr5hn/countries-states-cities-database",
+      "license": {
+        "id": "ODbL-1.0",
+        "url": "https://github.com/dr5hn/countries-states-cities-database/blob/master/LICENSE"
+      },
+      "originalImport": {
+        "importedAt": "2025-08-10",
+        "upstreamRevision": null,
+        "status": "source-and-license-confirmed-revision-not-recorded"
+      },
+      "verificationBaseline": {
+        "revision": "0fc88a640175d0950512a370e35a61d14936d0d0",
+        "verifiedAt": "2026-08-05",
+        "url": "https://github.com/dr5hn/countries-states-cities-database/commit/0fc88a640175d0950512a370e35a61d14936d0d0",
+        "note": "Pinned comparison baseline for identity corrections; not asserted to be the unrecorded original import revision."
+      },
+      "syncPipeline": {
+        "manifest": "data/sources/dr5hn-v3.2-export.7.json",
+        "pinnedRelease": "v3.2-export.7",
+        "revision": "624a208c3928937d1262ab1646d0b8fc9cacceee",
+        "verifiedAt": "2026-08-05",
+        "mode": "staging-only",
+        "applyBlockedBy": ["identity-report:v3.2-export.7"],
+        "recordedReports": "data/sync-reports/v3.2-export.7"
+      },
+      "productionFiles": [
+        "data/country.json",
+        "data/state.json",
+        "data/city.json",
+        "data/city-optimized.json",
+        "data/location-display.json",
+        "data/coverage-policy.json",
+        "data/coverage-report.json",
+        "data/distribution-manifest.json",
+        "data/entity-level-policy.json",
+        "data/entity-level-report.json",
+        "data/schema-normalization-policy.json",
+        "data/admin/districts/tr.json",
+        "data/migrations/tr-city-to-district.json",
+        "countrystatecity-npm/data/city.json",
+        "countrystatecity-npm/data/cities/index.json",
+        "countrystatecity-npm/data/cities/*.json"
+      ],
+      "transformations": [
+        "Field normalization and denormalized country/state labels",
+        "Compact city representation and per-country shards",
+        "Non-destructive country, subdivision, and place display-name normalization",
+        "Documented local corrections with ID migration records",
+        "Türkiye legacy city-to-district grain classification",
+        "Explicit missing, unknown, and not-applicable coverage classifications",
+        "Canonical lower-case state type enum and BCP 47 country translation keys with deprecated alias migration"
+      ]
+    },
+    {
+      "id": "geonames",
+      "name": "GeoNames",
+      "url": "https://www.geonames.org/",
+      "license": {
+        "id": "CC-BY-4.0",
+        "url": "https://creativecommons.org/licenses/by/4.0/"
+      },
+      "verificationBaseline": {
+        "revision": "b751bcc6b627cdee1eda7605fc4bc0c34334039ec17eecc644e8c0d70d1377b4",
+        "verifiedAt": "2026-08-05",
+        "url": "https://download.geonames.org/export/dump/TR.zip",
+        "note": "Pinned Türkiye country dump; supporting admin-code file hashes are recorded in data/sources/geonames-tr-2026-08-05.json."
+      },
+      "productionFiles": [
+        "data/admin/districts/tr.json",
+        "data/migrations/tr-city-to-district.json",
+        "data/city.json",
+        "data/city-optimized.json",
+        "data/geography/city-coordinate-policy.json",
+        "countrystatecity-npm/data/city.json",
+        "countrystatecity-npm/data/cities/in.json"
+      ],
+      "transformations": [
+        "Match GeoNames ADM2 identities to the reviewed current Türkiye district hierarchy",
+        "Preserve alternate GeoNames labels without replacing canonical district names",
+        "Correct the Lakshadweep District centre from the pinned GeoNames ADM2 record 9748019"
+      ]
+    },
+    {
+      "id": "openstreetmap",
+      "name": "OpenStreetMap",
+      "url": "https://www.openstreetmap.org/",
+      "license": {
+        "id": "ODbL-1.0",
+        "url": "https://www.openstreetmap.org/copyright"
+      },
+      "verificationBaseline": {
+        "revision": "relation:1249247@14",
+        "verifiedAt": "2026-08-05",
+        "url": "https://www.openstreetmap.org/relation/1249247",
+        "note": "Sarıçam district relation 1249247 designates node 958049062 as admin_centre."
+      },
+      "productionFiles": [
+        "data/admin/districts/tr.json",
+        "data/geography/city-coordinate-policy.json"
+      ],
+      "transformations": [
+        "Replace the same-named Sarıçam village point with the reviewed district admin-centre node",
+        "Replace the out-of-district Kadıköy centre with a deterministic point-on-surface from reviewed relation 1276548",
+        "Individually validate 44 small-island country assignments that are omitted or generalized by the 1:10m reference polygon"
+      ]
+    },
+    {
+      "id": "wikidata-city-coordinate-corrections",
+      "name": "Wikidata",
+      "url": "https://www.wikidata.org/",
+      "license": {
+        "id": "CC0-1.0",
+        "url": "https://www.wikidata.org/wiki/Wikidata:Licensing"
+      },
+      "verificationBaseline": {
+        "revision": "Q14454@2459903740,Q695048@2407503911,Q638291@2520884634",
+        "verifiedAt": "2026-08-06",
+        "url": "https://www.wikidata.org/wiki/Special:EntityData/Q14454.json",
+        "note": "Pinned entity revisions for Juan Fernández, Tain, and Sarupathar are recorded individually in the coordinate policy."
+      },
+      "productionFiles": [
+        "data/city.json",
+        "data/city-optimized.json",
+        "data/geography/city-coordinate-policy.json",
+        "countrystatecity-npm/data/city.json",
+        "countrystatecity-npm/data/cities/cl.json",
+        "countrystatecity-npm/data/cities/gh.json",
+        "countrystatecity-npm/data/cities/in.json"
+      ],
+      "transformations": [
+        "Correct the coordinates of Juan Fernández, Tain, and Sarupathar without changing their public identities or hierarchy"
+      ]
+    },
+    {
+      "id": "wikidata-qid-verification-2026-08-08",
+      "name": "Wikidata Query Service city QID verification",
+      "url": "https://query.wikidata.org/sparql",
+      "license": {
+        "id": "CC0-1.0",
+        "url": "https://www.wikidata.org/wiki/Wikidata:Licensing"
+      },
+      "verificationBaseline": {
+        "revision": "qid-set-sha256:cf825e0d3e2b8697226ec120833c85e7a72417657c01878f47e3aeecd4a22615",
+        "verifiedAt": "2026-08-08",
+        "url": "https://query.wikidata.org/sparql",
+        "note": "Batch verification of unique city QIDs for entity existence, direct instance type, country ISO code, coordinates, entity revision, and modification time."
+      },
+      "productionFiles": [
+        "data/city.json",
+        "data/identity/wikidata-qid-policy.json",
+        "data/identity/wikidata-qid-verification.json",
+        "data/city-optimized.json",
+        "countrystatecity-npm/data/city.json",
+        "countrystatecity-npm/data/cities/*.json"
+      ],
+      "transformations": [
+        "Clear every ambiguous duplicate QID assignment",
+        "Clear missing entities and unique assignments whose Wikidata coordinate is more than 100 km away",
+        "Publish per-city verification confidence and source revision metadata"
+      ]
+    },
+    {
+      "id": "natural-earth-admin1-states-provinces-5.1.1",
+      "name": "Natural Earth Admin 1 – States, Provinces",
+      "url": "https://www.naturalearthdata.com/downloads/10m-cultural-vectors/10m-admin-1-states-provinces/",
+      "license": {
+        "id": "Public-Domain",
+        "url": "https://www.naturalearthdata.com/about/terms-of-use/"
+      },
+      "verificationBaseline": {
+        "revision": "5.1.1:sha256:efc59726337323058f9446210adc96673179cd344e053666ee3d28cb58ba2b05",
+        "verifiedAt": "2026-08-08",
+        "url": "https://naturalearth.s3.amazonaws.com/5.1.1/10m_cultural/ne_10m_admin_1_states_provinces.zip",
+        "note": "Pinned 1:10m Admin-1 polygons used to generate representative points guaranteed to lie on matched subdivision geometry. Natural Earth's default de-facto worldview is treated as a QA reference, not a legal boundary authority."
+      },
+      "productionFiles": [
+        "data/state.json",
+        "data/geography/state-coordinate-policy.json",
+        "countrystatecity-npm/data/state.json"
+      ],
+      "transformations": [
+        "Match canonical subdivisions by full ISO 3166-2-style country/state code and exact name when the code is ambiguous",
+        "Generate point-on-surface coordinates for matched polygons",
+        "Validate fallback source points against the pinned Admin-0 country reference",
+        "Retain null only as an explicit unavailable-coordinate exception"
+      ]
+    },
+    {
+      "id": "natural-earth-admin0-countries-5.1.1",
+      "name": "Natural Earth Admin 0 – Countries",
+      "url": "https://www.naturalearthdata.com/downloads/10m-cultural-vectors/10m-admin-0-countries/",
+      "license": {
+        "id": "Public-Domain",
+        "url": "https://www.naturalearthdata.com/about/terms-of-use/"
+      },
+      "verificationBaseline": {
+        "revision": "5.1.1:sha256:ce1ac7036499a0edd641fbc093cd209a98f96a49d2eca8480aaacad35138a7f6",
+        "verifiedAt": "2026-08-06",
+        "url": "https://naturalearth.s3.amazonaws.com/5.1.1/10m_cultural/ne_10m_admin_0_countries.zip",
+        "note": "Pinned 1:10m default de-facto worldview used as the reproducible country-placement QA reference."
+      },
+      "productionFiles": ["data/geography/city-coordinate-policy.json"],
+      "transformations": [
+        "Classify every city point against the pinned country reference and retain worldview, dependency, territorial-claim, and scale exceptions as metadata rather than silently changing parents"
+      ]
+    },
+    {
+      "id": "un-m49",
+      "name": "United Nations M49 Standard country or area codes",
+      "url": "https://unstats.un.org/unsd/methodology/m49/overview/",
+      "license": {
+        "id": "UN-Terms-of-Use",
+        "url": "https://www.un.org/en/about-us/terms-of-use"
+      },
+      "verificationBaseline": {
+        "revision": "overview-reviewed-2026-08-07",
+        "verifiedAt": "2026-08-07",
+        "url": "https://unstats.un.org/unsd/methodology/m49/overview/",
+        "note": "Reviewed terminology and region/subregion assignments for Antarctica, Bouvet Island, Côte d’Ivoire, and Heard Island and McDonald Islands."
+      },
+      "productionFiles": [
+        "data/country.json",
+        "data/country-metadata-policy.json",
+        "data/coverage-policy.json",
+        "data/coverage-report.json",
+        "countrystatecity-npm/data/country.json"
+      ],
+      "transformations": [
+        "Correct statistical region/subregion fields and official country terminology",
+        "Document country hierarchy and metadata applicability exceptions"
+      ]
+    },
+    {
+      "id": "iso-country-and-currency-metadata-2026-08-08",
+      "name": "ISO 3166/MA, ISO 4217/MA, and European Commission country metadata verification",
+      "url": "https://www.iso.org/iso-3166-country-codes.html",
+      "license": {
+        "id": "Source-Terms",
+        "url": "https://www.iso.org/privacy-and-copyright.html"
+      },
+      "verificationBaseline": {
+        "revision": "country-metadata-policy:v1",
+        "verifiedAt": "2026-08-08",
+        "url": "https://www.iso.org/iso-3166-country-codes.html",
+        "note": "Verified assigned versus user-assigned alpha-2 code status; Bulgaria and Croatia euro adoption dates against European Commission country pages; and Mauritania MRU against ISO 4217 Amendment 165. Exact source URLs and effective dates are recorded in data/country-metadata-policy.json."
+      },
+      "productionFiles": [
+        "data/country.json",
+        "data/country-metadata-policy.json",
+        "countrystatecity-npm/data/country.json"
+      ],
+      "transformations": [
+        "Classify 249 alpha-2 codes as officially assigned and XK as a documented user-assigned code",
+        "Update Bulgaria and Croatia to EUR and Mauritania to MRU",
+        "Publish source, verification date, code authority, and code status on every country record"
+      ]
+    },
+    {
+      "id": "iana-time-zone-database",
+      "name": "IANA Time Zone Database",
+      "url": "https://www.iana.org/time-zones",
+      "license": {
+        "id": "Public-Domain",
+        "url": "https://data.iana.org/time-zones/tzdb/README"
+      },
+      "verificationBaseline": {
+        "revision": "2026c-reviewed-runtime-2026a",
+        "verifiedAt": "2026-08-08",
+        "url": "https://www.iana.org/time-zones/releases/2026c",
+        "note": "IANA zone identifiers are authoritative. Stored offsets were calculated for 2026-01-15T00:00:00Z through the ECMA-402 Intl implementation backed by runtime tzdb 2026a; callers must calculate another instant at runtime."
+      },
+      "productionFiles": [
+        "data/country.json",
+        "data/timezone-policy.json",
+        "countrystatecity-npm/data/country.json"
+      ],
+      "transformations": [
+        "Validate all 428 zoneName values as IANA time-zone identifiers",
+        "Recalculate static offsets at one explicit observedAt instant",
+        "Normalize every UTC label to UTC±HH:MM"
+      ]
+    },
+    {
+      "id": "albania-administrative-levels-instat",
+      "name": "Institute of Statistics Albania administrative organization",
+      "url": "https://www.instat.gov.al/media/2919/a_new_urban-rural_classification_of_albanian_population.pdf",
+      "license": {
+        "id": "INSTAT-Publication-Terms",
+        "url": "https://www.instat.gov.al/en/about-us/legislation/"
+      },
+      "verificationBaseline": {
+        "revision": "publication-reviewed-2026-08-08",
+        "verifiedAt": "2026-08-08",
+        "url": "https://www.instat.gov.al/media/2919/a_new_urban-rural_classification_of_albanian_population.pdf",
+        "note": "INSTAT states that law no. 8653 dated 31 July 2000 abolished Albania's 36 districts as administrative units and identifies the 12 Qarks as the current regional administrative layer."
+      },
+      "productionFiles": [
+        "data/state.json",
+        "data/city.json",
+        "data/entity-level-policy.json",
+        "data/entity-level-report.json"
+      ],
+      "transformations": [
+        "Classify Albania counties/Qarks as current level 1",
+        "Retain legacy district rows as historical level 2 with a validity end date instead of presenting them as current"
+      ]
+    },
+    {
+      "id": "us-census-ansi-geography",
+      "name": "United States Census Bureau ANSI geographic codes",
+      "url": "https://www.census.gov/library/reference/code-lists/ansi.2010.html",
+      "license": {
+        "id": "US-Public-Domain",
+        "url": "https://www.census.gov/about/policies/quality/standards/quality-standards.html"
+      },
+      "verificationBaseline": {
+        "revision": "ansi-page-reviewed-2026-08-07",
+        "verifiedAt": "2026-08-07",
+        "url": "https://www.census.gov/library/reference/code-lists/ansi.2010.html",
+        "note": "Reviewed the United States Minor Outlying Islands aggregate definition; an aggregate of separate islands has no single geographic centre."
+      },
+      "productionFiles": [
+        "data/country.json",
+        "data/coverage-policy.json",
+        "data/coverage-report.json",
+        "countrystatecity-npm/data/country.json"
+      ],
+      "transformations": [
+        "Replace the invalid UM 0,0 coordinate sentinel with null and a documented reason"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "normalization": {
+    "unicode": "NFKD",
+    "caseFoldLocale": "und",
+    "stripCombiningMarks": true,
+    "collapsePunctuation": true,
+    "latinCompatibilityMap": ["ı→i", "ł→l", "đ/ð→d", "þ→th", "æ→ae", "œ→oe", "ø→o", "ß→ss"]
+  },
+  "ranking": {
+    "canonicalExact": 1,
+    "aliasExact": 0.97,
+    "canonicalPrefix": 0.9,
+    "aliasPrefix": 0.87,
+    "canonicalContains": 0.78,
+    "aliasContains": 0.74,
+    "typoMinimumSimilarity": 0.72,
+    "countryContextBoost": 0.03,
+    "stateContextBoost": 0.04
+  },
+  "guardrails": {
+    "minimumTypoLength": 4,
+    "maximumEditDistance": 2,
+    "maximumResults": 100,
+    "historicalAliasMustCarryValidTo": true,
+    "ambiguousNamesRequireParentContextInGoldenTests": true
+  }
+}

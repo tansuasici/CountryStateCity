@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "source": {
+    "producer": "Harita Genel Müdürlüğü (HGM)",
+    "archiveFile": "turkiye-mulki-idare-sinirlari-2083.rar",
+    "sha256": "da8efe4dcbe47e5e8a8a34068e1e729832420634b519fab62303b86254471284",
+    "productUrl": "https://www.harita.gov.tr/urun/turkiye-mulki-idare-sinirlari/232",
+    "downloadUrl": "https://www.harita.gov.tr/uploads/files/products/turkiye-mulki-idare-sinirlari-2083.rar",
+    "reuseProfile": "hgm-noncommercial-attribution-display-only"
+  },
+  "targetCrs": "EPSG:4326",
+  "levels": {
+    "province": {
+      "centerCategories": ["İL", "BAŞKENT"],
+      "expectedFeatures": 81,
+      "precisionGridMeters": 1.0,
+      "lineLayers": ["province-boundary-lines", "country-boundary-lines"]
+    },
+    "district": {
+      "centerCategories": ["İLÇE"],
+      "expectedFeatures": 922,
+      "precisionGridMeters": 0.006,
+      "lineLayers": ["district-boundary-lines", "province-boundary-lines", "country-boundary-lines"]
+    }
+  },
+  "publicationGate": {
+    "requiresCompatibleCommercialRedistributionRights": true,
+    "requiresOfficialNameAndCodeMetadata": true,
+    "requiresExactFeatureCounts": true,
+    "requiresNoCenterCollisions": true,
+    "requiresValidNonOverlappingGeometry": true
+  }
+}

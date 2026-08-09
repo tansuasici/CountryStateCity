@@ -1,0 +1,65 @@
+{
+  "schemaVersion": 1,
+  "apiVersion": "v1",
+  "status": "product-hypothesis",
+  "versioning": {
+    "strategy": "major version in URL",
+    "currentBasePath": "/api/v1",
+    "deprecationNoticeDays": 180,
+    "headers": ["Deprecation", "Sunset", "Link"]
+  },
+  "authentication": {
+    "header": "x-api-key",
+    "storage": "Root-readable systemd environment file outside the application release",
+    "secretFormat": "key-id:sha256-hex, separated by commas",
+    "logging": "Only the key id is logged; raw keys and hashes are never logged."
+  },
+  "plans": {
+    "free": {
+      "requestsPerMinute": 100,
+      "requestsPerMonth": 50000
+    },
+    "paidHypothesis": {
+      "requestsPerMinute": 1000,
+      "requestsPerMonth": 2000000,
+      "note": "Validate demand and operating cost before enabling billing."
+    }
+  },
+  "query": {
+    "defaultPageSize": 25,
+    "maximumPageSize": 100,
+    "pagination": "offset and limit",
+    "fieldSelection": "comma-separated fields parameter"
+  },
+  "cache": {
+    "serverTtlSeconds": 60,
+    "staleWhileRevalidateSeconds": 300,
+    "validators": ["ETag", "If-None-Match"],
+    "responseHeaders": ["X-Cache", "X-Data-Version"]
+  },
+  "serviceLevelObjectives": {
+    "availabilityPercent": 99,
+    "warmP95Milliseconds": 250,
+    "errorRatePercent": 1,
+    "measurementWindowDays": 30,
+    "coldStartsReportedSeparately": true
+  },
+  "observability": {
+    "metrics": [
+      "request_count",
+      "duration_ms",
+      "error_count",
+      "cache_hit_count",
+      "active_key_count",
+      "monthly_request_count"
+    ],
+    "dimensions": ["endpoint", "method", "status", "key_id", "cache"],
+    "sensitiveFields": ["x-api-key", "authorization", "api_key_hash"]
+  },
+  "abuseControls": [
+    "Per-key fixed-window rate limit",
+    "Fail-closed authentication when CSC_API_KEYS is absent",
+    "Maximum page size and request body size",
+    "Structured security-safe request logs"
+  ]
+}

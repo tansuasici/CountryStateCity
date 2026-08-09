@@ -1,0 +1,5 @@
+countrystatecity-npm/dist/__tests__/
+countrystatecity-npm/dist/data/
+data/patches/
+data/sources/
+data/sync-reports/

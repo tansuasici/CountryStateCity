@@ -5,12 +5,19 @@
     "installation",
     "---API---",
     "api-reference",
+    "hosted-api",
+    "api-playground",
+    "location-search",
+    "version-diffs",
     "data-structures",
+    "data-coverage",
+    "data-quality",
     "formats",
     "---Integrations---",
     "mcp",
     "---Extras---",
     "playground",
+    "data-license",
     "contributing"
   ]
 }

@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-08-08T00:00:00.000Z",
+  "totals": { "submitted": 0, "inReview": 0, "accepted": 0, "rejected": 0 },
+  "rates": { "acceptance": null, "rejection": null },
+  "sla": {
+    "firstResponseTargetHours": 72,
+    "decisionTargetHours": 168,
+    "firstResponseMeasured": 0,
+    "firstResponseMet": 0,
+    "firstResponseCompliance": null,
+    "decisionMeasured": 0,
+    "decisionMet": 0,
+    "decisionCompliance": null
+  }
+}

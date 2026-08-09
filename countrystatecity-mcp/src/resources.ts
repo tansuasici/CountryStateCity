@@ -1,5 +1,6 @@
 import { McpServer, ResourceTemplate } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { CountryStateCity } from '../../countrystatecity-npm/src/index';
+import { snapshotMetadata } from './metadata.js';
 
 export function registerResources(server: McpServer) {
   // All countries (summary)
@@ -116,10 +117,20 @@ export function registerResources(server: McpServer) {
       contents: [
         {
           uri: uri.href,
-          text: JSON.stringify(stats, null, 2),
+          text: JSON.stringify({ ...stats, snapshot: snapshotMetadata }, null, 2),
           mimeType: 'application/json',
         },
       ],
     };
   });
+
+  server.resource('snapshot', 'country-state-city://snapshot', async (uri) => ({
+    contents: [
+      {
+        uri: uri.href,
+        text: JSON.stringify(snapshotMetadata, null, 2),
+        mimeType: 'application/json',
+      },
+    ],
+  }));
 }
