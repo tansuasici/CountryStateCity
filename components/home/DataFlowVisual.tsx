@@ -143,7 +143,6 @@ export function DataFlowVisual() {
           </AnimatePresence>
         </div>
       </div>
-
     </m.div>
   );
 }

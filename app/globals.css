@@ -222,7 +222,8 @@
  * than hard-coded to one theme.
  */
 .map-workspace {
-  --background: var(--map-canvas);
+  /* Panel surface, not the map ground — shadcn parts render inside the panel. */
+  --background: var(--map-surface-strong);
   --foreground: var(--map-text);
   --card: var(--map-surface);
   --card-foreground: var(--map-text);
@@ -1231,7 +1232,8 @@
 
 .map-workspace .map-panel-toggle {
   color: var(--map-text);
-}.map-workspace .map-explorer-header,
+}
+.map-workspace .map-explorer-header,
 .map-workspace .explorer-section,
 .map-workspace .explorer-collection,
 .map-workspace .explorer-ledger,
@@ -1247,13 +1249,15 @@
 .map-workspace .explorer-ledger dd,
 .map-workspace .map-stats dl dd {
   color: var(--map-text);
-}.map-workspace .explorer-heading > span,
+}
+.map-workspace .explorer-heading > span,
 .map-workspace .explorer-section-heading > span,
 .map-workspace .explorer-result code,
 .map-workspace .explorer-collection > svg:first-child,
 .map-workspace .map-panel-toggle > svg:first-child {
   color: var(--map-accent);
-}.map-workspace .explorer-section-heading small,
+}
+.map-workspace .explorer-section-heading small,
 .map-workspace .explorer-field label,
 .map-workspace .explorer-field label > span,
 .map-workspace .explorer-result-index,
@@ -1346,7 +1350,8 @@
   border-color: var(--map-accent);
   background: var(--map-accent);
   color: var(--map-canvas);
-}.map-workspace .map-interaction-hint {
+}
+.map-workspace .map-interaction-hint {
   color: var(--map-faint);
 }
 
@@ -1508,7 +1513,8 @@
 
   .map-stats dl dt {
     font-size: 0.42rem;
-  }.map-interaction-hint {
+  }
+  .map-interaction-hint {
     display: none;
   }
 
@@ -1520,14 +1526,27 @@
   .world-map-3d .maplibregl-ctrl-top-right {
     top: 4.25rem;
     right: 0.75rem;
-  }}
+  }
+}
 
 @media (min-width: 901px) and (max-width: 1180px) {
   .map-workspace.has-explorer-panel .map-stats {
     right: 1rem;
     left: auto !important;
     transform: none !important;
-  }}
+  }
+}
+
+/*
+ * The map pads its viewport around the open panel, so the globe centres in the
+ * space to the panel's right. Shift the stats bar by half the panel column so
+ * both read off one centre instead of two competing ones.
+ */
+@media (min-width: 1181px) {
+  .map-workspace.has-explorer-panel .map-stats {
+    left: calc(50% + 12.5rem);
+  }
+}
 
 @media (prefers-reduced-motion: reduce) {
   .map-loading > span,
@@ -1540,7 +1559,8 @@
   .map-marker > span,
   .map-interaction-hint {
     transition: none;
-  }}
+  }
+}
 
 /* Homepage — editorial data atlas */
 .home-atlas {
@@ -2602,7 +2622,8 @@
   .home-final {
     align-items: flex-start;
     flex-direction: column;
-  }}
+  }
+}
 
 @media (max-width: 640px) {
   .atlas-hero {
@@ -2754,7 +2775,8 @@
     margin: 0.75rem;
     gap: 2.5rem;
     padding: 3rem 1.25rem;
-  }.code-stage-copy {
+  }
+  .code-stage-copy {
     min-width: 0;
   }
 
@@ -2803,7 +2825,8 @@
 
   .data-journey-panel {
     min-height: 27rem;
-  }}
+  }
+}
 
 @media (max-width: 360px) {
   .atlas-actions,
@@ -2814,7 +2837,8 @@
 
   .atlas-button {
     width: 100%;
-  }}
+  }
+}
 
 @media (max-width: 900px) {
   .data-journey {
@@ -2850,7 +2874,8 @@
 
   .data-journey-steps button:last-child {
     border-right: 0;
-  }}
+  }
+}
 
 @media (prefers-reduced-motion: reduce) {
   body {
@@ -2862,4 +2887,5 @@
   .text-link svg,
   .data-journey-steps button {
     transition: none;
-  }}
+  }
+}
