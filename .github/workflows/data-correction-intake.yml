@@ -22,7 +22,7 @@ jobs:
         continue-on-error: true
         run: node scripts/validate-data-correction.mjs --event "$GITHUB_EVENT_PATH" --output "$GITHUB_OUTPUT"
       - name: Apply abuse controls and route the review queue
-        uses: actions/github-script@v8
+        uses: actions/github-script@v9
         env:
           VALID: ${{ steps.intake.outputs.valid }}
           FINGERPRINT: ${{ steps.intake.outputs.fingerprint }}
