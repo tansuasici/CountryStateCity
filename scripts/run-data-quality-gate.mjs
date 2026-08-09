@@ -532,5 +532,5 @@ function renderMarkdown(value) {
     ),
     '',
   ];
-  return `${lines.join('\n')}\n`;
+  return lines.join('\n');
 }
