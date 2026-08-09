@@ -2,7 +2,7 @@
   "name": "@tansuasici/country-state-city",
   "version": "3.0.0",
   "private": true,
-  "description": "A lightweight JavaScript library for accessing country, state, and city data worldwide with support for JSON, CSV, XML, and YAML formats",
+  "description": "Versioned country, administrative-area, city, and district data with search, spatial, timezone, export, and MCP APIs.",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
@@ -41,7 +41,7 @@
   "homepage": "https://countrystatecity.tansuasici.com",
   "repository": {
     "type": "git",
-    "url": "https://github.com/tansuasici/countrystatecity"
+    "url": "git+https://github.com/tansuasici/CountryStateCity.git"
   },
   "devDependencies": {
     "@types/js-yaml": "^4.0.9",
