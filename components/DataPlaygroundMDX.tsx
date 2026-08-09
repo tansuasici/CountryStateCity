@@ -1,10 +1,10 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
+import Link from 'next/link';
 import { Play, Copy, Download, Check, Search } from 'lucide-react';
-import { CountryStateCity as CSC } from '../countrystatecity-npm/src/index.browser';
 import { formatCountries, formatStates, formatCities } from '@/lib/formatters';
-import { Country, State, City } from '@/types';
+import { Country, State } from '@/types';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -22,13 +22,15 @@ export default function DataPlaygroundMDX() {
   const [copied, setCopied] = useState(false);
 
   useEffect(() => {
-    setCountries(CSC.getAllCountries() as Country[]);
+    void import('@/lib/countries').then(({ getCountries }) => setCountries(getCountries()));
   }, []);
 
   useEffect(() => {
     if (selectedCountry) {
-      setStates(CSC.getStatesByCountryId(Number(selectedCountry)) as State[]);
-      setSelectedState('');
+      void import('@/lib/countries').then(({ getStatesByCountryId }) => {
+        setStates(getStatesByCountryId(Number(selectedCountry)));
+        setSelectedState('');
+      });
     } else {
       setStates([]);
       setSelectedState('');
@@ -38,28 +40,29 @@ export default function DataPlaygroundMDX() {
   const executeAction = async () => {
     setLoading(true);
     try {
+      const api = await import('@/lib/countries');
       let data: any;
       switch (selectedAction) {
         case 'getCountries':
-          data = (CSC.getAllCountries() as Country[]).slice(0, 10);
+          data = api.getCountries(10);
           break;
         case 'getCountryById':
-          if (selectedCountry) data = CSC.getCountryById(Number(selectedCountry));
+          if (selectedCountry) data = api.getCountryById(Number(selectedCountry));
           break;
         case 'getStatesByCountryId':
           if (selectedCountry)
-            data = (CSC.getStatesByCountryId(Number(selectedCountry)) as State[]).slice(0, 20);
+            data = api.getStatesByCountryId(Number(selectedCountry)).slice(0, 20);
           break;
         case 'getCitiesByStateId':
           if (selectedState)
-            data = (CSC.getCitiesByStateId(Number(selectedState)) as City[]).slice(0, 20);
+            data = (await api.getCitiesByStateId(Number(selectedState))).slice(0, 20);
           break;
         case 'searchCountries':
-          if (searchQuery) data = CSC.searchCountries(searchQuery);
+          if (searchQuery) data = api.searchCountries(searchQuery);
           break;
         case 'searchStates':
           if (searchQuery)
-            data = CSC.searchStates(
+            data = api.searchStates(
               searchQuery,
               selectedCountry ? Number(selectedCountry) : undefined
             );
@@ -134,7 +137,7 @@ export default function DataPlaygroundMDX() {
   const needsSearch = selectedAction === 'searchCountries' || selectedAction === 'searchStates';
 
   return (
-    <div className="space-y-6 p-6">
+    <div className="min-w-0 space-y-5 p-3 sm:space-y-6 sm:p-6">
       <div>
         <h2 className="text-2xl font-bold mb-1">Interactive Playground</h2>
         <p className="text-sm text-muted-foreground">Test the API and explore available data</p>
@@ -206,7 +209,7 @@ export default function DataPlaygroundMDX() {
             <div className="relative">
               <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
               <Input
-                placeholder="e.g. Turkey, California..."
+                placeholder="e.g. Türkiye, California..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="pl-8"
@@ -231,28 +234,49 @@ export default function DataPlaygroundMDX() {
       </div>
 
       {/* Execute */}
-      <div className="flex gap-2">
-        <Button onClick={executeAction} disabled={loading}>
+      <div className="grid grid-cols-1 gap-2 sm:flex sm:flex-wrap">
+        <Button onClick={executeAction} disabled={loading} className="w-full sm:w-auto">
           <Play className="mr-1.5 h-4 w-4" />
           {loading ? 'Loading...' : 'Execute'}
         </Button>
         {result && (
           <>
-            <Button variant="outline" onClick={copyResult}>
+            <Button variant="outline" onClick={copyResult} className="w-full sm:w-auto">
               {copied ? <Check className="mr-1.5 h-4 w-4" /> : <Copy className="mr-1.5 h-4 w-4" />}
               {copied ? 'Copied!' : 'Copy'}
             </Button>
-            <Button variant="outline" onClick={downloadResult}>
+            <Button variant="outline" onClick={downloadResult} className="w-full sm:w-auto">
               <Download className="mr-1.5 h-4 w-4" />
               Download
             </Button>
           </>
         )}
       </div>
+      {result && (
+        <p className="text-xs text-muted-foreground">
+          Downloaded data is derived from{' '}
+          <a
+            href="https://github.com/dr5hn/countries-states-cities-database"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline underline-offset-2 hover:text-foreground"
+          >
+            Countries States Cities Database
+          </a>{' '}
+          and is available under{' '}
+          <Link
+            href="/docs/data-license"
+            className="underline underline-offset-2 hover:text-foreground"
+          >
+            ODbL 1.0
+          </Link>
+          .
+        </p>
+      )}
 
       {/* Result */}
       {result && (
-        <Card>
+        <Card className="min-w-0 overflow-hidden">
           <div className="border-b px-4 py-2">
             <span className="text-sm font-medium">Result</span>
           </div>

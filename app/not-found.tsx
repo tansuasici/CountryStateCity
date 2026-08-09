@@ -12,7 +12,7 @@ export default function NotFound() {
       <p className="mt-2 text-sm text-muted-foreground max-w-sm">
         The page you are looking for does not exist or has been moved.
       </p>
-      <div className="mt-6 flex gap-3">
+      <div className="mt-6 flex flex-wrap justify-center gap-3">
         <Link href="/" className={cn(buttonVariants())}>
           Go Home
         </Link>

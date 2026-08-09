@@ -1,0 +1,282 @@
+{
+  "sourceRelease": "v3.2-export.7",
+  "entities": {
+    "countries": {
+      "before": {
+        "capital": [
+          "string"
+        ],
+        "currency": [
+          "string"
+        ],
+        "currencyName": [
+          "string"
+        ],
+        "currencySymbol": [
+          "string"
+        ],
+        "emoji": [
+          "string"
+        ],
+        "emojiU": [
+          "string"
+        ],
+        "id": [
+          "number"
+        ],
+        "iso2": [
+          "string"
+        ],
+        "iso3": [
+          "string"
+        ],
+        "latitude": [
+          "string"
+        ],
+        "longitude": [
+          "string"
+        ],
+        "name": [
+          "string"
+        ],
+        "native": [
+          "null",
+          "string"
+        ],
+        "numericCode": [
+          "string"
+        ],
+        "phoneCode": [
+          "string"
+        ],
+        "region": [
+          "string"
+        ],
+        "subregion": [
+          "string"
+        ],
+        "timezones": [
+          "array"
+        ],
+        "tld": [
+          "string"
+        ],
+        "translations": [
+          "object"
+        ]
+      },
+      "after": {
+        "capital": [
+          "string"
+        ],
+        "currency": [
+          "string"
+        ],
+        "currencyName": [
+          "string"
+        ],
+        "currencySymbol": [
+          "string"
+        ],
+        "emoji": [
+          "string"
+        ],
+        "emojiU": [
+          "string"
+        ],
+        "id": [
+          "number"
+        ],
+        "iso2": [
+          "string"
+        ],
+        "iso3": [
+          "string"
+        ],
+        "latitude": [
+          "string"
+        ],
+        "longitude": [
+          "string"
+        ],
+        "name": [
+          "string"
+        ],
+        "native": [
+          "string"
+        ],
+        "numericCode": [
+          "string"
+        ],
+        "phoneCode": [
+          "string"
+        ],
+        "region": [
+          "string"
+        ],
+        "subregion": [
+          "string"
+        ],
+        "timezones": [
+          "array"
+        ],
+        "tld": [
+          "string"
+        ],
+        "translations": [
+          "object"
+        ]
+      },
+      "addedFields": [],
+      "removedFields": [],
+      "changedTypes": [
+        "native"
+      ]
+    },
+    "states": {
+      "before": {
+        "countryCode": [
+          "string"
+        ],
+        "countryId": [
+          "number"
+        ],
+        "countryName": [
+          "string"
+        ],
+        "id": [
+          "number"
+        ],
+        "latitude": [
+          "null",
+          "string"
+        ],
+        "longitude": [
+          "null",
+          "string"
+        ],
+        "name": [
+          "string"
+        ],
+        "stateCode": [
+          "string"
+        ],
+        "type": [
+          "null",
+          "string"
+        ]
+      },
+      "after": {
+        "countryCode": [
+          "string"
+        ],
+        "countryId": [
+          "number"
+        ],
+        "countryName": [
+          "string"
+        ],
+        "id": [
+          "number"
+        ],
+        "latitude": [
+          "string"
+        ],
+        "longitude": [
+          "string"
+        ],
+        "name": [
+          "string"
+        ],
+        "stateCode": [
+          "string"
+        ],
+        "type": [
+          "string"
+        ]
+      },
+      "addedFields": [],
+      "removedFields": [],
+      "changedTypes": [
+        "latitude",
+        "longitude",
+        "type"
+      ]
+    },
+    "cities": {
+      "before": {
+        "countryCode": [
+          "string"
+        ],
+        "countryId": [
+          "number"
+        ],
+        "countryName": [
+          "string"
+        ],
+        "id": [
+          "number"
+        ],
+        "latitude": [
+          "string"
+        ],
+        "longitude": [
+          "string"
+        ],
+        "name": [
+          "string"
+        ],
+        "stateCode": [
+          "string"
+        ],
+        "stateId": [
+          "number"
+        ],
+        "stateName": [
+          "string"
+        ],
+        "wikiDataId": [
+          "string"
+        ]
+      },
+      "after": {
+        "countryCode": [
+          "string"
+        ],
+        "countryId": [
+          "number"
+        ],
+        "countryName": [
+          "string"
+        ],
+        "id": [
+          "number"
+        ],
+        "latitude": [
+          "string"
+        ],
+        "longitude": [
+          "string"
+        ],
+        "name": [
+          "string"
+        ],
+        "stateCode": [
+          "string"
+        ],
+        "stateId": [
+          "number"
+        ],
+        "stateName": [
+          "string"
+        ],
+        "wikiDataId": [
+          "string"
+        ]
+      },
+      "addedFields": [],
+      "removedFields": [],
+      "changedTypes": []
+    }
+  }
+}

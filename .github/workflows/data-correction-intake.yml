@@ -1,0 +1,111 @@
+name: Data correction intake
+
+on:
+  issues:
+    types: [opened, edited, reopened]
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  validate:
+    if: contains(github.event.issue.labels.*.name, 'data-correction')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 22
+      - name: Validate source, license, values, identity, and attestation
+        id: intake
+        continue-on-error: true
+        run: node scripts/validate-data-correction.mjs --event "$GITHUB_EVENT_PATH" --output "$GITHUB_OUTPUT"
+      - name: Apply abuse controls and route the review queue
+        uses: actions/github-script@v8
+        env:
+          VALID: ${{ steps.intake.outputs.valid }}
+          FINGERPRINT: ${{ steps.intake.outputs.fingerprint }}
+          ERRORS_BASE64: ${{ steps.intake.outputs.errors_base64 }}
+          # Mirrors data/contributions/policy.json maximumOpenSubmissionsPerAuthorPer24Hours.
+          MAXIMUM_OPEN_SUBMISSIONS_PER_AUTHOR_PER_24_HOURS: '5'
+        with:
+          script: |
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+            const issue = context.payload.issue;
+            const marker = '<!-- csc-correction-intake -->';
+            const labels = {
+              'data-correction': ['#1f6f54', 'Source-backed location data correction'],
+              'data-correction:review': ['#d4a72c', 'Validated and waiting for maintainer review'],
+              'data-correction:invalid': ['#cf222e', 'Intake validation failed'],
+              'data-correction:spam': ['#6e7781', 'Rate-limited or duplicate correction'],
+              'data-correction:accepted': ['#2da44e', 'Reviewed and accepted into the patch workflow'],
+              'data-correction:rejected': ['#8250df', 'Reviewed and rejected with reason'],
+            };
+            for (const [name, [color, description]] of Object.entries(labels)) {
+              try {
+                await github.rest.issues.getLabel({ owner, repo, name });
+              } catch (error) {
+                if (error.status !== 404) throw error;
+                await github.rest.issues.createLabel({ owner, repo, name, color: color.slice(1), description });
+              }
+            }
+            for (const name of ['data-correction:review', 'data-correction:invalid', 'data-correction:spam']) {
+              try {
+                await github.rest.issues.removeLabel({ owner, repo, issue_number: issue.number, name });
+              } catch (error) {
+                if (error.status !== 404) throw error;
+              }
+            }
+
+            const comments = await github.paginate(github.rest.issues.listComments, {
+              owner, repo, issue_number: issue.number, per_page: 100,
+            });
+            const previous = comments.find(comment => comment.user?.type === 'Bot' && comment.body?.includes(marker));
+            async function publish(body) {
+              const complete = `${marker}\n${body}`;
+              if (previous) {
+                await github.rest.issues.updateComment({ owner, repo, comment_id: previous.id, body: complete });
+              } else {
+                await github.rest.issues.createComment({ owner, repo, issue_number: issue.number, body: complete });
+              }
+            }
+            async function label(name) {
+              await github.rest.issues.addLabels({ owner, repo, issue_number: issue.number, labels: [name] });
+            }
+
+            if (process.env.VALID !== 'true') {
+              const errors = JSON.parse(Buffer.from(process.env.ERRORS_BASE64 || 'W10=', 'base64').toString());
+              await label('data-correction:invalid');
+              await publish(`### Intake validation failed\n\n${errors.map(error => `- ${error}`).join('\n')}\n\nEdit this issue to run validation again. Unsourced suggestions cannot enter production.`);
+              return;
+            }
+
+            const since = Date.now() - 24 * 60 * 60 * 1000;
+            const authored = await github.paginate(github.rest.issues.listForRepo, {
+              owner, repo, creator: issue.user.login, state: 'all', labels: 'data-correction', per_page: 100,
+            });
+            const recent = authored.filter(candidate => candidate.number !== issue.number && Date.parse(candidate.created_at) >= since);
+            const maximum = Number(process.env.MAXIMUM_OPEN_SUBMISSIONS_PER_AUTHOR_PER_24_HOURS || 5);
+            if (recent.length >= maximum) {
+              await label('data-correction:spam');
+              await publish(`### Submission rate limit reached\n\nAn account may open at most ${maximum} data corrections in 24 hours. This issue was closed without entering the review queue.`);
+              await github.rest.issues.update({ owner, repo, issue_number: issue.number, state: 'closed', state_reason: 'not_planned' });
+              return;
+            }
+
+            const fingerprint = process.env.FINGERPRINT;
+            const duplicateQuery = `repo:${owner}/${repo} is:issue in:comments \"csc-correction:${fingerprint}\"`;
+            const duplicateSearch = await github.rest.search.issuesAndPullRequests({ q: duplicateQuery, per_page: 10 });
+            const duplicate = duplicateSearch.data.items.find(candidate => candidate.number !== issue.number);
+            if (duplicate) {
+              await label('data-correction:spam');
+              await publish(`### Duplicate correction\n\nThis source/value proposal is already tracked in #${duplicate.number}. This issue was closed to keep one review trail.`);
+              await github.rest.issues.update({ owner, repo, issue_number: issue.number, state: 'closed', state_reason: 'not_planned' });
+              return;
+            }
+
+            const decisionDue = new Date(Date.parse(issue.created_at) + 168 * 60 * 60 * 1000).toISOString();
+            await label('data-correction:review');
+            await publish(`### Ready for maintainer review\n\nAutomated source, license, identity, value, and attestation checks passed. A maintainer must verify the evidence before production.\n\n- Decision SLA: **${decisionDue}**\n- Fingerprint: \`${fingerprint}\`\n\n<!-- csc-correction:${fingerprint} -->`);

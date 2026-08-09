@@ -24,6 +24,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     'formats',
     'mcp',
     'playground',
+    'data-license',
     'contributing',
   ];
 

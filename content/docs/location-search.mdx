@@ -1,0 +1,58 @@
+---
+title: Multilingual location search
+description: Search canonical names, translations, historical names, transliterations, and common variants with parent-aware ranking.
+---
+
+The ranked search API normalizes Unicode, accents, punctuation, and common Latin variants without changing canonical data. It returns the stable ID, parent context, matched name, language, alias type, source, validity dates, score, and match reason.
+
+```typescript
+const [match] = CountryStateCity.searchLocations('München', {
+  countryCode: 'DE',
+  entityTypes: ['city'],
+});
+
+match.canonicalId; // csc:city:27540
+match.name; // Munich
+match.matchReason; // alias-exact
+match.matchedLanguageTag; // de
+```
+
+## Parent-aware disambiguation
+
+Identical names are not silently collapsed. Add country and subdivision context when the intended entity is known.
+
+```typescript
+CountryStateCity.searchLocations('Springfield', {
+  countryCode: 'US',
+  stateCode: 'IL',
+  entityTypes: ['city'],
+});
+```
+
+The Hosted API uses the same index:
+
+```bash
+curl 'https://countrystatecity.tansuasici.com/api/v1/search?q=Istanbull&country=TR&types=subdivision' \
+  -H 'x-api-key: YOUR_API_KEY'
+```
+
+Use `subdivision=34` to constrain place and district results. API names map to npm entity types as follows: `subdivision → state`, `place → city`.
+
+## Alias contract
+
+Every curated alias carries:
+
+- a BCP 47 language tag;
+- a semantic type such as `local`, `exonym`, `historical`, or `transliteration`;
+- source ID, URL, and retrieval date;
+- nullable `validFrom` and `validTo` dates. Historical aliases require `validTo`.
+
+Country translations in the canonical dataset are indexed automatically. Curated state, city, and district aliases live in `data/search/alias-policy.json`; ranking thresholds and false-positive guardrails live in `data/search/policy.json`.
+
+## Ranking quality
+
+The committed golden set covers diacritics, typo tolerance, local scripts, transliteration, historical names, country translations, and same-name parent disambiguation. CI requires top-1 accuracy and mean reciprocal rank of `1.0` for that set, rejects noisy false positives, and enforces a 50 ms warm-query p95 guardrail.
+
+```bash
+npm run test:location-search
+```

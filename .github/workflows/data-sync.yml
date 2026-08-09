@@ -1,0 +1,35 @@
+name: Data source freshness
+
+permissions:
+  contents: read
+
+on:
+  schedule:
+    - cron: '17 4 * * 1'
+  workflow_dispatch:
+
+jobs:
+  verify-pinned-source:
+    runs-on: self-hosted
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          cache: 'npm'
+      - run: npm ci
+      - run: npm run test:data-sync
+      - run: npm run data:check-freshness
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+      - run: npm run data:sync -- --check --verify-reproducible
+        env:
+          NODE_OPTIONS: '--max-old-space-size=8192'
+      - run: npm run test:quality-dashboard
+      - uses: actions/upload-artifact@v7
+        with:
+          name: data-sync-report-${{ github.run_id }}
+          path: .data-sync/runs/*/reports/
+          if-no-files-found: error
+          retention-days: 30

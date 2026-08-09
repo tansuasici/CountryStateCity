@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "status": "production",
+  "methods": {
+    "nearestCenter": {
+      "index": "3-dimensional unit-sphere KD-tree",
+      "distance": "haversine",
+      "entityTypes": ["country", "state", "city", "district"],
+      "confidenceBasis": "center-distance",
+      "warning": "A nearest centre is not proof that the query point is inside an administrative area."
+    },
+    "pointInPolygon": {
+      "index": "feature bounding-box prefilter plus ray casting",
+      "supportedGeometry": ["Polygon", "MultiPolygon"],
+      "availableCoverage": { "TR": [1, 2] },
+      "warning": "Türkiye boundaries are for administrative visualization and spatial lookup, not cadastral or legal use."
+    }
+  },
+  "edgeCases": {
+    "boundary": "Points on a ring return boundary-or-overlap confidence.",
+    "islands": "MultiPolygon parts are evaluated independently; nearest-centre results may be far from small islands.",
+    "holes": "Interior rings are excluded; a point on a hole ring is reported as boundary.",
+    "disputedAreas": "All matching features are returned without choosing or asserting sovereignty.",
+    "openWater": "Polygon lookup returns no match; nearest-centre may still return a low-confidence result."
+  },
+  "performanceBudget": {
+    "nearestIndexBuildP95Milliseconds": 5000,
+    "nearestWarmQueryP95Milliseconds": 10,
+    "turkeyPolygonWarmQueryP95Milliseconds": 100,
+    "batchMaximumPoints": 10000
+  },
+  "qualityGate": {
+    "benchmark": "data/geography/reverse-geocoding-benchmark.json",
+    "nearestCityPrecisionMinimum": 1,
+    "nearestCityRecallMinimum": 1,
+    "polygonExpectedMatchMinimum": 1
+  }
+}

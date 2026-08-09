@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     template: '%s | Country State City',
   },
   description:
-    'Free comprehensive world location database with 250+ countries, 5,000+ states, and 150,000+ cities. Available in JSON, CSV, XML, and YAML formats. ISO 3166-1 compliant NPM package for developers.',
+    'Free world location database with 250 country and area records, 5,000+ administrative areas, and 150,000+ places. ISO 3166-based codes with documented exceptions, available in JSON, CSV, XML, and YAML.',
   keywords: [
     'country data',
     'state data',
@@ -74,8 +74,8 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: '(prefers-color-scheme: light)', color: '#fafaf9' },
-    { media: '(prefers-color-scheme: dark)', color: '#0c0a09' },
+    { media: '(prefers-color-scheme: light)', color: '#f4f1e8' },
+    { media: '(prefers-color-scheme: dark)', color: '#111715' },
   ],
   width: 'device-width',
   initialScale: 1,

@@ -1,0 +1,77 @@
+name: Data correction
+description: Suggest a source-backed correction to a country, state, city, or district record.
+title: '[Data correction]: '
+labels: ['data-correction']
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for improving the dataset. Submissions without a stable source URL and compatible license cannot enter production. A GitHub account is required so abuse controls and the audit trail can work.
+  - type: dropdown
+    id: entity-type
+    attributes:
+      label: Entity type
+      options: [Country, State, City, District]
+    validations:
+      required: true
+  - type: input
+    id: public-id
+    attributes:
+      label: Public ID
+      description: The stable ID shown by the API or map, for example csc:city:107863.
+      placeholder: csc:city:107863
+    validations:
+      required: true
+  - type: dropdown
+    id: field
+    attributes:
+      label: Field
+      options: [Name, Coordinates, Parent, Wikidata ID, Code, Type, Other]
+    validations:
+      required: true
+  - type: textarea
+    id: current-value
+    attributes:
+      label: Current value
+      description: Copy the current canonical value exactly.
+      render: json
+    validations:
+      required: true
+  - type: textarea
+    id: proposed-value
+    attributes:
+      label: Proposed value
+      description: Provide the exact replacement value.
+      render: json
+    validations:
+      required: true
+  - type: input
+    id: source-url
+    attributes:
+      label: Source URL
+      description: Use a stable HTTPS page from the responsible authority or an attributable open-data source.
+      placeholder: https://example.gov/dataset/revision
+    validations:
+      required: true
+  - type: dropdown
+    id: source-license
+    attributes:
+      label: Source license
+      options: [ODbL-1.0, CC0-1.0, CC-BY-4.0, Public domain, UN-M49, Other (explain below)]
+    validations:
+      required: true
+  - type: textarea
+    id: explanation
+    attributes:
+      label: Explanation and evidence
+      description: Explain why the source proves the change. If “Other” license was selected, include its terms URL here.
+      placeholder: The authority's 2026-07 revision lists…
+    validations:
+      required: true
+  - type: checkboxes
+    id: attestation
+    attributes:
+      label: Contributor attestation
+      options:
+        - label: I confirm that the source is public, the license information is accurate, and this submission contains no private personal data.
+          required: true

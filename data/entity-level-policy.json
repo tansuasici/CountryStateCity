@@ -1,0 +1,90 @@
+{
+  "schemaVersion": 1,
+  "policyVersion": "entity-level-policy:v1",
+  "verifiedAt": "2026-08-08",
+  "sourceCurrentBaseline": {
+    "file": "data/location-display.json",
+    "release": "v3.2-export.7",
+    "meaning": "A matching country/subdivision code is treated as current in the pinned upstream release. A missing match is review-required unless an explicit historical rule applies."
+  },
+  "model": {
+    "entityTypes": ["administrative-area", "settlement"],
+    "lifecycleStatuses": ["current", "historical", "review-required"],
+    "administrativeLevel": "Positive integer for administrative areas; null for settlements.",
+    "parentId": "Country ID for source states; state ID for source cities.",
+    "validFromValidTo": "ISO date when known, otherwise null. lifecycleStatus remains authoritative when dates are unavailable."
+  },
+  "countryMappings": {
+    "default": {
+      "sourceStateLevel": 1,
+      "sourceCityType": "settlement"
+    },
+    "AL": {
+      "stateNameSuffixLevels": {
+        "County": 1,
+        "District": 2
+      }
+    },
+    "FR": {
+      "stateTypeLevels": {
+        "region": 1,
+        "metropolitan region": 1,
+        "overseas region": 1,
+        "metropolitan department": 2,
+        "department": 2
+      }
+    },
+    "GB": {
+      "sourceStateLevel": 2,
+      "note": "The legacy state collection is a mixed local-administration layer; current level-1 nations are not represented as a clean canonical collection."
+    },
+    "GR": {
+      "stateNameSuffixLevels": {
+        "Region": 1,
+        "Regional Unit": 2,
+        "Prefecture": 2
+      }
+    },
+    "IT": {
+      "stateTypeLevels": {
+        "region": 1,
+        "province": 2,
+        "metropolitan city": 2,
+        "free municipal consortium": 2
+      }
+    },
+    "NP": {
+      "stateNameSuffixLevels": {
+        "Region": 1,
+        "Zone": 2
+      }
+    },
+    "TR": {
+      "sourceStateLevel": 1,
+      "stateTypeLevels": {
+        "province": 1
+      }
+    }
+  },
+  "historicalRules": [
+    {
+      "countryCode": "AL",
+      "nameSuffix": "District",
+      "validTo": "2000-07-31",
+      "reason": "Albania's districts were abolished as administrative units in 2000 and are absent from the pinned current subdivision baseline.",
+      "sourceUrl": "https://www.instat.gov.al/media/2919/a_new_urban-rural_classification_of_albanian_population.pdf"
+    }
+  ],
+  "compatibility": {
+    "legacyMethods": [
+      "getAllStates",
+      "getStatesByCountryId",
+      "getStatesByCountryCode",
+      "getAllCities",
+      "getCitiesByStateId",
+      "getCitiesByCountryId"
+    ],
+    "canonicalMethods": ["getAdministrativeAreas", "getSettlements"],
+    "migration": "Legacy methods retain every source row. New canonical methods default to current source-state records and expose level/status/source-layer filters."
+  }
+}

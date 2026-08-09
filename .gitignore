@@ -34,12 +34,19 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
+# Python cache files from data-quality tooling
+__pycache__/
+*.py[cod]
+
 # env files (can opt-in for committing if needed)
 .env*
 !.env.example
 
 # vercel
 .vercel
+
+# legacy Firebase build cache
+.firebase/
 
 # typescript
 *.tsbuildinfo
@@ -52,9 +59,16 @@ next-env.d.ts
 dist/
 /dist/
 
-# Firebase
-.firebase/
-firebase-debug.log
+# standalone server build and local API credentials
+/server/
+/.env.api-keys
+
+# Reproducible data-sync cache and staging output
+.data-sync/
+.cache/
+/public/data/cities/
+/public/data/boundaries/
+/public/vendor/maplibre/
 
 # NPM package specific
 countrystatecity-npm/dist/

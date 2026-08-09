@@ -1,0 +1,296 @@
+{
+  "schemaVersion": 1,
+  "snapshotDate": "2026-08-06",
+  "purpose": "Separate true city-coordinate defects from political-worldview, dependency-hierarchy, territorial-claim, and reference-scale effects.",
+  "reference": {
+    "id": "natural-earth-admin0-countries-5.1.1",
+    "name": "Natural Earth Admin 0 – Countries",
+    "version": "5.1.1",
+    "scale": "1:10m",
+    "worldview": "default-de-facto",
+    "pageUrl": "https://www.naturalearthdata.com/downloads/10m-cultural-vectors/10m-admin-0-countries/",
+    "downloadUrl": "https://naturalearth.s3.amazonaws.com/5.1.1/10m_cultural/ne_10m_admin_0_countries.zip",
+    "license": {
+      "id": "Public-Domain",
+      "url": "https://www.naturalearthdata.com/about/terms-of-use/"
+    },
+    "bytes": 4930492,
+    "sha256": "ce1ac7036499a0edd641fbc093cd209a98f96a49d2eca8480aaacad35138a7f6",
+    "countryCodeField": "ISO_A2_EH",
+    "countryCodeFallbackField": "ISO_A2",
+    "missingCountryGeometryCodes": [
+      "BQ",
+      "BV",
+      "CC",
+      "CX",
+      "GF",
+      "GP",
+      "MQ",
+      "RE",
+      "SJ",
+      "TK",
+      "YT"
+    ]
+  },
+  "thresholds": {
+    "majorOutlierKm": 25,
+    "coordinateMatchDecimalPlaces": 8
+  },
+  "assignmentPolicy": {
+    "canonicalHierarchy": "source-preserving-with-explicit-exceptions",
+    "referenceWorldview": "Natural Earth default de-facto boundaries are a QA baseline, not the canonical political opinion of this dataset.",
+    "dependencies": "Keep the imported source hierarchy until a versioned hierarchy migration is approved. Where Natural Earth uses a separate dependency polygon, record a dependency-model exception instead of silently changing public parents.",
+    "disputedAreas": "Keep the source country assignment and document any difference from Natural Earth's de-facto polygon with a stable reason code. For Crimea, the project retains Ukraine in line with UN General Assembly resolution 68/262.",
+    "territorialClaims": "Claim-area records are allowed only as explicit territorial-claim exceptions and must not be presented as undisputed sovereign coverage.",
+    "smallIslands": "A point more than 25 km from a 1:10m polygon is accepted only after an independent country-level location check shows that the reference omitted or generalized the relevant island."
+  },
+  "baseline": {
+    "cityRows": 147739,
+    "outsideReferencePolygon": 3312,
+    "majorOutliers": 636,
+    "majorOutlierThresholdKm": 25
+  },
+  "corrections": [
+    {
+      "cityId": 148461,
+      "name": "Juan Fernández",
+      "countryCode": "CL",
+      "reasonCode": "incorrect-coordinate",
+      "before": {
+        "latitude": "-30.02564270",
+        "longitude": "-82.05192080"
+      },
+      "after": {
+        "latitude": "-33.61666667",
+        "longitude": "-78.86666667"
+      },
+      "source": {
+        "id": "wikidata-Q14454",
+        "url": "https://www.wikidata.org/wiki/Special:EntityData/Q14454.json",
+        "revision": "2459903740",
+        "license": "CC0-1.0",
+        "verifiedAt": "2026-08-06"
+      },
+      "note": "The previous point was in the Pacific far west of the commune. The corrected point is the published coordinate for the Juan Fernández commune in Valparaíso."
+    },
+    {
+      "cityId": 149096,
+      "name": "Tain",
+      "countryCode": "GH",
+      "reasonCode": "incorrect-coordinate",
+      "before": {
+        "latitude": "8.18114110",
+        "longitude": "-2.86487620"
+      },
+      "after": {
+        "latitude": "7.87100000",
+        "longitude": "-2.31700000"
+      },
+      "source": {
+        "id": "wikidata-Q695048",
+        "url": "https://www.wikidata.org/wiki/Special:EntityData/Q695048.json",
+        "revision": "2407503911",
+        "license": "CC0-1.0",
+        "verifiedAt": "2026-08-06"
+      },
+      "note": "The previous point fell inside Côte d’Ivoire. The corrected point is the published coordinate for Tain District and remains in Ghana's Bono Region."
+    },
+    {
+      "cityId": 133809,
+      "name": "Sarupathar",
+      "countryCode": "IN",
+      "reasonCode": "incorrect-coordinate",
+      "before": {
+        "latitude": "26.20600000",
+        "longitude": "96.81000000"
+      },
+      "after": {
+        "latitude": "26.19545833",
+        "longitude": "93.86240278"
+      },
+      "source": {
+        "id": "wikidata-Q638291",
+        "url": "https://www.wikidata.org/wiki/Special:EntityData/Q638291.json",
+        "revision": "2520884634",
+        "license": "CC0-1.0",
+        "verifiedAt": "2026-08-06"
+      },
+      "note": "The previous longitude placed Sarupathar in Myanmar. The corrected point is the published settlement coordinate in Assam, India."
+    },
+    {
+      "cityId": 132750,
+      "name": "Lakshadweep",
+      "countryCode": "IN",
+      "reasonCode": "incorrect-coordinate",
+      "before": {
+        "latitude": "11.27333000",
+        "longitude": "74.04582000"
+      },
+      "after": {
+        "latitude": "10.56510000",
+        "longitude": "72.64564000"
+      },
+      "source": {
+        "id": "geonames-9748019",
+        "url": "https://www.geonames.org/9748019/lakshadweep.html",
+        "license": "CC-BY-4.0",
+        "verifiedAt": "2026-08-06"
+      },
+      "note": "The previous point was offshore east of the archipelago. The corrected point is the GeoNames ADM2 record for Lakshadweep District near its headquarters at Kavaratti."
+    },
+    {
+      "cityId": 107863,
+      "name": "Kadıköy",
+      "countryCode": "TR",
+      "reasonCode": "point-outside-matched-district",
+      "baselineScope": "admin2-containment",
+      "before": {
+        "latitude": "40.98229000",
+        "longitude": "29.09032000"
+      },
+      "after": {
+        "latitude": "40.98109600",
+        "longitude": "29.06514473"
+      },
+      "source": {
+        "id": "openstreetmap-relation-1276548-point-on-surface",
+        "url": "https://www.openstreetmap.org/relation/1276548",
+        "revision": "78",
+        "license": "ODbL-1.0",
+        "verifiedAt": "2026-08-08"
+      },
+      "note": "The legacy GeoNames centre falls inside the matched Ataşehir polygon. The replacement is a deterministic point-on-surface derived from the reviewed OSM Kadıköy relation, preserving the identity while making the point spatially consistent with its district."
+    }
+  ],
+  "exceptionRules": [
+    {
+      "id": "crimea-source-owner",
+      "reasonCode": "disputed-territory-de-jure-owner",
+      "status": "accepted-policy-exception",
+      "match": {
+        "countryCode": "UA",
+        "stateName": "Autonomous Republic of Crimea"
+      },
+      "expectedCount": 325,
+      "policyOwnerCode": "UA",
+      "referenceOwnerCode": "RU",
+      "sources": [
+        "https://documents.un.org/doc/undoc/gen/n13/455/17/pdf/n1345517.pdf",
+        "https://www.naturalearthdata.com/about/disputed-boundaries-policy/"
+      ]
+    },
+    {
+      "id": "puerto-rico-source-hierarchy",
+      "reasonCode": "dependency-sovereign-parent-model",
+      "status": "accepted-policy-exception",
+      "match": {
+        "countryCode": "US",
+        "stateName": "Puerto Rico"
+      },
+      "expectedCount": 255,
+      "policyOwnerCode": "US",
+      "referenceOwnerCode": "PR",
+      "separateCountryEntityCode": "PR",
+      "followUpIssue": "TAN-5515",
+      "sources": [
+        "https://www.doi.gov/node/11613",
+        "https://www.naturalearthdata.com/downloads/10m-cultural-vectors/10m-admin-0-countries/"
+      ]
+    },
+    {
+      "id": "somaliland-source-owner",
+      "reasonCode": "disputed-territory-source-owner",
+      "status": "accepted-policy-exception",
+      "match": {
+        "countryCode": "SO",
+        "stateNames": ["Sanaag Region", "Togdheer Region"]
+      },
+      "expectedCount": 5,
+      "policyOwnerCode": "SO",
+      "referenceAdminCode": "SOL",
+      "sources": ["https://www.naturalearthdata.com/about/disputed-boundaries-policy/"]
+    },
+    {
+      "id": "northern-cyprus-source-owner",
+      "reasonCode": "disputed-territory-source-owner",
+      "status": "accepted-policy-exception",
+      "match": {
+        "countryCode": "CY",
+        "stateName": "Famagusta District (Mağusa)"
+      },
+      "expectedCount": 2,
+      "policyOwnerCode": "CY",
+      "referenceAdminCode": "CYN",
+      "sources": ["https://www.naturalearthdata.com/about/disputed-boundaries-policy/"]
+    },
+    {
+      "id": "chilean-antarctic-claim",
+      "reasonCode": "territorial-claim",
+      "status": "accepted-policy-exception",
+      "match": {
+        "cityId": 19029
+      },
+      "expectedCount": 1,
+      "policyOwnerCode": "CL",
+      "referenceOwnerCode": "AQ",
+      "sources": [
+        "https://www.naturalearthdata.com/downloads/10m-cultural-vectors/10m-admin-0-countries/"
+      ]
+    }
+  ],
+  "individualReferenceScaleReviews": [
+    { "cityId": 39162, "expectedCountryCode": "FM", "osmRelationId": 3819439 },
+    { "cityId": 39232, "expectedCountryCode": "FM", "osmRelationId": 3819445 },
+    { "cityId": 39174, "expectedCountryCode": "FM", "osmRelationId": 3819441 },
+    { "cityId": 39203, "expectedCountryCode": "FM", "osmRelationId": 3823807 },
+    { "cityId": 39212, "expectedCountryCode": "FM", "osmRelationId": 3819443 },
+    { "cityId": 39183, "expectedCountryCode": "FM", "osmRelationId": 3823803 },
+    { "cityId": 39185, "expectedCountryCode": "FM", "osmRelationId": 3823279 },
+    { "cityId": 39184, "expectedCountryCode": "FM", "osmRelationId": 3823279 },
+    { "cityId": 39210, "expectedCountryCode": "FM", "osmRelationId": 3823293 },
+    { "cityId": 39191, "expectedCountryCode": "FM", "osmRelationId": 3819442 },
+    { "cityId": 39159, "expectedCountryCode": "FM", "osmRelationId": 3821703 },
+    { "cityId": 39177, "expectedCountryCode": "FM", "osmRelationId": 3823275 },
+    { "cityId": 39192, "expectedCountryCode": "FM", "osmRelationId": 3823282 },
+    { "cityId": 39201, "expectedCountryCode": "FM", "osmRelationId": 3821705 },
+    { "cityId": 39225, "expectedCountryCode": "FM", "osmRelationId": 3819446 },
+    { "cityId": 39186, "expectedCountryCode": "FM", "osmRelationId": 3819479 },
+    { "cityId": 39187, "expectedCountryCode": "FM", "osmRelationId": 3823280 },
+    { "cityId": 39188, "expectedCountryCode": "FM", "osmRelationId": 3823280 },
+    { "cityId": 39204, "expectedCountryCode": "FM", "osmRelationId": 3823290 },
+    { "cityId": 39156, "expectedCountryCode": "FM", "osmRelationId": 3819479 },
+    { "cityId": 39218, "expectedCountryCode": "FM", "osmRelationId": 3823290 },
+    { "cityId": 39173, "expectedCountryCode": "FM", "osmRelationId": 3823274 },
+    { "cityId": 39195, "expectedCountryCode": "FM", "osmRelationId": 3823285 },
+    { "cityId": 39202, "expectedCountryCode": "FM", "osmRelationId": 3823287 },
+    { "cityId": 39182, "expectedCountryCode": "FM", "osmRelationId": 3823294 },
+    { "cityId": 84928, "expectedCountryCode": "PH", "osmRelationId": 3811052 },
+    { "cityId": 144759, "expectedCountryCode": "PH", "osmRelationId": 3811052 },
+    { "cityId": 81206, "expectedCountryCode": "PH", "osmRelationId": 3629372 },
+    { "cityId": 81173, "expectedCountryCode": "PH", "osmRelationId": 3629372 },
+    { "cityId": 144725, "expectedCountryCode": "PH", "osmRelationId": 3811050 },
+    { "cityId": 58894, "expectedCountryCode": "IT", "osmRelationId": 40922 },
+    { "cityId": 139426, "expectedCountryCode": "IT", "osmRelationId": 40922 },
+    { "cityId": 79470, "expectedCountryCode": "NO", "osmRelationId": 409032 },
+    { "cityId": 79611, "expectedCountryCode": "NO", "osmRelationId": 408222 },
+    { "cityId": 109022, "expectedCountryCode": "TW", "osmRelationId": 3178907 },
+    { "cityId": 109018, "expectedCountryCode": "TW", "osmRelationId": 3339731 },
+    { "cityId": 52917, "expectedCountryCode": "GR", "osmRelationId": 5321397 },
+    { "cityId": 56963, "expectedCountryCode": "ID", "osmRelationId": 18300378 },
+    { "cityId": 65062, "expectedCountryCode": "KI", "osmRelationId": 3830772 },
+    { "cityId": 67844, "expectedCountryCode": "MU", "osmRelationId": 3691786 },
+    { "cityId": 106538, "expectedCountryCode": "TH", "osmRelationId": 20698577 },
+    { "cityId": 107045, "expectedCountryCode": "TO", "osmRelationId": 4780715 },
+    { "cityId": 108998, "expectedCountryCode": "TV", "osmRelationId": 3766586 },
+    { "cityId": 130330, "expectedCountryCode": "VN", "osmRelationId": 1875748 }
+  ],
+  "individualReviewPolicy": {
+    "reasonCode": "reference-scale-small-island-omission",
+    "status": "accepted-reference-exception",
+    "verificationMethod": "OpenStreetMap Nominatim reverse lookup at the published point followed by a pinned OSM administrative relation check",
+    "verifiedAt": "2026-08-06",
+    "license": "ODbL-1.0",
+    "attribution": "© OpenStreetMap contributors",
+    "relationUrlTemplate": "https://www.openstreetmap.org/relation/{osmRelationId}"
+  }
+}

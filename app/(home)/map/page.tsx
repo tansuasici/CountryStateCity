@@ -1,38 +1,68 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
+import { AnimatePresence, useDragControls, useReducedMotion } from 'motion/react';
+import * as m from 'motion/react-m';
 import {
   Globe,
   Building,
   MapPin,
   Search,
-  Layers,
   MapPinned,
-  Trash2,
+  RotateCcw,
   ChevronRight,
   X,
-  Navigation,
+  ArrowRight,
+  Layers3,
+  Download,
+  MessageSquarePlus,
 } from 'lucide-react';
+import WorldMap, { type MapMarker } from '@/components/WorldMap';
+import SearchableLocationSelect from '@/components/SearchableLocationSelect';
 import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
-import { Input } from '@/components/ui/input';
-import { Separator } from '@/components/ui/separator';
-import WorldMap from '@/components/WorldMap';
+import {
+  getCityDisplayName,
+  getCountryDisplayName,
+  getPlaceDisplay,
+  getStateDisplay,
+} from '@/lib/location-display';
 import { Country, State, City } from '@/types';
+import type { Map as MapLibreMap } from 'maplibre-gl';
+import type {
+  BoundaryCountryManifest,
+  BoundaryLevel,
+  BoundaryProfileKey,
+  LoadedBoundaryLayer,
+} from '@/lib/boundaries';
 
 export default function MapPage() {
   const [countries, setCountries] = useState<Country[]>([]);
   const [states, setStates] = useState<State[]>([]);
   const [cities, setCities] = useState<City[]>([]);
+  const [countryCities, setCountryCities] = useState<City[]>([]);
+  const [statesLoading, setStatesLoading] = useState(false);
+  const [citiesLoading, setCitiesLoading] = useState(false);
+  const [cityLoadError, setCityLoadError] = useState<string | null>(null);
+  const [cityLoadAttempt, setCityLoadAttempt] = useState(0);
+  const [boundaryLevel, setBoundaryLevel] = useState<BoundaryLevel>('points');
+  const [boundaryProfile, setBoundaryProfile] = useState<BoundaryProfileKey>('overview');
+  const [boundaryCountry, setBoundaryCountry] = useState<BoundaryCountryManifest | null>(null);
+  const [boundaryLayer, setBoundaryLayer] = useState<LoadedBoundaryLayer | null>(null);
+  const [boundaryLoading, setBoundaryLoading] = useState(false);
+  const [boundaryError, setBoundaryError] = useState<string | null>(null);
+  const [boundaryLoadAttempt, setBoundaryLoadAttempt] = useState(0);
 
   const [selectedCountry, setSelectedCountry] = useState<Country | null>(null);
   const [selectedState, setSelectedState] = useState<State | null>(null);
   const [selectedCity, setSelectedCity] = useState<City | null>(null);
 
-  const [multipleMarkers, setMultipleMarkers] = useState<any[]>([]);
+  const [multipleMarkers, setMultipleMarkers] = useState<MapMarker[]>([]);
   const [stats, setStats] = useState({ countries: 0, states: 0, cities: 0 });
-  const [mapRef, setMapRef] = useState<any>(null);
+  const [mapRef, setMapRef] = useState<MapLibreMap | null>(null);
   const [panelOpen, setPanelOpen] = useState(true);
+  const [compactViewport, setCompactViewport] = useState(false);
+  const reduceMotion = useReducedMotion();
+  const panelDragControls = useDragControls();
 
   const [countrySearch, setCountrySearch] = useState('');
   const [stateSearch, setStateSearch] = useState('');
@@ -48,10 +78,25 @@ export default function MapPage() {
   }, []);
 
   useEffect(() => {
+    const compactViewport = window.matchMedia('(max-width: 900px)');
+    const syncCompactViewport = (matches: boolean) => {
+      setCompactViewport(matches);
+      if (matches) setPanelOpen(false);
+    };
+    const handleViewportChange = (event: MediaQueryListEvent) => syncCompactViewport(event.matches);
+
+    syncCompactViewport(compactViewport.matches);
+    compactViewport.addEventListener('change', handleViewportChange);
+    return () => compactViewport.removeEventListener('change', handleViewportChange);
+  }, []);
+
+  useEffect(() => {
     if (selectedCountry) {
       const loadStates = async () => {
+        setStatesLoading(true);
         const { getStatesByCountryId } = await import('@/lib/countries');
         setStates(getStatesByCountryId(selectedCountry.id));
+        setStatesLoading(false);
         setSelectedState(null);
         setSelectedCity(null);
         setCities([]);
@@ -60,6 +105,7 @@ export default function MapPage() {
       };
       loadStates();
     } else {
+      setStatesLoading(false);
       setStates([]);
       setSelectedState(null);
       setSelectedCity(null);
@@ -68,19 +114,89 @@ export default function MapPage() {
   }, [selectedCountry]);
 
   useEffect(() => {
-    if (selectedState) {
-      const loadCities = async () => {
-        const { getCitiesByStateId } = await import('@/lib/countries');
-        setCities(getCitiesByStateId(selectedState.id).slice(0, 100));
-        setSelectedCity(null);
-        setCitySearch('');
-      };
-      loadCities();
-    } else {
+    if (!selectedCountry) {
+      setCountryCities([]);
+      setCitiesLoading(false);
+      setCityLoadError(null);
+      return;
+    }
+    const controller = new AbortController();
+    setCountryCities([]);
+    setCitiesLoading(true);
+    setCityLoadError(null);
+    void (async () => {
+      try {
+        const { getCitiesByCountryId } = await import('@/lib/countries');
+        const loaded = await getCitiesByCountryId(selectedCountry.id, {
+          signal: controller.signal,
+        });
+        if (!controller.signal.aborted) setCountryCities(loaded);
+      } catch (error) {
+        if (!controller.signal.aborted)
+          setCityLoadError(
+            error instanceof Error ? error.message : 'City data could not be loaded.'
+          );
+      } finally {
+        if (!controller.signal.aborted) setCitiesLoading(false);
+      }
+    })();
+    return () => controller.abort();
+  }, [selectedCountry, cityLoadAttempt]);
+
+  useEffect(() => {
+    if (selectedCountry?.iso2 !== 'TR') {
+      setBoundaryCountry(null);
+      setBoundaryLayer(null);
+      setBoundaryLoading(false);
+      setBoundaryError(null);
+      if (boundaryLevel !== 'points') setBoundaryLevel('points');
+      return;
+    }
+    const controller = new AbortController();
+    setBoundaryError(null);
+    void (async () => {
+      try {
+        const { getBoundaryLayer, getBoundaryManifest } = await import('@/lib/boundaries');
+        const manifest = await getBoundaryManifest(controller.signal);
+        if (controller.signal.aborted) return;
+        setBoundaryCountry(manifest.countries.TR);
+        if (boundaryLevel === 'points') {
+          setBoundaryLayer(null);
+          setBoundaryLoading(false);
+          return;
+        }
+        setBoundaryLayer(null);
+        setBoundaryLoading(true);
+        const loaded = await getBoundaryLayer(
+          'TR',
+          boundaryLevel,
+          boundaryProfile,
+          controller.signal
+        );
+        if (!controller.signal.aborted) setBoundaryLayer(loaded);
+      } catch (error) {
+        if (!controller.signal.aborted) {
+          setBoundaryError(
+            error instanceof Error ? error.message : 'Boundary layer could not be loaded.'
+          );
+        }
+      } finally {
+        if (!controller.signal.aborted) setBoundaryLoading(false);
+      }
+    })();
+    return () => controller.abort();
+  }, [boundaryLevel, boundaryLoadAttempt, boundaryProfile, selectedCountry]);
+
+  useEffect(() => {
+    if (!selectedState) {
       setCities([]);
       setSelectedCity(null);
+      return;
     }
-  }, [selectedState]);
+    setCities(countryCities.filter((city) => city.stateId === selectedState.id));
+    setSelectedCity(null);
+    setCitySearch('');
+  }, [countryCities, selectedState]);
 
   const handleShowMultipleCountries = async () => {
     const { getCountries } = await import('@/lib/countries');
@@ -89,8 +205,8 @@ export default function MapPage() {
       topCountries
         .filter((c) => c.latitude && c.longitude)
         .map((country) => ({
-          lat: parseFloat(country.latitude),
-          lng: parseFloat(country.longitude),
+          lat: Number(country.latitude),
+          lng: Number(country.longitude),
           name: country.name,
           type: 'country' as const,
           data: country,
@@ -105,8 +221,8 @@ export default function MapPage() {
       .slice(0, 20);
     setMultipleMarkers(
       countriesWithCapitals.map((country) => ({
-        lat: parseFloat(country.latitude),
-        lng: parseFloat(country.longitude),
+        lat: Number(country.latitude),
+        lng: Number(country.longitude),
         name: `${country.capital} (${country.name})`,
         type: 'city' as const,
         data: { ...country, name: country.capital },
@@ -121,331 +237,590 @@ export default function MapPage() {
     setMultipleMarkers([]);
     setStates([]);
     setCities([]);
+    setCountryCities([]);
+    setCityLoadError(null);
     setCountrySearch('');
     setStateSearch('');
     setCitySearch('');
-    if (mapRef && typeof mapRef.setView === 'function') {
-      mapRef.setView([20, 0], 2);
+    if (mapRef) {
+      const compact = window.matchMedia('(max-width: 900px)').matches;
+      const camera: {
+        center: [number, number];
+        zoom: number;
+        pitch: number;
+        bearing: number;
+      } = {
+        center: [18, 21],
+        zoom: compact ? 1.22 : 1.65,
+        pitch: compact ? 8 : 13,
+        bearing: -6,
+      };
+      if (reduceMotion) mapRef.jumpTo(camera);
+      else mapRef.flyTo({ ...camera, duration: 1200 });
     }
-  }, [mapRef]);
+  }, [mapRef, reduceMotion]);
 
   const locateOnMap = useCallback(() => {
-    if (!mapRef || typeof mapRef.setView !== 'function') return;
+    if (!mapRef) return;
+    let camera: {
+      center: [number, number];
+      zoom: number;
+      pitch: number;
+      bearing: number;
+    } | null = null;
     if (selectedCity?.latitude && selectedCity?.longitude) {
-      mapRef.setView([parseFloat(selectedCity.latitude), parseFloat(selectedCity.longitude)], 12);
+      camera = {
+        center: [Number(selectedCity.longitude), Number(selectedCity.latitude)],
+        zoom: 11,
+        pitch: 58,
+        bearing: 18,
+      };
     } else if (selectedState?.latitude && selectedState?.longitude) {
-      mapRef.setView([parseFloat(selectedState.latitude), parseFloat(selectedState.longitude)], 8);
+      camera = {
+        center: [Number(selectedState.longitude), Number(selectedState.latitude)],
+        zoom: 6.5,
+        pitch: 45,
+        bearing: 18,
+      };
     } else if (selectedCountry?.latitude && selectedCountry?.longitude) {
-      mapRef.setView(
-        [parseFloat(selectedCountry.latitude), parseFloat(selectedCountry.longitude)],
-        6
-      );
+      camera = {
+        center: [Number(selectedCountry.longitude), Number(selectedCountry.latitude)],
+        zoom: 4.2,
+        pitch: 30,
+        bearing: -12,
+      };
     }
-  }, [mapRef, selectedCity, selectedState, selectedCountry]);
+    if (!camera) return;
+    if (reduceMotion) mapRef.jumpTo(camera);
+    else mapRef.flyTo({ ...camera, duration: 1600 });
+  }, [mapRef, reduceMotion, selectedCity, selectedState, selectedCountry]);
 
-  const handleMapReady = useCallback((map: any) => {
+  const handleMapReady = useCallback((map: MapLibreMap) => {
     setMapRef(map);
   }, []);
 
-  const filteredCountries = countries.filter((c) =>
-    c.name.toLowerCase().includes(countrySearch.toLowerCase())
-  );
-  const filteredStates = states.filter((s) =>
-    s.name.toLowerCase().includes(stateSearch.toLowerCase())
-  );
-  const filteredCities = cities.filter((c) =>
-    c.name.toLowerCase().includes(citySearch.toLowerCase())
-  );
-
   const hasSelection = !!(selectedCountry || selectedState || selectedCity);
+  const hasPolygonCoverage = selectedCountry?.iso2 === 'TR';
+  const activeStep = selectedState ? 'city' : selectedCountry ? 'state' : 'country';
+  const selectedCoordinates = selectedCity
+    ? [selectedCity.latitude, selectedCity.longitude]
+    : selectedState
+      ? [selectedState.latitude, selectedState.longitude]
+      : selectedCountry
+        ? [selectedCountry.latitude, selectedCountry.longitude]
+        : null;
+  const selectedCountryDisplayName = selectedCountry
+    ? getCountryDisplayName(selectedCountry)
+    : null;
+  const selectedStateDisplay = selectedState ? getStateDisplay(selectedState) : null;
+  const selectedCityDisplayName = selectedCity ? getCityDisplayName(selectedCity) : null;
+  const mapSelectedCountry = selectedCountry
+    ? { ...selectedCountry, name: selectedCountryDisplayName ?? selectedCountry.name }
+    : null;
+  const mapSelectedState = selectedState
+    ? { ...selectedState, name: selectedStateDisplay?.name ?? selectedState.name }
+    : null;
+  const mapSelectedCity = selectedCity
+    ? { ...selectedCity, name: selectedCityDisplayName ?? selectedCity.name }
+    : null;
+  const correctionPublicId = selectedCity
+    ? `csc:city:${selectedCity.id}`
+    : selectedState
+      ? `csc:state:${selectedState.id}`
+      : selectedCountry
+        ? `csc:country:${selectedCountry.id}`
+        : null;
+  const correctionUrl = correctionPublicId
+    ? `https://github.com/tansuasici/CountryStateCity/issues/new?template=data_correction.yml&title=${encodeURIComponent(`[Data correction]: ${correctionPublicId}`)}`
+    : null;
 
   return (
-    <div className="relative" style={{ height: 'calc(100vh - 56px)' }}>
+    <div
+      className={`map-workspace relative ${panelOpen ? 'has-explorer-panel' : ''}`}
+      // Runs under the transparent nav so the globe fills the viewport.
+      style={{ height: '100svh', marginTop: '-3.5rem' }}
+    >
       {/* Full-bleed Map */}
       <WorldMap
-        selectedCountry={selectedCountry}
-        selectedState={selectedState}
-        selectedCity={selectedCity}
+        selectedCountry={mapSelectedCountry}
+        selectedState={mapSelectedState}
+        selectedCity={mapSelectedCity}
         markers={multipleMarkers}
+        boundaryData={boundaryLayer?.data}
+        boundaryLevel={boundaryLevel === 'points' ? null : boundaryLevel}
+        boundarySelectionId={
+          boundaryLevel === 'admin1'
+            ? (selectedState?.id ?? null)
+            : boundaryLevel === 'admin2'
+              ? (selectedCity?.id ?? null)
+              : null
+        }
+        showPoints={boundaryLevel === 'points'}
         height="100%"
+        panelOpen={panelOpen}
         onMapReady={handleMapReady}
       />
 
       {/* Floating panel toggle */}
-      {!panelOpen && (
-        <button
-          onClick={() => setPanelOpen(true)}
-          className="absolute left-4 top-4 z-[1000] flex items-center gap-2 rounded-lg border bg-background/95 px-3 py-2 text-sm font-medium shadow-lg backdrop-blur-sm hover:bg-muted transition-colors"
-        >
-          <Search className="h-4 w-4" />
-          Search
-          <ChevronRight className="h-3 w-3" />
-        </button>
-      )}
+      <AnimatePresence initial={false}>
+        {!panelOpen ? (
+          <m.button
+            key="map-panel-toggle"
+            type="button"
+            onClick={() => setPanelOpen(true)}
+            className="map-panel-toggle absolute left-4 top-[4.5rem] z-[1000] flex items-center gap-2 rounded-lg border bg-background/95 px-3 py-2 text-sm font-medium shadow-lg backdrop-blur-sm"
+            initial={reduceMotion ? { opacity: 0 } : { opacity: 0, x: -10 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={reduceMotion ? { opacity: 0 } : { opacity: 0, x: -8 }}
+            whileTap={{ scale: 0.97 }}
+          >
+            <Search className="h-4 w-4" />
+            Explore
+            <ChevronRight className="h-3 w-3" />
+          </m.button>
+        ) : null}
+      </AnimatePresence>
 
-      {/* Floating Stats Bar */}
-      <div className="absolute bottom-4 left-1/2 z-[1000] flex -translate-x-1/2 items-center gap-3 rounded-full border bg-background/95 px-5 py-2 shadow-lg backdrop-blur-sm">
-        <span className="flex items-center gap-1.5 text-xs text-muted-foreground">
-          <Globe className="h-3 w-3 text-primary" />
-          <span className="font-semibold text-foreground">{stats.countries}</span> countries
-        </span>
-        <span className="h-3 w-px bg-border" />
-        <span className="flex items-center gap-1.5 text-xs text-muted-foreground">
-          <Building className="h-3 w-3 text-primary" />
-          <span className="font-semibold text-foreground">
-            {stats.states.toLocaleString()}
-          </span>{' '}
-          states
-        </span>
-        <span className="h-3 w-px bg-border" />
-        <span className="flex items-center gap-1.5 text-xs text-muted-foreground">
-          <MapPin className="h-3 w-3 text-primary" />
-          <span className="font-semibold text-foreground">
-            {stats.cities.toLocaleString()}
-          </span>{' '}
-          cities
-        </span>
-      </div>
+      <m.div
+        className="map-stats absolute bottom-4 left-1/2 z-[1000] border"
+        initial={{ opacity: 0, y: 10, x: '-50%' }}
+        animate={{ opacity: 1, y: 0, x: compactViewport ? 0 : '-50%' }}
+        transition={{ delay: 0.18, duration: 0.42 }}
+      >
+        <dl>
+          <div>
+            <dt>Countries</dt>
+            <dd>{stats.countries}</dd>
+          </div>
+          <div>
+            <dt>States</dt>
+            <dd>{stats.states.toLocaleString()}</dd>
+          </div>
+          <div>
+            <dt>Cities</dt>
+            <dd>{stats.cities.toLocaleString()}</dd>
+          </div>
+        </dl>
+      </m.div>
 
-      {/* Floating Sidebar Panel */}
-      {panelOpen && (
-        <div className="absolute left-4 top-4 bottom-16 z-[1000] flex w-80 flex-col overflow-hidden rounded-xl border bg-background/95 shadow-xl backdrop-blur-sm">
-          {/* Panel Header */}
-          <div className="flex items-center justify-between border-b px-4 py-3">
-            <div className="flex items-center gap-2">
-              <Navigation className="h-4 w-4 text-primary" />
-              <span className="text-sm font-semibold">Explorer</span>
-            </div>
+      <AnimatePresence initial={false}>
+        {panelOpen ? (
+          <m.aside
+            key="map-explorer-panel"
+            className="map-explorer-panel absolute left-4 top-[4.5rem] bottom-16 z-[1000] flex w-80 flex-col overflow-hidden border"
+            data-boundary-level={boundaryLevel}
+            data-boundary-features={boundaryLayer?.data.features.length ?? 0}
+            initial={
+              reduceMotion
+                ? { opacity: 0 }
+                : compactViewport
+                  ? { opacity: 0, y: 56 }
+                  : { opacity: 0, x: -28 }
+            }
+            animate={{ opacity: 1, x: 0, y: 0 }}
+            exit={
+              reduceMotion
+                ? { opacity: 0 }
+                : compactViewport
+                  ? { opacity: 0, y: 72 }
+                  : { opacity: 0, x: -24 }
+            }
+            transition={{ duration: 0.34, ease: [0.22, 1, 0.36, 1] }}
+            drag={compactViewport ? 'y' : false}
+            dragControls={panelDragControls}
+            dragListener={false}
+            dragConstraints={{ top: 0, bottom: 0 }}
+            dragElastic={{ top: 0, bottom: 0.2 }}
+            onDragEnd={(_, info) => {
+              if (compactViewport && (info.offset.y > 120 || info.velocity.y > 700)) {
+                setPanelOpen(false);
+              }
+            }}
+          >
             <button
-              onClick={() => setPanelOpen(false)}
-              className="rounded-md p-1 text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
+              type="button"
+              className="explorer-sheet-handle"
+              aria-label="Drag down to close Explore"
+              onPointerDown={(event) => panelDragControls.start(event)}
             >
-              <X className="h-4 w-4" />
+              <span />
             </button>
-          </div>
+            <header className="map-explorer-header">
+              <div className="explorer-heading">
+                <h1>Explore</h1>
+              </div>
+              <button
+                type="button"
+                onClick={() => setPanelOpen(false)}
+                className="explorer-close"
+                aria-label="Close explorer"
+              >
+                <X aria-hidden="true" />
+              </button>
+            </header>
 
-          {/* Scrollable Content */}
-          <div className="flex-1 overflow-y-auto p-4 space-y-4">
-            {/* Search Section */}
-            <div className="space-y-3">
-              <p className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">
-                Location
-              </p>
-
-              {/* Country */}
-              <div>
-                <label className="text-xs text-muted-foreground mb-1 block">Country</label>
-                <Input
-                  placeholder="Search countries..."
-                  value={
-                    selectedCountry
-                      ? `${selectedCountry.emoji} ${selectedCountry.name}`
-                      : countrySearch
+            <div className="explorer-scroll">
+              <section className="explorer-section explorer-location-section">
+                <SearchableLocationSelect
+                  id="country-search"
+                  label="Country"
+                  items={countries}
+                  value={selectedCountry}
+                  search={countrySearch}
+                  placeholder="Search 250 countries"
+                  allItemsLabel="All countries"
+                  active={activeStep === 'country'}
+                  onSearchChange={setCountrySearch}
+                  onValueChange={setSelectedCountry}
+                  getSearchText={(country) =>
+                    [
+                      country.name,
+                      getCountryDisplayName(country),
+                      country.native,
+                      country.iso2,
+                      country.iso3,
+                    ].join(' ')
                   }
-                  onChange={(e) => {
-                    setCountrySearch(e.target.value);
-                    setSelectedCountry(null);
-                  }}
-                  className="h-8 text-sm"
+                  getItemLabel={getCountryDisplayName}
+                  formatValue={(country) => `${country.emoji} ${getCountryDisplayName(country)}`}
+                  renderLeading={(country) => country.emoji}
+                  renderDescription={(country) => country.region || 'Worldwide'}
+                  renderTrailing={(country) => country.iso2}
+                  emptyMessage={(query) => `No country matches “${query}”.`}
                 />
-                {countrySearch && !selectedCountry && (
-                  <div className="mt-1 max-h-40 overflow-y-auto rounded-md border bg-popover shadow-md">
-                    {filteredCountries.slice(0, 15).map((country) => (
-                      <button
-                        key={country.id}
-                        onClick={() => {
-                          setSelectedCountry(country);
-                          setCountrySearch('');
-                        }}
-                        className="flex w-full items-center gap-2 px-3 py-1.5 text-sm hover:bg-accent text-left transition-colors"
-                      >
-                        <span>{country.emoji}</span>
-                        <span className="truncate">{country.name}</span>
-                      </button>
-                    ))}
-                  </div>
-                )}
-              </div>
 
-              {/* State */}
-              {states.length > 0 && (
-                <div>
-                  <label className="text-xs text-muted-foreground mb-1 block">
-                    State / Province
-                  </label>
-                  <Input
-                    placeholder="Search states..."
-                    value={selectedState ? selectedState.name : stateSearch}
-                    onChange={(e) => {
-                      setStateSearch(e.target.value);
-                      setSelectedState(null);
-                    }}
-                    className="h-8 text-sm"
+                {selectedCountry && statesLoading ? (
+                  <p className="explorer-loading-line">Loading administrative areas…</p>
+                ) : null}
+
+                {states.length > 0 ? (
+                  <SearchableLocationSelect
+                    id="state-search"
+                    label="State / Province"
+                    items={states}
+                    value={selectedState}
+                    search={stateSearch}
+                    placeholder={`Search ${states.length.toLocaleString()} areas`}
+                    allItemsLabel="All areas"
+                    active={activeStep === 'state'}
+                    onSearchChange={setStateSearch}
+                    onValueChange={setSelectedState}
+                    getSearchText={(state) =>
+                      [
+                        state.name,
+                        getStateDisplay(state).name,
+                        state.stateCode,
+                        state.type || '',
+                        getStateDisplay(state).type || '',
+                      ].join(' ')
+                    }
+                    getItemLabel={(state) => getStateDisplay(state).name}
+                    renderDescription={(state) => getStateDisplay(state).type}
+                    renderTrailing={(state) => state.stateCode || '—'}
+                    emptyMessage={(query) => `No administrative area matches “${query}”.`}
                   />
-                  {stateSearch && !selectedState && (
-                    <div className="mt-1 max-h-40 overflow-y-auto rounded-md border bg-popover shadow-md">
-                      {filteredStates.slice(0, 15).map((state) => (
-                        <button
-                          key={state.id}
-                          onClick={() => {
-                            setSelectedState(state);
-                            setStateSearch('');
-                          }}
-                          className="w-full px-3 py-1.5 text-sm hover:bg-accent text-left transition-colors truncate"
-                        >
-                          {state.name}
-                        </button>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              )}
+                ) : null}
 
-              {/* City */}
-              {cities.length > 0 && (
-                <div>
-                  <label className="text-xs text-muted-foreground mb-1 block">City</label>
-                  <Input
-                    placeholder="Search cities..."
-                    value={selectedCity ? selectedCity.name : citySearch}
-                    onChange={(e) => {
-                      setCitySearch(e.target.value);
-                      setSelectedCity(null);
-                    }}
-                    className="h-8 text-sm"
-                  />
-                  {citySearch && !selectedCity && (
-                    <div className="mt-1 max-h-40 overflow-y-auto rounded-md border bg-popover shadow-md">
-                      {filteredCities.slice(0, 15).map((city) => (
-                        <button
-                          key={city.id}
-                          onClick={() => {
-                            setSelectedCity(city);
-                            setCitySearch('');
-                          }}
-                          className="w-full px-3 py-1.5 text-sm hover:bg-accent text-left transition-colors truncate"
-                        >
-                          {city.name}
-                        </button>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              )}
-
-              {/* Actions */}
-              <div className="flex gap-2">
-                <Button
-                  variant="outline"
-                  size="icon"
-                  className="h-8 w-8 shrink-0"
-                  onClick={clearAll}
-                  disabled={!hasSelection}
-                >
-                  <Trash2 className="h-3.5 w-3.5" />
-                </Button>
-                <Button
-                  className="flex-1 h-8 text-sm"
-                  onClick={locateOnMap}
-                  disabled={!hasSelection}
-                >
-                  <MapPinned className="mr-1.5 h-3.5 w-3.5" /> Locate
-                </Button>
-              </div>
-            </div>
-
-            <Separator />
-
-            {/* Quick Actions */}
-            <div className="space-y-1">
-              <p className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground mb-2">
-                Quick Actions
-              </p>
-              <button
-                onClick={handleShowMultipleCountries}
-                className="flex w-full items-center gap-2.5 rounded-md px-2.5 py-2 text-sm hover:bg-muted transition-colors text-left"
-              >
-                <Globe className="h-3.5 w-3.5 text-primary" />
-                Show Top 10 Countries
-              </button>
-              <button
-                onClick={handleShowCapitals}
-                className="flex w-full items-center gap-2.5 rounded-md px-2.5 py-2 text-sm hover:bg-muted transition-colors text-left"
-              >
-                <Building className="h-3.5 w-3.5 text-primary" />
-                Show World Capitals
-              </button>
-            </div>
-
-            {/* Details */}
-            {selectedCountry && (
-              <>
-                <Separator />
-                <div className="space-y-3">
-                  <p className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">
-                    Details
+                {selectedCountry && citiesLoading ? (
+                  <p className="explorer-loading-line" role="status">
+                    Loading {selectedCountry.iso2} city shard…
                   </p>
+                ) : null}
 
-                  <div className="flex items-center gap-3">
-                    <span className="text-3xl leading-none">{selectedCountry.emoji}</span>
-                    <div>
-                      <p className="font-semibold text-sm">{selectedCountry.name}</p>
-                      <p className="text-xs text-muted-foreground">{selectedCountry.native}</p>
+                {selectedCountry && cityLoadError ? (
+                  <div className="explorer-loading-line" role="alert">
+                    <span>City data could not be loaded.</span>{' '}
+                    <button type="button" onClick={() => setCityLoadAttempt((value) => value + 1)}>
+                      Retry
+                    </button>
+                  </div>
+                ) : null}
+
+                {selectedState && !citiesLoading && !cityLoadError && cities.length === 0 ? (
+                  <p className="explorer-loading-line">No published places for this area.</p>
+                ) : null}
+
+                {cities.length > 0 && !citiesLoading ? (
+                  <SearchableLocationSelect
+                    id="city-search"
+                    label="City"
+                    items={cities}
+                    value={selectedCity}
+                    search={citySearch}
+                    placeholder={`Search ${cities.length.toLocaleString()} places`}
+                    allItemsLabel="All cities"
+                    active={activeStep === 'city'}
+                    onSearchChange={setCitySearch}
+                    onValueChange={setSelectedCity}
+                    getSearchText={(city) =>
+                      [
+                        city.name,
+                        getCityDisplayName(city),
+                        getPlaceDisplay(city).type || '',
+                        city.stateName,
+                        city.wikiDataId,
+                      ].join(' ')
+                    }
+                    getItemLabel={getCityDisplayName}
+                    renderDescription={(city) => getPlaceDisplay(city).type}
+                    renderTrailing={() => <MapPin aria-hidden="true" />}
+                    emptyMessage={(query) => `No city matches “${query}”.`}
+                  />
+                ) : null}
+
+                {/* Actions appear with a selection rather than sitting disabled. */}
+                {hasSelection ? (
+                  <div className="explorer-actions">
+                    <Button variant="ghost" size="lg" onClick={clearAll}>
+                      <RotateCcw aria-hidden="true" /> Reset
+                    </Button>
+                    <Button size="lg" onClick={locateOnMap}>
+                      <MapPinned aria-hidden="true" /> Focus
+                    </Button>
+                  </div>
+                ) : null}
+              </section>
+
+              <AnimatePresence initial={false}>
+                {selectedCountry ? (
+                  <m.section
+                    key={`${selectedCountry.id}-${selectedState?.id ?? 'country'}-${selectedCity?.id ?? 'state'}`}
+                    className="explorer-section explorer-details"
+                    initial={reduceMotion ? { opacity: 0 } : { opacity: 0, y: 12 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={reduceMotion ? { opacity: 0 } : { opacity: 0, y: -8 }}
+                    transition={{ duration: 0.22 }}
+                  >
+                    <div className="explorer-section-heading">
+                      <span>Selected record</span>
+                      <small>{selectedCountry.iso3}</small>
                     </div>
-                  </div>
+                    <div className="explorer-record-title">
+                      <span>{selectedCountry.emoji}</span>
+                      <div>
+                        <strong>
+                          {selectedCityDisplayName ||
+                            selectedStateDisplay?.name ||
+                            selectedCountryDisplayName}
+                        </strong>
+                        <small>
+                          {selectedCity
+                            ? [
+                                selectedCity ? getPlaceDisplay(selectedCity).type : null,
+                                selectedStateDisplay?.name,
+                                selectedCountryDisplayName,
+                              ]
+                                .filter(Boolean)
+                                .join(' · ')
+                            : selectedState
+                              ? [selectedStateDisplay?.type, selectedCountryDisplayName]
+                                  .filter(Boolean)
+                                  .join(' · ')
+                              : [selectedCountry.native, selectedCountry.iso2]
+                                  .filter(Boolean)
+                                  .join(' · ')}
+                        </small>
+                      </div>
+                    </div>
+                    <dl className="explorer-ledger">
+                      {selectedCountry.capital ? (
+                        <div>
+                          <dt>Capital</dt>
+                          <dd>{selectedCountry.capital}</dd>
+                        </div>
+                      ) : null}
+                      {selectedCountry.currency ? (
+                        <div>
+                          <dt>Currency</dt>
+                          <dd>{selectedCountry.currency}</dd>
+                        </div>
+                      ) : null}
+                      {selectedCountry.phoneCode ? (
+                        <div>
+                          <dt>Calling code</dt>
+                          <dd>+{selectedCountry.phoneCode}</dd>
+                        </div>
+                      ) : null}
+                      {selectedState?.stateCode ? (
+                        <div>
+                          <dt>State code</dt>
+                          <dd>{selectedState.stateCode}</dd>
+                        </div>
+                      ) : null}
+                      {selectedCoordinates?.[0] != null && selectedCoordinates?.[1] != null ? (
+                        <div>
+                          <dt>Coordinates</dt>
+                          <dd>
+                            {Number(selectedCoordinates[0]).toFixed(4)},{' '}
+                            {Number(selectedCoordinates[1]).toFixed(4)}
+                          </dd>
+                        </div>
+                      ) : null}
+                    </dl>
+                    {correctionUrl ? (
+                      <a
+                        href={correctionUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="explorer-correction-link"
+                      >
+                        <MessageSquarePlus aria-hidden="true" />
+                        <span>
+                          <strong>Suggest a correction</strong>
+                          <small>{correctionPublicId} · source required</small>
+                        </span>
+                        <ArrowRight aria-hidden="true" />
+                      </a>
+                    ) : null}
+                  </m.section>
+                ) : null}
+              </AnimatePresence>
 
-                  <div className="rounded-lg border bg-muted/30 p-3 space-y-2 text-sm">
-                    {selectedCountry.capital && (
-                      <div className="flex justify-between">
-                        <span className="text-muted-foreground">Capital</span>
-                        <span className="font-medium">{selectedCountry.capital}</span>
-                      </div>
-                    )}
-                    {selectedCountry.currency && (
-                      <div className="flex justify-between">
-                        <span className="text-muted-foreground">Currency</span>
-                        <span className="font-medium">{selectedCountry.currency}</span>
-                      </div>
-                    )}
-                    {selectedCountry.phoneCode && (
-                      <div className="flex justify-between">
-                        <span className="text-muted-foreground">Phone</span>
-                        <span className="font-medium">+{selectedCountry.phoneCode}</span>
-                      </div>
-                    )}
-                    {selectedCountry.region && (
-                      <div className="flex justify-between">
-                        <span className="text-muted-foreground">Region</span>
-                        <span className="font-medium">{selectedCountry.region}</span>
-                      </div>
-                    )}
+              {/*
+                Only shown once a country is picked — there is nothing to
+                re-draw before that. Countries without polygon coverage get a
+                one-line note instead of two permanently dead buttons.
+              */}
+              {selectedCountry ? (
+                <section className="explorer-section explorer-boundaries">
+                  <div className="explorer-section-heading">
+                    <span>Map layer</span>
                   </div>
+                  {hasPolygonCoverage ? (
+                    <div className="boundary-level-switch" aria-label="Map representation">
+                      {(
+                        [
+                          ['points', 'Centers'],
+                          ['admin1', 'Provinces'],
+                          ['admin2', 'Districts'],
+                        ] as const
+                      ).map(([value, label]) => (
+                        <button
+                          type="button"
+                          key={value}
+                          aria-pressed={boundaryLevel === value}
+                          onClick={() => setBoundaryLevel(value)}
+                        >
+                          {label}
+                        </button>
+                      ))}
+                    </div>
+                  ) : (
+                    <p className="boundary-availability">
+                      Center points. Province and district polygons are available for the Türkiye
+                      pilot.
+                    </p>
+                  )}
 
-                  {selectedState && (
-                    <div className="rounded-lg border bg-muted/30 p-3">
-                      <p className="font-semibold text-sm flex items-center gap-1.5">
-                        <Building className="h-3.5 w-3.5 text-primary" /> {selectedState.name}
-                      </p>
-                      {selectedState.stateCode && (
-                        <p className="text-xs text-muted-foreground mt-0.5">
-                          Code: {selectedState.stateCode}
+                  {selectedCountry?.iso2 === 'TR' && boundaryLevel !== 'points' ? (
+                    <>
+                      <div className="boundary-profile-switch" aria-label="Boundary detail">
+                        {(
+                          [
+                            ['overview', 'Overview'],
+                            ['regional', 'Regional'],
+                            ['detailed', 'Detailed'],
+                          ] as const
+                        ).map(([value, label]) => (
+                          <button
+                            type="button"
+                            key={value}
+                            aria-pressed={boundaryProfile === value}
+                            onClick={() => setBoundaryProfile(value)}
+                          >
+                            <span>{label}</span>
+                            <small>
+                              {boundaryCountry
+                                ? formatBytes(boundaryCountry.profiles[value].bytes)
+                                : '—'}
+                            </small>
+                          </button>
+                        ))}
+                      </div>
+                      {boundaryLoading ? (
+                        <p className="explorer-loading-line" role="status">
+                          Loading {boundaryProfile} boundary profile…
                         </p>
-                      )}
+                      ) : null}
+                      {boundaryError ? (
+                        <div className="explorer-loading-line" role="alert">
+                          <span>Boundary layer could not be loaded.</span>{' '}
+                          <button
+                            type="button"
+                            onClick={() => setBoundaryLoadAttempt((value) => value + 1)}
+                          >
+                            Retry
+                          </button>
+                        </div>
+                      ) : null}
+                    </>
+                  ) : null}
+
+                  {boundaryCountry ? (
+                    <div className="boundary-meta">
+                      <div>
+                        <Layers3 aria-hidden="true" />
+                        <span>
+                          <strong>81 provinces · 922 districts</strong>
+                          <small>
+                            {boundaryCountry.source.attribution} · {boundaryCountry.source.license}
+                          </small>
+                        </span>
+                      </div>
+                      <div className="boundary-downloads">
+                        <a href={boundaryCountry.downloads.admin1.url} download>
+                          <Download aria-hidden="true" /> Admin-1 GeoJSON
+                        </a>
+                        <a href={boundaryCountry.downloads.admin2.url} download>
+                          <Download aria-hidden="true" /> Admin-2 GeoJSON
+                        </a>
+                      </div>
                     </div>
-                  )}
-                  {selectedCity && (
-                    <div className="rounded-lg border bg-muted/30 p-3">
-                      <p className="font-semibold text-sm flex items-center gap-1.5">
-                        <MapPin className="h-3.5 w-3.5 text-primary" /> {selectedCity.name}
-                      </p>
-                    </div>
-                  )}
-                </div>
-              </>
-            )}
-          </div>
-        </div>
-      )}
+                  ) : null}
+                </section>
+              ) : null}
+
+              {/* A way in when nothing is picked yet; noise once something is. */}
+              {!selectedCountry ? (
+                <section className="explorer-section">
+                  <div className="explorer-section-heading">
+                    <span>Collections</span>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={handleShowMultipleCountries}
+                    className="explorer-collection"
+                  >
+                    <Globe aria-hidden="true" />
+                    <span>
+                      <strong>Country sample</strong>
+                      <small>10 center points</small>
+                    </span>
+                    <ArrowRight aria-hidden="true" />
+                  </button>
+                  <button
+                    type="button"
+                    onClick={handleShowCapitals}
+                    className="explorer-collection"
+                  >
+                    <Building aria-hidden="true" />
+                    <span>
+                      <strong>World capitals</strong>
+                      <small>20 capital locations</small>
+                    </span>
+                    <ArrowRight aria-hidden="true" />
+                  </button>
+                </section>
+              ) : null}
+            </div>
+          </m.aside>
+        ) : null}
+      </AnimatePresence>
     </div>
   );
+}
+
+function formatBytes(bytes: number): string {
+  if (bytes < 1_000_000) return `${Math.round(bytes / 1000)} kB`;
+  return `${(bytes / 1_000_000).toFixed(1)} MB`;
 }

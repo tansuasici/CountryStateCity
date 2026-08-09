@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "overrides": [
+    {
+      "districtSourceId": "icisleri:01:saricam",
+      "latitude": "37.01974120",
+      "longitude": "35.39899190",
+      "source": "openstreetmap",
+      "sourceId": "osm:node:958049062",
+      "sourceUrl": "https://www.openstreetmap.org/node/958049062",
+      "relationId": 1249247,
+      "relationVersion": 14,
+      "relationTimestamp": "2026-03-06T14:50:15Z",
+      "reason": "The legacy coordinate resolves to a same-named village. OpenStreetMap relation 1249247 assigns node 958049062 as the Sarıçam district admin_centre; it also agrees with the validation-source centre instead of the village point."
+    },
+    {
+      "districtSourceId": "icisleri:34:kadikoy",
+      "latitude": "40.98109600",
+      "longitude": "29.06514473",
+      "source": "openstreetmap",
+      "sourceId": "osm:relation:1276548:point-on-surface",
+      "sourceUrl": "https://www.openstreetmap.org/relation/1276548",
+      "relationId": 1276548,
+      "relationVersion": 78,
+      "relationTimestamp": "2026-05-03T16:40:32Z",
+      "reason": "The legacy GeoNames centre falls inside Ataşehir. This deterministic point-on-surface is derived from the reviewed Kadıköy district polygon and is guaranteed to remain inside the matched district geometry."
+    }
+  ]
+}

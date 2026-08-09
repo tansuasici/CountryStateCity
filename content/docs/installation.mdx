@@ -10,29 +10,13 @@ import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
 
 <Tabs items={['npm', 'pnpm', 'yarn', 'bun']}>
 
-<Tab value="npm">
-```bash
-npm install @tansuasici/country-state-city
-```
-</Tab>
+<Tab value="npm">```bash npm install @tansuasici/country-state-city ```</Tab>
 
-<Tab value="pnpm">
-```bash
-pnpm add @tansuasici/country-state-city
-```
-</Tab>
+<Tab value="pnpm">```bash pnpm add @tansuasici/country-state-city ```</Tab>
 
-<Tab value="yarn">
-```bash
-yarn add @tansuasici/country-state-city
-```
-</Tab>
+<Tab value="yarn">```bash yarn add @tansuasici/country-state-city ```</Tab>
 
-<Tab value="bun">
-```bash
-bun add @tansuasici/country-state-city
-```
-</Tab>
+<Tab value="bun">```bash bun add @tansuasici/country-state-city ```</Tab>
 
 </Tabs>
 
@@ -52,11 +36,11 @@ The package provides three separate builds for different environments:
 }
 ```
 
-| Build | Format | Use Case |
-|-------|--------|----------|
-| `index.browser.js` | ESM | React, Next.js, Vite, Webpack |
-| `index.node.mjs` | ESM | Node.js with `import` |
-| `index.node.cjs` | CJS | Node.js with `require` |
+| Build              | Format | Use Case                      |
+| ------------------ | ------ | ----------------------------- |
+| `index.browser.js` | ESM    | React, Next.js, Vite, Webpack |
+| `index.node.mjs`   | ESM    | Node.js with `import`         |
+| `index.node.cjs`   | CJS    | Node.js with `require`        |
 
 ## Usage
 
@@ -69,7 +53,7 @@ console.log(countries.length); // 250+
 
 // Get a specific country
 const turkey = CountryStateCity.getCountryById(225);
-console.log(turkey.name); // "Turkey"
+console.log(turkey.name); // "Türkiye"
 console.log(turkey.emoji); // "🇹🇷"
 
 // Get states
@@ -83,14 +67,19 @@ console.log(cities[0].name); // City name
 
 ## Direct Data Access
 
-You can also import the raw JSON data directly:
+Countries and states are available as full records. Cities use the documented compact distribution schema so the same 147,739-row dataset is not published twice:
 
 ```typescript
 import countries from '@tansuasici/country-state-city/data/countries.json';
 import states from '@tansuasici/country-state-city/data/states.json';
-import cities from '@tansuasici/country-state-city/data/cities.json';
+import compactCities from '@tansuasici/country-state-city/data/cities.optimized.json' with { type: 'json' };
+
+// { i: id, n: name, s: stateId, c: countryId, la: latitude, lo: longitude, w?: wikiDataId }
+console.log(compactCities[0]);
 ```
 
 <Callout type="warn">
-The cities JSON file is ~44MB. Only import it directly if you need all cities at once. For most use cases, use the `getCitiesByStateId()` or `getCitiesByCountryId()` methods instead.
+  The full 89 MB canonical city source and large audit-evidence files are intentionally not copied
+  into the runtime package. Use the typed API when you need reconstructed full `City` records; use
+  the compact JSON export only when you explicitly want its short-key schema.
 </Callout>

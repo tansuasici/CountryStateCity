@@ -7,6 +7,8 @@ export default defineConfig({
       'countrystatecity-npm/src/__tests__/**/*.test.ts',
       'countrystatecity-mcp/src/__tests__/**/*.test.ts',
       'countrystatecity-graphql/src/__tests__/**/*.test.ts',
+      'countrystatecity-api/src/__tests__/**/*.test.ts',
+      'lib/**/*.test.ts',
     ],
     coverage: {
       provider: 'v8',
@@ -14,6 +16,7 @@ export default defineConfig({
         'countrystatecity-npm/src/**/*.ts',
         'countrystatecity-mcp/src/**/*.ts',
         'countrystatecity-graphql/src/**/*.ts',
+        'countrystatecity-api/src/**/*.ts',
       ],
       exclude: ['node_modules', '.next', 'out', 'dist', '**/__tests__/**', '**/*.d.ts'],
     },
@@ -21,7 +24,7 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      '@': path.resolve(__dirname),
+      '@': path.resolve(import.meta.dirname),
     },
   },
 });

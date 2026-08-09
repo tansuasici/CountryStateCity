@@ -26,8 +26,11 @@ const states = CountryStateCity.getStatesByCountryId(225);
 // Get cities by state ID
 const cities = CountryStateCity.getCitiesByStateId(4121);
 
+// Explicit Türkiye district grain
+const districts = CountryStateCity.getDistrictsByCountryCode('TR');
+
 // Search functionality
-const turkeyCountries = CountryStateCity.searchCountries('Turkey');
+const turkeyCountries = CountryStateCity.searchCountries('Türkiye');
 const istanbulCities = CountryStateCity.searchCities('Istanbul');
 ```
 
@@ -84,9 +87,20 @@ import { CountryStateCity } from '@tansuasici/country-state-city/node';
 - `getCitiesByCountryId(countryId, format?, options?)` - Get cities by country ID
 - `searchCities(query, stateId?, countryId?)` - Search cities
 
+### District Methods
+
+- `getAllDistricts(format?, options?)` - Get all published districts
+- `getDistrictById(id)` - Get a district by numeric CSC identity
+- `getDistrictByPublicId(publicId)` - Get a district by `csc:district:*` identity
+- `getDistrictsByStateId(stateId, format?, options?)` - Get districts by province
+- `getDistrictsByCountryCode(countryCode)` - Get districts by country code
+- `searchDistricts(query, stateId?)` - Search canonical names and aliases
+
 ### Utility Methods
 
 - `getStats()` - Get statistics (total countries, states, cities)
+- `getCoverageReport()` - Get snapshot-wide coverage classifications and contract results
+- `getCountryCoverage(countryCode)` - Get coverage limits for one ISO2 country/territory code
 - `getAllRegions()` - Get all unique regions
 - `getAllSubregions()` - Get all unique subregions
 - `getAllTimezones()` - Get all unique timezones
@@ -117,6 +131,7 @@ const countriesYaml = CountryStateCity.getAllCountries('yaml');
 - **Node.js Bundle**: ~16KB (loads data from files)
 
 For production use in browsers, consider:
+
 1. Loading data on-demand via API endpoints
 2. Using code splitting to load the library only when needed
 3. Implementing pagination for large datasets
@@ -162,7 +177,10 @@ export async function GET() {
 
 ## License
 
-MIT
+- Source code: [MIT](LICENSE)
+- Country/state/city database: [ODbL 1.0](DATA_LICENSE.md)
+
+Data is derived from [Countries States Cities Database](https://github.com/dr5hn/countries-states-cities-database); attribution is required.
 
 ## Author
 

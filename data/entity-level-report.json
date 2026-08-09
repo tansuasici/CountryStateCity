@@ -1,0 +1,2693 @@
+{
+  "schemaVersion": 1,
+  "policyVersion": "entity-level-policy:v1",
+  "generatedAt": "2026-08-08",
+  "states": {
+    "total": 4963,
+    "byEntityType": {
+      "administrative-area": 4963
+    },
+    "byAdministrativeLevel": {
+      "1": 4444,
+      "2": 519
+    },
+    "byLifecycleStatus": {
+      "current": 4488,
+      "historical": 35,
+      "review-required": 440
+    },
+    "byPlaceType": {
+      "administrative-area": 2133,
+      "autonomous province": 2,
+      "autonomous region": 12,
+      "canton": 35,
+      "capital district": 2,
+      "capital territory": 1,
+      "city": 4,
+      "county": 205,
+      "decentralized regional entity": 4,
+      "department": 132,
+      "dependency": 1,
+      "district": 530,
+      "european collectivity": 1,
+      "federal dependency": 1,
+      "free municipal consortium": 6,
+      "governorate": 143,
+      "metropolitan city": 14,
+      "metropolitan collectivity with special status": 2,
+      "metropolitan department": 96,
+      "metropolitan region": 12,
+      "municipality": 497,
+      "overseas collectivity": 5,
+      "overseas region": 5,
+      "overseas territory": 1,
+      "prefecture": 103,
+      "province": 634,
+      "region": 302,
+      "special administrative region": 2,
+      "special municipality": 6,
+      "state": 65,
+      "territory": 7
+    },
+    "byClassificationConfidence": {
+      "country-default": 2133,
+      "name-inferred": 2139,
+      "source-or-explicit-rule": 691
+    }
+  },
+  "cities": {
+    "total": 147739,
+    "byEntityType": {
+      "administrative-area": 3712,
+      "settlement": 144027
+    },
+    "byAdministrativeLevel": {
+      "2": 3710,
+      "3": 2,
+      "null": 144027
+    },
+    "byLifecycleStatus": {
+      "current": 142420,
+      "historical": 64,
+      "review-required": 5255
+    },
+    "byPlaceType": {
+      "canton": 20,
+      "county": 3022,
+      "department": 18,
+      "district": 407,
+      "municipality": 177,
+      "prefecture": 24,
+      "province": 36,
+      "region": 6,
+      "settlement": 144027,
+      "territory": 2
+    },
+    "byClassificationConfidence": {
+      "name-inferred": 3712,
+      "source-collection-default": 144027
+    }
+  },
+  "countries": {
+    "AF": {
+      "stateLevels": {
+        "1": 33
+      },
+      "lifecycleStatuses": {
+        "current": 33
+      },
+      "placeTypes": {
+        "administrative-area": 32,
+        "province": 1
+      }
+    },
+    "AX": {
+      "stateLevels": {},
+      "lifecycleStatuses": {},
+      "placeTypes": {}
+    },
+    "AL": {
+      "stateLevels": {
+        "1": 12,
+        "2": 35
+      },
+      "lifecycleStatuses": {
+        "current": 12,
+        "historical": 35
+      },
+      "placeTypes": {
+        "county": 12,
+        "district": 35
+      }
+    },
+    "DZ": {
+      "stateLevels": {
+        "1": 58
+      },
+      "lifecycleStatuses": {
+        "current": 58
+      },
+      "placeTypes": {
+        "administrative-area": 58
+      }
+    },
+    "AS": {
+      "stateLevels": {},
+      "lifecycleStatuses": {},
+      "placeTypes": {}
+    },
+    "AD": {
+      "stateLevels": {
+        "1": 7
+      },
+      "lifecycleStatuses": {
+        "current": 7
+      },
+      "placeTypes": {
+        "administrative-area": 7
+      }
+    },
+    "AO": {
+      "stateLevels": {
+        "1": 17
+      },
+      "lifecycleStatuses": {
+        "current": 17
+      },
+      "placeTypes": {
+        "administrative-area": 1,
+        "province": 16
+      }
+    },
+    "AI": {
+      "stateLevels": {},
+      "lifecycleStatuses": {},
+      "placeTypes": {}
+    },
+    "AQ": {
+      "stateLevels": {},
+      "lifecycleStatuses": {},
+      "placeTypes": {}
+    },
+    "AG": {
+      "stateLevels": {
+        "1": 8
+      },
+      "lifecycleStatuses": {
+        "current": 8
+      },
+      "placeTypes": {
+        "administrative-area": 8
+      }
+    },
+    "AR": {
+      "stateLevels": {
+        "1": 24
+      },
+      "lifecycleStatuses": {
+        "current": 24
+      },
+      "placeTypes": {
+        "city": 1,
+        "province": 23
+      }
+    },
+    "AM": {
+      "stateLevels": {
+        "1": 11
+      },
+      "lifecycleStatuses": {
+        "current": 11
+      },
+      "placeTypes": {
+        "administrative-area": 1,
+        "province": 3,
+        "region": 7
+      }
+    },
+    "AW": {
+      "stateLevels": {},
+      "lifecycleStatuses": {},
+      "placeTypes": {}
+    },
+    "AU": {
+      "stateLevels": {
+        "1": 8
+      },
+      "lifecycleStatuses": {
+        "current": 8
+      },
+      "placeTypes": {
+        "state": 6,
+        "territory": 2
+      }
+    },
+    "AT": {
+      "stateLevels": {
+        "1": 9
+      },
+      "lifecycleStatuses": {
+        "current": 9
+      },
+      "placeTypes": {
+        "administrative-area": 9
+      }
+    },
+    "AZ": {
+      "stateLevels": {
+        "1": 75
+      },
+      "lifecycleStatuses": {
+        "current": 75
+      },
+      "placeTypes": {
+        "administrative-area": 12,
+        "district": 63
+      }
+    },
+    "BS": {
+      "stateLevels": {
+        "1": 42
+      },
+      "lifecycleStatuses": {
+        "current": 31,
+        "review-required": 11
+      },
+      "placeTypes": {
+        "administrative-area": 40,
+        "district": 2
+      }
+    },
+    "BH": {
+      "stateLevels": {
+        "1": 5
+      },
+      "lifecycleStatuses": {
+        "current": 4,
+        "review-required": 1
+      },
+      "placeTypes": {
+        "governorate": 5
+      }
+    },
+    "BD": {
+      "stateLevels": {
+        "1": 70
+      },
+      "lifecycleStatuses": {
+        "current": 70
+      },
+      "placeTypes": {
+        "administrative-area": 9,
+        "district": 61
+      }
+    },
+    "BB": {
+      "stateLevels": {
+        "1": 11
+      },
+      "lifecycleStatuses": {
+        "current": 11
+      },
+      "placeTypes": {
+        "administrative-area": 11
+      }
+    },
+    "BY": {
+      "stateLevels": {
+        "1": 7
+      },
+      "lifecycleStatuses": {
+        "current": 7
+      },
+      "placeTypes": {
+        "administrative-area": 1,
+        "region": 6
+      }
+    },
+    "BE": {
+      "stateLevels": {
+        "1": 13
+      },
+      "lifecycleStatuses": {
+        "current": 13
+      },
+      "placeTypes": {
+        "administrative-area": 12,
+        "region": 1
+      }
+    },
+    "BZ": {
+      "stateLevels": {
+        "1": 6
+      },
+      "lifecycleStatuses": {
+        "current": 6
+      },
+      "placeTypes": {
+        "district": 6
+      }
+    },
+    "BJ": {
+      "stateLevels": {
+        "1": 12
+      },
+      "lifecycleStatuses": {
+        "current": 12
+      },
+      "placeTypes": {
+        "department": 12
+      }
+    },
+    "BM": {
+      "stateLevels": {
+        "1": 11
+      },
+      "lifecycleStatuses": {
+        "current": 9,
+        "review-required": 2
+      },
+      "placeTypes": {
+        "administrative-area": 9,
+        "municipality": 2
+      }
+    },
+    "BT": {
+      "stateLevels": {
+        "1": 19
+      },
+      "lifecycleStatuses": {
+        "current": 19
+      },
+      "placeTypes": {
+        "district": 19
+      }
+    },
+    "BO": {
+      "stateLevels": {
+        "1": 9
+      },
+      "lifecycleStatuses": {
+        "current": 9
+      },
+      "placeTypes": {
+        "department": 9
+      }
+    },
+    "BQ": {
+      "stateLevels": {},
+      "lifecycleStatuses": {},
+      "placeTypes": {}
+    },
+    "BA": {
+      "stateLevels": {
+        "1": 13
+      },
+      "lifecycleStatuses": {
+        "current": 3,
+        "review-required": 10
+      },
+      "placeTypes": {
+        "administrative-area": 3,
+        "canton": 9,
+        "district": 1
+      }
+    },
+    "BW": {
+      "stateLevels": {
+        "1": 10
+      },
+      "lifecycleStatuses": {
+        "current": 9,
+        "review-required": 1
+      },
+      "placeTypes": {
+        "administrative-area": 1,
+        "district": 9
+      }
+    },
+    "BV": {
+      "stateLevels": {},
+      "lifecycleStatuses": {},
+      "placeTypes": {}
+    },
+    "BR": {
+      "stateLevels": {
+        "1": 27
+      },
+      "lifecycleStatuses": {
+        "current": 27
+      },
+      "placeTypes": {
+        "administrative-area": 27
+      }
+    },
+    "IO": {
+      "stateLevels": {},
+      "lifecycleStatuses": {},
+      "placeTypes": {}
+    },
+    "BN": {
+      "stateLevels": {
+        "1": 4
+      },
+      "lifecycleStatuses": {
+        "current": 4
+      },
+      "placeTypes": {
+        "district": 4
+      }
+    },
+    "BG": {
+      "stateLevels": {
+        "1": 28
+      },
+      "lifecycleStatuses": {
+        "current": 28
+      },
+      "placeTypes": {
+        "administrative-area": 1,
+        "province": 27
+      }
+    },
+    "BF": {
+      "stateLevels": {
+        "1": 57
+      },
+      "lifecycleStatuses": {
+        "current": 57
+      },
+      "placeTypes": {
+        "administrative-area": 4,
+        "province": 42,
+        "region": 11
+      }
+    },
+    "BI": {
+      "stateLevels": {
+        "1": 18
+      },
+      "lifecycleStatuses": {
+        "current": 18
+      },
+      "placeTypes": {
+        "province": 18
+      }
+    },
+    "KH": {
+      "stateLevels": {
+        "1": 23
+      },
+      "lifecycleStatuses": {
+        "current": 23
+      },
+      "placeTypes": {
+        "administrative-area": 1,
+        "province": 22
+      }
+    },
+    "CM": {
+      "stateLevels": {
+        "1": 10
+      },
+      "lifecycleStatuses": {
+        "current": 10
+      },
+      "placeTypes": {
+        "administrative-area": 10
+      }
+    },
+    "CA": {
+      "stateLevels": {
+        "1": 13
+      },
+      "lifecycleStatuses": {
+        "current": 13
+      },
+      "placeTypes": {
+        "province": 10,
+        "territory": 3
+      }
+    },
+    "CV": {
+      "stateLevels": {
+        "1": 23
+      },
+      "lifecycleStatuses": {
+        "current": 23
+      },
+      "placeTypes": {
+        "administrative-area": 21,
+        "municipality": 2
+      }
+    },
+    "KY": {
+      "stateLevels": {},
+      "lifecycleStatuses": {},
+      "placeTypes": {}
+    },
+    "CF": {
+      "stateLevels": {
+        "1": 17
+      },
+      "lifecycleStatuses": {
+        "current": 17
+      },
+      "placeTypes": {
+        "administrative-area": 3,
+        "prefecture": 14
+      }
+    },
+    "TD": {
+      "stateLevels": {
+        "1": 23
+      },
+      "lifecycleStatuses": {
+        "current": 22,
+        "review-required": 1
+      },
+      "placeTypes": {
+        "administrative-area": 6,
+        "region": 17
+      }
+    },
+    "CL": {
+      "stateLevels": {
+        "1": 16
+      },
+      "lifecycleStatuses": {
+        "current": 16
+      },
+      "placeTypes": {
+        "administrative-area": 16
+      }
+    },
+    "CN": {
+      "stateLevels": {
+        "1": 34
+      },
+      "lifecycleStatuses": {
+        "current": 34
+      },
+      "placeTypes": {
+        "autonomous region": 5,
+        "municipality": 4,
+        "province": 23,
+        "special administrative region": 2
+      }
+    },
+    "CX": {
+      "stateLevels": {},
+      "lifecycleStatuses": {},
+      "placeTypes": {}
+    },
+    "CC": {
+      "stateLevels": {},
+      "lifecycleStatuses": {},
+      "placeTypes": {}
+    },
+    "CO": {
+      "stateLevels": {
+        "1": 33
+      },
+      "lifecycleStatuses": {
+        "current": 33
+      },
+      "placeTypes": {
+        "administrative-area": 31,
+        "capital district": 1,
+        "department": 1
+      }
+    },
+    "KM": {
+      "stateLevels": {
+        "1": 3
+      },
+      "lifecycleStatuses": {
+        "current": 3
+      },
+      "placeTypes": {
+        "administrative-area": 3
+      }
+    },
+    "CG": {
+      "stateLevels": {
+        "1": 12
+      },
+      "lifecycleStatuses": {
+        "current": 12
+      },
+      "placeTypes": {
+        "administrative-area": 2,
+        "department": 10
+      }
+    },
+    "CK": {
+      "stateLevels": {},
+      "lifecycleStatuses": {},
+      "placeTypes": {}
+    },
+    "CR": {
+      "stateLevels": {
+        "1": 7
+      },
+      "lifecycleStatuses": {
+        "current": 7
+      },
+      "placeTypes": {
+        "administrative-area": 1,
+        "province": 6
+      }
+    },
+    "CI": {
+      "stateLevels": {
+        "1": 31
+      },
+      "lifecycleStatuses": {
+        "current": 13,
+        "review-required": 18
+      },
+      "placeTypes": {
+        "administrative-area": 12,
+        "district": 10,
+        "region": 9
+      }
+    },
+    "HR": {
+      "stateLevels": {
+        "1": 20
+      },
+      "lifecycleStatuses": {
+        "current": 19,
+        "review-required": 1
+      },
+      "placeTypes": {
+        "administrative-area": 1,
+        "county": 19
+      }
+    },
+    "CU": {
+      "stateLevels": {
+        "1": 16
+      },
+      "lifecycleStatuses": {
+        "current": 16
+      },
+      "placeTypes": {
+        "administrative-area": 1,
+        "province": 15
+      }
+    },
+    "CW": {
+      "stateLevels": {},
+      "lifecycleStatuses": {},
+      "placeTypes": {}
+    },
+    "CY": {
+      "stateLevels": {
+        "1": 6
+      },
+      "lifecycleStatuses": {
+        "current": 6
+      },
+      "placeTypes": {
+        "district": 6
+      }
+    },
+    "CZ": {
+      "stateLevels": {
+        "1": 90
+      },
+      "lifecycleStatuses": {
+        "current": 90
+      },
+      "placeTypes": {
+        "administrative-area": 90
+      }
+    },
+    "CD": {
+      "stateLevels": {
+        "1": 26
+      },
+      "lifecycleStatuses": {
+        "current": 26
+      },
+      "placeTypes": {
+        "administrative-area": 26
+      }
+    },
+    "DK": {
+      "stateLevels": {
+        "1": 5
+      },
+      "lifecycleStatuses": {
+        "current": 5
+      },
+      "placeTypes": {
+        "administrative-area": 3,
+        "region": 2
+      }
+    },
+    "DJ": {
+      "stateLevels": {
+        "1": 6
+      },
+      "lifecycleStatuses": {
+        "current": 6
+      },
+      "placeTypes": {
+        "administrative-area": 1,
+        "region": 5
+      }
+    },
+    "DM": {
+      "stateLevels": {
+        "1": 10
+      },
+      "lifecycleStatuses": {
+        "current": 10
+      },
+      "placeTypes": {
+        "administrative-area": 10
+      }
+    },
+    "DO": {
+      "stateLevels": {
+        "1": 31
+      },
+      "lifecycleStatuses": {
+        "current": 31
+      },
+      "placeTypes": {
+        "administrative-area": 3,
+        "province": 28
+      }
+    },
+    "TL": {
+      "stateLevels": {
+        "1": 12
+      },
+      "lifecycleStatuses": {
+        "current": 12
+      },
+      "placeTypes": {
+        "district": 2,
+        "municipality": 10
+      }
+    },
+    "EC": {
+      "stateLevels": {
+        "1": 24
+      },
+      "lifecycleStatuses": {
+        "current": 24
+      },
+      "placeTypes": {
+        "province": 24
+      }
+    },
+    "EG": {
+      "stateLevels": {
+        "1": 27
+      },
+      "lifecycleStatuses": {
+        "current": 27
+      },
+      "placeTypes": {
+        "governorate": 27
+      }
+    },
+    "SV": {
+      "stateLevels": {
+        "1": 14
+      },
+      "lifecycleStatuses": {
+        "current": 14
+      },
+      "placeTypes": {
+        "department": 14
+      }
+    },
+    "GQ": {
+      "stateLevels": {
+        "1": 9
+      },
+      "lifecycleStatuses": {
+        "current": 9
+      },
+      "placeTypes": {
+        "administrative-area": 1,
+        "province": 7,
+        "region": 1
+      }
+    },
+    "ER": {
+      "stateLevels": {
+        "1": 6
+      },
+      "lifecycleStatuses": {
+        "current": 6
+      },
+      "placeTypes": {
+        "region": 6
+      }
+    },
+    "EE": {
+      "stateLevels": {
+        "1": 15
+      },
+      "lifecycleStatuses": {
+        "current": 4,
+        "review-required": 11
+      },
+      "placeTypes": {
+        "county": 15
+      }
+    },
+    "ET": {
+      "stateLevels": {
+        "1": 11
+      },
+      "lifecycleStatuses": {
+        "current": 11
+      },
+      "placeTypes": {
+        "administrative-area": 2,
+        "region": 9
+      }
+    },
+    "FK": {
+      "stateLevels": {},
+      "lifecycleStatuses": {},
+      "placeTypes": {}
+    },
+    "FO": {
+      "stateLevels": {},
+      "lifecycleStatuses": {},
+      "placeTypes": {}
+    },
+    "FJ": {
+      "stateLevels": {
+        "1": 19
+      },
+      "lifecycleStatuses": {
+        "current": 19
+      },
+      "placeTypes": {
+        "administrative-area": 19
+      }
+    },
+    "FI": {
+      "stateLevels": {
+        "1": 21
+      },
+      "lifecycleStatuses": {
+        "current": 17,
+        "review-required": 4
+      },
+      "placeTypes": {
+        "administrative-area": 19,
+        "province": 2
+      }
+    },
+    "FR": {
+      "stateLevels": {
+        "1": 27,
+        "2": 96
+      },
+      "lifecycleStatuses": {
+        "current": 123
+      },
+      "placeTypes": {
+        "dependency": 1,
+        "european collectivity": 1,
+        "metropolitan collectivity with special status": 2,
+        "metropolitan department": 96,
+        "metropolitan region": 12,
+        "overseas collectivity": 5,
+        "overseas region": 5,
+        "overseas territory": 1
+      }
+    },
+    "GF": {
+      "stateLevels": {},
+      "lifecycleStatuses": {},
+      "placeTypes": {}
+    },
+    "PF": {
+      "stateLevels": {},
+      "lifecycleStatuses": {},
+      "placeTypes": {}
+    },
+    "TF": {
+      "stateLevels": {},
+      "lifecycleStatuses": {},
+      "placeTypes": {}
+    },
+    "GA": {
+      "stateLevels": {
+        "1": 9
+      },
+      "lifecycleStatuses": {
+        "current": 9
+      },
+      "placeTypes": {
+        "province": 9
+      }
+    },
+    "GM": {
+      "stateLevels": {
+        "1": 6
+      },
+      "lifecycleStatuses": {
+        "current": 6
+      },
+      "placeTypes": {
+        "administrative-area": 6
+      }
+    },
+    "GE": {
+      "stateLevels": {
+        "1": 14
+      },
+      "lifecycleStatuses": {
+        "current": 12,
+        "review-required": 2
+      },
+      "placeTypes": {
+        "administrative-area": 12,
+        "municipality": 2
+      }
+    },
+    "DE": {
+      "stateLevels": {
+        "1": 16
+      },
+      "lifecycleStatuses": {
+        "current": 16
+      },
+      "placeTypes": {
+        "administrative-area": 16
+      }
+    },
+    "GH": {
+      "stateLevels": {
+        "1": 16
+      },
+      "lifecycleStatuses": {
+        "current": 16
+      },
+      "placeTypes": {
+        "region": 16
+      }
+    },
+    "GI": {
+      "stateLevels": {},
+      "lifecycleStatuses": {},
+      "placeTypes": {}
+    },
+    "GR": {
+      "stateLevels": {
+        "1": 13,
+        "2": 25
+      },
+      "lifecycleStatuses": {
+        "current": 13,
+        "review-required": 25
+      },
+      "placeTypes": {
+        "administrative-area": 21,
+        "prefecture": 9,
+        "region": 8
+      }
+    },
+    "GL": {
+      "stateLevels": {},
+      "lifecycleStatuses": {},
+      "placeTypes": {}
+    },
+    "GD": {
+      "stateLevels": {
+        "1": 7
+      },
+      "lifecycleStatuses": {
+        "current": 7
+      },
+      "placeTypes": {
+        "administrative-area": 7
+      }
+    },
+    "GP": {
+      "stateLevels": {},
+      "lifecycleStatuses": {},
+      "placeTypes": {}
+    },
+    "GU": {
+      "stateLevels": {},
+      "lifecycleStatuses": {},
+      "placeTypes": {}
+    },
+    "GT": {
+      "stateLevels": {
+        "1": 21
+      },
+      "lifecycleStatuses": {
+        "review-required": 21
+      },
+      "placeTypes": {
+        "department": 21
+      }
+    },
+    "GG": {
+      "stateLevels": {},
+      "lifecycleStatuses": {},
+      "placeTypes": {}
+    },
+    "GN": {
+      "stateLevels": {
+        "1": 40
+      },
+      "lifecycleStatuses": {
+        "current": 40
+      },
+      "placeTypes": {
+        "administrative-area": 1,
+        "prefecture": 33,
+        "region": 6
+      }
+    },
+    "GW": {
+      "stateLevels": {
+        "1": 11
+      },
+      "lifecycleStatuses": {
+        "current": 11
+      },
+      "placeTypes": {
+        "administrative-area": 1,
+        "province": 3,
+        "region": 7
+      }
+    },
+    "GY": {
+      "stateLevels": {
+        "1": 10
+      },
+      "lifecycleStatuses": {
+        "current": 10
+      },
+      "placeTypes": {
+        "administrative-area": 10
+      }
+    },
+    "HT": {
+      "stateLevels": {
+        "1": 10
+      },
+      "lifecycleStatuses": {
+        "current": 10
+      },
+      "placeTypes": {
+        "administrative-area": 10
+      }
+    },
+    "HM": {
+      "stateLevels": {},
+      "lifecycleStatuses": {},
+      "placeTypes": {}
+    },
+    "HN": {
+      "stateLevels": {
+        "1": 18
+      },
+      "lifecycleStatuses": {
+        "current": 18
+      },
+      "placeTypes": {
+        "department": 18
+      }
+    },
+    "HK": {
+      "stateLevels": {
+        "1": 18
+      },
+      "lifecycleStatuses": {
+        "current": 18
+      },
+      "placeTypes": {
+        "administrative-area": 12,
+        "district": 6
+      }
+    },
+    "HU": {
+      "stateLevels": {
+        "1": 42
+      },
+      "lifecycleStatuses": {
+        "current": 42
+      },
+      "placeTypes": {
+        "administrative-area": 24,
+        "county": 18
+      }
+    },
+    "IS": {
+      "stateLevels": {
+        "1": 8
+      },
+      "lifecycleStatuses": {
+        "current": 8
+      },
+      "placeTypes": {
+        "administrative-area": 1,
+        "region": 7
+      }
+    },
+    "IN": {
+      "stateLevels": {
+        "1": 36
+      },
+      "lifecycleStatuses": {
+        "current": 35,
+        "review-required": 1
+      },
+      "placeTypes": {
+        "administrative-area": 36
+      }
+    },
+    "ID": {
+      "stateLevels": {
+        "1": 34
+      },
+      "lifecycleStatuses": {
+        "current": 34
+      },
+      "placeTypes": {
+        "administrative-area": 34
+      }
+    },
+    "IR": {
+      "stateLevels": {
+        "1": 31
+      },
+      "lifecycleStatuses": {
+        "current": 31
+      },
+      "placeTypes": {
+        "administrative-area": 1,
+        "province": 30
+      }
+    },
+    "IQ": {
+      "stateLevels": {
+        "1": 18
+      },
+      "lifecycleStatuses": {
+        "current": 18
+      },
+      "placeTypes": {
+        "governorate": 18
+      }
+    },
+    "IE": {
+      "stateLevels": {
+        "1": 29
+      },
+      "lifecycleStatuses": {
+        "current": 29
+      },
+      "placeTypes": {
+        "administrative-area": 29
+      }
+    },
+    "IL": {
+      "stateLevels": {
+        "1": 6
+      },
+      "lifecycleStatuses": {
+        "current": 6
+      },
+      "placeTypes": {
+        "district": 6
+      }
+    },
+    "IT": {
+      "stateLevels": {
+        "1": 26,
+        "2": 102
+      },
+      "lifecycleStatuses": {
+        "current": 124,
+        "review-required": 4
+      },
+      "placeTypes": {
+        "autonomous province": 2,
+        "autonomous region": 5,
+        "decentralized regional entity": 4,
+        "free municipal consortium": 6,
+        "metropolitan city": 14,
+        "province": 82,
+        "region": 15
+      }
+    },
+    "JM": {
+      "stateLevels": {
+        "1": 14
+      },
+      "lifecycleStatuses": {
+        "current": 14
+      },
+      "placeTypes": {
+        "administrative-area": 14
+      }
+    },
+    "JP": {
+      "stateLevels": {
+        "1": 47
+      },
+      "lifecycleStatuses": {
+        "current": 47
+      },
+      "placeTypes": {
+        "administrative-area": 1,
+        "prefecture": 46
+      }
+    },
+    "JE": {
+      "stateLevels": {},
+      "lifecycleStatuses": {},
+      "placeTypes": {}
+    },
+    "JO": {
+      "stateLevels": {
+        "1": 12
+      },
+      "lifecycleStatuses": {
+        "current": 12
+      },
+      "placeTypes": {
+        "governorate": 12
+      }
+    },
+    "KZ": {
+      "stateLevels": {
+        "1": 17
+      },
+      "lifecycleStatuses": {
+        "review-required": 17
+      },
+      "placeTypes": {
+        "administrative-area": 3,
+        "province": 1,
+        "region": 13
+      }
+    },
+    "KE": {
+      "stateLevels": {
+        "1": 47
+      },
+      "lifecycleStatuses": {
+        "current": 47
+      },
+      "placeTypes": {
+        "county": 47
+      }
+    },
+    "KI": {
+      "stateLevels": {
+        "1": 3
+      },
+      "lifecycleStatuses": {
+        "current": 3
+      },
+      "placeTypes": {
+        "administrative-area": 3
+      }
+    },
+    "XK": {
+      "stateLevels": {
+        "1": 7
+      },
+      "lifecycleStatuses": {
+        "current": 5,
+        "review-required": 2
+      },
+      "placeTypes": {
+        "administrative-area": 3,
+        "district": 4
+      }
+    },
+    "KW": {
+      "stateLevels": {
+        "1": 6
+      },
+      "lifecycleStatuses": {
+        "current": 6
+      },
+      "placeTypes": {
+        "governorate": 6
+      }
+    },
+    "KG": {
+      "stateLevels": {
+        "1": 9
+      },
+      "lifecycleStatuses": {
+        "current": 9
+      },
+      "placeTypes": {
+        "administrative-area": 2,
+        "region": 7
+      }
+    },
+    "LA": {
+      "stateLevels": {
+        "1": 19
+      },
+      "lifecycleStatuses": {
+        "current": 18,
+        "review-required": 1
+      },
+      "placeTypes": {
+        "administrative-area": 1,
+        "prefecture": 1,
+        "province": 17
+      }
+    },
+    "LV": {
+      "stateLevels": {
+        "1": 118
+      },
+      "lifecycleStatuses": {
+        "current": 39,
+        "review-required": 79
+      },
+      "placeTypes": {
+        "administrative-area": 9,
+        "municipality": 109
+      }
+    },
+    "LB": {
+      "stateLevels": {
+        "1": 8
+      },
+      "lifecycleStatuses": {
+        "current": 8
+      },
+      "placeTypes": {
+        "governorate": 8
+      }
+    },
+    "LS": {
+      "stateLevels": {
+        "1": 10
+      },
+      "lifecycleStatuses": {
+        "current": 10
+      },
+      "placeTypes": {
+        "district": 10
+      }
+    },
+    "LR": {
+      "stateLevels": {
+        "1": 15
+      },
+      "lifecycleStatuses": {
+        "current": 15
+      },
+      "placeTypes": {
+        "administrative-area": 1,
+        "county": 14
+      }
+    },
+    "LY": {
+      "stateLevels": {
+        "1": 21
+      },
+      "lifecycleStatuses": {
+        "current": 21
+      },
+      "placeTypes": {
+        "administrative-area": 6,
+        "district": 15
+      }
+    },
+    "LI": {
+      "stateLevels": {
+        "1": 11
+      },
+      "lifecycleStatuses": {
+        "current": 11
+      },
+      "placeTypes": {
+        "administrative-area": 11
+      }
+    },
+    "LT": {
+      "stateLevels": {
+        "1": 69
+      },
+      "lifecycleStatuses": {
+        "current": 69
+      },
+      "placeTypes": {
+        "county": 10,
+        "municipality": 59
+      }
+    },
+    "LU": {
+      "stateLevels": {
+        "1": 15
+      },
+      "lifecycleStatuses": {
+        "current": 12,
+        "review-required": 3
+      },
+      "placeTypes": {
+        "administrative-area": 12,
+        "district": 3
+      }
+    },
+    "MO": {
+      "stateLevels": {},
+      "lifecycleStatuses": {},
+      "placeTypes": {}
+    },
+    "MK": {
+      "stateLevels": {
+        "1": 84
+      },
+      "lifecycleStatuses": {
+        "review-required": 84
+      },
+      "placeTypes": {
+        "administrative-area": 2,
+        "municipality": 82
+      }
+    },
+    "MG": {
+      "stateLevels": {
+        "1": 6
+      },
+      "lifecycleStatuses": {
+        "current": 6
+      },
+      "placeTypes": {
+        "province": 6
+      }
+    },
+    "MW": {
+      "stateLevels": {
+        "1": 30
+      },
+      "lifecycleStatuses": {
+        "current": 30
+      },
+      "placeTypes": {
+        "district": 27,
+        "region": 3
+      }
+    },
+    "MY": {
+      "stateLevels": {
+        "1": 16
+      },
+      "lifecycleStatuses": {
+        "current": 16
+      },
+      "placeTypes": {
+        "administrative-area": 16
+      }
+    },
+    "MV": {
+      "stateLevels": {
+        "1": 26
+      },
+      "lifecycleStatuses": {
+        "current": 20,
+        "review-required": 6
+      },
+      "placeTypes": {
+        "administrative-area": 20,
+        "province": 6
+      }
+    },
+    "ML": {
+      "stateLevels": {
+        "1": 11
+      },
+      "lifecycleStatuses": {
+        "current": 11
+      },
+      "placeTypes": {
+        "administrative-area": 1,
+        "region": 10
+      }
+    },
+    "MT": {
+      "stateLevels": {
+        "1": 67
+      },
+      "lifecycleStatuses": {
+        "current": 67
+      },
+      "placeTypes": {
+        "administrative-area": 67
+      }
+    },
+    "IM": {
+      "stateLevels": {},
+      "lifecycleStatuses": {},
+      "placeTypes": {}
+    },
+    "MH": {
+      "stateLevels": {
+        "1": 2
+      },
+      "lifecycleStatuses": {
+        "current": 2
+      },
+      "placeTypes": {
+        "administrative-area": 2
+      }
+    },
+    "MQ": {
+      "stateLevels": {},
+      "lifecycleStatuses": {},
+      "placeTypes": {}
+    },
+    "MR": {
+      "stateLevels": {
+        "1": 15
+      },
+      "lifecycleStatuses": {
+        "current": 15
+      },
+      "placeTypes": {
+        "administrative-area": 1,
+        "region": 14
+      }
+    },
+    "MU": {
+      "stateLevels": {
+        "1": 17
+      },
+      "lifecycleStatuses": {
+        "current": 12,
+        "review-required": 5
+      },
+      "placeTypes": {
+        "administrative-area": 8,
+        "district": 9
+      }
+    },
+    "YT": {
+      "stateLevels": {},
+      "lifecycleStatuses": {},
+      "placeTypes": {}
+    },
+    "MX": {
+      "stateLevels": {
+        "1": 32
+      },
+      "lifecycleStatuses": {
+        "current": 32
+      },
+      "placeTypes": {
+        "administrative-area": 32
+      }
+    },
+    "FM": {
+      "stateLevels": {
+        "1": 4
+      },
+      "lifecycleStatuses": {
+        "current": 4
+      },
+      "placeTypes": {
+        "administrative-area": 4
+      }
+    },
+    "MD": {
+      "stateLevels": {
+        "1": 36
+      },
+      "lifecycleStatuses": {
+        "current": 36
+      },
+      "placeTypes": {
+        "administrative-area": 2,
+        "district": 31,
+        "municipality": 3
+      }
+    },
+    "MC": {
+      "stateLevels": {
+        "1": 3
+      },
+      "lifecycleStatuses": {
+        "current": 3
+      },
+      "placeTypes": {
+        "administrative-area": 3
+      }
+    },
+    "MN": {
+      "stateLevels": {
+        "1": 21
+      },
+      "lifecycleStatuses": {
+        "current": 21
+      },
+      "placeTypes": {
+        "province": 21
+      }
+    },
+    "ME": {
+      "stateLevels": {
+        "1": 22
+      },
+      "lifecycleStatuses": {
+        "current": 22
+      },
+      "placeTypes": {
+        "administrative-area": 1,
+        "municipality": 21
+      }
+    },
+    "MS": {
+      "stateLevels": {},
+      "lifecycleStatuses": {},
+      "placeTypes": {}
+    },
+    "MA": {
+      "stateLevels": {
+        "1": 87
+      },
+      "lifecycleStatuses": {
+        "current": 87
+      },
+      "placeTypes": {
+        "administrative-area": 87
+      }
+    },
+    "MZ": {
+      "stateLevels": {
+        "1": 11
+      },
+      "lifecycleStatuses": {
+        "current": 11
+      },
+      "placeTypes": {
+        "administrative-area": 1,
+        "province": 10
+      }
+    },
+    "MM": {
+      "stateLevels": {
+        "1": 15
+      },
+      "lifecycleStatuses": {
+        "current": 15
+      },
+      "placeTypes": {
+        "administrative-area": 8,
+        "region": 6,
+        "territory": 1
+      }
+    },
+    "NA": {
+      "stateLevels": {
+        "1": 14
+      },
+      "lifecycleStatuses": {
+        "current": 14
+      },
+      "placeTypes": {
+        "region": 14
+      }
+    },
+    "NR": {
+      "stateLevels": {
+        "1": 14
+      },
+      "lifecycleStatuses": {
+        "current": 14
+      },
+      "placeTypes": {
+        "district": 14
+      }
+    },
+    "NP": {
+      "stateLevels": {
+        "1": 5,
+        "2": 14
+      },
+      "lifecycleStatuses": {
+        "review-required": 19
+      },
+      "placeTypes": {
+        "administrative-area": 14,
+        "region": 5
+      }
+    },
+    "NL": {
+      "stateLevels": {
+        "1": 15
+      },
+      "lifecycleStatuses": {
+        "current": 12,
+        "review-required": 3
+      },
+      "placeTypes": {
+        "administrative-area": 15
+      }
+    },
+    "NC": {
+      "stateLevels": {},
+      "lifecycleStatuses": {},
+      "placeTypes": {}
+    },
+    "NZ": {
+      "stateLevels": {
+        "1": 17
+      },
+      "lifecycleStatuses": {
+        "current": 17
+      },
+      "placeTypes": {
+        "administrative-area": 1,
+        "district": 2,
+        "region": 14
+      }
+    },
+    "NI": {
+      "stateLevels": {
+        "1": 17
+      },
+      "lifecycleStatuses": {
+        "current": 17
+      },
+      "placeTypes": {
+        "autonomous region": 2,
+        "department": 15
+      }
+    },
+    "NE": {
+      "stateLevels": {
+        "1": 7
+      },
+      "lifecycleStatuses": {
+        "current": 7
+      },
+      "placeTypes": {
+        "region": 7
+      }
+    },
+    "NG": {
+      "stateLevels": {
+        "1": 37
+      },
+      "lifecycleStatuses": {
+        "current": 37
+      },
+      "placeTypes": {
+        "capital territory": 1,
+        "state": 36
+      }
+    },
+    "NU": {
+      "stateLevels": {},
+      "lifecycleStatuses": {},
+      "placeTypes": {}
+    },
+    "NF": {
+      "stateLevels": {},
+      "lifecycleStatuses": {},
+      "placeTypes": {}
+    },
+    "KP": {
+      "stateLevels": {
+        "1": 11
+      },
+      "lifecycleStatuses": {
+        "current": 11
+      },
+      "placeTypes": {
+        "administrative-area": 2,
+        "province": 9
+      }
+    },
+    "MP": {
+      "stateLevels": {},
+      "lifecycleStatuses": {},
+      "placeTypes": {}
+    },
+    "NO": {
+      "stateLevels": {
+        "1": 21
+      },
+      "lifecycleStatuses": {
+        "current": 7,
+        "review-required": 14
+      },
+      "placeTypes": {
+        "administrative-area": 21
+      }
+    },
+    "OM": {
+      "stateLevels": {
+        "1": 13
+      },
+      "lifecycleStatuses": {
+        "current": 11,
+        "review-required": 2
+      },
+      "placeTypes": {
+        "governorate": 11,
+        "region": 2
+      }
+    },
+    "PK": {
+      "stateLevels": {
+        "1": 8
+      },
+      "lifecycleStatuses": {
+        "current": 7,
+        "review-required": 1
+      },
+      "placeTypes": {
+        "administrative-area": 7,
+        "territory": 1
+      }
+    },
+    "PW": {
+      "stateLevels": {
+        "1": 16
+      },
+      "lifecycleStatuses": {
+        "current": 16
+      },
+      "placeTypes": {
+        "administrative-area": 16
+      }
+    },
+    "PS": {
+      "stateLevels": {},
+      "lifecycleStatuses": {},
+      "placeTypes": {}
+    },
+    "PA": {
+      "stateLevels": {
+        "1": 13
+      },
+      "lifecycleStatuses": {
+        "current": 13
+      },
+      "placeTypes": {
+        "administrative-area": 3,
+        "province": 10
+      }
+    },
+    "PG": {
+      "stateLevels": {
+        "1": 21
+      },
+      "lifecycleStatuses": {
+        "current": 21
+      },
+      "placeTypes": {
+        "administrative-area": 5,
+        "province": 16
+      }
+    },
+    "PY": {
+      "stateLevels": {
+        "1": 17
+      },
+      "lifecycleStatuses": {
+        "current": 17
+      },
+      "placeTypes": {
+        "administrative-area": 4,
+        "department": 13
+      }
+    },
+    "PE": {
+      "stateLevels": {
+        "1": 25
+      },
+      "lifecycleStatuses": {
+        "current": 25
+      },
+      "placeTypes": {
+        "administrative-area": 25
+      }
+    },
+    "PH": {
+      "stateLevels": {
+        "1": 97
+      },
+      "lifecycleStatuses": {
+        "current": 95,
+        "review-required": 2
+      },
+      "placeTypes": {
+        "administrative-area": 92,
+        "province": 1,
+        "region": 4
+      }
+    },
+    "PN": {
+      "stateLevels": {},
+      "lifecycleStatuses": {},
+      "placeTypes": {}
+    },
+    "PL": {
+      "stateLevels": {
+        "1": 16
+      },
+      "lifecycleStatuses": {
+        "review-required": 16
+      },
+      "placeTypes": {
+        "administrative-area": 16
+      }
+    },
+    "PT": {
+      "stateLevels": {
+        "1": 20
+      },
+      "lifecycleStatuses": {
+        "current": 20
+      },
+      "placeTypes": {
+        "administrative-area": 20
+      }
+    },
+    "PR": {
+      "stateLevels": {},
+      "lifecycleStatuses": {},
+      "placeTypes": {}
+    },
+    "QA": {
+      "stateLevels": {
+        "1": 8
+      },
+      "lifecycleStatuses": {
+        "current": 8
+      },
+      "placeTypes": {
+        "administrative-area": 6,
+        "municipality": 2
+      }
+    },
+    "RE": {
+      "stateLevels": {},
+      "lifecycleStatuses": {},
+      "placeTypes": {}
+    },
+    "RO": {
+      "stateLevels": {
+        "1": 42
+      },
+      "lifecycleStatuses": {
+        "current": 42
+      },
+      "placeTypes": {
+        "administrative-area": 4,
+        "county": 38
+      }
+    },
+    "RU": {
+      "stateLevels": {
+        "1": 84
+      },
+      "lifecycleStatuses": {
+        "current": 83,
+        "review-required": 1
+      },
+      "placeTypes": {
+        "administrative-area": 84
+      }
+    },
+    "RW": {
+      "stateLevels": {
+        "1": 5
+      },
+      "lifecycleStatuses": {
+        "current": 5
+      },
+      "placeTypes": {
+        "district": 1,
+        "province": 4
+      }
+    },
+    "SH": {
+      "stateLevels": {},
+      "lifecycleStatuses": {},
+      "placeTypes": {}
+    },
+    "KN": {
+      "stateLevels": {
+        "1": 15
+      },
+      "lifecycleStatuses": {
+        "current": 15
+      },
+      "placeTypes": {
+        "administrative-area": 15
+      }
+    },
+    "LC": {
+      "stateLevels": {
+        "1": 12
+      },
+      "lifecycleStatuses": {
+        "current": 10,
+        "review-required": 2
+      },
+      "placeTypes": {
+        "administrative-area": 12
+      }
+    },
+    "PM": {
+      "stateLevels": {},
+      "lifecycleStatuses": {},
+      "placeTypes": {}
+    },
+    "VC": {
+      "stateLevels": {
+        "1": 6
+      },
+      "lifecycleStatuses": {
+        "current": 6
+      },
+      "placeTypes": {
+        "administrative-area": 6
+      }
+    },
+    "BL": {
+      "stateLevels": {},
+      "lifecycleStatuses": {},
+      "placeTypes": {}
+    },
+    "MF": {
+      "stateLevels": {},
+      "lifecycleStatuses": {},
+      "placeTypes": {}
+    },
+    "WS": {
+      "stateLevels": {
+        "1": 11
+      },
+      "lifecycleStatuses": {
+        "current": 11
+      },
+      "placeTypes": {
+        "administrative-area": 11
+      }
+    },
+    "SM": {
+      "stateLevels": {
+        "1": 9
+      },
+      "lifecycleStatuses": {
+        "current": 9
+      },
+      "placeTypes": {
+        "administrative-area": 9
+      }
+    },
+    "ST": {
+      "stateLevels": {
+        "1": 2
+      },
+      "lifecycleStatuses": {
+        "current": 1,
+        "review-required": 1
+      },
+      "placeTypes": {
+        "province": 2
+      }
+    },
+    "SA": {
+      "stateLevels": {
+        "1": 13
+      },
+      "lifecycleStatuses": {
+        "current": 13
+      },
+      "placeTypes": {
+        "administrative-area": 12,
+        "province": 1
+      }
+    },
+    "SN": {
+      "stateLevels": {
+        "1": 14
+      },
+      "lifecycleStatuses": {
+        "current": 14
+      },
+      "placeTypes": {
+        "administrative-area": 11,
+        "region": 3
+      }
+    },
+    "RS": {
+      "stateLevels": {
+        "1": 26
+      },
+      "lifecycleStatuses": {
+        "current": 26
+      },
+      "placeTypes": {
+        "administrative-area": 2,
+        "district": 24
+      }
+    },
+    "SC": {
+      "stateLevels": {
+        "1": 24
+      },
+      "lifecycleStatuses": {
+        "current": 24
+      },
+      "placeTypes": {
+        "administrative-area": 24
+      }
+    },
+    "SL": {
+      "stateLevels": {
+        "1": 4
+      },
+      "lifecycleStatuses": {
+        "current": 4
+      },
+      "placeTypes": {
+        "administrative-area": 1,
+        "province": 3
+      }
+    },
+    "SG": {
+      "stateLevels": {
+        "1": 5
+      },
+      "lifecycleStatuses": {
+        "current": 5
+      },
+      "placeTypes": {
+        "administrative-area": 5
+      }
+    },
+    "SX": {
+      "stateLevels": {},
+      "lifecycleStatuses": {},
+      "placeTypes": {}
+    },
+    "SK": {
+      "stateLevels": {
+        "1": 8
+      },
+      "lifecycleStatuses": {
+        "current": 8
+      },
+      "placeTypes": {
+        "region": 8
+      }
+    },
+    "SI": {
+      "stateLevels": {
+        "1": 211
+      },
+      "lifecycleStatuses": {
+        "current": 211
+      },
+      "placeTypes": {
+        "administrative-area": 10,
+        "municipality": 201
+      }
+    },
+    "SB": {
+      "stateLevels": {
+        "1": 10
+      },
+      "lifecycleStatuses": {
+        "current": 10
+      },
+      "placeTypes": {
+        "administrative-area": 1,
+        "province": 9
+      }
+    },
+    "SO": {
+      "stateLevels": {
+        "1": 16
+      },
+      "lifecycleStatuses": {
+        "current": 16
+      },
+      "placeTypes": {
+        "administrative-area": 13,
+        "region": 3
+      }
+    },
+    "ZA": {
+      "stateLevels": {
+        "1": 9
+      },
+      "lifecycleStatuses": {
+        "current": 9
+      },
+      "placeTypes": {
+        "administrative-area": 9
+      }
+    },
+    "GS": {
+      "stateLevels": {},
+      "lifecycleStatuses": {},
+      "placeTypes": {}
+    },
+    "KR": {
+      "stateLevels": {
+        "1": 17
+      },
+      "lifecycleStatuses": {
+        "current": 17
+      },
+      "placeTypes": {
+        "administrative-area": 9,
+        "province": 8
+      }
+    },
+    "SS": {
+      "stateLevels": {
+        "1": 10
+      },
+      "lifecycleStatuses": {
+        "current": 10
+      },
+      "placeTypes": {
+        "administrative-area": 10
+      }
+    },
+    "ES": {
+      "stateLevels": {
+        "1": 28
+      },
+      "lifecycleStatuses": {
+        "current": 28
+      },
+      "placeTypes": {
+        "administrative-area": 21,
+        "province": 7
+      }
+    },
+    "LK": {
+      "stateLevels": {
+        "1": 33
+      },
+      "lifecycleStatuses": {
+        "current": 33
+      },
+      "placeTypes": {
+        "district": 24,
+        "province": 9
+      }
+    },
+    "SD": {
+      "stateLevels": {
+        "1": 18
+      },
+      "lifecycleStatuses": {
+        "current": 18
+      },
+      "placeTypes": {
+        "administrative-area": 18
+      }
+    },
+    "SR": {
+      "stateLevels": {
+        "1": 10
+      },
+      "lifecycleStatuses": {
+        "current": 10
+      },
+      "placeTypes": {
+        "district": 10
+      }
+    },
+    "SJ": {
+      "stateLevels": {},
+      "lifecycleStatuses": {},
+      "placeTypes": {}
+    },
+    "SZ": {
+      "stateLevels": {
+        "1": 4
+      },
+      "lifecycleStatuses": {
+        "current": 4
+      },
+      "placeTypes": {
+        "district": 4
+      }
+    },
+    "SE": {
+      "stateLevels": {
+        "1": 20
+      },
+      "lifecycleStatuses": {
+        "current": 20
+      },
+      "placeTypes": {
+        "administrative-area": 1,
+        "county": 19
+      }
+    },
+    "CH": {
+      "stateLevels": {
+        "1": 26
+      },
+      "lifecycleStatuses": {
+        "current": 26
+      },
+      "placeTypes": {
+        "canton": 26
+      }
+    },
+    "SY": {
+      "stateLevels": {
+        "1": 14
+      },
+      "lifecycleStatuses": {
+        "current": 14
+      },
+      "placeTypes": {
+        "governorate": 14
+      }
+    },
+    "TW": {
+      "stateLevels": {
+        "1": 22
+      },
+      "lifecycleStatuses": {
+        "current": 22
+      },
+      "placeTypes": {
+        "city": 3,
+        "county": 13,
+        "special municipality": 6
+      }
+    },
+    "TJ": {
+      "stateLevels": {
+        "1": 4
+      },
+      "lifecycleStatuses": {
+        "current": 4
+      },
+      "placeTypes": {
+        "administrative-area": 1,
+        "province": 3
+      }
+    },
+    "TZ": {
+      "stateLevels": {
+        "1": 31
+      },
+      "lifecycleStatuses": {
+        "current": 31
+      },
+      "placeTypes": {
+        "region": 31
+      }
+    },
+    "TH": {
+      "stateLevels": {
+        "1": 78
+      },
+      "lifecycleStatuses": {
+        "current": 78
+      },
+      "placeTypes": {
+        "administrative-area": 78
+      }
+    },
+    "TG": {
+      "stateLevels": {
+        "1": 5
+      },
+      "lifecycleStatuses": {
+        "current": 5
+      },
+      "placeTypes": {
+        "administrative-area": 1,
+        "region": 4
+      }
+    },
+    "TK": {
+      "stateLevels": {},
+      "lifecycleStatuses": {},
+      "placeTypes": {}
+    },
+    "TO": {
+      "stateLevels": {
+        "1": 5
+      },
+      "lifecycleStatuses": {
+        "current": 5
+      },
+      "placeTypes": {
+        "administrative-area": 5
+      }
+    },
+    "TT": {
+      "stateLevels": {
+        "1": 16
+      },
+      "lifecycleStatuses": {
+        "current": 16
+      },
+      "placeTypes": {
+        "administrative-area": 16
+      }
+    },
+    "TN": {
+      "stateLevels": {
+        "1": 23
+      },
+      "lifecycleStatuses": {
+        "current": 23
+      },
+      "placeTypes": {
+        "administrative-area": 1,
+        "governorate": 22
+      }
+    },
+    "TR": {
+      "stateLevels": {
+        "1": 81
+      },
+      "lifecycleStatuses": {
+        "current": 81
+      },
+      "placeTypes": {
+        "province": 81
+      }
+    },
+    "TM": {
+      "stateLevels": {
+        "1": 6
+      },
+      "lifecycleStatuses": {
+        "current": 6
+      },
+      "placeTypes": {
+        "administrative-area": 1,
+        "region": 5
+      }
+    },
+    "TC": {
+      "stateLevels": {},
+      "lifecycleStatuses": {},
+      "placeTypes": {}
+    },
+    "TV": {
+      "stateLevels": {
+        "1": 8
+      },
+      "lifecycleStatuses": {
+        "current": 8
+      },
+      "placeTypes": {
+        "administrative-area": 8
+      }
+    },
+    "UG": {
+      "stateLevels": {
+        "1": 125
+      },
+      "lifecycleStatuses": {
+        "current": 125
+      },
+      "placeTypes": {
+        "district": 121,
+        "region": 4
+      }
+    },
+    "UA": {
+      "stateLevels": {
+        "1": 25
+      },
+      "lifecycleStatuses": {
+        "current": 25
+      },
+      "placeTypes": {
+        "administrative-area": 25
+      }
+    },
+    "AE": {
+      "stateLevels": {
+        "1": 7
+      },
+      "lifecycleStatuses": {
+        "current": 7
+      },
+      "placeTypes": {
+        "administrative-area": 7
+      }
+    },
+    "GB": {
+      "stateLevels": {
+        "2": 247
+      },
+      "lifecycleStatuses": {
+        "current": 216,
+        "review-required": 31
+      },
+      "placeTypes": {
+        "administrative-area": 246,
+        "district": 1
+      }
+    },
+    "US": {
+      "stateLevels": {
+        "1": 66
+      },
+      "lifecycleStatuses": {
+        "current": 57,
+        "review-required": 9
+      },
+      "placeTypes": {
+        "administrative-area": 66
+      }
+    },
+    "UM": {
+      "stateLevels": {},
+      "lifecycleStatuses": {},
+      "placeTypes": {}
+    },
+    "UY": {
+      "stateLevels": {
+        "1": 19
+      },
+      "lifecycleStatuses": {
+        "current": 19
+      },
+      "placeTypes": {
+        "department": 19
+      }
+    },
+    "UZ": {
+      "stateLevels": {
+        "1": 14
+      },
+      "lifecycleStatuses": {
+        "current": 14
+      },
+      "placeTypes": {
+        "administrative-area": 2,
+        "region": 12
+      }
+    },
+    "VU": {
+      "stateLevels": {
+        "1": 6
+      },
+      "lifecycleStatuses": {
+        "current": 6
+      },
+      "placeTypes": {
+        "administrative-area": 6
+      }
+    },
+    "VA": {
+      "stateLevels": {},
+      "lifecycleStatuses": {},
+      "placeTypes": {}
+    },
+    "VE": {
+      "stateLevels": {
+        "1": 25
+      },
+      "lifecycleStatuses": {
+        "current": 25
+      },
+      "placeTypes": {
+        "capital district": 1,
+        "federal dependency": 1,
+        "state": 23
+      }
+    },
+    "VN": {
+      "stateLevels": {
+        "1": 63
+      },
+      "lifecycleStatuses": {
+        "current": 34,
+        "review-required": 29
+      },
+      "placeTypes": {
+        "administrative-area": 63
+      }
+    },
+    "VG": {
+      "stateLevels": {},
+      "lifecycleStatuses": {},
+      "placeTypes": {}
+    },
+    "VI": {
+      "stateLevels": {},
+      "lifecycleStatuses": {},
+      "placeTypes": {}
+    },
+    "WF": {
+      "stateLevels": {},
+      "lifecycleStatuses": {},
+      "placeTypes": {}
+    },
+    "EH": {
+      "stateLevels": {},
+      "lifecycleStatuses": {},
+      "placeTypes": {}
+    },
+    "YE": {
+      "stateLevels": {
+        "1": 21
+      },
+      "lifecycleStatuses": {
+        "current": 21
+      },
+      "placeTypes": {
+        "administrative-area": 1,
+        "governorate": 20
+      }
+    },
+    "ZM": {
+      "stateLevels": {
+        "1": 10
+      },
+      "lifecycleStatuses": {
+        "current": 10
+      },
+      "placeTypes": {
+        "province": 10
+      }
+    },
+    "ZW": {
+      "stateLevels": {
+        "1": 10
+      },
+      "lifecycleStatuses": {
+        "current": 10
+      },
+      "placeTypes": {
+        "administrative-area": 1,
+        "province": 9
+      }
+    }
+  }
+}

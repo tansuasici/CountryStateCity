@@ -1,0 +1,138 @@
+{
+  "scope": {
+    "countries": 250,
+    "states": 4963,
+    "cities": 147739,
+    "optimizedCities": 147739
+  },
+  "identity": {
+    "duplicateCountryIdGroups": 0,
+    "duplicateStateIdGroups": 0,
+    "duplicateCityIdGroups": 0,
+    "duplicateCityIds": {},
+    "exactDuplicateCityEntities": []
+  },
+  "referentialIntegrity": {
+    "orphanStates": 0,
+    "orphanCityCountries": 0,
+    "orphanCityStates": 0,
+    "cityDenormalizedMismatchTotal": 617,
+    "cityDenormalizedMismatchByField": {
+      "countryName": 235,
+      "stateCode": 233,
+      "stateName": 149
+    },
+    "stateCountryNameMismatches": 75
+  },
+  "coverage": {
+    "countriesWithoutStates": 53,
+    "countriesWithoutCities": 58,
+    "statesWithoutCities": 1532,
+    "statesWithoutCoordinates": 56,
+    "countriesWithZeroZeroCoordinates": [
+      "UM"
+    ]
+  },
+  "wikidata": {
+    "missingQids": 34,
+    "invalidQidFormat": 0,
+    "distinctNonemptyQids": 108753,
+    "duplicateQidGroups": 19879,
+    "rowsInDuplicateQidGroups": 58831,
+    "crossStateDuplicateQidGroups": 17520,
+    "crossCountryDuplicateQidGroups": 45,
+    "maxQidMultiplicity": 115
+  },
+  "schema": {
+    "stateTypeNulls": 4272,
+    "stateTypeRawDistinct": 33,
+    "stateTypeNormalizedDistinct": 29,
+    "translationKeySets": 6
+  },
+  "naming": {
+    "nameHygiene": {
+      "countries": {
+        "outerWhitespace": 0,
+        "repeatedWhitespace": 0,
+        "controlCharacters": 0,
+        "replacementCharacters": 0
+      },
+      "states": {
+        "outerWhitespace": 6,
+        "repeatedWhitespace": 0,
+        "controlCharacters": 6,
+        "replacementCharacters": 0
+      },
+      "cities": {
+        "outerWhitespace": 1,
+        "repeatedWhitespace": 12,
+        "controlCharacters": 0,
+        "replacementCharacters": 0
+      }
+    },
+    "normalizedDuplicateStateNameGroupsWithinCountry": 2,
+    "normalizedDuplicateCityNameGroupsWithinState": 0,
+    "displayMetadata": {
+      "sourceRelease": "v3.2-export.7",
+      "sourceRevision": "624a208c3928937d1262ab1646d0b8fc9cacceee",
+      "metadataSubdivisions": 5308,
+      "localSubdivisionsMatchedByCode": 4487,
+      "localSubdivisionsNotInCurrentSource": 476,
+      "currentSourceSubdivisionsNotInLocalData": 821,
+      "displayNameChanges": 2632,
+      "typeCoverageBefore": 691,
+      "typeCoverageAfter": 4798,
+      "typeUnresolvedAfter": 165,
+      "resolutionSourceCounts": {
+        "verified": 4487,
+        "source": 4,
+        "inferred": 307,
+        "unknown": 165
+      }
+    },
+    "countryDisplay": {
+      "metadataRows": 250,
+      "displayNameChanges": 36,
+      "locale": "en",
+      "standard": "ECMA-402 Intl.DisplayNames"
+    },
+    "cityEntityType": {
+      "available": false,
+      "affectedRows": 147739,
+      "explicitAdministrativeSuffixRows": 3801,
+      "untypedRowsAfterSafeInference": 143938,
+      "displayNameChanges": 3814,
+      "inferredTypeCounts": {
+        "county": 3022,
+        "district": 406,
+        "municipality": 131,
+        "parish": 64,
+        "district municipality": 46,
+        "province": 36,
+        "prefecture": 24,
+        "borough": 20,
+        "department": 18,
+        "oblast": 8,
+        "division": 7,
+        "region": 6,
+        "canton": 6,
+        "ward": 2,
+        "territory": 2,
+        "state": 1,
+        "capital district": 1,
+        "republic": 1
+      },
+      "note": "The source city schema has no feature/entity type. Only categories explicitly present as a name suffix are separated; other rows cannot safely be labelled city, town, village, or district."
+    }
+  },
+  "timezones": {
+    "entries": 428,
+    "invalidIanaZoneNames": [],
+    "note": "gmtOffset is a static snapshot and can be wrong during daylight-saving changes; zoneName is authoritative."
+  },
+  "optimizedParity": {
+    "identityMismatches": 0,
+    "rowsWithRoundedCoordinates": 139485,
+    "maxRoundingErrorMeters": 7.863
+  }
+}

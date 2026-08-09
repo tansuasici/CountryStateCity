@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "verifiedAt": "2026-08-08",
+  "counts": {
+    "states": 4963,
+    "coordinatesChanged": 4680,
+    "baselineMajorOutliers": 317,
+    "reviewedMajorOutliers": 317,
+    "exceptions": 51
+  },
+  "coordinateTypes": {
+    "child-place-median": 8,
+    "point-on-surface": 4088,
+    "source-point-unspecified": 818,
+    "unavailable": 49
+  },
+  "unresolvedMajorOutliers": 0
+}

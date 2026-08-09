@@ -1,0 +1,68 @@
+{
+  "sourceRelease": "v3.2-export.7",
+  "entities": {
+    "countries": {
+      "counts": {
+        "before": 250,
+        "after": 250,
+        "added": 0,
+        "removed": 0,
+        "changed": 250
+      },
+      "changedFieldCounts": {
+        "capital": 3,
+        "currency": 6,
+        "currencyName": 10,
+        "currencySymbol": 9,
+        "latitude": 1,
+        "longitude": 1,
+        "name": 21,
+        "native": 3,
+        "phoneCode": 26,
+        "subregion": 2,
+        "timezones": 14,
+        "translations": 250
+      }
+    },
+    "states": {
+      "counts": {
+        "before": 4963,
+        "after": 5308,
+        "added": 744,
+        "removed": 399,
+        "changed": 4532
+      },
+      "changedFieldCounts": {
+        "countryCode": 2,
+        "countryId": 1,
+        "countryName": 213,
+        "latitude": 3637,
+        "longitude": 3637,
+        "name": 2404,
+        "stateCode": 181,
+        "type": 3939
+      }
+    },
+    "cities": {
+      "counts": {
+        "before": 147739,
+        "after": 152970,
+        "added": 12620,
+        "removed": 7389,
+        "changed": 68960
+      },
+      "changedFieldCounts": {
+        "countryCode": 17,
+        "countryId": 17,
+        "countryName": 661,
+        "latitude": 2134,
+        "longitude": 2134,
+        "name": 2111,
+        "stateCode": 34762,
+        "stateId": 29034,
+        "stateName": 65650,
+        "wikiDataId": 8405
+      }
+    }
+  }
+}

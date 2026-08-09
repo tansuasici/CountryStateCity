@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 1,
+  "namespace": "csc",
+  "publicId": {
+    "format": "csc:{entity}:{legacyNumericId}",
+    "entities": ["country", "state", "city", "district"],
+    "immutable": true,
+    "reuseAllowed": false,
+    "note": "The existing numeric ID is retained as a legacy component, but an upstream source ID is never treated as authority for public identity."
+  },
+  "sourceIdentity": {
+    "fields": ["sourceId", "sourceRelease", "sourceRevision"],
+    "mutable": true,
+    "note": "A source ID may change between upstream releases without changing the CSC public ID."
+  },
+  "matching": {
+    "country": ["iso2"],
+    "state": ["countryCode", "stateCode", "normalizedName", "coordinates"],
+    "city": [
+      "countryCode",
+      "normalizedNameOrAlias",
+      "coordinates",
+      "spatiallyPlausibleUniqueExternalId"
+    ],
+    "district": ["countryCode", "stateCode", "normalizedNameOrAlias", "geoNameId"],
+    "externalIdPolicy": "An external ID is corroborating evidence only when unique in scope and spatially plausible."
+  },
+  "migrationEvents": {
+    "allowed": [
+      "rename",
+      "move",
+      "delete",
+      "merge",
+      "split",
+      "source-id-change",
+      "identity-repair"
+    ],
+    "successorRequiredFor": ["delete", "merge", "split", "identity-repair"],
+    "splitRule": "A split must list every successor public ID and cannot choose an automatic redirect.",
+    "mergeRule": "A merge must list exactly one canonical successor public ID."
+  },
+  "releasePolicy": {
+    "patch": "Identity-preserving metadata, alias, display-name, or coordinate corrections.",
+    "minor": "Additive entities or fields that do not change existing public identity semantics.",
+    "major": "Public schema removals or destructive hierarchy-semantic changes that require consumer migration. Adding an explicit district layer while retaining legacy city identities is non-destructive. Public ID reuse is forbidden even in a major release."
+  },
+  "applyGate": {
+    "sameSourceIdCollisionAction": "stop",
+    "unresolvedRemovalAction": "stop",
+    "requiredArtifact": "data/migrations/index.json"
+  }
+}

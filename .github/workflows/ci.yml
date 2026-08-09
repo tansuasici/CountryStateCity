@@ -12,7 +12,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        node-version: [20, 22]
+        # lint-staged 17 requires Node >=22.22.1.
+        node-version: [22, 24]
 
     steps:
       - uses: actions/checkout@v6
@@ -22,8 +23,58 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
       - run: npm ci
+      - name: Install uv
+        if: matrix.node-version == 22
+        uses: astral-sh/setup-uv@08807647e7069bb48b6ef5acd8ec9567f424441b # v8.1.0
+        with:
+          version: '0.11.32'
       - run: npx eslint .
+      - run: npm run test:data
+      - run: npm run test:data-artifacts
+      - run: npm run data:web-city-shards
+      - run: npm run test:web-city-shards
+      - run: npm run data:web-boundaries
+      - run: npm run test:web-boundaries
+      - run: npm run data:web-maplibre
+      - run: npm run test:web-maplibre
+      - run: npm run data:version-diff
+      - run: npm run data:web-version-diffs
+      - run: npm run test:web-version-diffs
+      - run: npm run test:identity
+      - run: npm run test:data-sync
+      - run: npm run test:timezones
+      - run: npm run test:contributions
+      - name: Run data quality release gate
+        if: matrix.node-version == 22
+        run: npm run test:data-quality
+      - name: Verify every blocking regression class
+        if: matrix.node-version == 22
+        run: npm run test:data-quality-regressions
+      - name: Validate every city coordinate
+        if: matrix.node-version == 22
+        run: npm run test:city-coordinates
+      - name: Validate every state coordinate
+        if: matrix.node-version == 22
+        run: npm run test:state-coordinates
+      - run: npm run test:turkey-boundaries
+      - run: npm run test:turkey-admin
       - run: npm test
+      - run: npm run build:api
+      - run: npm run build:web
+        env:
+          NODE_OPTIONS: '--max-old-space-size=8192'
+      - run: npm run test:routes
       - run: npm run build:lib
         env:
           NODE_OPTIONS: '--max-old-space-size=8192'
+      - run: npm run test:package-size
+      - run: npm run test:packed-entrypoints
+      - name: Upload data quality reports
+        if: always() && matrix.node-version == 22
+        uses: actions/upload-artifact@v7
+        with:
+          name: data-quality-report
+          path: |
+            data/quality-report.json
+            data/quality-report.md
+          if-no-files-found: error

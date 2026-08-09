@@ -1,0 +1,65 @@
+{
+  "schemaVersion": 1,
+  "reviewedAt": "2026-08-08",
+  "ownerDirectory": {
+    "data-maintainers": {
+      "name": "CountryStateCity data maintainers",
+      "contact": "https://github.com/tansuasici/CountryStateCity/issues"
+    }
+  },
+  "entries": [
+    {
+      "id": "normalized-state-name-taiwan-city-county-pairs",
+      "checkId": "normalized-duplicates",
+      "severity": "high",
+      "scope": {
+        "entity": "state",
+        "countryCodes": ["TW"],
+        "recordIds": [3408, 3418, 3423, 3417]
+      },
+      "expectedCount": 2,
+      "owner": "data-maintainers",
+      "rationale": "Chiayi and Hsinchu each intentionally have separate city and county subdivisions with the same normalized display name and distinct ISO-style subdivision codes.",
+      "expiresAt": "2027-02-08",
+      "sourceRefs": ["data/location-display.json", "data/schema-normalization-policy.json"]
+    },
+    {
+      "id": "city-country-polygon-reviewed-exceptions",
+      "checkId": "country-polygon-outliers",
+      "severity": "high",
+      "scope": {
+        "entity": "city",
+        "reasonClasses": [
+          "political-worldview",
+          "dependency-hierarchy",
+          "territorial-claim",
+          "reference-scale"
+        ]
+      },
+      "expectedCount": 632,
+      "owner": "data-maintainers",
+      "rationale": "Every remaining major city point outlier is mapped to a reviewed political, hierarchy, territorial-claim, or Natural Earth reference-scale rule; no coordinate defect remains unresolved.",
+      "expiresAt": "2027-02-08",
+      "sourceRefs": [
+        "data/geography/city-coordinate-policy.json",
+        "analysis/city_coordinate_quality_artifact.json"
+      ]
+    },
+    {
+      "id": "state-coordinate-reviewed-exceptions",
+      "checkId": "state-coordinate-outliers",
+      "severity": "high",
+      "scope": {
+        "entity": "state"
+      },
+      "expectedCount": 51,
+      "owner": "data-maintainers",
+      "rationale": "These subdivisions lack a defensible matched Admin-1 polygon or validated source point, or carry a documented hierarchy/worldview exception; the records publish explicit unavailable/exception metadata.",
+      "expiresAt": "2027-02-08",
+      "sourceRefs": [
+        "data/geography/state-coordinate-policy.json",
+        "analysis/state_coordinate_quality_report.json"
+      ]
+    }
+  ]
+}

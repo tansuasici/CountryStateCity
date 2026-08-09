@@ -1,6 +1,7 @@
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { CountryStateCity } from '../../countrystatecity-npm/src/index';
 import { z } from 'zod';
+import { snapshotMetadata } from './metadata.js';
 
 export function registerTools(server: McpServer) {
   // search_countries
@@ -324,16 +325,17 @@ export function registerTools(server: McpServer) {
   // get_stats
   server.tool(
     'get_stats',
-    'Get database statistics (total counts of countries, states, and cities)',
+    'Get database statistics, coverage limits, and exact production snapshot metadata',
     {},
     async () => {
       try {
         const stats = CountryStateCity.getStats();
+        const coverage = CountryStateCity.getCoverageReport().summary;
         return {
           content: [
             {
               type: 'text' as const,
-              text: JSON.stringify(stats, null, 2),
+              text: JSON.stringify({ ...stats, coverage, snapshot: snapshotMetadata }, null, 2),
             },
           ],
         };

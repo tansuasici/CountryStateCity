@@ -1,0 +1,499 @@
+{
+  "surface": "report",
+  "manifest": {
+    "version": 1,
+    "surface": "report",
+    "title": "City coordinate and territory quality",
+    "description": "Resolution of country-polygon outliers across every published city record.",
+    "generatedAt": "2026-08-06T00:00:00Z",
+    "cards": [
+      {
+        "id": "baseline-card",
+        "description": "Every city point over 25 km from its assigned country polygon in the pinned pre-correction baseline.",
+        "dataset": "headline",
+        "sourceId": "report-sql",
+        "metrics": [
+          {
+            "label": "Baseline major outliers",
+            "field": "baselineMajorOutliers",
+            "format": "number"
+          }
+        ]
+      },
+      {
+        "id": "corrected-card",
+        "description": "Rows whose published latitude or longitude was demonstrably wrong and was changed.",
+        "dataset": "headline",
+        "sourceId": "report-sql",
+        "metrics": [
+          {
+            "label": "Coordinates corrected",
+            "field": "correctedCoordinates",
+            "format": "number"
+          }
+        ]
+      },
+      {
+        "id": "exception-card",
+        "description": "Remaining major outliers covered by one stable political, hierarchy, claim, or scale reason code.",
+        "dataset": "headline",
+        "sourceId": "report-sql",
+        "metrics": [
+          {
+            "label": "Classified exceptions",
+            "field": "classifiedExceptions",
+            "format": "number"
+          }
+        ]
+      },
+      {
+        "id": "unresolved-card",
+        "description": "Major outliers that are neither corrected nor matched by exactly one approved exception.",
+        "dataset": "headline",
+        "sourceId": "report-sql",
+        "metrics": [
+          {
+            "label": "Unresolved",
+            "field": "unresolvedMajorOutliers",
+            "format": "number"
+          }
+        ]
+      }
+    ],
+    "charts": [
+      {
+        "id": "resolution-chart",
+        "title": "Baseline major outliers by resolution class",
+        "subtitle": "All 636 records, measured against Natural Earth 5.1.1 at a 25 km threshold",
+        "showDescription": true,
+        "type": "bar",
+        "dataset": "resolution-summary",
+        "sourceId": "report-sql",
+        "encodings": {
+          "x": {
+            "field": "resolution",
+            "type": "nominal",
+            "label": "Resolution class"
+          },
+          "y": {
+            "field": "count",
+            "type": "quantitative",
+            "label": "City records",
+            "format": "number"
+          },
+          "tooltip": [
+            {
+              "field": "resolution",
+              "type": "text",
+              "label": "Resolution"
+            },
+            {
+              "field": "count",
+              "type": "quantitative",
+              "label": "Records",
+              "format": "number"
+            },
+            {
+              "field": "action",
+              "type": "text",
+              "label": "Treatment"
+            }
+          ]
+        },
+        "valueFormat": "number",
+        "layout": "full",
+        "maxRows": 5
+      }
+    ],
+    "tables": [
+      {
+        "id": "correction-table",
+        "title": "Applied coordinate corrections",
+        "subtitle": "Four source-backed changes applied to canonical, compact, shard, and patch-overlay data",
+        "showDescription": true,
+        "dataset": "corrections",
+        "defaultSort": {
+          "field": "cityId",
+          "direction": "asc"
+        },
+        "density": "compact",
+        "sourceId": "report-sql",
+        "layout": "full",
+        "columns": [
+          {
+            "field": "cityId",
+            "label": "City ID",
+            "format": "number"
+          },
+          {
+            "field": "name",
+            "label": "Record",
+            "type": "text"
+          },
+          {
+            "field": "countryCode",
+            "label": "Country",
+            "type": "text"
+          },
+          {
+            "field": "before",
+            "label": "Previous coordinate",
+            "type": "text"
+          },
+          {
+            "field": "after",
+            "label": "Corrected coordinate",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "id": "exception-table",
+        "title": "Exception rule coverage",
+        "subtitle": "Exact rule counts plus 44 individually reviewed small-island records",
+        "showDescription": true,
+        "dataset": "exception-groups",
+        "defaultSort": {
+          "field": "count",
+          "direction": "desc"
+        },
+        "density": "compact",
+        "sourceId": "report-sql",
+        "layout": "full",
+        "columns": [
+          {
+            "field": "reasonCode",
+            "label": "Reason code",
+            "type": "text"
+          },
+          {
+            "field": "count",
+            "label": "Records",
+            "format": "number"
+          }
+        ]
+      }
+    ],
+    "sources": [
+      {
+        "id": "report-sql",
+        "label": "Reviewed report datasets",
+        "path": "analysis/city_coordinate_quality_report.sql",
+        "query": {
+          "description": "DuckDB queries over the generated machine-readable audit; each statement produces one visible report dataset.",
+          "language": "sql",
+          "tables_used": [
+            "analysis/city_coordinate_quality_report.json"
+          ],
+          "filters": [
+            "no sampling"
+          ],
+          "metric_definitions": [
+            "Major outlier = a city point more than 25 geodesic kilometres from its assigned Natural Earth country polygon.",
+            "Resolved = corrected production coordinate or exactly one accepted reason-code exception."
+          ]
+        }
+      },
+      {
+        "id": "geo-audit",
+        "label": "CountryStateCity city-coordinate quality report",
+        "path": "analysis/city_coordinate_quality_report.json",
+        "query": {
+          "description": "Pinned Natural Earth point-in-polygon and geodesic-distance audit over every production city row.",
+          "language": "python",
+          "tables_used": [
+            "data/city.json",
+            "data/country.json",
+            "data/geography/city-coordinate-policy.json",
+            "Natural Earth ne_10m_admin_0_countries 5.1.1"
+          ],
+          "filters": [
+            "major outlier distance > 25 km",
+            "no sampling"
+          ],
+          "metric_definitions": [
+            "Major outlier = a city point more than 25 geodesic kilometres from its assigned Natural Earth country polygon.",
+            "Resolved = corrected production coordinate or exactly one accepted reason-code exception."
+          ]
+        }
+      },
+      {
+        "id": "territory-policy",
+        "label": "Country and territory assignment policy",
+        "path": "data/geography/city-coordinate-policy.json"
+      },
+      {
+        "id": "natural-earth",
+        "label": "Natural Earth Admin 0 – Countries 5.1.1",
+        "href": "https://www.naturalearthdata.com/downloads/10m-cultural-vectors/10m-admin-0-countries/"
+      },
+      {
+        "id": "osm-validation",
+        "label": "OpenStreetMap validation relations",
+        "href": "https://www.openstreetmap.org/copyright"
+      }
+    ],
+    "blocks": [
+      {
+        "id": "title",
+        "type": "markdown",
+        "body": "# City coordinate and territory quality"
+      },
+      {
+        "id": "executive-summary",
+        "type": "markdown",
+        "sourceId": "geo-audit",
+        "body": "## Executive Summary\n\n- **The 25 km quality gate is fully resolved.** The pinned baseline had 636 major outliers; four true coordinate defects were corrected and all 632 remaining records have stable reason-code exceptions.\n- **Most failures were model differences, not bad points.** Crimea/Ukraine and Puerto Rico/US account for 580 baseline cases.\n- **No unresolved major outlier remains.** All 147,739 city coordinates are numeric and within valid latitude/longitude ranges."
+      },
+      {
+        "id": "headline-metrics",
+        "type": "metric-strip",
+        "cardIds": [
+          "baseline-card",
+          "corrected-card",
+          "exception-card",
+          "unresolved-card"
+        ]
+      },
+      {
+        "id": "resolution-finding",
+        "type": "markdown",
+        "sourceId": "geo-audit",
+        "body": "## Political and hierarchy models explain almost every large gap\n\nNatural Earth uses a default de-facto worldview. CountryStateCity preserves its imported hierarchy and records political or dependency differences explicitly. The chart shows the full 636-record baseline; the four corrected records are retained so the resolution accounting stays auditable."
+      },
+      {
+        "id": "resolution-visual",
+        "type": "chart",
+        "chartId": "resolution-chart"
+      },
+      {
+        "id": "correction-finding",
+        "type": "markdown",
+        "sourceId": "geo-audit",
+        "body": "## Four coordinates were genuinely wrong\n\nJuan Fernández, Tain, Sarupathar, and Lakshadweep were outside for reasons that independent sources contradicted. Correcting them moved every point inside its assigned country reference geometry."
+      },
+      {
+        "id": "correction-evidence",
+        "type": "table",
+        "tableId": "correction-table"
+      },
+      {
+        "id": "exception-finding",
+        "type": "markdown",
+        "sourceId": "geo-audit",
+        "body": "## Every remaining major outlier has exactly one reason code\n\nGroup rules cover stable worldview and hierarchy cases. Forty-four small-island records were checked one by one against OSM administrative relations because a 1:10m reference cannot represent every atoll and islet."
+      },
+      {
+        "id": "exception-evidence",
+        "type": "table",
+        "tableId": "exception-table"
+      },
+      {
+        "id": "recommendations",
+        "type": "markdown",
+        "body": "## Recommended next steps\n\n1. Keep the coordinate audit in CI and release gates.\n2. Decide Puerto Rico and other dependency reparenting as a versioned hierarchy migration.\n3. Add an explicit worldview selector before disputed-area polygons become a general product surface."
+      },
+      {
+        "id": "further-questions",
+        "type": "markdown",
+        "body": "## Further questions\n\n- Should dependency entities become canonical top-level navigation parents in the next data-major release?\n- Should the API expose source hierarchy and ISO-territory hierarchy as separate views?"
+      },
+      {
+        "id": "caveats",
+        "type": "markdown",
+        "body": "## Caveats and assumptions\n\nNatural Earth 1:10m is a cartographic QA baseline, not a legal boundary authority. The 25 km threshold tolerates coastline and small-island simplification; it does not certify city-centre precision. The source city table also mixes settlements and administrative entities, which requires a separate entity-grain policy."
+      }
+    ]
+  },
+  "snapshot": {
+    "version": 1,
+    "generatedAt": "2026-08-06T00:00:00Z",
+    "status": "ready",
+    "datasets": {
+      "headline": [
+        {
+          "baselineMajorOutliers": 636,
+          "correctedCoordinates": 5,
+          "classifiedExceptions": 632,
+          "unresolvedMajorOutliers": 0
+        }
+      ],
+      "resolution-summary": [
+        {
+          "resolution": "Disputed/de-facto model",
+          "count": 332,
+          "action": "Documented policy exception",
+          "reasonCodes": "disputed-territory-de-jure-owner; disputed-territory-source-owner"
+        },
+        {
+          "resolution": "Dependency hierarchy",
+          "count": 255,
+          "action": "Versioned hierarchy decision deferred",
+          "reasonCodes": "dependency-sovereign-parent-model"
+        },
+        {
+          "resolution": "Reference-scale omission",
+          "count": 44,
+          "action": "Country location independently verified",
+          "reasonCodes": "reference-scale-small-island-omission"
+        },
+        {
+          "resolution": "Corrected coordinate",
+          "count": 4,
+          "action": "Production and patch overlay updated",
+          "reasonCodes": "incorrect-coordinate"
+        },
+        {
+          "resolution": "Territorial claim",
+          "count": 1,
+          "action": "Explicit claim-area exception",
+          "reasonCodes": "territorial-claim"
+        }
+      ],
+      "corrections": [
+        {
+          "cityId": 148461,
+          "name": "Juan Fernández",
+          "countryCode": "CL",
+          "before": "-30.02564270, -82.05192080",
+          "after": "-33.61666667, -78.86666667",
+          "source": "wikidata-Q14454",
+          "status": "Corrected"
+        },
+        {
+          "cityId": 149096,
+          "name": "Tain",
+          "countryCode": "GH",
+          "before": "8.18114110, -2.86487620",
+          "after": "7.87100000, -2.31700000",
+          "source": "wikidata-Q695048",
+          "status": "Corrected"
+        },
+        {
+          "cityId": 133809,
+          "name": "Sarupathar",
+          "countryCode": "IN",
+          "before": "26.20600000, 96.81000000",
+          "after": "26.19545833, 93.86240278",
+          "source": "wikidata-Q638291",
+          "status": "Corrected"
+        },
+        {
+          "cityId": 132750,
+          "name": "Lakshadweep",
+          "countryCode": "IN",
+          "before": "11.27333000, 74.04582000",
+          "after": "10.56510000, 72.64564000",
+          "source": "geonames-9748019",
+          "status": "Corrected"
+        },
+        {
+          "cityId": 107863,
+          "name": "Kadıköy",
+          "countryCode": "TR",
+          "before": "40.98229000, 29.09032000",
+          "after": "40.98109600, 29.06514473",
+          "source": "openstreetmap-relation-1276548-point-on-surface",
+          "status": "Corrected"
+        }
+      ],
+      "exception-groups": [
+        {
+          "exception": "crimea-source-owner",
+          "reasonCode": "disputed-territory-de-jure-owner",
+          "count": 325,
+          "status": "Pass"
+        },
+        {
+          "exception": "puerto-rico-source-hierarchy",
+          "reasonCode": "dependency-sovereign-parent-model",
+          "count": 255,
+          "status": "Pass"
+        },
+        {
+          "exception": "somaliland-source-owner",
+          "reasonCode": "disputed-territory-source-owner",
+          "count": 5,
+          "status": "Pass"
+        },
+        {
+          "exception": "northern-cyprus-source-owner",
+          "reasonCode": "disputed-territory-source-owner",
+          "count": 2,
+          "status": "Pass"
+        },
+        {
+          "exception": "chilean-antarctic-claim",
+          "reasonCode": "territorial-claim",
+          "count": 1,
+          "status": "Pass"
+        },
+        {
+          "exception": "individually-reviewed-small-islands",
+          "reasonCode": "reference-scale-small-island-omission",
+          "count": 44,
+          "status": "Pass"
+        }
+      ]
+    }
+  },
+  "sources": [
+    {
+      "id": "report-sql",
+      "label": "Reviewed report datasets",
+      "path": "analysis/city_coordinate_quality_report.sql",
+      "query": {
+        "description": "DuckDB queries over the generated machine-readable audit; each statement produces one visible report dataset.",
+        "language": "sql",
+        "tables_used": [
+          "analysis/city_coordinate_quality_report.json"
+        ],
+        "filters": [
+          "no sampling"
+        ],
+        "metric_definitions": [
+          "Major outlier = a city point more than 25 geodesic kilometres from its assigned Natural Earth country polygon.",
+          "Resolved = corrected production coordinate or exactly one accepted reason-code exception."
+        ]
+      }
+    },
+    {
+      "id": "geo-audit",
+      "label": "CountryStateCity city-coordinate quality report",
+      "path": "analysis/city_coordinate_quality_report.json",
+      "query": {
+        "description": "Pinned Natural Earth point-in-polygon and geodesic-distance audit over every production city row.",
+        "language": "python",
+        "tables_used": [
+          "data/city.json",
+          "data/country.json",
+          "data/geography/city-coordinate-policy.json",
+          "Natural Earth ne_10m_admin_0_countries 5.1.1"
+        ],
+        "filters": [
+          "major outlier distance > 25 km",
+          "no sampling"
+        ],
+        "metric_definitions": [
+          "Major outlier = a city point more than 25 geodesic kilometres from its assigned Natural Earth country polygon.",
+          "Resolved = corrected production coordinate or exactly one accepted reason-code exception."
+        ]
+      }
+    },
+    {
+      "id": "territory-policy",
+      "label": "Country and territory assignment policy",
+      "path": "data/geography/city-coordinate-policy.json"
+    },
+    {
+      "id": "natural-earth",
+      "label": "Natural Earth Admin 0 – Countries 5.1.1",
+      "href": "https://www.naturalearthdata.com/downloads/10m-cultural-vectors/10m-admin-0-countries/"
+    },
+    {
+      "id": "osm-validation",
+      "label": "OpenStreetMap validation relations",
+      "href": "https://www.openstreetmap.org/copyright"
+    }
+  ]
+}

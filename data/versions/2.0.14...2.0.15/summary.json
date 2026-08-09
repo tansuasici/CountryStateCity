@@ -1,0 +1,1947 @@
+{
+  "schemaVersion": 1,
+  "releaseId": "2.0.14...2.0.15",
+  "fromVersion": "2.0.14",
+  "toVersion": "2.0.15",
+  "fromDataVersion": "sha256:0f21287d67ef0bab4cf0224459abdd718227542c1d91a884fba6aa68c0120fb9",
+  "toDataVersion": "sha256:753742bdb65d7ff73082fce925b75ab6228efb217f0226a9d87bad5ef5556c74",
+  "generatedAt": "2026-08-08T00:00:00.000Z",
+  "totals": {
+    "total": 67700,
+    "breakingIdentity": 0,
+    "changeTypes": {
+      "added": 925,
+      "code-changed": 235,
+      "coordinate-changed": 4687,
+      "metadata-changed": 62131,
+      "moved": 1,
+      "removed": 1,
+      "renamed": 4
+    }
+  },
+  "entities": {
+    "country": {
+      "total": 7,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 1,
+        "metadata-changed": 2,
+        "renamed": 4
+      }
+    },
+    "state": {
+      "total": 4681,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "code-changed": 1,
+        "coordinate-changed": 4680,
+        "metadata-changed": 46
+      }
+    },
+    "city": {
+      "total": 62090,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "added": 3,
+        "code-changed": 234,
+        "coordinate-changed": 6,
+        "metadata-changed": 62083,
+        "moved": 1,
+        "removed": 1
+      }
+    },
+    "district": {
+      "total": 922,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "added": 922
+      }
+    }
+  },
+  "countries": [
+    {
+      "countryCode": "AD",
+      "total": 12,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 7,
+        "metadata-changed": 5
+      }
+    },
+    {
+      "countryCode": "AE",
+      "total": 44,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 7,
+        "metadata-changed": 37
+      }
+    },
+    {
+      "countryCode": "AF",
+      "total": 53,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 33,
+        "metadata-changed": 20
+      }
+    },
+    {
+      "countryCode": "AG",
+      "total": 8,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 8
+      }
+    },
+    {
+      "countryCode": "AL",
+      "total": 68,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 13,
+        "metadata-changed": 55
+      }
+    },
+    {
+      "countryCode": "AM",
+      "total": 37,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 11,
+        "metadata-changed": 26
+      }
+    },
+    {
+      "countryCode": "AO",
+      "total": 42,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 17,
+        "metadata-changed": 25
+      }
+    },
+    {
+      "countryCode": "AR",
+      "total": 279,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 24,
+        "metadata-changed": 255
+      }
+    },
+    {
+      "countryCode": "AT",
+      "total": 1460,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 9,
+        "metadata-changed": 1451
+      }
+    },
+    {
+      "countryCode": "AU",
+      "total": 1424,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 8,
+        "metadata-changed": 1416
+      }
+    },
+    {
+      "countryCode": "AZ",
+      "total": 126,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 74,
+        "metadata-changed": 52
+      }
+    },
+    {
+      "countryCode": "BA",
+      "total": 130,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 3,
+        "metadata-changed": 127
+      }
+    },
+    {
+      "countryCode": "BB",
+      "total": 14,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 11,
+        "metadata-changed": 3
+      }
+    },
+    {
+      "countryCode": "BD",
+      "total": 169,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 70,
+        "metadata-changed": 99
+      }
+    },
+    {
+      "countryCode": "BE",
+      "total": 88,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 13,
+        "metadata-changed": 75
+      }
+    },
+    {
+      "countryCode": "BF",
+      "total": 68,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 57,
+        "metadata-changed": 11
+      }
+    },
+    {
+      "countryCode": "BG",
+      "total": 118,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 28,
+        "metadata-changed": 90
+      }
+    },
+    {
+      "countryCode": "BH",
+      "total": 5,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 5
+      }
+    },
+    {
+      "countryCode": "BI",
+      "total": 19,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 17,
+        "metadata-changed": 2
+      }
+    },
+    {
+      "countryCode": "BJ",
+      "total": 45,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 12,
+        "metadata-changed": 33
+      }
+    },
+    {
+      "countryCode": "BM",
+      "total": 11,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 11
+      }
+    },
+    {
+      "countryCode": "BN",
+      "total": 10,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 4,
+        "metadata-changed": 6
+      }
+    },
+    {
+      "countryCode": "BO",
+      "total": 110,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 9,
+        "metadata-changed": 101
+      }
+    },
+    {
+      "countryCode": "BR",
+      "total": 4139,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 27,
+        "metadata-changed": 4112
+      }
+    },
+    {
+      "countryCode": "BS",
+      "total": 45,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 35,
+        "metadata-changed": 10
+      }
+    },
+    {
+      "countryCode": "BT",
+      "total": 27,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 19,
+        "metadata-changed": 8
+      }
+    },
+    {
+      "countryCode": "BV",
+      "total": 1,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "metadata-changed": 1
+      }
+    },
+    {
+      "countryCode": "BW",
+      "total": 28,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 9,
+        "metadata-changed": 19
+      }
+    },
+    {
+      "countryCode": "BY",
+      "total": 29,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 7,
+        "metadata-changed": 22
+      }
+    },
+    {
+      "countryCode": "BZ",
+      "total": 8,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 6,
+        "metadata-changed": 2
+      }
+    },
+    {
+      "countryCode": "CA",
+      "total": 420,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 13,
+        "metadata-changed": 407
+      }
+    },
+    {
+      "countryCode": "CD",
+      "total": 63,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 26,
+        "metadata-changed": 37
+      }
+    },
+    {
+      "countryCode": "CF",
+      "total": 36,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 17,
+        "metadata-changed": 19
+      }
+    },
+    {
+      "countryCode": "CG",
+      "total": 16,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 12,
+        "metadata-changed": 4
+      }
+    },
+    {
+      "countryCode": "CH",
+      "total": 468,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 26,
+        "metadata-changed": 442
+      }
+    },
+    {
+      "countryCode": "CI",
+      "total": 94,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 21,
+        "metadata-changed": 72,
+        "renamed": 1
+      }
+    },
+    {
+      "countryCode": "CL",
+      "total": 17,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 17
+      }
+    },
+    {
+      "countryCode": "CM",
+      "total": 111,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 10,
+        "metadata-changed": 101
+      }
+    },
+    {
+      "countryCode": "CN",
+      "total": 1052,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 34,
+        "metadata-changed": 1021,
+        "removed": 1
+      }
+    },
+    {
+      "countryCode": "CO",
+      "total": 164,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 33,
+        "metadata-changed": 132
+      }
+    },
+    {
+      "countryCode": "CR",
+      "total": 84,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 7,
+        "metadata-changed": 77
+      }
+    },
+    {
+      "countryCode": "CU",
+      "total": 129,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 16,
+        "metadata-changed": 113
+      }
+    },
+    {
+      "countryCode": "CV",
+      "total": 32,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 23,
+        "metadata-changed": 9
+      }
+    },
+    {
+      "countryCode": "CY",
+      "total": 36,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "code-changed": 1,
+        "coordinate-changed": 6,
+        "metadata-changed": 30
+      }
+    },
+    {
+      "countryCode": "CZ",
+      "total": 68,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 54,
+        "metadata-changed": 14
+      }
+    },
+    {
+      "countryCode": "DE",
+      "total": 2337,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 16,
+        "metadata-changed": 2321
+      }
+    },
+    {
+      "countryCode": "DJ",
+      "total": 6,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 6
+      }
+    },
+    {
+      "countryCode": "DK",
+      "total": 38,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 5,
+        "metadata-changed": 33
+      }
+    },
+    {
+      "countryCode": "DM",
+      "total": 10,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 10
+      }
+    },
+    {
+      "countryCode": "DO",
+      "total": 59,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 31,
+        "metadata-changed": 28
+      }
+    },
+    {
+      "countryCode": "DZ",
+      "total": 116,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 58,
+        "metadata-changed": 58
+      }
+    },
+    {
+      "countryCode": "EC",
+      "total": 48,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 24,
+        "metadata-changed": 24
+      }
+    },
+    {
+      "countryCode": "EE",
+      "total": 31,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 15,
+        "metadata-changed": 16
+      }
+    },
+    {
+      "countryCode": "EG",
+      "total": 73,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 27,
+        "metadata-changed": 46
+      }
+    },
+    {
+      "countryCode": "ER",
+      "total": 6,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 6
+      }
+    },
+    {
+      "countryCode": "ES",
+      "total": 2326,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "code-changed": 58,
+        "coordinate-changed": 28,
+        "metadata-changed": 2298
+      }
+    },
+    {
+      "countryCode": "ET",
+      "total": 57,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 11,
+        "metadata-changed": 46
+      }
+    },
+    {
+      "countryCode": "FI",
+      "total": 250,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 18,
+        "metadata-changed": 232
+      }
+    },
+    {
+      "countryCode": "FJ",
+      "total": 15,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 11,
+        "metadata-changed": 4
+      }
+    },
+    {
+      "countryCode": "FM",
+      "total": 84,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 4,
+        "metadata-changed": 80
+      }
+    },
+    {
+      "countryCode": "FR",
+      "total": 6751,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "code-changed": 51,
+        "coordinate-changed": 122,
+        "metadata-changed": 6630
+      }
+    },
+    {
+      "countryCode": "GA",
+      "total": 15,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 9,
+        "metadata-changed": 6
+      }
+    },
+    {
+      "countryCode": "GB",
+      "total": 942,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "code-changed": 120,
+        "coordinate-changed": 245,
+        "metadata-changed": 697
+      }
+    },
+    {
+      "countryCode": "GD",
+      "total": 9,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 7,
+        "metadata-changed": 2
+      }
+    },
+    {
+      "countryCode": "GE",
+      "total": 59,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 12,
+        "metadata-changed": 47
+      }
+    },
+    {
+      "countryCode": "GH",
+      "total": 35,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 17,
+        "metadata-changed": 18
+      }
+    },
+    {
+      "countryCode": "GM",
+      "total": 39,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 6,
+        "metadata-changed": 33
+      }
+    },
+    {
+      "countryCode": "GN",
+      "total": 51,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 39,
+        "metadata-changed": 12
+      }
+    },
+    {
+      "countryCode": "GQ",
+      "total": 11,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 9,
+        "metadata-changed": 2
+      }
+    },
+    {
+      "countryCode": "GR",
+      "total": 426,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 14,
+        "metadata-changed": 412
+      }
+    },
+    {
+      "countryCode": "GT",
+      "total": 118,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 21,
+        "metadata-changed": 97
+      }
+    },
+    {
+      "countryCode": "GW",
+      "total": 15,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 11,
+        "metadata-changed": 4
+      }
+    },
+    {
+      "countryCode": "GY",
+      "total": 14,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 10,
+        "metadata-changed": 4
+      }
+    },
+    {
+      "countryCode": "HK",
+      "total": 5,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "code-changed": 1,
+        "coordinate-changed": 4,
+        "metadata-changed": 1
+      }
+    },
+    {
+      "countryCode": "HM",
+      "total": 1,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "metadata-changed": 1
+      }
+    },
+    {
+      "countryCode": "HN",
+      "total": 518,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 18,
+        "metadata-changed": 500
+      }
+    },
+    {
+      "countryCode": "HR",
+      "total": 450,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 20,
+        "metadata-changed": 430
+      }
+    },
+    {
+      "countryCode": "HT",
+      "total": 100,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 10,
+        "metadata-changed": 90
+      }
+    },
+    {
+      "countryCode": "HU",
+      "total": 64,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 42,
+        "metadata-changed": 22
+      }
+    },
+    {
+      "countryCode": "ID",
+      "total": 417,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 34,
+        "metadata-changed": 383
+      }
+    },
+    {
+      "countryCode": "IE",
+      "total": 100,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 26,
+        "metadata-changed": 74
+      }
+    },
+    {
+      "countryCode": "IL",
+      "total": 45,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 6,
+        "metadata-changed": 39
+      }
+    },
+    {
+      "countryCode": "IN",
+      "total": 1482,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 38,
+        "metadata-changed": 1445
+      }
+    },
+    {
+      "countryCode": "IQ",
+      "total": 64,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 18,
+        "metadata-changed": 46
+      }
+    },
+    {
+      "countryCode": "IR",
+      "total": 510,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 31,
+        "metadata-changed": 479
+      }
+    },
+    {
+      "countryCode": "IS",
+      "total": 20,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 8,
+        "metadata-changed": 12
+      }
+    },
+    {
+      "countryCode": "IT",
+      "total": 9412,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 128,
+        "metadata-changed": 9284
+      }
+    },
+    {
+      "countryCode": "JM",
+      "total": 852,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 14,
+        "metadata-changed": 838
+      }
+    },
+    {
+      "countryCode": "JO",
+      "total": 84,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 12,
+        "metadata-changed": 72
+      }
+    },
+    {
+      "countryCode": "JP",
+      "total": 1225,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 47,
+        "metadata-changed": 1178
+      }
+    },
+    {
+      "countryCode": "KE",
+      "total": 86,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "code-changed": 3,
+        "coordinate-changed": 42,
+        "metadata-changed": 44
+      }
+    },
+    {
+      "countryCode": "KG",
+      "total": 18,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 9,
+        "metadata-changed": 9
+      }
+    },
+    {
+      "countryCode": "KH",
+      "total": 36,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 23,
+        "metadata-changed": 13
+      }
+    },
+    {
+      "countryCode": "KI",
+      "total": 40,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 3,
+        "metadata-changed": 37
+      }
+    },
+    {
+      "countryCode": "KM",
+      "total": 50,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 3,
+        "metadata-changed": 47
+      }
+    },
+    {
+      "countryCode": "KN",
+      "total": 15,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 14,
+        "metadata-changed": 1
+      }
+    },
+    {
+      "countryCode": "KP",
+      "total": 87,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 11,
+        "metadata-changed": 76
+      }
+    },
+    {
+      "countryCode": "KR",
+      "total": 229,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 17,
+        "metadata-changed": 212
+      }
+    },
+    {
+      "countryCode": "KW",
+      "total": 29,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 6,
+        "metadata-changed": 23
+      }
+    },
+    {
+      "countryCode": "KZ",
+      "total": 195,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 14,
+        "metadata-changed": 181
+      }
+    },
+    {
+      "countryCode": "LA",
+      "total": 26,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 18,
+        "metadata-changed": 8
+      }
+    },
+    {
+      "countryCode": "LB",
+      "total": 19,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 8,
+        "metadata-changed": 11
+      }
+    },
+    {
+      "countryCode": "LC",
+      "total": 493,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 12,
+        "metadata-changed": 481
+      }
+    },
+    {
+      "countryCode": "LI",
+      "total": 20,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 11,
+        "metadata-changed": 9
+      }
+    },
+    {
+      "countryCode": "LK",
+      "total": 65,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 33,
+        "metadata-changed": 32
+      }
+    },
+    {
+      "countryCode": "LR",
+      "total": 17,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 15,
+        "metadata-changed": 2
+      }
+    },
+    {
+      "countryCode": "LS",
+      "total": 10,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 10
+      }
+    },
+    {
+      "countryCode": "LT",
+      "total": 107,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 43,
+        "metadata-changed": 64
+      }
+    },
+    {
+      "countryCode": "LU",
+      "total": 75,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 5,
+        "metadata-changed": 70
+      }
+    },
+    {
+      "countryCode": "LV",
+      "total": 139,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 116,
+        "metadata-changed": 23
+      }
+    },
+    {
+      "countryCode": "LY",
+      "total": 39,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 20,
+        "metadata-changed": 19
+      }
+    },
+    {
+      "countryCode": "MA",
+      "total": 141,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 58,
+        "metadata-changed": 83
+      }
+    },
+    {
+      "countryCode": "MD",
+      "total": 40,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 35,
+        "metadata-changed": 5
+      }
+    },
+    {
+      "countryCode": "ME",
+      "total": 40,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 21,
+        "metadata-changed": 19
+      }
+    },
+    {
+      "countryCode": "MG",
+      "total": 13,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 6,
+        "metadata-changed": 7
+      }
+    },
+    {
+      "countryCode": "MH",
+      "total": 2,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 2
+      }
+    },
+    {
+      "countryCode": "MK",
+      "total": 153,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 83,
+        "metadata-changed": 69,
+        "renamed": 1
+      }
+    },
+    {
+      "countryCode": "ML",
+      "total": 22,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 10,
+        "metadata-changed": 12
+      }
+    },
+    {
+      "countryCode": "MM",
+      "total": 52,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 15,
+        "metadata-changed": 37
+      }
+    },
+    {
+      "countryCode": "MN",
+      "total": 40,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 21,
+        "metadata-changed": 19
+      }
+    },
+    {
+      "countryCode": "MR",
+      "total": 29,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 15,
+        "metadata-changed": 14
+      }
+    },
+    {
+      "countryCode": "MT",
+      "total": 69,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 67,
+        "metadata-changed": 2
+      }
+    },
+    {
+      "countryCode": "MU",
+      "total": 69,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 15,
+        "metadata-changed": 54
+      }
+    },
+    {
+      "countryCode": "MV",
+      "total": 39,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 23,
+        "metadata-changed": 16
+      }
+    },
+    {
+      "countryCode": "MW",
+      "total": 29,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 29
+      }
+    },
+    {
+      "countryCode": "MX",
+      "total": 5397,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 31,
+        "metadata-changed": 5366
+      }
+    },
+    {
+      "countryCode": "MY",
+      "total": 136,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 16,
+        "metadata-changed": 120
+      }
+    },
+    {
+      "countryCode": "MZ",
+      "total": 20,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 11,
+        "metadata-changed": 9
+      }
+    },
+    {
+      "countryCode": "NA",
+      "total": 16,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 14,
+        "metadata-changed": 2
+      }
+    },
+    {
+      "countryCode": "NE",
+      "total": 51,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 7,
+        "metadata-changed": 44
+      }
+    },
+    {
+      "countryCode": "NG",
+      "total": 423,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 37,
+        "metadata-changed": 386
+      }
+    },
+    {
+      "countryCode": "NI",
+      "total": 43,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 17,
+        "metadata-changed": 28
+      }
+    },
+    {
+      "countryCode": "NL",
+      "total": 789,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 15,
+        "metadata-changed": 774
+      }
+    },
+    {
+      "countryCode": "NO",
+      "total": 44,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 21,
+        "metadata-changed": 23
+      }
+    },
+    {
+      "countryCode": "NP",
+      "total": 32,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 17,
+        "metadata-changed": 15
+      }
+    },
+    {
+      "countryCode": "NR",
+      "total": 21,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 14,
+        "metadata-changed": 7
+      }
+    },
+    {
+      "countryCode": "NZ",
+      "total": 61,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 17,
+        "metadata-changed": 44
+      }
+    },
+    {
+      "countryCode": "OM",
+      "total": 36,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 13,
+        "metadata-changed": 23
+      }
+    },
+    {
+      "countryCode": "PA",
+      "total": 556,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 13,
+        "metadata-changed": 543
+      }
+    },
+    {
+      "countryCode": "PE",
+      "total": 241,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 25,
+        "metadata-changed": 216
+      }
+    },
+    {
+      "countryCode": "PG",
+      "total": 72,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 21,
+        "metadata-changed": 51
+      }
+    },
+    {
+      "countryCode": "PH",
+      "total": 4878,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 96,
+        "metadata-changed": 4782
+      }
+    },
+    {
+      "countryCode": "PK",
+      "total": 313,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 8,
+        "metadata-changed": 305
+      }
+    },
+    {
+      "countryCode": "PL",
+      "total": 676,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 16,
+        "metadata-changed": 660
+      }
+    },
+    {
+      "countryCode": "PT",
+      "total": 449,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 20,
+        "metadata-changed": 429
+      }
+    },
+    {
+      "countryCode": "PW",
+      "total": 30,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 16,
+        "metadata-changed": 14
+      }
+    },
+    {
+      "countryCode": "PY",
+      "total": 142,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 17,
+        "metadata-changed": 125
+      }
+    },
+    {
+      "countryCode": "QA",
+      "total": 17,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 8,
+        "metadata-changed": 9
+      }
+    },
+    {
+      "countryCode": "RO",
+      "total": 739,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 42,
+        "metadata-changed": 697
+      }
+    },
+    {
+      "countryCode": "RS",
+      "total": 156,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 26,
+        "metadata-changed": 130
+      }
+    },
+    {
+      "countryCode": "RU",
+      "total": 2242,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 83,
+        "metadata-changed": 2159
+      }
+    },
+    {
+      "countryCode": "RW",
+      "total": 10,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 5,
+        "metadata-changed": 5
+      }
+    },
+    {
+      "countryCode": "SA",
+      "total": 389,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 13,
+        "metadata-changed": 376
+      }
+    },
+    {
+      "countryCode": "SB",
+      "total": 12,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 10,
+        "metadata-changed": 2
+      }
+    },
+    {
+      "countryCode": "SC",
+      "total": 31,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 24,
+        "metadata-changed": 7
+      }
+    },
+    {
+      "countryCode": "SD",
+      "total": 52,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 18,
+        "metadata-changed": 34
+      }
+    },
+    {
+      "countryCode": "SE",
+      "total": 203,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 20,
+        "metadata-changed": 183
+      }
+    },
+    {
+      "countryCode": "SG",
+      "total": 7,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 5,
+        "metadata-changed": 2
+      }
+    },
+    {
+      "countryCode": "SI",
+      "total": 212,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 197,
+        "metadata-changed": 15
+      }
+    },
+    {
+      "countryCode": "SK",
+      "total": 33,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 8,
+        "metadata-changed": 25
+      }
+    },
+    {
+      "countryCode": "SL",
+      "total": 63,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 4,
+        "metadata-changed": 59
+      }
+    },
+    {
+      "countryCode": "SM",
+      "total": 18,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 9,
+        "metadata-changed": 9
+      }
+    },
+    {
+      "countryCode": "SN",
+      "total": 42,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 14,
+        "metadata-changed": 28
+      }
+    },
+    {
+      "countryCode": "SO",
+      "total": 32,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 16,
+        "metadata-changed": 16
+      }
+    },
+    {
+      "countryCode": "SR",
+      "total": 16,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 10,
+        "metadata-changed": 6
+      }
+    },
+    {
+      "countryCode": "SS",
+      "total": 10,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 10
+      }
+    },
+    {
+      "countryCode": "ST",
+      "total": 4,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 2,
+        "metadata-changed": 2
+      }
+    },
+    {
+      "countryCode": "SV",
+      "total": 15,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 14,
+        "metadata-changed": 1
+      }
+    },
+    {
+      "countryCode": "SY",
+      "total": 55,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 14,
+        "metadata-changed": 41
+      }
+    },
+    {
+      "countryCode": "SZ",
+      "total": 22,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 4,
+        "metadata-changed": 18
+      }
+    },
+    {
+      "countryCode": "TD",
+      "total": 32,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 22,
+        "metadata-changed": 10
+      }
+    },
+    {
+      "countryCode": "TG",
+      "total": 7,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 5,
+        "metadata-changed": 2
+      }
+    },
+    {
+      "countryCode": "TH",
+      "total": 176,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 78,
+        "metadata-changed": 98
+      }
+    },
+    {
+      "countryCode": "TJ",
+      "total": 43,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 3,
+        "metadata-changed": 40
+      }
+    },
+    {
+      "countryCode": "TL",
+      "total": 54,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 12,
+        "metadata-changed": 41,
+        "renamed": 1
+      }
+    },
+    {
+      "countryCode": "TM",
+      "total": 7,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 6,
+        "metadata-changed": 1
+      }
+    },
+    {
+      "countryCode": "TN",
+      "total": 83,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 23,
+        "metadata-changed": 60
+      }
+    },
+    {
+      "countryCode": "TO",
+      "total": 9,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 5,
+        "metadata-changed": 4
+      }
+    },
+    {
+      "countryCode": "TR",
+      "total": 1828,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "added": 925,
+        "code-changed": 1,
+        "coordinate-changed": 83,
+        "metadata-changed": 821,
+        "moved": 1,
+        "renamed": 1
+      }
+    },
+    {
+      "countryCode": "TT",
+      "total": 33,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 16,
+        "metadata-changed": 17
+      }
+    },
+    {
+      "countryCode": "TV",
+      "total": 11,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 3,
+        "metadata-changed": 8
+      }
+    },
+    {
+      "countryCode": "TW",
+      "total": 40,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 22,
+        "metadata-changed": 24
+      }
+    },
+    {
+      "countryCode": "TZ",
+      "total": 250,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 31,
+        "metadata-changed": 250
+      }
+    },
+    {
+      "countryCode": "UA",
+      "total": 562,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 25,
+        "metadata-changed": 537
+      }
+    },
+    {
+      "countryCode": "UG",
+      "total": 159,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 122,
+        "metadata-changed": 37
+      }
+    },
+    {
+      "countryCode": "UM",
+      "total": 1,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 1
+      }
+    },
+    {
+      "countryCode": "US",
+      "total": 1560,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 66,
+        "metadata-changed": 1494
+      }
+    },
+    {
+      "countryCode": "UY",
+      "total": 31,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 19,
+        "metadata-changed": 12
+      }
+    },
+    {
+      "countryCode": "UZ",
+      "total": 55,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 14,
+        "metadata-changed": 41
+      }
+    },
+    {
+      "countryCode": "VC",
+      "total": 8,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 6,
+        "metadata-changed": 2
+      }
+    },
+    {
+      "countryCode": "VE",
+      "total": 59,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 25,
+        "metadata-changed": 34
+      }
+    },
+    {
+      "countryCode": "VN",
+      "total": 464,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 63,
+        "metadata-changed": 401
+      }
+    },
+    {
+      "countryCode": "VU",
+      "total": 8,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 6,
+        "metadata-changed": 2
+      }
+    },
+    {
+      "countryCode": "WS",
+      "total": 14,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 11,
+        "metadata-changed": 3
+      }
+    },
+    {
+      "countryCode": "XK",
+      "total": 2,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 2
+      }
+    },
+    {
+      "countryCode": "YE",
+      "total": 45,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 21,
+        "metadata-changed": 24
+      }
+    },
+    {
+      "countryCode": "ZA",
+      "total": 43,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 9,
+        "metadata-changed": 34
+      }
+    },
+    {
+      "countryCode": "ZM",
+      "total": 20,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 10,
+        "metadata-changed": 10
+      }
+    },
+    {
+      "countryCode": "ZW",
+      "total": 60,
+      "breakingIdentity": 0,
+      "changeTypes": {
+        "coordinate-changed": 10,
+        "metadata-changed": 50
+      }
+    }
+  ],
+  "schemaChanges": [
+    {
+      "entityType": "country",
+      "addedFields": [
+        "codeAuthority",
+        "codeStatus",
+        "metadataSource",
+        "metadataVerifiedAt",
+        "translationMissingLocales",
+        "translationSource"
+      ],
+      "removedFields": []
+    },
+    {
+      "entityType": "state",
+      "addedFields": [
+        "administrativeLevel",
+        "classificationConfidence",
+        "coordinateSource",
+        "coordinateStatus",
+        "coordinateType",
+        "coordinateValidation",
+        "coordinateVerifiedAt",
+        "entityLevelSource",
+        "entityType",
+        "lifecycleStatus",
+        "parentId",
+        "placeType",
+        "typeReasonCode",
+        "typeSource",
+        "typeStatus",
+        "validFrom",
+        "validTo"
+      ],
+      "removedFields": []
+    },
+    {
+      "entityType": "city",
+      "addedFields": [
+        "administrativeLevel",
+        "classificationConfidence",
+        "entityLevelSource",
+        "entityType",
+        "lifecycleStatus",
+        "parentId",
+        "placeType",
+        "validFrom",
+        "validTo"
+      ],
+      "removedFields": []
+    },
+    {
+      "entityType": "district",
+      "addedFields": [
+        "aliases",
+        "coordinateSource",
+        "coordinateStatus",
+        "coordinateValidation",
+        "countryCode",
+        "countryId",
+        "countryName",
+        "entityType",
+        "geoNameId",
+        "id",
+        "latitude",
+        "longitude",
+        "name",
+        "officialDistrictCode",
+        "officialDistrictCodeStatus",
+        "publicId",
+        "sourceSnapshotDate",
+        "stateCode",
+        "stateId",
+        "stateName",
+        "wikiDataId"
+      ],
+      "removedFields": []
+    }
+  ],
+  "identity": {
+    "breakingChanges": 0,
+    "migratedChanges": 1,
+    "policy": "Removed identities are breaking unless a versioned migration maps the old public id."
+  },
+  "downloads": {
+    "jsonByEntity": [
+      "changes/country.json",
+      "changes/state.json",
+      "changes/city.json",
+      "changes/district.json"
+    ],
+    "jsonByCountry": "countries/{iso2}.json",
+    "csv": "changes.csv"
+  }
+}

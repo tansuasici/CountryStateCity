@@ -1,0 +1,461 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-08-05T19:11:35.467025+00:00",
+  "source": {
+    "producer": "Harita Genel Müdürlüğü (HGM)",
+    "productUrl": "https://www.harita.gov.tr/urun/turkiye-mulki-idare-sinirlari/232",
+    "downloadUrl": "https://www.harita.gov.tr/uploads/files/products/turkiye-mulki-idare-sinirlari-2083.rar",
+    "announcementUrl": "https://www.harita.gov.tr/haber/ulkemize-ait-ulke-il-ve-ilce-sinirlari-ile-il-ve-ilce-yerlesim-noktalarini-iceren-vektor-veri-ile-il-ve-ilce-yuz-olcumleri-bilgisi-internet-sitemizde-ucretsiz-olarak-kullanima-sunulmustur/168",
+    "announcementDate": "2022-04-27",
+    "archiveFile": "turkiye-mulki-idare-sinirlari-2083.rar",
+    "bytes": 5000397,
+    "sha256": "da8efe4dcbe47e5e8a8a34068e1e729832420634b519fab62303b86254471284",
+    "archiveFolder": "İl_İlçe_Sınır_ve_Yerleşim_Verisi_2026"
+  },
+  "reuseTerms": {
+    "price": "free",
+    "commercialUse": false,
+    "nonCommercialUse": true,
+    "redistribution": "allowed only for non-commercial fair use",
+    "attributionRequired": true,
+    "copyrightHolder": "Harita Genel Müdürlüğü",
+    "officialStatus": "indicative/display-only; not official administrative boundaries",
+    "productionDecision": "Do not bundle in the general-purpose NPM/MCP/hosted product without separate written commercial redistribution permission from HGM."
+  },
+  "coordinatePolicy": {
+    "target": "EPSG:4326",
+    "result": "Every layer uses a custom projected CRS based on WGS 84. No direct EPSG authority code is declared; deterministic conversion to EPSG:4326 uses each .prj WKT."
+  },
+  "layers": [
+    {
+      "name": "province-boundary-lines",
+      "sourceFile": "İl_Sınırı.shp",
+      "geometryType": "POLYLINE",
+      "records": 445,
+      "bounds": [
+        -811452.4004999995,
+        3671792.4999,
+        868421.8097,
+        4456511.9374
+      ],
+      "crs": {
+        "authority": null,
+        "name": "Albers_Sınır_2026",
+        "isGeographic": false,
+        "wkt": "PROJCRS[\"Albers_Sınır_2026\",BASEGEOGCRS[\"WGS 84\",DATUM[\"World Geodetic System 1984\",ELLIPSOID[\"WGS 84\",6378137,298.257223563,LENGTHUNIT[\"metre\",1]],ID[\"EPSG\",6326]],PRIMEM[\"Greenwich\",0,ANGLEUNIT[\"Degree\",0.0174532925199433]]],CONVERSION[\"unnamed\",METHOD[\"Albers Equal Area\",ID[\"EPSG\",9822]],PARAMETER[\"Latitude of false origin\",0,ANGLEUNIT[\"Degree\",0.0174532925199433],ID[\"EPSG\",8821]],PARAMETER[\"Longitude of false origin\",35,ANGLEUNIT[\"Degree\",0.0174532925199433],ID[\"EPSG\",8822]],PARAMETER[\"Latitude of 1st standard parallel\",36.5,ANGLEUNIT[\"Degree\",0.0174532925199433],ID[\"EPSG\",8823]],PARAMETER[\"Latitude of 2nd standard parallel\",41,ANGLEUNIT[\"Degree\",0.0174532925199433],ID[\"EPSG\",8824]],PARAMETER[\"Easting at false origin\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8826]],PARAMETER[\"Northing at false origin\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8827]]],CS[Cartesian,2],AXIS[\"(E)\",east,ORDER[1],LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]],AXIS[\"(N)\",north,ORDER[2],LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]]]",
+        "target": "EPSG:4326",
+        "transformedBounds": [
+          25.445061484002554,
+          34.92791522275185,
+          44.817586168466924,
+          42.10433249549133
+        ]
+      },
+      "schema": [
+        {
+          "name": "OBJECTID",
+          "type": "N",
+          "length": 10,
+          "decimal": 0
+        },
+        {
+          "name": "Shape_Leng",
+          "type": "F",
+          "length": 19,
+          "decimal": 11
+        },
+        {
+          "name": "Detay_Adi",
+          "type": "C",
+          "length": 50,
+          "decimal": 0
+        }
+      ],
+      "attributeQuality": {
+        "OBJECTID": {
+          "distinct": 445,
+          "nullOrBlank": 0,
+          "zero": 1
+        },
+        "Shape_Leng": {
+          "distinct": 445,
+          "nullOrBlank": 0,
+          "zero": 1
+        },
+        "Detay_Adi": {
+          "distinct": 1,
+          "nullOrBlank": 0,
+          "zero": 0,
+          "valueCounts": {
+            "İL_SINIRI": 445
+          }
+        }
+      },
+      "objectId": {
+        "field": "OBJECTID",
+        "distinct": 445,
+        "duplicateValues": [],
+        "duplicateRows": 0
+      },
+      "topology": {
+        "emptyGeometries": 0,
+        "zeroLengthGeometries": 0,
+        "invalidGeometries": 0,
+        "nonSimpleLines": 0,
+        "duplicateGeometryGroups": 0,
+        "duplicateGeometryRows": 0,
+        "polygonize": {
+          "polygons": 198,
+          "cutEdges": 0,
+          "dangles": 18,
+          "invalidRings": 0
+        }
+      }
+    },
+    {
+      "name": "district-boundary-lines",
+      "sourceFile": "İlçe_Sınırı.shp",
+      "geometryType": "POLYLINE",
+      "records": 2499,
+      "bounds": [
+        -811452.4004999995,
+        3671792.4999,
+        868421.8096999994,
+        4456511.937400001
+      ],
+      "crs": {
+        "authority": null,
+        "name": "Albers_Sınır_2026",
+        "isGeographic": false,
+        "wkt": "PROJCRS[\"Albers_Sınır_2026\",BASEGEOGCRS[\"WGS 84\",DATUM[\"World Geodetic System 1984\",ELLIPSOID[\"WGS 84\",6378137,298.257223563,LENGTHUNIT[\"metre\",1]],ID[\"EPSG\",6326]],PRIMEM[\"Greenwich\",0,ANGLEUNIT[\"Degree\",0.0174532925199433]]],CONVERSION[\"unnamed\",METHOD[\"Albers Equal Area\",ID[\"EPSG\",9822]],PARAMETER[\"Latitude of false origin\",0,ANGLEUNIT[\"Degree\",0.0174532925199433],ID[\"EPSG\",8821]],PARAMETER[\"Longitude of false origin\",35,ANGLEUNIT[\"Degree\",0.0174532925199433],ID[\"EPSG\",8822]],PARAMETER[\"Latitude of 1st standard parallel\",36.5,ANGLEUNIT[\"Degree\",0.0174532925199433],ID[\"EPSG\",8823]],PARAMETER[\"Latitude of 2nd standard parallel\",41,ANGLEUNIT[\"Degree\",0.0174532925199433],ID[\"EPSG\",8824]],PARAMETER[\"Easting at false origin\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8826]],PARAMETER[\"Northing at false origin\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8827]]],CS[Cartesian,2],AXIS[\"(E)\",east,ORDER[1],LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]],AXIS[\"(N)\",north,ORDER[2],LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]]]",
+        "target": "EPSG:4326",
+        "transformedBounds": [
+          25.445061484002554,
+          34.92791522275185,
+          44.817586168466924,
+          42.10433249549133
+        ]
+      },
+      "schema": [
+        {
+          "name": "OBJECTID",
+          "type": "N",
+          "length": 10,
+          "decimal": 0
+        },
+        {
+          "name": "Shape_Leng",
+          "type": "F",
+          "length": 19,
+          "decimal": 11
+        },
+        {
+          "name": "Shape_Le_1",
+          "type": "F",
+          "length": 19,
+          "decimal": 11
+        },
+        {
+          "name": "Detay_Adi",
+          "type": "C",
+          "length": 50,
+          "decimal": 0
+        }
+      ],
+      "attributeQuality": {
+        "OBJECTID": {
+          "distinct": 2406,
+          "nullOrBlank": 0,
+          "zero": 0
+        },
+        "Shape_Leng": {
+          "distinct": 2276,
+          "nullOrBlank": 0,
+          "zero": 152
+        },
+        "Shape_Le_1": {
+          "distinct": 2487,
+          "nullOrBlank": 0,
+          "zero": 0
+        },
+        "Detay_Adi": {
+          "distinct": 1,
+          "nullOrBlank": 0,
+          "zero": 0,
+          "valueCounts": {
+            "İLÇE_SINIRI": 2499
+          }
+        }
+      },
+      "objectId": {
+        "field": "OBJECTID",
+        "distinct": 2406,
+        "duplicateValues": [
+          2288,
+          2289,
+          2290,
+          2291,
+          2292,
+          2293,
+          2294,
+          2295,
+          2296,
+          2297,
+          2300,
+          2301,
+          2302,
+          2303,
+          2304,
+          2305,
+          2306,
+          2307,
+          2308,
+          2309,
+          2310,
+          2311,
+          2312,
+          2313,
+          2314,
+          2315,
+          2316,
+          2318,
+          2319,
+          2320,
+          2321,
+          2322,
+          2323,
+          2324,
+          2325,
+          2326,
+          2327,
+          2329,
+          2330,
+          2331,
+          2332,
+          2333,
+          2334,
+          2335,
+          2336,
+          2337,
+          2338,
+          2339,
+          2340,
+          2341,
+          2342,
+          2343,
+          2345,
+          2346,
+          2347,
+          2348,
+          2349,
+          2429,
+          2431,
+          2435,
+          2436,
+          2439,
+          2441,
+          2443,
+          2445,
+          2447,
+          2449,
+          2451,
+          2453,
+          2455,
+          2457,
+          2458,
+          2460,
+          2462,
+          2464,
+          2466,
+          2468,
+          2470,
+          2471,
+          2473,
+          2475,
+          2476,
+          2478,
+          2480,
+          2482,
+          2484,
+          2486,
+          2489,
+          2491,
+          2492,
+          2493,
+          2495,
+          2498
+        ],
+        "duplicateRows": 93
+      },
+      "topology": {
+        "emptyGeometries": 0,
+        "zeroLengthGeometries": 0,
+        "invalidGeometries": 0,
+        "nonSimpleLines": 2,
+        "duplicateGeometryGroups": 9,
+        "duplicateGeometryRows": 18,
+        "polygonize": {
+          "polygons": 985,
+          "cutEdges": 5,
+          "dangles": 351,
+          "invalidRings": 0
+        }
+      }
+    },
+    {
+      "name": "country-boundary-lines",
+      "sourceFile": "Ülke_Sınırı.shp",
+      "geometryType": "POLYLINEM",
+      "records": 155,
+      "bounds": [
+        -811190.6516999993,
+        3582469.2183999997,
+        891974.569400001,
+        4457598.5638999995
+      ],
+      "crs": {
+        "authority": null,
+        "name": "Albers_Sınır_2026",
+        "isGeographic": false,
+        "wkt": "PROJCRS[\"Albers_Sınır_2026\",BASEGEOGCRS[\"WGS 84\",DATUM[\"World Geodetic System 1984\",ELLIPSOID[\"WGS 84\",6378137,298.257223563,LENGTHUNIT[\"metre\",1]],ID[\"EPSG\",6326]],PRIMEM[\"Greenwich\",0,ANGLEUNIT[\"Degree\",0.0174532925199433]]],CONVERSION[\"unnamed\",METHOD[\"Albers Equal Area\",ID[\"EPSG\",9822]],PARAMETER[\"Latitude of false origin\",0,ANGLEUNIT[\"Degree\",0.0174532925199433],ID[\"EPSG\",8821]],PARAMETER[\"Longitude of false origin\",35,ANGLEUNIT[\"Degree\",0.0174532925199433],ID[\"EPSG\",8822]],PARAMETER[\"Latitude of 1st standard parallel\",36.5,ANGLEUNIT[\"Degree\",0.0174532925199433],ID[\"EPSG\",8823]],PARAMETER[\"Latitude of 2nd standard parallel\",41,ANGLEUNIT[\"Degree\",0.0174532925199433],ID[\"EPSG\",8824]],PARAMETER[\"Easting at false origin\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8826]],PARAMETER[\"Northing at false origin\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8827]]],CS[Cartesian,2],AXIS[\"(E)\",east,ORDER[1],LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]],AXIS[\"(N)\",north,ORDER[2],LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]]]",
+        "target": "EPSG:4326",
+        "transformedBounds": [
+          25.30724838111513,
+          34.32494467422702,
+          45.680834613930635,
+          42.178420882356704
+        ]
+      },
+      "schema": [
+        {
+          "name": "OBJECTID",
+          "type": "N",
+          "length": 10,
+          "decimal": 0
+        },
+        {
+          "name": "Shape_Leng",
+          "type": "F",
+          "length": 19,
+          "decimal": 11
+        },
+        {
+          "name": "Detay_Adi",
+          "type": "C",
+          "length": 50,
+          "decimal": 0
+        }
+      ],
+      "attributeQuality": {
+        "OBJECTID": {
+          "distinct": 155,
+          "nullOrBlank": 0,
+          "zero": 0
+        },
+        "Shape_Leng": {
+          "distinct": 155,
+          "nullOrBlank": 0,
+          "zero": 0
+        },
+        "Detay_Adi": {
+          "distinct": 1,
+          "nullOrBlank": 0,
+          "zero": 0,
+          "valueCounts": {
+            "ÜLKE_SINIRI": 155
+          }
+        }
+      },
+      "objectId": {
+        "field": "OBJECTID",
+        "distinct": 155,
+        "duplicateValues": [],
+        "duplicateRows": 0
+      },
+      "topology": {
+        "emptyGeometries": 0,
+        "zeroLengthGeometries": 0,
+        "invalidGeometries": 0,
+        "nonSimpleLines": 3,
+        "duplicateGeometryGroups": 0,
+        "duplicateGeometryRows": 0,
+        "polygonize": {
+          "polygons": 130,
+          "cutEdges": 1,
+          "dangles": 31,
+          "invalidRings": 0
+        }
+      }
+    },
+    {
+      "name": "settlement-centers",
+      "sourceFile": "Yerleşim_Noktası.shp",
+      "geometryType": "POINT",
+      "records": 1003,
+      "bounds": [
+        -772908.2583653817,
+        4273833.34272824,
+        846169.8126392097,
+        4970753.115292974
+      ],
+      "crs": {
+        "authority": null,
+        "name": "Lambert_Conformal_Conic_TC1M",
+        "isGeographic": false,
+        "wkt": "PROJCRS[\"Lambert_Conformal_Conic_TC1M\",BASEGEOGCRS[\"WGS 84\",DATUM[\"World Geodetic System 1984\",ELLIPSOID[\"WGS 84\",6378137,298.257223563,LENGTHUNIT[\"metre\",1]],ID[\"EPSG\",6326]],PRIMEM[\"Greenwich\",0,ANGLEUNIT[\"Degree\",0.0174532925199433]]],CONVERSION[\"unnamed\",METHOD[\"Lambert Conic Conformal (2SP)\",ID[\"EPSG\",9802]],PARAMETER[\"Latitude of false origin\",0,ANGLEUNIT[\"Degree\",0.0174532925199433],ID[\"EPSG\",8821]],PARAMETER[\"Longitude of false origin\",35,ANGLEUNIT[\"Degree\",0.0174532925199433],ID[\"EPSG\",8822]],PARAMETER[\"Latitude of 1st standard parallel\",35,ANGLEUNIT[\"Degree\",0.0174532925199433],ID[\"EPSG\",8823]],PARAMETER[\"Latitude of 2nd standard parallel\",41,ANGLEUNIT[\"Degree\",0.0174532925199433],ID[\"EPSG\",8824]],PARAMETER[\"Easting at false origin\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8826]],PARAMETER[\"Northing at false origin\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8827]]],CS[Cartesian,2],AXIS[\"(E)\",east,ORDER[1],LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]],AXIS[\"(N)\",north,ORDER[2],LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]]]",
+        "target": "EPSG:4326",
+        "transformedBounds": [
+          25.90239377266566,
+          35.90238167689554,
+          44.573752773578285,
+          42.02727142604716
+        ]
+      },
+      "schema": [
+        {
+          "name": "KATEGORI",
+          "type": "C",
+          "length": 50,
+          "decimal": 0
+        },
+        {
+          "name": "Adı",
+          "type": "C",
+          "length": 50,
+          "decimal": 0
+        }
+      ],
+      "attributeQuality": {
+        "KATEGORI": {
+          "distinct": 3,
+          "nullOrBlank": 0,
+          "zero": 0,
+          "valueCounts": {
+            "BAŞKENT": 1,
+            "İL": 80,
+            "İLÇE": 922
+          }
+        },
+        "Adı": {
+          "distinct": 978,
+          "nullOrBlank": 0,
+          "zero": 0
+        }
+      },
+      "objectId": {
+        "field": null,
+        "distinct": null,
+        "duplicateValues": [],
+        "duplicateRows": 0
+      },
+      "topology": {
+        "emptyGeometries": 0,
+        "zeroLengthGeometries": 0,
+        "invalidGeometries": 0,
+        "nonSimpleLines": 0,
+        "duplicateGeometryGroups": 0,
+        "duplicateGeometryRows": 0
+      }
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+---
+title: Version diffs
+description: Explore added, removed, renamed, moved, and changed location records between releases.
+full: true
+---
+
+import VersionDiffExplorer from '@/components/VersionDiffExplorer';
+import { Callout } from 'fumadocs-ui/components/callout';
+
+Every data release publishes a machine-readable summary, entity JSON, country JSON shards, and a full CSV. Removed identities are marked breaking unless a versioned migration maps the previous public ID.
+
+<VersionDiffExplorer />
+
+<Callout type="info">
+  Schema additions are summarized once per entity type rather than repeated on every row.
+  Record-level changes cover semantic names, parent relationships, coordinates, codes, types, and
+  external IDs.
+</Callout>
+
+## Subscriptions
+
+- **RSS:** subscribe to [`/changes/feed.xml`](/changes/feed.xml) for all release summaries.
+- **Webhook:** release events use a stable event ID, HMAC-SHA256 over `{timestamp}.{rawBody}`, a five-minute replay window, and retry at 1s, 10s, 1m, 10m, and 1h before dead-lettering.
+- **Email:** the contract requires double opt-in and one-click unsubscribe. Provider selection and production enablement remain separate from the open-data release pipeline.
+
+Webhook consumers should deduplicate `X-CSC-Event-Id`, verify `X-CSC-Timestamp`, and compare `X-CSC-Signature` in constant time before parsing the event.
+
+## Release automation
+
+```bash
+npm run data:version-diff
+npm run data:web-version-diffs
+npm run test:web-version-diffs
+```
+
+The generator compares the latest Git tag with the current canonical snapshot, applies recorded ID migrations, and writes deterministic version artifacts under `data/versions/`.

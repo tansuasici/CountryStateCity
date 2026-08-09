@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "channels": {
+    "rss": {
+      "url": "/changes/feed.xml",
+      "authentication": "public",
+      "scope": "all releases"
+    },
+    "webhook": {
+      "status": "deployable-with-hosted-api",
+      "filters": ["countryCode", "entityType", "changeType", "publicId"],
+      "signature": {
+        "algorithm": "HMAC-SHA256",
+        "header": "X-CSC-Signature",
+        "format": "v1={hex}",
+        "signedMessage": "{timestamp}.{rawBody}",
+        "timestampHeader": "X-CSC-Timestamp",
+        "maximumClockSkewSeconds": 300
+      },
+      "idempotencyHeader": "X-CSC-Event-Id",
+      "retryDelaysSeconds": [0, 1, 10, 60, 600, 3600],
+      "retryStatuses": [408, 429, "5xx"],
+      "terminalStatuses": ["other-4xx"],
+      "deadLetterAfterAttempts": 6
+    },
+    "email": {
+      "status": "provider-not-selected",
+      "delivery": "A release summary plus filtered download links; no location records are embedded in recipient data.",
+      "privacy": "Double opt-in and one-click unsubscribe are required before production enablement."
+    }
+  },
+  "event": {
+    "type": "data.release.published",
+    "requiredFields": ["id", "createdAt", "fromVersion", "toVersion", "dataVersion", "summaryUrl"],
+    "retentionDays": 30
+  }
+}

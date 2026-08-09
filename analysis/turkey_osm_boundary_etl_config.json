@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "sourceManifest": "data/sources/osm-tr-admin-boundaries-2026-08-06.json",
+  "districtLayer": "data/admin/districts/tr.json",
+  "overpassEndpoints": [
+    "https://overpass-api.de/api/interpreter",
+    "https://overpass.kumi.systems/api/interpreter"
+  ],
+  "request": {
+    "chunkSize": 100,
+    "timeoutSeconds": 120,
+    "attemptsPerEndpoint": 1
+  },
+  "targetCrs": "EPSG:4326",
+  "workingCrs": "EPSG:3857",
+  "coordinatePrecision": 6,
+  "geometryModel": {
+    "name": "district-first-derived-coverage-v1",
+    "districtOverlapRule": "nearest-published-district-centre",
+    "provinceRule": "union-of-normalized-child-districts",
+    "overlapSeparationMeters": 1,
+    "maximumRepairIterations": 8
+  },
+  "simplificationProfiles": [
+    { "name": "z0-4", "toleranceMeters": 5000 },
+    { "name": "z5-7", "toleranceMeters": 1000 },
+    { "name": "z8-plus", "toleranceMeters": 100 }
+  ],
+  "qualityGate": {
+    "expectedProvinces": 81,
+    "expectedDistricts": 922,
+    "maximumPositiveAreaOverlapPairs": 0,
+    "maximumProvinceInteriorCoverageGapRatio": 0.001,
+    "provinceInteriorBufferMeters": 25000
+  }
+}

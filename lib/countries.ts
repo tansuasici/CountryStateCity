@@ -1,91 +1,138 @@
-import { CountryStateCity } from '../countrystatecity-npm/src/index.browser';
-import { Country, State, City } from '@/types';
+import countriesData from '@/data/country.json';
+import statesData from '@/data/state.json';
+import { deriveCityEntityClassification } from '@/countrystatecity-npm/src/entity-levels';
+import type { Country, State, City } from '@/types';
 import { STATS } from '@/lib/stats';
 
-// Countries (~250) and states (~5k) are small and are read eagerly.
-// Cities (~148k) are intentionally NOT loaded here — they are only
-// decompressed on first city access, keeping the heavy dataset out of
-// the initial page load.
-const countries: Country[] = CountryStateCity.getAllCountries() as Country[];
-const states: State[] = CountryStateCity.getAllStates() as State[];
+interface CompactCity {
+  i: number;
+  n: string;
+  s: number;
+  la: number;
+  lo: number;
+  w?: string;
+}
 
-// Helper functions for data access
-export const getCountries = (limit?: number): Country[] => {
-  return limit ? countries.slice(0, limit) : countries;
-};
+export interface CityShardLoadOptions {
+  signal?: AbortSignal;
+}
 
-export const getCountryById = (id: number): Country | undefined => {
-  return countries.find((country) => country.id === id);
-};
+const countries = countriesData as Country[];
+const states = statesData as State[];
+const countryById = new Map(countries.map((country) => [country.id, country]));
+const stateById = new Map(states.map((state) => [state.id, state]));
+const cityShardCache = new Map<number, City[]>();
+
+export const getCountries = (limit?: number): Country[] =>
+  limit ? countries.slice(0, limit) : countries;
+
+export const getCountryById = (id: number): Country | undefined => countryById.get(id);
 
 export const getCountryByCode = (code: string): Country | undefined => {
-  return countries.find(
-    (country) => country.iso2 === code.toUpperCase() || country.iso3 === code.toUpperCase()
+  const normalized = code.toUpperCase();
+  return countries.find((country) => country.iso2 === normalized || country.iso3 === normalized);
+};
+
+export const getStatesByCountryId = (countryId: number): State[] =>
+  states.filter((state) => state.countryId === countryId);
+
+export const getStateById = (id: number): State | undefined => stateById.get(id);
+
+export async function getCitiesByCountryId(
+  countryId: number,
+  options: CityShardLoadOptions = {}
+): Promise<City[]> {
+  const cached = cityShardCache.get(countryId);
+  if (cached) return cached;
+  const country = countryById.get(countryId);
+  if (!country) throw new Error(`Unknown country ID: ${countryId}`);
+  const response = await fetch(`/data/cities/${country.iso2.toLowerCase()}.json`, {
+    signal: options.signal,
+    cache: 'force-cache',
+    headers: { Accept: 'application/json' },
+  });
+  if (!response.ok)
+    throw new Error(`City shard request failed for ${country.iso2}: HTTP ${response.status}`);
+  const compactRows = (await response.json()) as CompactCity[];
+  const cities = compactRows.map((row) => inflateCity(row, country));
+  cityShardCache.set(countryId, cities);
+  return cities;
+}
+
+export async function getCitiesByStateId(
+  stateId: number,
+  options: CityShardLoadOptions = {}
+): Promise<City[]> {
+  const state = stateById.get(stateId);
+  if (!state) throw new Error(`Unknown state ID: ${stateId}`);
+  const cities = await getCitiesByCountryId(state.countryId, options);
+  return cities.filter((city) => city.stateId === stateId);
+}
+
+export async function searchCities(
+  query: string,
+  stateId?: number,
+  countryId?: number,
+  options: CityShardLoadOptions = {}
+): Promise<City[]> {
+  const resolvedCountryId = countryId ?? (stateId ? stateById.get(stateId)?.countryId : undefined);
+  if (!resolvedCountryId) return [];
+  const searchTerm = query.trim().toLocaleLowerCase();
+  if (!searchTerm) return [];
+  const cities = await getCitiesByCountryId(resolvedCountryId, options);
+  return cities.filter(
+    (city) =>
+      (!stateId || city.stateId === stateId) &&
+      [city.name, city.stateName, city.wikiDataId].some((value) =>
+        value.toLocaleLowerCase().includes(searchTerm)
+      )
   );
-};
+}
 
-export const getStatesByCountryId = (countryId: number): State[] => {
-  return states.filter((state) => state.countryId === countryId);
-};
-
-export const getStateById = (id: number): State | undefined => {
-  return states.find((state) => state.id === id);
-};
-
-// City accessors delegate to the package, which lazy-loads + decompresses
-// the city dataset on first use (keeps it out of the initial bundle path).
-export const getCitiesByStateId = (stateId: number): City[] => {
-  return CountryStateCity.getCitiesByStateId(stateId) as City[];
-};
-
-export const getCityById = (id: number): City | undefined => {
-  return CountryStateCity.getCityById(id) as City | undefined;
-};
-
-export const getCitiesByCountryId = (countryId: number): City[] => {
-  return CountryStateCity.getCitiesByCountryId(countryId) as City[];
-};
-
-// Search functions
 export const searchCountries = (query: string): Country[] => {
-  const searchTerm = query.toLowerCase();
-  return countries.filter(
-    (country) =>
-      country.name.toLowerCase().includes(searchTerm) ||
-      country.native.toLowerCase().includes(searchTerm) ||
-      country.iso2.toLowerCase().includes(searchTerm) ||
-      country.iso3.toLowerCase().includes(searchTerm)
+  const searchTerm = query.toLocaleLowerCase();
+  return countries.filter((country) =>
+    [country.name, country.native, country.iso2, country.iso3].some((value) =>
+      value.toLocaleLowerCase().includes(searchTerm)
+    )
   );
 };
 
 export const searchStates = (query: string, countryId?: number): State[] => {
-  const searchTerm = query.toLowerCase();
-  let filteredStates = states;
-
-  if (countryId) {
-    filteredStates = states.filter((state) => state.countryId === countryId);
-  }
-
-  return filteredStates.filter(
+  const searchTerm = query.toLocaleLowerCase();
+  return states.filter(
     (state) =>
-      state.name.toLowerCase().includes(searchTerm) ||
-      state.stateCode.toLowerCase().includes(searchTerm)
+      (!countryId || state.countryId === countryId) &&
+      [state.name, state.stateCode].some((value) => value.toLocaleLowerCase().includes(searchTerm))
   );
 };
 
-export const searchCities = (query: string, stateId?: number, countryId?: number): City[] => {
-  return CountryStateCity.searchCities(query, stateId, countryId) as City[];
-};
+export const getStats = () => ({
+  countries: countries.length,
+  states: states.length,
+  cities: STATS.cities,
+});
 
-// Statistics — uses precomputed totals so this never forces the full
-// city dataset to load just to display a count.
-export const getStats = () => {
-  return {
-    countries: countries.length,
-    states: states.length,
-    cities: STATS.cities,
+export function clearCityShardCache(): void {
+  cityShardCache.clear();
+}
+
+function inflateCity(row: CompactCity, country: Country): City {
+  const state = stateById.get(row.s);
+  const base = {
+    id: row.i,
+    name: row.n,
+    stateId: row.s,
+    stateCode: state?.stateCode ?? '',
+    stateName: state?.name ?? '',
+    countryId: country.id,
+    countryCode: country.iso2,
+    countryName: country.name,
+    latitude: String(row.la),
+    longitude: String(row.lo),
+    wikiDataId: row.w ?? '',
   };
-};
+  return { ...base, ...deriveCityEntityClassification(base, state) };
+}
 
-// Export country/state data for direct use (cities load on demand).
 export { countries, states };

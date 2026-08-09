@@ -1,20 +1,21 @@
 {
   "compilerOptions": {
     "target": "ES2018",
-    "module": "CommonJS",
+    "module": "Node16",
     "lib": ["ES2018"],
     "declaration": true,
     "declarationMap": true,
     "outDir": "./dist",
     "rootDir": "./src",
     "strict": true,
+    "types": ["node"],
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "resolveJsonModule": false,
-    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "moduleResolution": "node16",
     "allowSyntheticDefaultImports": true
   },
   "include": ["src/**/*"],
-  "exclude": ["node_modules", "dist", "test"]
+  "exclude": ["node_modules", "dist", "test", "**/__tests__/**", "**/*.test.ts", "**/*.spec.ts"]
 }

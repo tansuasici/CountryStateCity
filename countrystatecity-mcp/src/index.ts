@@ -2,10 +2,11 @@ import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
 import { registerTools } from './tools.js';
 import { registerResources } from './resources.js';
+import { snapshotMetadata } from './metadata.js';
 
 const server = new McpServer({
   name: 'country-state-city',
-  version: '2.0.11',
+  version: snapshotMetadata.packageVersion,
 });
 
 registerTools(server);

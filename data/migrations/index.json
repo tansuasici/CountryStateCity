@@ -1,0 +1,13 @@
+{
+  "schemaVersion": 1,
+  "publicIdNamespace": "csc",
+  "migrations": [
+    {
+      "fromDataVersion": "2.0.14",
+      "toDataVersion": "2.0.15",
+      "file": "city-id-migrations.json",
+      "releasedAt": "2026-08-05",
+      "entities": ["city"]
+    }
+  ]
+}

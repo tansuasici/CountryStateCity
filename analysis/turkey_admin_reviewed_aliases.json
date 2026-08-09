@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "reviewedAt": "2026-08-05",
+  "evidence": "https://www.icisleri.gov.tr/valilikler",
+  "aliases": [
+    {
+      "hgmSourceName": "Doğubeyazıt",
+      "officialSourceId": "icisleri:04:dogubayazit",
+      "reason": "Current official spelling; coordinates differ by 0.236 km."
+    },
+    {
+      "hgmSourceName": "EYÜP",
+      "officialSourceId": "icisleri:34:eyupsultan",
+      "reason": "Current official district name; coordinates differ by 0.090 km."
+    },
+    {
+      "hgmSourceName": "Gazi Osmanpaşa",
+      "officialSourceId": "icisleri:34:gaziosmanpasa",
+      "reason": "Current official spelling; coordinates differ by 0.231 km."
+    }
+  ]
+}

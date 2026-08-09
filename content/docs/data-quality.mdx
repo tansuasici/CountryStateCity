@@ -1,0 +1,22 @@
+---
+title: Data quality
+description: Inspect release-gate evidence, coverage, freshness, null ratios, geographic exceptions, duplicates, and source trust.
+full: true
+---
+
+import QualityDashboard from '@/components/QualityDashboard';
+
+The dashboard is generated from the versioned release artifacts—not a separate analytics store. Metric definitions, numerators, denominators, and source files remain visible beside the values they produce.
+
+<QualityDashboard />
+
+## Release automation
+
+```bash
+npm run data:quality-dashboard
+npm run test:quality-dashboard
+```
+
+The generator exits with an error when the release gate has an unresolved critical/high finding or when a protected record-count baseline drifts without review. The same check runs before package publishing and website builds.
+
+The public view includes only release evidence and reviewed exceptions. Contributor-abuse signals, credentials, and private maintainer queues remain outside the published artifact.

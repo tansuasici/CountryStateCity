@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "source": {
+    "id": "dr5hn-countries-states-cities-database",
+    "repository": "https://github.com/dr5hn/countries-states-cities-database",
+    "release": "v3.2-export.7",
+    "revision": "624a208c3928937d1262ab1646d0b8fc9cacceee",
+    "publishedAt": "2026-07-29T09:01:18Z",
+    "license": {
+      "id": "ODbL-1.0",
+      "url": "https://github.com/dr5hn/countries-states-cities-database/blob/624a208c3928937d1262ab1646d0b8fc9cacceee/LICENSE"
+    }
+  },
+  "assets": {
+    "countries": {
+      "url": "https://raw.githubusercontent.com/dr5hn/countries-states-cities-database/624a208c3928937d1262ab1646d0b8fc9cacceee/json/countries.json",
+      "compression": "none",
+      "bytes": 506767,
+      "sha256": "b93a99bc384bcc958de3b8ea9434a0ab34520ce6ae4e330953677ce9817e7dd5"
+    },
+    "states": {
+      "url": "https://raw.githubusercontent.com/dr5hn/countries-states-cities-database/624a208c3928937d1262ab1646d0b8fc9cacceee/json/states.json",
+      "compression": "none",
+      "bytes": 6477910,
+      "sha256": "f2389263a1706f405755b728f16747963f179a594ca9559d6f216cfe4b04b2f3"
+    },
+    "cities": {
+      "url": "https://github.com/dr5hn/countries-states-cities-database/releases/download/v3.2-export.7/json-cities.json.gz",
+      "compression": "gzip",
+      "bytes": 24979134,
+      "sha256": "311575e7b90512b15cc1ba6c9e897b3e8f3905a9c6e09db344a7dc1cac1ba2f5"
+    }
+  },
+  "patchFile": "data/patches/overrides.json",
+  "identityPolicy": "data/identity-policy.json",
+  "validation": {
+    "maximumDuplicateIds": 0,
+    "maximumOrphanReferences": 0,
+    "maximumExactDuplicateCities": 0,
+    "maximumInvalidCoordinates": 0
+  },
+  "apply": {
+    "enabled": false,
+    "blockedBy": ["identity-report:v3.2-export.7"],
+    "reason": "The recorded identity report contains unresolved source-ID collisions and removals without reviewed successor events."
+  }
+}
