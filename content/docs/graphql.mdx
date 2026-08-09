@@ -1,0 +1,58 @@
+---
+title: GraphQL
+description: Read-only GraphQL queries for countries, subdivisions, places, search, and dataset metadata.
+---
+
+import { Callout } from 'fumadocs-ui/components/callout';
+
+Send authenticated `POST` requests to `/api/graphql` with `query` and optional `variables` fields.
+
+```bash
+curl 'https://countrystatecity.tansuasici.com/api/graphql' \
+  -H 'content-type: application/json' \
+  -H 'x-api-key: YOUR_API_KEY' \
+  --data '{"query":"query ($country: String!) { subdivisions(country: $country, limit: 3) { nodes { id name stateCode type } pageInfo { total hasMore } } }","variables":{"country":"TR"}}'
+```
+
+## Query fields
+
+| Field | Purpose |
+| --- | --- |
+| `metadata` | API version, data digest, package version, generation time, and source |
+| `country(code:)` | One country by ISO-2, ISO-3, or numeric id |
+| `countries(q:, limit:, offset:)` | Paginated countries with optional search |
+| `subdivisions(country:, q:, limit:, offset:)` | Administrative areas for a country |
+| `places(country:, subdivision:, q:, limit:, offset:)` | Places scoped to a country and optional subdivision |
+| `search(q:, country:, types:, limit:, offset:)` | Cross-entity search |
+
+Connection fields return `nodes` and `pageInfo`. `limit` defaults to `25`, is capped at `100`, and
+`offset` defaults to `0`.
+
+```graphql
+query FindIstanbul($query: String!) {
+  search(q: $query, country: "TR", types: ["subdivision", "place"], limit: 10) {
+    nodes {
+      type
+      id
+      name
+      countryCode
+      subdivisionName
+      latitude
+      longitude
+    }
+    pageInfo {
+      total
+      hasMore
+    }
+  }
+}
+```
+
+Every successful response includes the dataset contract in `extensions.meta`.
+
+<Callout type="info">
+  The GraphQL surface is read-only. It does not expose mutations or subscriptions, and request
+  bodies are limited to 32 KiB.
+</Callout>
+
+See [Limits & policy](/docs/api-policy) for authentication, rate limits, caching, and versioning.

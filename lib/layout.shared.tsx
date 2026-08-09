@@ -34,7 +34,9 @@ export function baseOptions(): BaseLayoutProps {
       {
         text: 'Docs',
         url: '/docs',
-        active: 'nested-url',
+        // The current documentation page already carries the selected state in
+        // the sidebar tree. Keep this product-level shortcut visually neutral.
+        active: 'none',
       },
       {
         type: 'icon',

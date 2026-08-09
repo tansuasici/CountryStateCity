@@ -1,0 +1,52 @@
+---
+title: Reverse geocoding
+description: Resolve coordinates to nearest centres and, where boundaries exist, polygon containment.
+---
+
+import { Callout } from 'fumadocs-ui/components/callout';
+
+CountryStateCity supports two different spatial answers:
+
+- **Nearest centre** uses a 3D KD-tree and haversine distance for countries, states, cities, and districts.
+- **Polygon lookup** tests whether a point lies inside supplied GeoJSON boundaries.
+
+## npm package
+
+```typescript
+import { CountryStateCity } from '@tansuasici/country-state-city';
+
+const result = CountryStateCity.nearestCenters(
+  { latitude: 40.9811, longitude: 29.0651 },
+  {
+    countryCode: 'TR',
+    entityTypes: ['state', 'city', 'district'],
+    limitPerType: 2,
+    maxDistanceKm: 100,
+  }
+);
+```
+
+Each match includes `distanceKm`, `confidence`, `confidenceBasis: 'center-distance'`, the entity,
+and the immutable data version. Package batches accept at most 10,000 points.
+
+For containment, build a reusable `PolygonLookupIndex` from a GeoJSON `FeatureCollection` or use
+`locatePointInPolygons()` for a one-off query. Polygon and MultiPolygon geometries are supported.
+
+## Hosted API
+
+```bash
+curl 'https://countrystatecity.tansuasici.com/api/v1/reverse?latitude=40.9811&longitude=29.0651&country=TR&types=state,city,district&limitPerType=2&polygon=true' \
+  -H 'x-api-key: YOUR_API_KEY'
+```
+
+`POST /api/v1/reverse/batch` accepts up to 1,000 points. The optional `options` object uses the same
+`entityTypes`, `countryCode`, `limitPerType`, and `maxDistanceKm` fields as the package API.
+
+<Callout type="warn">
+  A nearest centre is not proof of administrative containment. Hosted polygon coverage currently
+  includes Türkiye admin-1 and admin-2 only and is intended for spatial lookup and visualization,
+  not cadastral or legal use.
+</Callout>
+
+Boundary and overlap cases return every matching feature instead of asserting one jurisdiction.
+Open-water queries can have no polygon match while still returning a low-confidence nearest centre.

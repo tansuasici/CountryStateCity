@@ -1,5 +1,5 @@
 ---
-title: Getting Started
+title: Introduction
 description: Versioned location data for 250 countries and territories, 4,963 administrative areas, 147,739 places, and 922 Türkiye districts.
 ---
 
@@ -17,6 +17,17 @@ import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
 - **922** explicitly modelled Türkiye districts
 
 Country codes are ISO 3166-1 based. The `XK`/Kosovo record uses a documented user-assigned code from ISO's reserved user-assigned range; inspect `codeStatus` and `codeAuthority` instead of assuming every row is officially assigned. Data is available in JSON, CSV, XML, and YAML formats.
+
+## Choose an integration
+
+| If you need | Use | Start here |
+| --- | --- | --- |
+| Typed, offline data inside a Node.js or browser application | npm package | [Installation](/docs/installation) |
+| HTTP access from any language or service | Hosted REST API | [REST reference](/docs/hosted-api) |
+| Selectable fields and nested read queries | Hosted GraphQL API | [GraphQL](/docs/graphql) |
+| Location tools inside an MCP-compatible AI client | MCP server | [MCP server](/docs/mcp) |
+
+The npm package and MCP server run locally. The hosted API requires an API key for data and GraphQL routes.
 
 ## Quick Start
 
