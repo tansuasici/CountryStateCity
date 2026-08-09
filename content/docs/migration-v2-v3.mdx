@@ -1,0 +1,128 @@
+---
+title: Upgrading to v3
+description: What changed between v2 and v3, which city IDs were reassigned, and how to migrate safely.
+---
+
+import { Callout } from 'fumadocs-ui/components/callout';
+import { Steps, Step } from 'fumadocs-ui/components/steps';
+
+```bash
+npm install @tansuasici/country-state-city@3
+```
+
+**The API surface is additive.** Every v2 method still exists in v3 with the same signature, and no
+field was removed from `Country`, `State`, or `City`. Code written against v2 keeps compiling.
+
+The major version reflects the data platform: identity, entity classification, and an explicit
+district layer. The one change that can alter your results is a small set of reassigned city IDs.
+
+<Callout type="warn">
+  If you store city IDs in your own database, read [Reassigned city
+  IDs](#reassigned-city-ids) before upgrading. Three of the four cannot be replaced blindly.
+</Callout>
+
+## Reassigned city IDs
+
+Four city primary keys were repaired. Three of the previous IDs referred to *two* different
+entities, so the old value is still valid for the other entity — a find-and-replace on the number
+alone will corrupt those rows.
+
+| Previous ID | New ID | Entity | Redirect |
+| --- | --- | --- | --- |
+| `999001` | `153353` | Çankırı / Merkez | Selector required |
+| `107999` | `153355` | Hakkâri / Derecik | Selector required |
+| `107850` | `153357` | Iğdır / Aralık | Selector required |
+| `149236` | `149214` | Zhaoguli (CN) | Automatic |
+
+`149236` was a straight duplicate of `149214` and can be remapped unconditionally. The other three
+must match on `name`, `stateId`, and `countryId` before the ID is replaced:
+
+| Previous ID | Also belongs to |
+| --- | --- |
+| `999001` | Aydın / Merkez |
+| `107999` | İzmir / Kiraz |
+| `107850` | Isparta / Isparta |
+
+### Migrating stored IDs
+
+<Steps>
+
+### Match on the selector, not the ID
+
+```typescript
+const REASSIGNED = [
+  { previousId: 999001, newId: 153353, name: 'Merkez', stateId: 2168, countryId: 225 },
+  { previousId: 107999, newId: 153355, name: 'Derecik', stateId: 2190, countryId: 225 },
+  { previousId: 107850, newId: 153357, name: 'Aralık', stateId: 2166, countryId: 225 },
+];
+
+function migrateCityId(stored: { id: number; name: string; stateId: number; countryId: number }) {
+  if (stored.id === 149236) return 149214; // duplicate merge, unconditional
+
+  const rule = REASSIGNED.find(
+    (candidate) =>
+      candidate.previousId === stored.id &&
+      candidate.name === stored.name &&
+      candidate.stateId === stored.stateId &&
+      candidate.countryId === stored.countryId
+  );
+
+  return rule ? rule.newId : stored.id;
+}
+```
+
+### Verify against the shipped manifest
+
+The same rules are published with the package, so you can drive the migration from data instead of
+hard-coding it:
+
+```typescript
+import migrations from '@tansuasici/country-state-city/data/migrations/city-id-migrations.json' with { type: 'json' };
+```
+
+Each entry carries `previousId`, `selector`, `redirect`, and a `reason` explaining the conflict.
+
+</Steps>
+
+## Türkiye districts are additive
+
+v3 adds an explicit district layer for Türkiye — 922 records — but does **not** remove the legacy
+city rows they came from. The migration is recorded as `non-destructive-alias`: every legacy
+`csc:city:*` public ID still resolves.
+
+```typescript
+// v2 code — still works in v3
+const cities = CountryStateCity.getCitiesByStateId(2170);
+
+// v3 — the same places at district grain
+const districts = CountryStateCity.getDistrictsByStateId(2170);
+```
+
+Move to `getDistrictsByStateId()` when you need the administrative grain. Stay on
+`getCitiesByStateId()` if you want the populated-place list — 104 Türkiye places are settlements
+rather than districts and appear only there.
+
+## What v3 adds
+
+Fifteen methods, all new rather than replacements:
+
+| Area | Methods |
+| --- | --- |
+| Districts | `getAllDistricts`, `getDistrictById`, `getDistrictByPublicId`, `getDistrictsByStateId`, `getDistrictsByCountryCode`, `searchDistricts` |
+| Entity layer | `getAdministrativeAreas`, `getSettlements` |
+| Search | `searchLocations` |
+| Spatial | `nearestCenters`, `nearestCentersBatch` |
+| Coverage | `getCountryCoverage`, `getCoverageReport` |
+| Other | `getCountryTranslation`, `getTimezoneOffset` |
+
+Records also gained identity and provenance fields — `publicId`, `codeStatus`, `codeAuthority`,
+`lifecycleStatus`, `coordinateSource`, and others. They are additions, so existing destructuring is
+unaffected. See [Data structures](/docs/data-structures) and [Stable IDs & entity
+levels](/docs/stable-ids-entity-levels).
+
+## Checklist
+
+- [ ] Upgrade the dependency and build. No code changes should be required.
+- [ ] If you persist city IDs, run the selector-based migration above.
+- [ ] If you target Türkiye administrative areas, consider `getDistrictsByStateId()`.
+- [ ] If you pinned a dataset version, review [Version diffs](/docs/version-diffs).

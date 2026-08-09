@@ -17,27 +17,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://countrystatecity.tansuasici.com';
   const contentDir = path.join(process.cwd(), 'content/docs');
 
-  const docSlugs = [
-    'installation',
-    'api-reference',
-    'playground',
-    'hosted-api',
-    'graphql',
-    'api-policy',
-    'api-playground',
-    'mcp',
-    'data-structures',
-    'formats',
-    'location-search',
-    'reverse-geocoding',
-    'timezones',
-    'stable-ids-entity-levels',
-    'data-coverage',
-    'data-quality',
-    'version-diffs',
-    'data-license',
-    'contributing',
-  ];
+  const docSlugs = fs
+    .readdirSync(contentDir, { withFileTypes: true })
+    .filter((entry) => entry.isFile() && entry.name.endsWith('.mdx') && entry.name !== 'index.mdx')
+    .map((entry) => entry.name.slice(0, -'.mdx'.length))
+    .sort();
 
   const docEntries: MetadataRoute.Sitemap = docSlugs.map((slug) => ({
     url: `${baseUrl}/docs/${slug}`,

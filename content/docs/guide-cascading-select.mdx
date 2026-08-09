@@ -1,0 +1,204 @@
+---
+title: Build a cascading select
+description: A country → state → city picker in React, including the bundle-size decision that comes with it.
+---
+
+import { Callout } from 'fumadocs-ui/components/callout';
+import { Steps, Step } from 'fumadocs-ui/components/steps';
+import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
+
+The most common use of this dataset: three dependent dropdowns where each one narrows the next.
+
+The logic is four lines. The decision that actually matters is **where the city data lives**, so
+start there.
+
+## Choose where cities come from
+
+The browser build imports the compact city dataset statically, so importing the package anywhere in
+client code puts roughly 11 MB of JSON into that bundle. Countries and states are small; cities are
+not.
+
+| Approach | Cost | Use when |
+| --- | --- | --- |
+| Import the package in client code | ~11 MB in the client bundle | Internal tools, offline apps, extensions |
+| `import()` the package on demand | Same bytes, but a separate chunk fetched on first use | You need offline data but not on first paint |
+| Fetch cities from the hosted API | A few KB per request | Public sites where first-load size matters |
+
+<Callout type="warn">
+  Do not import the package at module scope in a page that must load fast. Bundlers cannot
+  tree-shake the city payload, because the entry reads it directly.
+</Callout>
+
+## Countries and states only
+
+If your form stops at state level, import the two published JSON subpaths instead of the main
+browser entry. This avoids pulling the city and district payloads into the bundle.
+
+```tsx
+import { useMemo, useState } from 'react';
+import countriesData from '@tansuasici/country-state-city/data/countries.json';
+import statesData from '@tansuasici/country-state-city/data/states.json';
+import type { Country, State } from '@tansuasici/country-state-city';
+
+const countries = countriesData as Country[];
+const allStates = statesData as State[];
+
+export function CountryStatePicker() {
+  const [countryId, setCountryId] = useState<number | null>(null);
+  const states = useMemo(
+    () => (countryId ? allStates.filter((state) => state.countryId === countryId) : []),
+    [countryId]
+  );
+
+  return (
+    <>
+      <select onChange={(event) => setCountryId(Number(event.target.value) || null)}>
+        <option value="">Select a country</option>
+        {countries.map((country) => (
+          <option key={country.id} value={country.id}>
+            {country.emoji} {country.name}
+          </option>
+        ))}
+      </select>
+
+      <select disabled={!states.length}>
+        <option value="">Select a state</option>
+        {states.map((state) => (
+          <option key={state.id} value={state.id}>
+            {state.name}
+          </option>
+        ))}
+      </select>
+    </>
+  );
+}
+```
+
+The JSON modules are exported package entry points, so this does not rely on an internal file path.
+The casts restore the package types after JSON-module inference.
+
+## Adding cities
+
+<Tabs items={['Hosted API', 'Lazy-loaded package']}>
+
+<Tab value="Hosted API">
+
+Keeps the client bundle small. Each step is a request, so track loading state.
+
+```tsx
+import { useEffect, useState } from 'react';
+
+function useCities(countryCode: string | null, subdivisionCode: string | null) {
+  const [cities, setCities] = useState<Array<{ id: number; name: string }>>([]);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (!countryCode || !subdivisionCode) {
+      setCities([]);
+      return;
+    }
+
+    const controller = new AbortController();
+    setLoading(true);
+
+    const query = new URLSearchParams({
+      country: countryCode,
+      subdivision: subdivisionCode,
+      limit: '100',
+    });
+
+    fetch(`/api/v1/places?${query}`, { signal: controller.signal })
+      .then((response) => {
+        if (!response.ok) throw new Error(`Request failed: ${response.status}`);
+        return response.json();
+      })
+      .then((body) => setCities(body.data))
+      .catch((error) => {
+        if (error.name !== 'AbortError') setCities([]);
+      })
+      .finally(() => {
+        if (!controller.signal.aborted) setLoading(false);
+      });
+
+    return () => controller.abort();
+  }, [countryCode, subdivisionCode]);
+
+  return { cities, loading };
+}
+```
+
+Aborting on change matters here: without it, a fast click through three states can resolve out of
+order and leave the previous state's cities on screen.
+
+Call the API from your own server route so the key stays server-side, and page through results —
+the default page size is 25 and the maximum is 100. See [Limits & policy](/docs/api-policy) and
+[Errors](/docs/errors).
+
+</Tab>
+
+<Tab value="Lazy-loaded package">
+
+Keeps the data offline but out of the initial bundle. The import resolves once and is cached by the
+module system afterwards.
+
+```tsx
+import { useEffect, useState } from 'react';
+
+function useCities(stateId: number | null) {
+  const [cities, setCities] = useState<Array<{ id: number; name: string }>>([]);
+
+  useEffect(() => {
+    if (!stateId) {
+      setCities([]);
+      return;
+    }
+
+    let active = true;
+
+    import('@tansuasici/country-state-city').then(({ CountryStateCity }) => {
+      if (active) setCities(CountryStateCity.getCitiesByStateId(stateId));
+    });
+
+    return () => {
+      active = false;
+    };
+  }, [stateId]);
+
+  return { cities };
+}
+```
+
+The `active` flag plays the same role as `AbortController` above — the promise from an earlier
+state can still resolve after you have moved on.
+
+</Tab>
+
+</Tabs>
+
+## Reset children when a parent changes
+
+The bug every cascading select ships at least once: picking a new country leaves the old state
+selected, and the form submits a state that does not belong to it.
+
+```tsx
+function handleCountryChange(nextCountryId: number | null) {
+  setCountryId(nextCountryId);
+  setStateId(null); // clear the child
+  setCityId(null); // and the grandchild
+}
+```
+
+Deriving the child lists from the parent — as `useMemo` does above — keeps the *options* correct,
+but the *selected values* are separate state and must be cleared explicitly.
+
+## Türkiye
+
+Türkiye has an explicit district layer. For an address form, districts are usually what people
+expect to pick, not the populated-place list.
+
+```typescript
+const districts = CountryStateCity.getDistrictsByStateId(2170); // Istanbul
+```
+
+See [Upgrading to v3](/docs/migration-v2-v3#türkiye-districts-are-additive) for how districts and
+legacy city records relate.
