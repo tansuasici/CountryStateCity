@@ -66,6 +66,7 @@ jobs:
       - run: npm run build:lib
         env:
           NODE_OPTIONS: '--max-old-space-size=8192'
+      - run: npm run build:mcp
       - run: npm run test:package-size
       - run: npm run test:packed-entrypoints
       - name: Upload data quality reports

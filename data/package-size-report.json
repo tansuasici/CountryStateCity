@@ -5,8 +5,8 @@
   "measuredAt": "2026-08-08T00:00:00.000Z",
   "passed": true,
   "measurement": {
-    "packedBytes": 3799830,
-    "unpackedBytes": 23257632,
+    "packedBytes": 3806951,
+    "unpackedBytes": 23283775,
     "files": 62,
     "browserEntrypointBytes": 35472
   },
@@ -18,9 +18,9 @@
   },
   "reductionBaseline": {
     "previousUnpackedBytes": 165785789,
-    "currentUnpackedBytes": 23257632,
-    "bytesRemoved": 142528157,
-    "reductionPercent": 85.97
+    "currentUnpackedBytes": 23283775,
+    "bytesRemoved": 142502014,
+    "reductionPercent": 85.96
   },
   "largestFiles": [
     {
@@ -61,7 +61,7 @@
     },
     {
       "file": "countrystatecity-mcp/dist/index.js",
-      "bytes": 259745
+      "bytes": 285868
     },
     {
       "file": "data/production-manifest.json",

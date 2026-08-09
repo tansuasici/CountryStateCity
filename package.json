@@ -202,7 +202,7 @@
     "test:api": "vitest run countrystatecity-api/src/__tests__",
     "dev:api": "tsx countrystatecity-api/src/server.ts",
     "dev:mcp": "tsx countrystatecity-mcp/src/index.ts",
-    "prepublishOnly": "npm run test:data-artifacts && npm run test:data-quality && npm run test:quality-dashboard && npm run build:lib && npm run test:package-size && npm run test:packed-entrypoints"
+    "prepublishOnly": "npm run test:data-artifacts && npm run test:data-quality && npm run test:quality-dashboard && npm run build:lib && npm run build:mcp && npm run test:package-size && npm run test:packed-entrypoints"
   },
   "lint-staged": {
     "*.{ts,tsx,js,jsx}": [
