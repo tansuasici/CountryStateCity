@@ -1,0 +1,65 @@
+---
+title: Stable IDs & entity levels
+description: Public identity, lifecycle rules, administrative levels, settlements, and compatibility collections.
+---
+
+import { Callout } from 'fumadocs-ui/components/callout';
+
+## Stable public identity
+
+Canonical public IDs use `csc:{entity}:{legacyNumericId}` for `country`, `state`, `city`, and
+`district` entities. Once assigned, an ID is immutable and is never reused. Upstream source IDs are
+corroborating evidence, not public identity, and can change without changing the CSC public ID.
+
+```text
+csc:country:225
+csc:state:2170
+csc:city:107527
+csc:district:107863
+```
+
+Search results expose `canonicalId`; district records expose `publicId` directly. Legacy collection
+methods continue to accept numeric IDs for compatibility.
+
+Renames and source-ID changes preserve identity. Delete, merge, split, and identity-repair events
+must declare successor IDs in the versioned migration artifacts; a split cannot silently choose one
+successor.
+
+## Entity levels
+
+Imported `state` and `city` collections are retained for compatibility, but collection names do not
+always describe the real administrative role. Use the semantic fields when comparing geographies:
+
+| Field | Meaning |
+| --- | --- |
+| `entityType` | `administrative-area` or `settlement` |
+| `administrativeLevel` | Comparable hierarchy level, or `null` for settlements |
+| `placeType` | Province, municipality, district, settlement, and other local labels |
+| `parentId` | Immediate parent record |
+| `lifecycleStatus` | `current`, `historical`, or `review-required` |
+| `classificationConfidence` | How the semantic classification was derived |
+| `entityLevelSource` | Versioned classification policy |
+
+```typescript
+const currentRegions = CountryStateCity.getAdministrativeAreas({
+  countryCode: 'FR',
+  level: 1,
+});
+
+const departments = CountryStateCity.getAdministrativeAreas({
+  countryCode: 'FR',
+  level: 2,
+  lifecycleStatus: 'all',
+  sourceLayer: 'all',
+});
+
+const settlements = CountryStateCity.getSettlements({ countryCode: 'FR' });
+```
+
+<Callout type="info">
+  Legacy `getStatesBy…` and `getCitiesBy…` methods intentionally preserve their source collections.
+  Use `getAdministrativeAreas()` and `getSettlements()` when entity semantics matter.
+</Callout>
+
+Rows classified from name suffixes carry `classificationConfidence: 'name-inferred'`; consumers can
+filter or review that confidence instead of treating every label as equally authoritative.

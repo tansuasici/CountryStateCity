@@ -1,0 +1,54 @@
+---
+title: Limits & policy
+description: Authentication, quotas, pagination, payload limits, caching, versioning, and service targets.
+---
+
+import { Callout } from 'fumadocs-ui/components/callout';
+
+## Authentication
+
+Pass the API key in the `x-api-key` header. These discovery and health routes are public:
+
+- `/api`
+- `/api/v1/health`
+- `/api/openapi.json`
+- `/api/policy.json`
+- `/api/subscription-policy.json`
+
+Data and GraphQL routes fail closed when API-key configuration is absent. Keep keys in server-side
+environment variables; do not embed them in browser bundles.
+
+## Request limits
+
+| Limit | Value |
+| --- | --- |
+| Per-key rate limit | 100 requests per minute |
+| Free-plan monthly hypothesis | 50,000 requests |
+| Default REST/GraphQL page size | 25 records |
+| Maximum page size | 100 records |
+| Hosted reverse-geocoding batch | 1,000 points and 128 KiB |
+| GraphQL request body | 32 KiB |
+
+<Callout type="warn">
+  Plan quotas are currently marked as a product hypothesis in the machine-readable policy. Treat
+  them as the current operating contract, not a permanent pricing guarantee.
+</Callout>
+
+## Caching
+
+Cacheable responses use a 60-second private TTL and a 300-second stale-while-revalidate window.
+Use `ETag` with `If-None-Match` for conditional requests. `X-Cache` reports cache behavior and
+`X-Data-Version` identifies the exact dataset snapshot.
+
+## Versioning and deprecation
+
+Breaking schema changes receive a new major URL version. Deprecated major versions receive at
+least 180 days notice through documentation and the `Deprecation`, `Sunset`, and `Link` headers.
+Every data response also includes `meta.apiVersion`, `meta.dataVersion`, and `meta.source`.
+
+## Service targets
+
+The current 30-day targets are 99% availability, warm p95 latency at or below 250 ms, and an error
+rate below 1%. These are operating objectives rather than a contractual SLA.
+
+The complete machine-readable policy is available at [`/api/policy.json`](/api/policy.json).
