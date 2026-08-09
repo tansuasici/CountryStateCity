@@ -23,7 +23,7 @@ Open your Claude Desktop configuration file and add:
   "mcpServers": {
     "country-state-city": {
       "command": "npx",
-      "args": ["@tansuasici/country-state-city", "mcp"]
+      "args": ["-y", "@tansuasici/country-state-city"]
     }
   }
 }
@@ -36,9 +36,10 @@ After saving the config, restart Claude Desktop to load the MCP server.
 ### Start querying
 
 Ask Claude questions like:
-- *"What are the top 5 countries in Europe by number of states?"*
-- *"Show me all cities in Istanbul"*
-- *"What currency does Japan use?"*
+
+- _"What are the top 5 countries in Europe by number of states?"_
+- _"Show me all cities in Istanbul"_
+- _"What currency does Japan use?"_
 
 </Steps>
 
@@ -46,43 +47,46 @@ Ask Claude questions like:
 
 The MCP server exposes **11 tools** for querying location data:
 
-| Tool | Description | Parameters |
-|------|-------------|------------|
-| `search_countries` | Search countries by name | `query` |
-| `get_country` | Get country by ID, ISO2, or ISO3 | `id \| iso2 \| iso3` |
-| `get_countries_by_region` | Get countries in a region | `region` |
-| `get_states` | Get states by country | `countryId \| countryCode` |
-| `search_states` | Search states by name | `query, countryId?` |
-| `get_cities` | Get cities with pagination | `stateId \| countryId, limit?` |
-| `search_cities` | Search cities by name | `query, stateId?, countryId?` |
-| `get_stats` | Database statistics | *none* |
-| `get_regions` | All world regions | *none* |
-| `get_timezones` | All timezones | *none* |
-| `get_currencies` | All currencies | *none* |
+| Tool                      | Description                      | Parameters                     |
+| ------------------------- | -------------------------------- | ------------------------------ |
+| `search_countries`        | Search countries by name         | `query`                        |
+| `get_country`             | Get country by ID, ISO2, or ISO3 | `id \| iso2 \| iso3`           |
+| `get_countries_by_region` | Get countries in a region        | `region`                       |
+| `get_states`              | Get states by country            | `countryId \| countryCode`     |
+| `search_states`           | Search states by name            | `query, countryId?`            |
+| `get_cities`              | Get cities with pagination       | `stateId \| countryId, limit?` |
+| `search_cities`           | Search cities by name            | `query, stateId?, countryId?`  |
+| `get_stats`               | Database statistics              | _none_                         |
+| `get_regions`             | All world regions                | _none_                         |
+| `get_timezones`           | All timezones                    | _none_                         |
+| `get_currencies`          | All currencies                   | _none_                         |
 
 ## Resources
 
-The MCP server also provides **5 resource URIs** for direct data access:
+The MCP server also provides **6 resource URIs** for direct data access:
 
-| URI | Description |
-|-----|-------------|
-| `country-state-city://countries` | All countries (summary) |
-| `country-state-city://countries/{iso2}` | Country detail by ISO2 code |
-| `country-state-city://countries/{iso2}/states` | States for a country |
-| `country-state-city://states/{id}/cities` | Cities for a state |
-| `country-state-city://stats` | Database statistics |
+| URI                                            | Description                                                           |
+| ---------------------------------------------- | --------------------------------------------------------------------- |
+| `country-state-city://countries`               | All countries (summary)                                               |
+| `country-state-city://countries/{iso2}`        | Country detail by ISO2 code                                           |
+| `country-state-city://countries/{iso2}/states` | States for a country                                                  |
+| `country-state-city://states/{id}/cities`      | Cities for a state                                                    |
+| `country-state-city://stats`                   | Database statistics                                                   |
+| `country-state-city://snapshot`                | Exact package version, data digest, generation time, and coverage URL |
 
 ## Usage Example
 
 When connected, Claude can chain multiple tools to answer complex queries:
 
-**You ask:** *"What are the top 5 largest countries in Europe by number of states?"*
+**You ask:** _"What are the top 5 largest countries in Europe by number of states?"_
 
 **Claude uses:**
+
 1. `get_countries_by_region("Europe")` — gets all European countries
 2. `get_states(countryId)` — for each country, gets state count
 3. Sorts and returns the top 5
 
 <Callout type="info">
-The MCP server runs locally via `npx` and does not send any data to external servers. All queries are processed on your machine.
+  The MCP server runs locally via `npx` and does not send any data to external servers. All queries
+  are processed on your machine.
 </Callout>

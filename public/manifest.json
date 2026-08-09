@@ -1,7 +1,7 @@
 {
   "name": "Country State City",
   "short_name": "CSC",
-  "description": "Complete world location database with 250+ countries, 5,000+ states, and 150,000+ cities.",
+  "description": "Versioned location data for 250 countries and territories, 4,963 administrative areas, 147,739 places, and 922 Türkiye districts.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",

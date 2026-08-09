@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     template: '%s | Country State City',
   },
   description:
-    'Free world location database with 250 country and area records, 5,000+ administrative areas, and 150,000+ places. ISO 3166-based codes with documented exceptions, available in JSON, CSV, XML, and YAML.',
+    'Versioned world location data for 250 countries and territories, 4,963 administrative areas, 147,739 places, and 922 Türkiye districts, available in JSON, CSV, XML, and YAML.',
   keywords: [
     'country data',
     'state data',
@@ -43,7 +43,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Country State City - World Location Database',
     description:
-      'Free comprehensive world location database with 250+ countries, 5,000+ states, and 150,000+ cities.',
+      'Versioned location data for 250 countries and territories, 4,963 administrative areas, 147,739 places, and 922 Türkiye districts.',
     type: 'website',
     locale: 'en_US',
     url: siteUrl,
@@ -54,7 +54,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Country State City - World Location Database',
     description:
-      'Free comprehensive world location database with 250+ countries, 5,000+ states, and 150,000+ cities.',
+      'Versioned location data for 250 countries and territories, 4,963 administrative areas, 147,739 places, and 922 Türkiye districts.',
     images: ['/og-image.png'],
     creator: '@tansuasici',
   },
@@ -89,7 +89,7 @@ const jsonLd = {
   applicationCategory: 'DeveloperApplication',
   operatingSystem: 'Any',
   description:
-    'Free comprehensive world location database with 250+ countries, 5,000+ states, and 150,000+ cities.',
+    'Versioned location data for 250 countries and territories, 4,963 administrative areas, 147,739 places, and 922 Türkiye districts.',
   url: siteUrl,
   author: { '@type': 'Person', name: 'Tansu Asici', url: 'https://tansuasici.com' },
   offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
