@@ -5,7 +5,7 @@ description: Error response shape, status and error codes, rate-limit headers, a
 
 import { Callout } from 'fumadocs-ui/components/callout';
 
-Every failed request returns the same envelope, so a single handler covers all of them:
+REST failures return the same envelope, so a single handler covers them:
 
 ```json
 {
@@ -15,27 +15,37 @@ Every failed request returns the same envelope, so a single handler covers all o
   },
   "meta": {
     "apiVersion": "v1",
-    "dataVersion": "2026-08-06.1",
-    "source": "countrystatecity"
+    "dataVersion": "sha256:14b24c…",
+    "source": {
+      "name": "CountryStateCity derivative database",
+      "license": {
+        "id": "ODbL-1.0"
+      }
+    }
   }
 }
 ```
 
 Branch on `error.code` rather than on `message`. Messages are written for humans and may be
-reworded; codes are part of the contract and change only with a new major version.
+reworded; codes are part of the contract and change only with a new major version. GraphQL
+validation and execution failures use the standard GraphQL `errors` array instead of this REST
+envelope.
 
 ## Status and error codes
 
 | Status | `error.code` | Cause | What to do |
 | --- | --- | --- | --- |
-| `400` | `invalid_fields` | A query or body parameter failed validation | Fix the parameter. The message names the offending field |
+| `400` | `invalid_fields`, `invalid_limit`, `invalid_offset` | Field selection or pagination failed validation | Fix the parameter named by the message |
+| `400` | `country_required`, `query_too_short` | A required query parameter is missing or too short | Supply the required value |
+| `400` | `invalid_types`, `invalid_coordinate` | Entity types or WGS84 coordinates failed validation | Use a supported type or valid coordinate |
+| `400` | `invalid_json`, `points_required`, `batch_too_large`, `query_required` | A POST body is invalid | Correct the JSON, required value, or batch size |
 | `401` | `invalid_api_key` | Missing or unrecognised `x-api-key` header | Check the header name and that the key is active |
-| `404` | `country_not_found` | The requested country code has no record | Verify the ISO code against [Data coverage](/docs/data-coverage) |
+| `404` | `country_not_found`, `not_found` | The requested country or API route has no record | Verify the ISO code or route |
 | `405` | `method_not_allowed` | Wrong HTTP verb for the route | Data routes are `GET`; GraphQL is `POST` |
 | `413` | `body_too_large` | Payload exceeded the documented cap | Split the batch. See [Limits & policy](/docs/api-policy) |
 | `429` | `rate_limit_exceeded` | Per-key rate limit exhausted | Back off until `X-RateLimit-Reset`, then retry |
 | `500` | `internal_error` | Unexpected server-side failure | Retry with backoff. Report with the `X-Request-Id` |
-| `503` | — | API-key configuration is absent, so data routes fail closed | Transient on our side; retry with backoff |
+| `503` | `authentication_not_configured` | API-key configuration is absent, so data routes fail closed | Transient on our side; retry with backoff |
 
 <Callout type="info">
   `503` is a deployment state, not a per-request fault: the service refuses to serve data routes
@@ -44,14 +54,16 @@ reworded; codes are part of the contract and change only with a new major versio
 
 ## Response headers
 
-Present on every response, including errors:
+Normal API responses and REST errors carry the common headers below. Rate-limit headers are added
+only after a private request has supplied a valid API key; public routes, `401`, and `503`
+responses therefore do not carry them.
 
 | Header | Meaning |
 | --- | --- |
 | `X-Request-Id` | Unique per request. Include it in any bug report |
 | `X-RateLimit-Limit` | Requests allowed in the current window |
 | `X-RateLimit-Remaining` | Requests left in the current window |
-| `X-RateLimit-Reset` | When the window resets |
+| `X-RateLimit-Reset` | Unix timestamp in seconds when the window resets |
 | `X-Data-Version` | Dataset snapshot the response was served from |
 | `X-Cache` | Whether the response came from cache |
 
@@ -67,8 +79,9 @@ async function request(path, { retries = 3 } = {}) {
   });
 
   if (response.status === 429 && retries > 0) {
-    const reset = Number(response.headers.get('X-RateLimit-Reset')) || 1;
-    await new Promise((resolve) => setTimeout(resolve, reset * 1000));
+    const resetAt = Number(response.headers.get('X-RateLimit-Reset')) * 1000;
+    const delayMs = Number.isFinite(resetAt) ? Math.max(0, resetAt - Date.now()) : 1_000;
+    await new Promise((resolve) => setTimeout(resolve, delayMs));
     return request(path, { retries: retries - 1 });
   }
 
