@@ -11,7 +11,11 @@ import { STATS } from '@/lib/stats';
 
 const quickStartLines: CodeLine[] = [
   [{ text: 'import ' }, { text: '{ CountryStateCity }', tone: 'muted' }],
-  [{ text: '  from ' }, { text: "'@tansuasici/country-state-city'", tone: 'accent' }, { text: ';' }],
+  [
+    { text: '  from ' },
+    { text: "'@tansuasici/country-state-city'", tone: 'accent' },
+    { text: ';' },
+  ],
   [{ text: '' }],
   [{ text: 'const turkey = CountryStateCity' }],
   [{ text: '  .getCountryByIso2(' }, { text: "'TR'", tone: 'accent' }, { text: ');' }],
