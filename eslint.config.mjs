@@ -17,6 +17,7 @@ const config = [
       '.data-sync/**',
       '.rollup.cache/**',
       'analysis/**',
+      'public/vendor/**',
     ],
   },
   {
