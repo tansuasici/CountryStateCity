@@ -1,0 +1,129 @@
+---
+title: Add location autocomplete
+description: A typo-tolerant search box over countries, states, cities, and districts using searchLocations.
+---
+
+import { Callout } from 'fumadocs-ui/components/callout';
+
+A cascading select assumes people know the hierarchy. Often they only know the place name — and
+they misspell it. `searchLocations()` ranks across every entity type at once and tolerates typos.
+
+```typescript
+const matches = CountryStateCity.searchLocations('İstanbull', {
+  countryCode: 'TR',
+  entityTypes: ['state', 'city', 'district'],
+  typoTolerance: true,
+  limit: 10,
+});
+```
+
+## What a match contains
+
+Each result carries enough context to render an unambiguous row, which matters because place names
+repeat constantly — there are dozens of `Merkez` records in Türkiye alone.
+
+| Field | Use |
+| --- | --- |
+| `name` | The canonical name |
+| `entityType` | `country`, `state`, `city`, or `district` |
+| `countryName`, `stateName` | Parent context for disambiguation |
+| `canonicalId` | Stable public ID to store |
+| `score` | Ranking score, already sorted |
+| `matchedName` | The string that matched, which may be an alias |
+| `matchReason` | Why it matched — `canonical-exact`, `alias-exact`, `canonical-prefix`, … |
+
+<Callout type="info">
+  Show `stateName` and `countryName` in the row. Without them a list of five `Merkez` entries is
+  unusable, and the user cannot tell which one they picked afterwards.
+</Callout>
+
+## A search box
+
+```tsx
+import { useEffect, useState } from 'react';
+import type { LocationSearchMatch } from '@tansuasici/country-state-city';
+
+export function LocationSearch({ onSelect }: { onSelect: (m: LocationSearchMatch) => void }) {
+  const [query, setQuery] = useState('');
+  const [matches, setMatches] = useState<LocationSearchMatch[]>([]);
+
+  useEffect(() => {
+    if (query.trim().length < 2) {
+      setMatches([]);
+      return;
+    }
+
+    // Debounce: the index is in memory, but re-ranking on every keystroke is wasted work.
+    const timer = setTimeout(async () => {
+      const { CountryStateCity } = await import('@tansuasici/country-state-city');
+      setMatches(
+        CountryStateCity.searchLocations(query, {
+          entityTypes: ['country', 'state', 'city', 'district'],
+          typoTolerance: true,
+          limit: 8,
+        })
+      );
+    }, 150);
+
+    return () => clearTimeout(timer);
+  }, [query]);
+
+  return (
+    <>
+      <input
+        value={query}
+        onChange={(event) => setQuery(event.target.value)}
+        placeholder="Search for a place"
+        aria-label="Search for a place"
+      />
+      <ul>
+        {matches.map((match) => (
+          <li key={match.canonicalId}>
+            <button type="button" onClick={() => onSelect(match)}>
+              <strong>{match.name}</strong>
+              <small>
+                {[match.stateName, match.countryName].filter(Boolean).join(' · ')}
+              </small>
+            </button>
+          </li>
+        ))}
+      </ul>
+    </>
+  );
+}
+```
+
+Two details worth keeping:
+
+- **Wait for two characters.** A single letter matches thousands of records and ranks meaninglessly.
+- **Debounce.** Search runs against an in-memory index, so it is fast, but re-ranking on every
+  keystroke still burns main-thread time on long lists.
+
+## Narrow the search when you already know the context
+
+Pass what the form has already established. It shortens the list and improves ranking.
+
+```typescript
+// User already picked Türkiye
+CountryStateCity.searchLocations(query, { countryCode: 'TR' });
+
+// User already picked Istanbul
+CountryStateCity.searchLocations(query, { stateId: 2170, entityTypes: ['district'] });
+```
+
+## Diacritics
+
+Queries are folded before matching, so `Kadikoy` finds `Kadıköy`, `Turkiye` finds `Türkiye`, and
+`Zurich` finds `Zürich`. Do not strip accents yourself before calling — you would only lose the
+exact-match signal that ranks a correctly typed query first.
+
+## Hosted API
+
+The same ranking is available over HTTP when you do not want the dataset in your bundle:
+
+```bash
+curl -H "x-api-key: $CSC_API_KEY" \
+  "https://countrystatecity.tansuasici.com/api/v1/search?q=Kadikoy&countryCode=TR"
+```
+
+See [Location search](/docs/location-search) for the alias contract and ranking rules.
