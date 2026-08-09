@@ -19,7 +19,7 @@
 
 ## About
 
-Country State City provides a versioned dataset of 250 countries and territories, 4,963 administrative areas, and 147,739 populated-place records as an NPM package, an MCP server for AI assistants, and an interactive web app.
+Country State City provides a versioned dataset of 250 countries and territories, 4,963 administrative areas, 147,739 populated-place records, and 922 Türkiye districts as an NPM package, an MCP server for AI assistants, and an interactive web app.
 
 ## Features
 
@@ -32,8 +32,12 @@ Country State City provides a versioned dataset of 250 countries and territories
 - **TypeScript** — Full type definitions included
 - **Dual Entry Points** — Separate browser (ESM) and Node.js (CJS/ESM) builds
 - **Search** — Filter countries, states, and cities by name
+- **Ranked location search** — Canonical names, aliases, transliterations, typo tolerance, match reasons, and stable IDs
+- **Nearest-centre lookup** — Lazy spatial indexes, batch queries, antimeridian handling, distance, and confidence metadata
+- **Timezone utilities** — Observe IANA timezone offsets for a specific instant instead of relying on stale stored offsets
 - **Explicit Türkiye districts** — 922 current districts with province parents, legacy aliases, open source IDs, and centre-coordinate review status
 - **Optional boundary layers** — Versioned Türkiye admin-1/admin-2 GeoJSON downloads and a lazy overview TopoJSON export
+- **Auditable quality** — Machine-readable coverage, provenance, normalization, package-budget, and migration reports
 - **Interactive Playground** — Test the API at the live demo
 
 ## Quick Start
@@ -112,7 +116,7 @@ Add to your `claude_desktop_config.json`:
   "mcpServers": {
     "country-state-city": {
       "command": "npx",
-      "args": ["@tansuasici/country-state-city", "mcp"]
+      "args": ["-y", "@tansuasici/country-state-city"]
     }
   }
 }
@@ -217,21 +221,51 @@ CountryStateCity.getAllTimezones();
 CountryStateCity.getTimezoneOffset(zoneName, at?);
 CountryStateCity.getAllCurrencies();
 CountryStateCity.searchLocations(query, options?);
+CountryStateCity.nearestCenters(point, options?);
+CountryStateCity.nearestCentersBatch(points, options?);
 CountryStateCity.exportData(dataType, format, options?);
 ```
+
+`nearestCenters()` compares a coordinate with representative centre points. It does **not** prove that a point is inside an administrative area. For containment, supply compatible GeoJSON to `PolygonLookupIndex` or `locatePointInPolygons()`. Versioned polygon coverage currently includes Türkiye admin-1/admin-2 only.
+
+### Direct Data Exports
+
+Use package exports instead of repository-relative paths:
+
+```typescript
+import countries from '@tansuasici/country-state-city/data/countries.json' with { type: 'json' };
+import states from '@tansuasici/country-state-city/data/states.json' with { type: 'json' };
+import compactCities from '@tansuasici/country-state-city/data/cities.optimized.json' with { type: 'json' };
+import turkeyDistricts from '@tansuasici/country-state-city/data/districts/tr.json' with { type: 'json' };
+```
+
+The compact city keys are `i` (ID), `n` (name), `s` (state ID), `c` (country ID), `la`/`lo` (coordinates), and optional `w` (Wikidata QID). Use the class API when full `City` objects are preferred.
 
 ### TypeScript
 
 ```typescript
-import {
-  CountryStateCity,
+import { CountryStateCity } from '@tansuasici/country-state-city';
+import type {
   Country,
   State,
   City,
+  District,
   DataFormat,
   FormatOptions,
 } from '@tansuasici/country-state-city';
 ```
+
+## Migrating to v3
+
+Version 3 keeps the familiar country/state/city methods while tightening the data contract and adding canonical administrative, search, district, timezone, and spatial APIs.
+
+- `@tansuasici/country-state-city/data/cities.json` was removed. Use the class API or `data/cities.optimized.json`.
+- Country and state coordinates can be `null` when no trustworthy value is available.
+- Country translations are normalized to typed locale keys and values can be `null` when a translation is unavailable.
+- State and city records now include explicit entity classification, administrative level, lifecycle, parent, and source fields.
+- Centre-based reverse geocoding and polygon containment are deliberately separate APIs.
+
+Review nullable fields when upgrading TypeScript consumers and prefer immutable `csc:*` public IDs for persisted references.
 
 ## Development
 
