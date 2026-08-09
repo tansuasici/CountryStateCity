@@ -24,7 +24,7 @@ Country State City provides a versioned dataset of 250 countries and territories
 ## Features
 
 - **Versioned location data** — 250 countries and territories, 4,963 administrative areas, and 147,739 places
-- **Immutable public identity** — Namespaced `csc:country|state|city:{id}` values, source-ID collision gates, and version-pair migration downloads
+- **Immutable public identity** — Namespaced `csc:country|state|city|district:{id}` values, source-ID collision gates, and version-pair migration downloads
 - **Normalized display labels** — CLDR-style country names and separated administrative categories across subdivision and place records without changing canonical source names
 - **Reproducible artifacts** — one canonical country/state/city source generates optimized data, browser shards, and package copies with byte-level CI drift checks
 - **Multiple Formats** — JSON, CSV, XML, YAML output

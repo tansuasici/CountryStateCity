@@ -1,6 +1,6 @@
 ---
 title: Getting Started
-description: Complete world location data in JSON, CSV, XML, and YAML formats. 250+ countries, 5,000+ states, 150,000+ cities.
+description: Versioned location data for 250 countries and territories, 4,963 administrative areas, 147,739 places, and 922 Türkiye districts.
 ---
 
 import { Callout } from 'fumadocs-ui/components/callout';
@@ -11,9 +11,10 @@ import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
 
 **Country State City** is a comprehensive world location database available as an NPM package. It provides:
 
-- **250** countries/areas with ISO-assigned codes plus one documented user-assigned Kosovo code
-- **5,000+** states and provinces
-- **150,000+** cities with coordinates
+- **250** countries and territories with ISO-based codes and one documented user-assigned Kosovo code
+- **4,963** imported subdivision records with explicit administrative classification
+- **147,739** populated-place records with centre coordinates
+- **922** explicitly modelled Türkiye districts
 
 Country codes are ISO 3166-1 based. The `XK`/Kosovo record uses a documented user-assigned code from ISO's reserved user-assigned range; inspect `codeStatus` and `codeAuthority` instead of assuming every row is officially assigned. Data is available in JSON, CSV, XML, and YAML formats.
 
@@ -39,7 +40,7 @@ const countries = CountryStateCity.getAllCountries();
 const states = CountryStateCity.getStatesByCountryId(225); // Türkiye
 
 // Get cities by state
-const cities = CountryStateCity.getCitiesByStateId(2175); // Istanbul
+const cities = CountryStateCity.getCitiesByStateId(2170); // Istanbul
 ```
 
 ### Choose your format
@@ -78,7 +79,7 @@ import { CountryStateCity } from '@tansuasici/country-state-city';
 </Tab>
 
 <Tab value="Browser">
-The browser build imports JSON data directly (no filesystem access). It's tree-shakeable and optimized for bundlers:
+The browser build imports package JSON assets directly without filesystem access. Consumer bundlers can split and cache those assets separately from the runtime entry:
 
 ```javascript
 import { CountryStateCity } from '@tansuasici/country-state-city';
@@ -100,6 +101,6 @@ The browser build uses optimized/compressed city data that is decompressed at ru
 | **Multiple Formats** | JSON, CSV, XML, YAML output                                           |
 | **ISO Standards**    | ISO 3166-1 assigned codes plus an explicit user-assigned XK exception |
 | **Full TypeScript**  | Complete type definitions included                                    |
-| **Tree-Shakeable**   | Browser build is optimized for bundlers                               |
+| **Bundler-ready**    | Browser data remains in separately cacheable package assets           |
 | **MCP Integration**  | Works with Claude Desktop and AI assistants                           |
 | **Dual Build**       | Separate Node.js and Browser entry points                             |

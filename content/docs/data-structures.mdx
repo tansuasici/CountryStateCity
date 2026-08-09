@@ -1,6 +1,6 @@
 ---
 title: Data Structures
-description: TypeScript interfaces for Country, State, City, and Timezone data.
+description: Core v3 TypeScript structures for countries, administrative areas, places, districts, spatial results, and timezones.
 ---
 
 ## Country
@@ -66,10 +66,30 @@ interface Country {
 }
 ```
 
+## Shared entity classification
+
+State and city records carry an explicit semantic layer in addition to their legacy source
+collection:
+
+```typescript
+interface GeographicEntityClassification {
+  entityType: 'administrative-area' | 'settlement';
+  administrativeLevel: number | null;
+  placeType: string;
+  parentId: number;
+  lifecycleStatus: 'current' | 'historical' | 'review-required';
+  validFrom: string | null;
+  validTo: string | null;
+  classificationConfidence:
+    'source-or-explicit-rule' | 'name-inferred' | 'country-default' | 'source-collection-default';
+  entityLevelSource: string;
+}
+```
+
 ## State
 
 ```typescript
-interface State {
+interface State extends GeographicEntityClassification {
   id: number;
   name: string; // "Istanbul", "California"
   countryId: number; // 225, 233
@@ -88,13 +108,6 @@ interface State {
   coordinateVerifiedAt: string | null;
   coordinateValidation: string;
   coordinateStatus: 'verified' | 'derived' | 'exception' | 'review-required';
-  entityType: 'administrative-area';
-  administrativeLevel: number; // 1, 2, ...
-  placeType: string; // "province", "state", "department", ...
-  parentId: number; // countryId
-  lifecycleStatus: 'current' | 'historical' | 'review-required';
-  validFrom: string | null;
-  validTo: string | null;
 }
 ```
 
@@ -105,31 +118,85 @@ Country translations use one BCP 47 key set. Use `getCountryTranslation(code, lo
 ## City
 
 ```typescript
-interface City {
+interface City extends GeographicEntityClassification {
   id: number;
-  name: string; // "Kadikoy", "Los Angeles"
+  name: string; // "Kadıköy", "Los Angeles"
   stateId: number;
   stateCode: string; // "34", "CA"
   stateName: string; // "Istanbul", "California"
   countryId: number;
   countryCode: string; // "TR", "US"
   countryName: string; // "Türkiye", "United States"
-  latitude: string; // "40.98187890"
-  longitude: string; // "29.06450670"
-  wikiDataId: string; // "Q193073"
-  entityType: 'administrative-area' | 'settlement';
-  administrativeLevel: number | null;
-  placeType: string;
-  parentId: number; // stateId
-  lifecycleStatus: 'current' | 'historical' | 'review-required';
-  validFrom: string | null;
-  validTo: string | null;
+  latitude: string; // "40.98109600"
+  longitude: string; // "29.06514473"
+  wikiDataId: string; // empty when no supplemental QID is published
 }
 ```
 
 The legacy `state` and `city` arrays preserve upstream rows for compatibility. Use `getAdministrativeAreas({ level, countryCode, lifecycleStatus, sourceLayer })` for comparable administrative levels; it defaults to current level 1 from the source-state layer. Use `sourceLayer: 'all'` to include administrative-area-like source-city rows. Use `getSettlements({ countryCode, stateId, lifecycleStatus })` for populated-place rows. Country mappings, confidence rules, historical dates, and the migration contract are published in `data/entity-level-policy.json`.
 
 `wikiDataId` is optional supplemental metadata, not a stable or primary identity. Every published non-empty QID is unique in the current snapshot. Confidence, verification reason, Wikidata revision, and rejected/duplicate cleanup evidence are published in `data/identity/wikidata-qid-verification.json`; use the `csc:city:<id>` public ID for durable references.
+
+## Türkiye district
+
+The explicit district collection currently covers Türkiye and is separate from the compatibility
+city collection:
+
+```typescript
+interface District {
+  id: number;
+  publicId: string; // "csc:district:107863"
+  name: string; // "Kadıköy"
+  aliases: string[];
+  entityType: 'district';
+  countryId: number;
+  countryCode: string;
+  countryName: string;
+  stateId: number;
+  stateCode: string;
+  stateName: string;
+  latitude: string;
+  longitude: string;
+  coordinateStatus: 'source' | 'corroborated' | 'corrected' | 'review-required';
+  coordinateSource: string;
+  coordinateValidation: string;
+  geoNameId: number;
+  wikiDataId: string | null;
+  officialDistrictCode: null;
+  officialDistrictCodeStatus: 'not-published-by-validation-source';
+  sourceSnapshotDate: string;
+}
+```
+
+Do not substitute the package public ID for an official government code. The validation source does
+not publish a national district code, so `officialDistrictCode` is intentionally `null`.
+
+## Spatial lookup
+
+```typescript
+interface CoordinatePoint {
+  latitude: number;
+  longitude: number;
+}
+
+interface NearestCenterMatch<T> {
+  entityType: 'country' | 'state' | 'city' | 'district';
+  entity: T;
+  distanceKm: number;
+  confidence: 'high' | 'medium' | 'low';
+  confidenceBasis: 'center-distance';
+}
+
+interface NearestCenterResult {
+  query: CoordinatePoint;
+  dataVersion: string;
+  results: NearestCenterMatch[];
+}
+```
+
+Polygon lookup returns matching feature properties separately and reports `exact`,
+`boundary-or-overlap`, or `none`. Centre proximity and polygon containment are deliberately different
+contracts.
 
 ## Timezone
 
@@ -163,4 +230,4 @@ The internal city data uses a compressed format for smaller file sizes:
 | `lo`       | `longitude`  |
 | `w`        | `wikiDataId` |
 
-> This compression reduces the city data from ~44MB to ~13MB. The library decompresses automatically at runtime.
+> The current canonical city JSON is approximately 89 MB and its compact package asset is approximately 12 MB. The library reconstructs full `City` objects lazily at runtime.

@@ -1,306 +1,225 @@
 ---
 title: API Reference
-description: Complete API reference for all CountryStateCity methods.
+description: Complete v3 reference for CountryStateCity collection, canonical-entity, search, spatial, timezone, coverage, and export APIs.
 ---
 
 import { Callout } from 'fumadocs-ui/components/callout';
 
-## Country Methods
-
-### getAllCountries
-
-Returns all countries in the database.
-
 ```typescript
-const countries = CountryStateCity.getAllCountries();
-// Returns: Country[]
-
-// With format
-const csv = CountryStateCity.getAllCountries('csv');
-// Returns: string (CSV formatted)
+import {
+  CountryStateCity,
+  PolygonLookupIndex,
+  locatePointInPolygons,
+} from '@tansuasici/country-state-city';
 ```
 
-**Parameters:**
+Collection methods return typed objects when `format` is omitted and a serialized `string` for
+`json`, `csv`, `xml`, or `yaml`. Methods that accept `options` pass `FormatOptions` to the formatter.
 
-- `format` (optional): `'json' | 'csv' | 'xml' | 'yaml'` — Output format
-
----
-
-### getCountryById
-
-Get a single country by its numeric ID.
+## Countries
 
 ```typescript
-const turkey = CountryStateCity.getCountryById(225);
-// Returns: Country | undefined
+CountryStateCity.getAllCountries(format?, options?);
+CountryStateCity.getCountryById(id);
+CountryStateCity.getCountryByIso2(iso2);
+CountryStateCity.getCountryByIso3(iso3);
+CountryStateCity.searchCountries(query);
+CountryStateCity.getCountriesByRegion(region);
+CountryStateCity.getCountriesBySubregion(subregion);
+CountryStateCity.getCountryTranslation(countryCode, locale);
 ```
 
-**Parameters:**
-
-- `id`: `number` — Country ID
-
----
-
-### getCountryByIso2
-
-Get a country by its ISO 3166-1 alpha-2 code.
+`getCountryById`, `getCountryByIso2`, and `getCountryByIso3` return `Country | undefined`.
+`getCountryTranslation` accepts the canonical locale keys plus the migration aliases `br`, `cn`,
+and `kr`, and returns `string | null | undefined`.
 
 ```typescript
 const turkey = CountryStateCity.getCountryByIso2('TR');
-// Returns: Country | undefined
+const european = CountryStateCity.getCountriesByRegion('Europe');
+const germanName = CountryStateCity.getCountryTranslation('DE', 'tr');
 ```
 
-**Parameters:**
-
-- `code`: `string` — Two-letter country code (e.g. `'TR'`, `'US'`)
-
----
-
-### getCountryByIso3
-
-Get a country by its ISO 3166-1 alpha-3 code.
+## States and cities
 
 ```typescript
-const turkey = CountryStateCity.getCountryByIso3('TUR');
-// Returns: Country | undefined
+CountryStateCity.getAllStates(format?, options?);
+CountryStateCity.getStateById(id);
+CountryStateCity.getStatesByCountryId(countryId, format?, options?);
+CountryStateCity.getStatesByCountryCode(countryCode, format?, options?);
+CountryStateCity.searchStates(query, countryId?);
+
+CountryStateCity.getAllCities(format?, options?);
+CountryStateCity.getCityById(id);
+CountryStateCity.getCitiesByStateId(stateId, format?, options?);
+CountryStateCity.getCitiesByCountryId(countryId, format?, options?);
+CountryStateCity.searchCities(query, stateId?, countryId?);
 ```
 
-**Parameters:**
-
-- `code`: `string` — Three-letter country code (e.g. `'TUR'`, `'USA'`)
-
----
-
-### searchCountries
-
-Search countries by name (partial match, case-insensitive).
-
 ```typescript
-const results = CountryStateCity.searchCountries('united');
-// Returns: Country[] (United States, United Kingdom, UAE, etc.)
-```
-
-**Parameters:**
-
-- `query`: `string` — Search term
-
-## State Methods
-
-### getAllStates
-
-Returns all states/provinces in the database.
-
-```typescript
-const states = CountryStateCity.getAllStates();
-// Returns: State[]
-```
-
-**Parameters:**
-
-- `format` (optional): `'json' | 'csv' | 'xml' | 'yaml'` — Output format
-
----
-
-### getStateById
-
-Get a single state by its numeric ID.
-
-```typescript
-const istanbul = CountryStateCity.getStateById(2170);
-// Returns: State | undefined
-```
-
-**Parameters:**
-
-- `id`: `number` — State ID
-
----
-
-### getStatesByCountryId
-
-Get all states for a specific country.
-
-```typescript
-const turkeyStates = CountryStateCity.getStatesByCountryId(225);
-// Returns: State[] (81 provinces)
-```
-
-**Parameters:**
-
-- `countryId`: `number` — Country ID
-- `format` (optional): `'json' | 'csv' | 'xml' | 'yaml'` — Output format
-
----
-
-### searchStates
-
-Search states by name, optionally filtered by country.
-
-```typescript
-const results = CountryStateCity.searchStates('istanbul');
-// Returns: State[]
-
-const filtered = CountryStateCity.searchStates('ist', 225);
-// Returns: State[] (only in Turkey)
-```
-
-**Parameters:**
-
-- `query`: `string` — Search term
-- `countryId` (optional): `number` — Filter by country
-
-## City Methods
-
-### getAllCities
-
-Returns all cities in the database.
-
-```typescript
-const cities = CountryStateCity.getAllCities();
-// Returns: City[] (~150,000 records)
+const provinces = CountryStateCity.getStatesByCountryCode('TR');
+const istanbulPlaces = CountryStateCity.getCitiesByStateId(2170);
 ```
 
 <Callout type="warn">
-  This returns a very large dataset. Use `getCitiesByStateId` or `getCitiesByCountryId` for filtered
-  results.
+  `getAllCities()` reconstructs all 147,739 place records. Prefer a country/state filter or ranked
+  search when the full collection is unnecessary.
 </Callout>
 
-**Parameters:**
+## Canonical administrative areas and settlements
 
-- `format` (optional): `'json' | 'csv' | 'xml' | 'yaml'` — Output format
-
----
-
-### getCityById
-
-Get a single city by its numeric ID.
+The imported state/city collections remain available for compatibility. Use these methods when the
+semantic entity layer matters:
 
 ```typescript
-const city = CountryStateCity.getCityById(107785);
-// Returns: City | undefined
-```
+CountryStateCity.getAdministrativeAreas({
+  countryCode?: string,
+  level?: number, // defaults to 1
+  lifecycleStatus?: 'current' | 'historical' | 'review-required' | 'all',
+  sourceLayer?: 'state' | 'city' | 'all', // defaults to state
+});
 
-**Parameters:**
-
-- `id`: `number` — City ID
-
----
-
-### getCitiesByStateId
-
-Get all cities for a specific state.
-
-```typescript
-const cities = CountryStateCity.getCitiesByStateId(2170);
-// Returns: City[]
-```
-
-**Parameters:**
-
-- `stateId`: `number` — State ID
-- `format` (optional): `'json' | 'csv' | 'xml' | 'yaml'` — Output format
-
----
-
-### getCitiesByCountryId
-
-Get all cities for a specific country.
-
-```typescript
-const cities = CountryStateCity.getCitiesByCountryId(225);
-// Returns: City[]
-```
-
-**Parameters:**
-
-- `countryId`: `number` — Country ID
-- `format` (optional): `'json' | 'csv' | 'xml' | 'yaml'` — Output format
-
----
-
-### searchCities
-
-Search cities by name with optional filters.
-
-```typescript
-const results = CountryStateCity.searchCities('ankara');
-// Returns: City[]
-
-const filtered = CountryStateCity.searchCities('ank', undefined, 225);
-// Returns: City[] (only in Turkey)
-```
-
-**Parameters:**
-
-- `query`: `string` — Search term
-- `stateId` (optional): `number` — Filter by state
-- `countryId` (optional): `number` — Filter by country
-
-## Utility Methods
-
-### searchLocations
-
-Search canonical, translated, historical, local, and transliterated names with typo tolerance and parent-aware ranking.
-
-```typescript
-const matches = CountryStateCity.searchLocations('Doğubeyazıt', {
-  countryCode: 'TR',
-  stateCode: '04',
-  entityTypes: ['city'],
+CountryStateCity.getSettlements({
+  countryCode?: string,
+  stateId?: number,
+  lifecycleStatus?: 'current' | 'historical' | 'review-required' | 'all',
 });
 ```
 
-Each match includes `canonicalId`, `score`, `matchReason`, canonical parent context, and auditable alias metadata. See [Multilingual location search](/docs/location-search).
+`getAdministrativeAreas()` returns `Array<State | City>`. `getSettlements()` returns `City[]` and
+excludes source-city rows classified as administrative areas.
 
----
+## Türkiye districts
 
-### getStats
-
-Get database statistics.
-
-```typescript
-const stats = CountryStateCity.getStats();
-// Returns current country, state, city, and district row counts
-```
-
----
-
-### getCoverageReport
-
-Returns the machine-readable coverage contract evidence for the current snapshot. Published row counts do not by themselves prove exhaustiveness.
+The explicit district layer currently covers Türkiye.
 
 ```typescript
-const coverage = CountryStateCity.getCoverageReport();
-console.log(coverage.summary.contract.passed); // true
+CountryStateCity.getAllDistricts(format?, options?);
+CountryStateCity.getDistrictById(id);
+CountryStateCity.getDistrictByPublicId(publicId);
+CountryStateCity.getDistrictsByStateId(stateId, format?, options?);
+CountryStateCity.getDistrictsByCountryCode(countryCode);
+CountryStateCity.searchDistricts(query, stateId?);
 ```
-
----
-
-### getCountryCoverage
-
-Returns state, city, metadata, and coordinate coverage classifications for an ISO2 country/territory code.
 
 ```typescript
-const coverage = CountryStateCity.getCountryCoverage('UM');
-// CountryCoverage | undefined
+const kadikoy = CountryStateCity.getDistrictByPublicId('csc:district:107863');
+const istanbulDistricts = CountryStateCity.getDistrictsByStateId(2170);
 ```
 
-See [Data coverage](/docs/data-coverage) for status and reason-code semantics.
+`officialDistrictCode` remains `null` because the validation source does not publish an
+authoritative national district code.
 
----
-
-### exportData
-
-Export data in a specific format.
+## Ranked location search
 
 ```typescript
-const csvData = CountryStateCity.exportData('countries', 'csv');
-const xmlData = CountryStateCity.exportData('states', 'xml', { countryId: 225 });
-const yamlData = CountryStateCity.exportData('cities', 'yaml', { stateId: 2170 });
+CountryStateCity.searchLocations(query, {
+  countryCode?,
+  stateCode?,
+  stateId?,
+  entityTypes?,
+  typoTolerance?,
+  limit?,
+});
 ```
 
-**Parameters:**
+```typescript
+const matches = CountryStateCity.searchLocations('İstanbull', {
+  countryCode: 'TR',
+  entityTypes: ['state', 'city', 'district'],
+  typoTolerance: true,
+  limit: 10,
+});
+```
 
-- `type`: `'countries' | 'states' | 'cities'`
-- `format`: `'json' | 'csv' | 'xml' | 'yaml'`
-- `options` (optional): `{ countryId?: number, stateId?: number }`
+Each result carries its canonical public ID, score, match reason, parent context, matched alias,
+language, source, and validity metadata. See [Multilingual location search](/docs/location-search).
+
+## Nearest centres
+
+```typescript
+CountryStateCity.nearestCenters(point, options?);
+CountryStateCity.nearestCentersBatch(points, options?);
+```
+
+```typescript
+const nearest = CountryStateCity.nearestCenters(
+  { latitude: 40.9811, longitude: 29.0651 },
+  {
+    countryCode: 'TR',
+    entityTypes: ['state', 'city', 'district'],
+    limitPerType: 2,
+    maxDistanceKm: 100,
+  }
+);
+
+const batch = CountryStateCity.nearestCentersBatch([
+  { latitude: 40.9811, longitude: 29.0651 },
+  { latitude: 39.9334, longitude: 32.8597 },
+]);
+```
+
+The result contains the query, immutable `dataVersion`, distance in kilometres, entity data, and
+`center-distance` confidence metadata.
+
+<Callout type="warn">
+  A nearest centre is not proof that a point lies inside an administrative area. Use polygon
+  containment when jurisdictional membership is required.
+</Callout>
+
+## Polygon containment
+
+```typescript
+const index = new PolygonLookupIndex(featureCollection);
+const result = index.locate({ latitude: 40.9811, longitude: 29.0651 });
+
+const oneOff = locatePointInPolygons({ latitude: 40.9811, longitude: 29.0651 }, featureCollection);
+```
+
+Both APIs accept compatible GeoJSON `Polygon`/`MultiPolygon` feature collections. The result reports
+all matching feature properties, boundary status, confidence, and the `point-in-polygon` method.
+Versioned package coverage currently includes Türkiye admin-1/admin-2 only.
+
+## Timezones and lookup lists
+
+```typescript
+CountryStateCity.getAllRegions();
+CountryStateCity.getAllSubregions();
+CountryStateCity.getAllTimezones();
+CountryStateCity.getTimezoneOffset(zoneName, at?);
+CountryStateCity.getAllCurrencies();
+```
+
+`getTimezoneOffset()` accepts a `Date`, ISO date string, or epoch number and observes the supplied
+IANA zone at that instant.
+
+```typescript
+const offset = CountryStateCity.getTimezoneOffset('America/New_York', '2026-08-09T12:00:00Z');
+```
+
+## Statistics and coverage
+
+```typescript
+CountryStateCity.getStats();
+CountryStateCity.getCoverageReport();
+CountryStateCity.getCountryCoverage(countryCode);
+```
+
+`getStats()` returns current country, state, city, and district counts. Coverage methods distinguish
+`available`, `missing`, `notApplicable`, and `unknown`; see [Data coverage](/docs/data-coverage).
+
+## Generic export
+
+```typescript
+CountryStateCity.exportData(
+  dataType, // 'countries' | 'states' | 'cities' | 'districts'
+  format, // 'json' | 'csv' | 'xml' | 'yaml'
+  options?
+);
+```
+
+```typescript
+const countriesCsv = CountryStateCity.exportData('countries', 'csv');
+const statesXml = CountryStateCity.exportData('states', 'xml');
+const citiesYaml = CountryStateCity.exportData('cities', 'yaml');
+const districtsJson = CountryStateCity.exportData('districts', 'json');
+```
