@@ -21,7 +21,7 @@ jobs:
       - run: npm run test:data-quality
       - run: npm run test:data-quality-regressions
       - run: npm run test:quality-dashboard
-      - run: npm run data:version-diff
+      - run: npm run test:web-version-diffs
       - run: npm test
       - run: npm run build:lib
         env:

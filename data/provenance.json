@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "database": {
     "name": "CountryStateCity derivative database",
-    "localVersion": "2.0.15",
+    "localVersion": "3.0.0",
     "license": {
       "id": "ODbL-1.0",
       "name": "Open Data Commons Open Database License v1.0",

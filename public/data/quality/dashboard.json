@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "generatedAt": "2026-08-08T00:00:00.000Z",
-  "dataVersion": "sha256:753742bdb65d7ff73082fce925b75ab6228efb217f0226a9d87bad5ef5556c74",
-  "packageVersion": "2.0.15",
+  "dataVersion": "sha256:14b24c8fae071faa764fafa92e2affb73432a906495989566384578af3362bfd",
+  "packageVersion": "3.0.0",
   "release": {
     "sourceRelease": "v3.2-export.7",
     "sourceRevision": "624a208c3928937d1262ab1646d0b8fc9cacceee",
@@ -106,8 +106,8 @@
   ],
   "trend": [
     {
-      "packageVersion": "2.0.15",
-      "dataVersion": "sha256:753742bdb65d7ff73082fce925b75ab6228efb217f0226a9d87bad5ef5556c74",
+      "packageVersion": "3.0.0",
+      "dataVersion": "sha256:14b24c8fae071faa764fafa92e2affb73432a906495989566384578af3362bfd",
       "generatedAt": "2026-08-08T00:00:00.000Z",
       "gatePassed": true,
       "unresolvedBlockingFindings": 0,

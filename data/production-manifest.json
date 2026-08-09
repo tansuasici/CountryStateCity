@@ -1,8 +1,8 @@
 {
   "schemaVersion": 2,
-  "dataVersion": "sha256:753742bdb65d7ff73082fce925b75ab6228efb217f0226a9d87bad5ef5556c74",
-  "packageVersion": "2.0.15",
-  "generatedAt": "2026-08-08T00:01:07.117Z",
+  "dataVersion": "sha256:14b24c8fae071faa764fafa92e2affb73432a906495989566384578af3362bfd",
+  "packageVersion": "3.0.0",
+  "generatedAt": "2026-08-09T02:58:26.681Z",
   "counts": {
     "countries": 250,
     "states": 4963,
@@ -1786,7 +1786,7 @@
     }
   },
   "digestAlgorithm": "sha256(file-path + NUL + file-sha256 + LF)",
-  "digest": "753742bdb65d7ff73082fce925b75ab6228efb217f0226a9d87bad5ef5556c74",
+  "digest": "14b24c8fae071faa764fafa92e2affb73432a906495989566384578af3362bfd",
   "files": [
     {
       "file": "countrystatecity-npm/data/cities/ad.json",
@@ -2805,8 +2805,8 @@
     },
     {
       "file": "data/distribution-manifest.json",
-      "bytes": 38031,
-      "sha256": "0fb09cccacba77f301f3a6bf15db041c2930dc333fcf6bcb1b82e8049f223727"
+      "bytes": 38030,
+      "sha256": "651624e1b31af5c2bbc5be5569ea6b4b082c9df94f9408e31d6587114b455829"
     },
     {
       "file": "data/entity-level-policy.json",
@@ -2865,8 +2865,8 @@
     },
     {
       "file": "data/provenance.json",
-      "bytes": 16316,
-      "sha256": "92c87772780d872b60174e6c5785f256bb58e26b36cf23fc671548937e7f4590"
+      "bytes": 16315,
+      "sha256": "549bef060913c3659bce5f036ee52a177362c18f0a2edd64040db5ead58a5b15"
     },
     {
       "file": "data/quality-exceptions.json",

@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "policyVersion": "quality-gate:v1",
   "generatedAt": "2026-08-08T00:00:00.000Z",
-  "dataVersion": "sha256:753742bdb65d7ff73082fce925b75ab6228efb217f0226a9d87bad5ef5556c74",
+  "dataVersion": "sha256:14b24c8fae071faa764fafa92e2affb73432a906495989566384578af3362bfd",
   "gate": {
     "passed": true,
     "blockingSeverities": [

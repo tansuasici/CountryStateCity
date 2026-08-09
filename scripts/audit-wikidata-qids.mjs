@@ -8,7 +8,7 @@ const args = new Set(process.argv.slice(2));
 const batchSize = 500;
 const cacheRoot = path.join(root, '.data-sync/wikidata-qid-batches');
 const userAgent =
-  'CountryStateCity/2.0.15 data-quality audit (https://github.com/tansuasici/CountryStateCity)';
+  'CountryStateCity/3.0.0 data-quality audit (https://github.com/tansuasici/CountryStateCity)';
 const [cities, policy] = await Promise.all([
   readJson('data/city.json'),
   readJson('data/identity/wikidata-qid-policy.json'),

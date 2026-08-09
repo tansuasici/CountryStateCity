@@ -4,7 +4,7 @@ import path from 'node:path';
 import { describe, expect, it } from 'vitest';
 
 const root = process.cwd();
-const releaseId = '2.0.14...2.0.15';
+const releaseId = '2.0.15...3.0.0';
 const releaseRoot = path.join(root, 'data', 'versions', releaseId);
 
 async function json<T>(file: string): Promise<T> {

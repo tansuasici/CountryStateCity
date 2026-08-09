@@ -4,6 +4,13 @@
   <link>https://countrystatecity.tansuasici.com/docs/version-diffs</link>
   <description>Versioned country, subdivision, place, and district data changes.</description>
     <item>
+      <title>CountryStateCity 3.0.0 data changes</title>
+      <link>https://countrystatecity.tansuasici.com/docs/version-diffs</link>
+      <guid isPermaLink="false">sha256:14b24c8fae071faa764fafa92e2affb73432a906495989566384578af3362bfd</guid>
+      <pubDate>Sat, 08 Aug 2026 00:00:00 GMT</pubDate>
+      <description>67700 machine-readable changes from 2.0.15 to 3.0.0.</description>
+    </item>
+    <item>
       <title>CountryStateCity 2.0.15 data changes</title>
       <link>https://countrystatecity.tansuasici.com/docs/version-diffs</link>
       <guid isPermaLink="false">sha256:753742bdb65d7ff73082fce925b75ab6228efb217f0226a9d87bad5ef5556c74</guid>
