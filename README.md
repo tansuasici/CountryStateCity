@@ -77,6 +77,14 @@ const xml = CountryStateCity.getStatesByCountryId(231, 'xml');
 const yaml = CountryStateCity.getCitiesByStateId(1416, 'yaml');
 ```
 
+### Country flags in browser UIs
+
+`Country.emoji` is a Unicode regional-indicator sequence, so rendering depends on the operating
+system and emoji font. Windows may display `TR`, `AF`, and similar letter pairs instead of color
+flags. Use `Country.iso2` to resolve a locally hosted SVG or PNG when the interface needs consistent
+cross-platform flags. The website vendors its own SVG set; those website assets are not an npm
+package export and should not be hotlinked.
+
 ## Hosted REST and GraphQL API
 
 The optional hosted API exposes the same canonical data snapshot under `/api/v1` and includes the immutable data version and source attribution in every response.

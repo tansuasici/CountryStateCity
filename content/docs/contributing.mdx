@@ -58,6 +58,41 @@ Push your branch and open a PR against `main`.
 | `lib/`                  | Shared utilities                      |
 | `types/`                | TypeScript interfaces                 |
 
+## Website-generated assets
+
+The interactive map and country flags use generated, local browser assets. They are intentionally
+not committed under `public/vendor`; `npm run build:web` recreates them before every production
+build.
+
+Use the focused commands while changing either integration:
+
+```bash
+npm run data:web-maplibre
+npm run test:web-maplibre
+npm run data:web-flags
+npm run test:web-flags
+```
+
+The MapLibre module worker is published as `maplibre-gl-worker.js` and imports
+`maplibre-gl-shared.js`. Keep the `.js` paths: production servers commonly send unknown `.mjs`
+files as `application/octet-stream`, and browsers reject module workers when
+`X-Content-Type-Options: nosniff` is enabled. The flag generator creates one lowercase 4:3 SVG for
+each of the 250 `iso2` values.
+
+After a self-hosted deployment, verify the public response types as well as the build output:
+
+```bash
+curl -I https://countrystatecity.tansuasici.com/vendor/maplibre/maplibre-gl-worker.js
+# Content-Type: application/javascript
+
+curl -I https://countrystatecity.tansuasici.com/vendor/flags/tr.svg
+# Content-Type: image/svg+xml
+```
+
+The CI matrix runs the focused asset checks on every pull request. A deployment is not complete
+until the `/map` page creates a non-zero MapLibre canvas without console errors and a country result
+resolves its `/vendor/flags/{iso2}.svg` background image.
+
 ## Data Updates
 
 Country, state, and city updates use a source-pinned staging pipeline. Do not edit production JSON
