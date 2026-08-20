@@ -106,10 +106,28 @@ for (const boundaryFile of boundaryFiles) {
     `Boundary hash drift: ${boundaryFile.url}`
   );
 }
-for (const workerFile of ['maplibre-gl-worker.mjs', 'maplibre-gl-shared.mjs']) {
+for (const workerFile of ['maplibre-gl-worker.js', 'maplibre-gl-shared.js']) {
   assert.ok(
     await isNonEmptyFile(path.join(outputRoot, 'vendor/maplibre', workerFile)),
     `Missing MapLibre module worker asset: ${workerFile}`
+  );
+}
+const maplibreWorker = await readFile(
+  path.join(outputRoot, 'vendor/maplibre/maplibre-gl-worker.js'),
+  'utf8'
+);
+assert.ok(
+  maplibreWorker.includes('from"./maplibre-gl-shared.js"'),
+  'MapLibre worker must import the JavaScript MIME-safe shared asset'
+);
+
+const countries = JSON.parse(await readFile(path.join(repoRoot, 'data/country.json'), 'utf8'));
+assert.equal(countries.length, 250, 'Country flag coverage must match the published countries');
+for (const country of countries) {
+  const code = country.iso2.toLowerCase();
+  assert.ok(
+    await isNonEmptyFile(path.join(outputRoot, 'vendor/flags', `${code}.svg`)),
+    `Missing exported country flag: ${code}.svg`
   );
 }
 

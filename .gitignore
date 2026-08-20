@@ -69,6 +69,7 @@ dist/
 /public/data/cities/
 /public/data/boundaries/
 /public/vendor/maplibre/
+/public/vendor/flags/
 
 # NPM package specific
 countrystatecity-npm/dist/

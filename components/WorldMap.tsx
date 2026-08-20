@@ -180,7 +180,10 @@ export default function WorldMap({
   useEffect(() => {
     if (!containerRef.current || mapRef.current) return;
 
-    setWorkerUrl('/vendor/maplibre/maplibre-gl-worker.mjs');
+    // Serve the module worker through a .js URL. Some production servers send
+    // .mjs files as application/octet-stream; browsers correctly reject that
+    // response when `X-Content-Type-Options: nosniff` is enabled.
+    setWorkerUrl('/vendor/maplibre/maplibre-gl-worker.js');
 
     const initialColorMode: MapColorMode = document.documentElement.classList.contains('dark')
       ? 'dark'
@@ -210,6 +213,7 @@ export default function WorldMap({
 
     map.once('load', () => {
       window.clearTimeout(loadTimeout);
+      setLoadFailed(false);
       map.setProjection({ type: 'globe' });
       setIsReady(true);
       onMapReady?.(map);

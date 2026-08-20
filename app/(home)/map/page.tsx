@@ -36,6 +36,7 @@ import {
 } from '@/lib/location-display';
 import { Country, State, City } from '@/types';
 import type { Map as MapLibreMap } from 'maplibre-gl';
+import CountryFlag from '@/components/CountryFlag';
 import type {
   BoundaryCountryManifest,
   BoundaryLevel,
@@ -496,8 +497,13 @@ export default function MapPage() {
                     ].join(' ')
                   }
                   getItemLabel={getCountryDisplayName}
-                  formatValue={(country) => `${country.emoji} ${getCountryDisplayName(country)}`}
-                  renderLeading={(country) => country.emoji}
+                  formatValue={getCountryDisplayName}
+                  renderLeading={(country) => (
+                    <CountryFlag
+                      code={country.iso2}
+                      label={`${getCountryDisplayName(country)} flag`}
+                    />
+                  )}
                   renderDescription={(country) => country.region || 'Worldwide'}
                   renderTrailing={(country) => country.iso2}
                   emptyMessage={(query) => `No country matches “${query}”.`}
@@ -610,7 +616,10 @@ export default function MapPage() {
                       <small>{selectedCountry.iso3}</small>
                     </div>
                     <div className="explorer-record-title">
-                      <span>{selectedCountry.emoji}</span>
+                      <CountryFlag
+                        code={selectedCountry.iso2}
+                        label={`${selectedCountryDisplayName} flag`}
+                      />
                       <div>
                         <strong>
                           {selectedCityDisplayName ||
