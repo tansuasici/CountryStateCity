@@ -3,6 +3,8 @@ title: Data structures
 description: Core v3 TypeScript structures for countries, administrative areas, places, districts, spatial results, and timezones.
 ---
 
+import { Callout } from 'fumadocs-ui/components/callout';
+
 ## Country
 
 ```typescript
@@ -42,6 +44,14 @@ interface Country {
 `null` is used when no single defensible centre exists. Use `getCountryCoverage(iso2)` to distinguish `missing`, `notApplicable`, and `unknown`; see [Data coverage](/docs/data-coverage).
 
 `XK` is a user-assigned code, not an officially assigned ISO 3166 code. Country name and currency changes, aliases, effective dates, and sources are versioned in `data/country-metadata-policy.json`.
+
+<Callout type="info">
+  `emoji` is a Unicode regional-indicator sequence, not an image asset or a cross-platform rendering
+  contract. Some Windows configurations display `TR`, `AF`, and similar letter pairs instead of a
+  color flag. Use `iso2` to resolve an SVG or PNG flag asset when the interface must look consistent
+  across operating systems. See [Country flags in browser
+  interfaces](/docs/installation#country-flags-in-browser-interfaces).
+</Callout>
 
 ### Example
 

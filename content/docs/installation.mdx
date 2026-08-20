@@ -76,6 +76,29 @@ const cities = CountryStateCity.getCitiesByStateId(2170); // Istanbul
 console.log(cities[0].name); // City name
 ```
 
+## Country flags in browser interfaces
+
+The `emoji` field is a Unicode regional-indicator sequence. Whether it appears as a color flag or as
+two letters depends on the operating system, browser, and installed emoji font. It is useful in text
+output, but it is not a reliable UI asset.
+
+For a consistent browser interface, resolve an image from the country `iso2` value and host the
+assets with your application:
+
+```tsx
+function CountryFlag({ iso2, name }: { iso2: string; name: string }) {
+  const code = iso2.trim().toLowerCase();
+
+  return (
+    <img src={`/flags/${code}.svg`} width={24} height={18} alt={`${name} flag`} loading="lazy" />
+  );
+}
+```
+
+The Country State City website generates and serves its own 4:3 SVG set. The npm package does not
+expose those website assets as a package subpath, so applications should vendor an appropriately
+licensed flag set instead of hotlinking the live website.
+
 ## Direct Data Access
 
 Countries and states are available as full records. Cities use the documented compact distribution schema so the same 147,739-row dataset is not published twice:
