@@ -506,6 +506,19 @@
   pointer-events: none;
 }
 
+.explorer-input-leading {
+  position: absolute;
+  left: 2.25rem;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  pointer-events: none;
+}
+
+.explorer-input-wrap.has-leading-value .explorer-input {
+  padding-left: 4.15rem !important;
+}
+
 .explorer-input {
   height: 2.65rem !important;
   border-color: rgb(255 255 255 / 11%) !important;
@@ -631,7 +644,41 @@
 }
 
 .explorer-result-symbol {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   font-size: 1rem;
+}
+
+.country-flag {
+  display: inline-block;
+  flex: 0 0 auto;
+  width: 1.35rem;
+  aspect-ratio: 4 / 3;
+  border: 1px solid rgb(18 35 29 / 14%);
+  border-radius: 0.16rem;
+  background-color: rgb(255 255 255 / 72%);
+  background-image: var(--country-flag-image);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  box-shadow: 0 1px 2px rgb(0 0 0 / 10%);
+  line-height: 1;
+}
+
+.dark .country-flag {
+  border-color: rgb(255 255 255 / 16%);
+  background-color: rgb(255 255 255 / 8%);
+}
+
+.country-flag-fallback {
+  display: inline-grid;
+  aspect-ratio: 4 / 3;
+  place-items: center;
+  color: currentColor;
+  font-family: var(--font-mono);
+  font-size: 0.48rem;
+  background-image: none;
 }
 
 .explorer-result-index {
@@ -901,8 +948,14 @@
 }
 
 .explorer-record-title > span {
-  font-size: 1.85rem;
+  width: 2rem;
+  font-size: 1rem;
   line-height: 1;
+}
+
+.explorer-record-title .country-flag {
+  width: 2rem;
+  border-radius: 0.22rem;
 }
 
 .explorer-record-title strong,

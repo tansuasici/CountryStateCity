@@ -134,8 +134,13 @@ export default function SearchableLocationSelect<T extends LocationOption>({
         {label}
         {value ? <Check aria-hidden="true" /> : null}
       </label>
-      <div className="explorer-input-wrap">
+      <div className={`explorer-input-wrap ${value && renderLeading ? 'has-leading-value' : ''}`}>
         <Search aria-hidden="true" />
+        {value && renderLeading ? (
+          <span className="explorer-input-leading" aria-hidden="true">
+            {renderLeading(value, -1)}
+          </span>
+        ) : null}
         <Input
           ref={inputRef}
           id={id}

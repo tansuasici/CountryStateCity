@@ -176,7 +176,7 @@ export default function DataPlaygroundMDX() {
               <option value="">Select country...</option>
               {countries.map((c) => (
                 <option key={c.id} value={c.id}>
-                  {c.emoji} {c.name}
+                  {c.name}
                 </option>
               ))}
             </select>
