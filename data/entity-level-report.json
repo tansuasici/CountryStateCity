@@ -56,18 +56,18 @@
     }
   },
   "cities": {
-    "total": 147739,
+    "total": 147737,
     "byEntityType": {
       "administrative-area": 3712,
-      "settlement": 144027
+      "settlement": 144025
     },
     "byAdministrativeLevel": {
       "2": 3710,
       "3": 2,
-      "null": 144027
+      "null": 144025
     },
     "byLifecycleStatus": {
-      "current": 142420,
+      "current": 142418,
       "historical": 64,
       "review-required": 5255
     },
@@ -80,12 +80,12 @@
       "prefecture": 24,
       "province": 36,
       "region": 6,
-      "settlement": 144027,
+      "settlement": 144025,
       "territory": 2
     },
     "byClassificationConfidence": {
       "name-inferred": 3712,
-      "source-collection-default": 144027
+      "source-collection-default": 144025
     }
   },
   "countries": {

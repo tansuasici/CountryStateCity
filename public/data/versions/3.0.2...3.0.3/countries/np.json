@@ -1,0 +1,1 @@
+{"releaseId":"3.0.2...3.0.3","countryCode":"NP","changes":[{"publicId":"csc:city:79759","entityType":"city","id":79759,"name":"Kankrabari Dovan","countryCode":"NP","stateCode":"1","changeTypes":["renamed"],"changedFields":[{"field":"name","before":"kankrabari Dovan","after":"Kankrabari Dovan"}],"breakingIdentity":false,"migration":null}]}

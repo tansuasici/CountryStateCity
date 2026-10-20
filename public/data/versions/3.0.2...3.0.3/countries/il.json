@@ -1,0 +1,1 @@
+{"releaseId":"3.0.2...3.0.3","countryCode":"IL","changes":[{"publicId":"csc:city:57577","entityType":"city","id":57577,"name":"Maalot Tarshīhā","countryCode":"IL","stateCode":"Z","changeTypes":["renamed"],"changedFields":[{"field":"name","before":"maalot Tarshīhā","after":"Maalot Tarshīhā"}],"breakingIdentity":false,"migration":null}]}

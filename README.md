@@ -19,11 +19,11 @@
 
 ## About
 
-Country State City provides a versioned dataset of 250 countries and territories, 4,963 administrative areas, 147,739 populated-place records, and 922 Türkiye districts as an NPM package, an MCP server for AI assistants, and an interactive web app.
+Country State City provides a versioned dataset of 250 countries and territories, 4,963 administrative areas, 147,737 populated-place records, and 922 Türkiye districts as an NPM package, an MCP server for AI assistants, and an interactive web app.
 
 ## Features
 
-- **Versioned location data** — 250 countries and territories, 4,963 administrative areas, and 147,739 places
+- **Versioned location data** — 250 countries and territories, 4,963 administrative areas, and 147,737 places
 - **Immutable public identity** — Namespaced `csc:country|state|city|district:{id}` values, source-ID collision gates, and version-pair migration downloads
 - **Normalized display labels** — CLDR-style country names and separated administrative categories across subdivision and place records without changing canonical source names
 - **Reproducible artifacts** — one canonical country/state/city source generates optimized data, browser shards, and package copies with byte-level CI drift checks

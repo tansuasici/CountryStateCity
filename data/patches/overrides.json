@@ -1194,6 +1194,209 @@
       "reason": "Remove stray whitespace/tab characters from the name",
       "sourceUrl": "https://github.com/dr5hn/countries-states-cities-database",
       "license": "ODbL-1.0"
+    },
+    {
+      "entity": "city",
+      "id": 31467,
+      "operation": "merge",
+      "changes": {
+        "name": "El Hed"
+      },
+      "reason": "Normalize name capitalization and style",
+      "sourceUrl": "https://github.com/dr5hn/countries-states-cities-database",
+      "license": "ODbL-1.0"
+    },
+    {
+      "entity": "city",
+      "id": 31253,
+      "operation": "merge",
+      "changes": {
+        "name": "Babor"
+      },
+      "reason": "Normalize name capitalization and style",
+      "sourceUrl": "https://github.com/dr5hn/countries-states-cities-database",
+      "license": "ODbL-1.0"
+    },
+    {
+      "entity": "city",
+      "id": 10,
+      "operation": "merge",
+      "changes": {
+        "name": "Les Escaldes"
+      },
+      "reason": "Normalize name capitalization and style",
+      "sourceUrl": "https://github.com/dr5hn/countries-states-cities-database",
+      "license": "ODbL-1.0"
+    },
+    {
+      "entity": "city",
+      "id": 9,
+      "operation": "merge",
+      "changes": {
+        "name": "La Massana"
+      },
+      "reason": "Normalize name capitalization and style",
+      "sourceUrl": "https://github.com/dr5hn/countries-states-cities-database",
+      "license": "ODbL-1.0"
+    },
+    {
+      "entity": "city",
+      "id": 17224,
+      "operation": "merge",
+      "changes": {
+        "name": "Le Plateau"
+      },
+      "reason": "Normalize name capitalization and style",
+      "sourceUrl": "https://github.com/dr5hn/countries-states-cities-database",
+      "license": "ODbL-1.0"
+    },
+    {
+      "entity": "city",
+      "id": 56139,
+      "operation": "merge",
+      "changes": {
+        "name": "Dunaújváros"
+      },
+      "reason": "Normalize name capitalization and style",
+      "sourceUrl": "https://github.com/dr5hn/countries-states-cities-database",
+      "license": "ODbL-1.0"
+    },
+    {
+      "entity": "city",
+      "id": 134447,
+      "operation": "merge",
+      "changes": {
+        "name": "Pedda Nakkalapalem"
+      },
+      "reason": "Normalize name capitalization and style",
+      "sourceUrl": "https://github.com/dr5hn/countries-states-cities-database",
+      "license": "ODbL-1.0"
+    },
+    {
+      "entity": "city",
+      "id": 134448,
+      "operation": "merge",
+      "changes": {
+        "name": "Vadlamuru"
+      },
+      "reason": "Normalize name capitalization and style",
+      "sourceUrl": "https://github.com/dr5hn/countries-states-cities-database",
+      "license": "ODbL-1.0"
+    },
+    {
+      "entity": "city",
+      "id": 134446,
+      "operation": "merge",
+      "changes": {
+        "name": "Patamda"
+      },
+      "reason": "Normalize name capitalization and style",
+      "sourceUrl": "https://github.com/dr5hn/countries-states-cities-database",
+      "license": "ODbL-1.0"
+    },
+    {
+      "entity": "city",
+      "id": 135148,
+      "operation": "merge",
+      "changes": {
+        "name": "Sedeyen-e Yek"
+      },
+      "reason": "Normalize name capitalization and style",
+      "sourceUrl": "https://github.com/dr5hn/countries-states-cities-database",
+      "license": "ODbL-1.0"
+    },
+    {
+      "entity": "city",
+      "id": 57577,
+      "operation": "merge",
+      "changes": {
+        "name": "Maalot Tarshīhā"
+      },
+      "reason": "Normalize name capitalization and style",
+      "sourceUrl": "https://github.com/dr5hn/countries-states-cities-database",
+      "license": "ODbL-1.0"
+    },
+    {
+      "entity": "city",
+      "id": 142571,
+      "operation": "merge",
+      "changes": {
+        "name": "Iprovipe I"
+      },
+      "reason": "Normalize name capitalization and style",
+      "sourceUrl": "https://github.com/dr5hn/countries-states-cities-database",
+      "license": "ODbL-1.0"
+    },
+    {
+      "entity": "city",
+      "id": 79759,
+      "operation": "merge",
+      "changes": {
+        "name": "Kankrabari Dovan"
+      },
+      "reason": "Normalize name capitalization and style",
+      "sourceUrl": "https://github.com/dr5hn/countries-states-cities-database",
+      "license": "ODbL-1.0"
+    },
+    {
+      "entity": "city",
+      "id": 88752,
+      "operation": "merge",
+      "changes": {
+        "name": "Powiat Łowicki"
+      },
+      "reason": "Normalize name capitalization and style",
+      "sourceUrl": "https://github.com/dr5hn/countries-states-cities-database",
+      "license": "ODbL-1.0"
+    },
+    {
+      "entity": "city",
+      "id": 146855,
+      "operation": "merge",
+      "changes": {
+        "name": "Tohat"
+      },
+      "reason": "Normalize name capitalization and style",
+      "sourceUrl": "https://github.com/dr5hn/countries-states-cities-database",
+      "license": "ODbL-1.0"
+    },
+    {
+      "entity": "city",
+      "id": 148699,
+      "operation": "delete",
+      "reason": "Duplicate of the existing Ghran record in the same region (identical placeholder coordinates)",
+      "sourceUrl": "https://github.com/dr5hn/countries-states-cities-database",
+      "license": "ODbL-1.0"
+    },
+    {
+      "entity": "city",
+      "id": 148971,
+      "operation": "delete",
+      "reason": "Duplicate of the existing Ghran record in the same region (identical placeholder coordinates)",
+      "sourceUrl": "https://github.com/dr5hn/countries-states-cities-database",
+      "license": "ODbL-1.0"
+    },
+    {
+      "entity": "city",
+      "id": 102893,
+      "operation": "merge",
+      "changes": {
+        "name": "Shokhaibٍ"
+      },
+      "reason": "Normalize name capitalization and style",
+      "sourceUrl": "https://github.com/dr5hn/countries-states-cities-database",
+      "license": "ODbL-1.0"
+    },
+    {
+      "entity": "state",
+      "id": 3397,
+      "operation": "merge",
+      "changes": {
+        "name": "Districts of Republican Subordination"
+      },
+      "reason": "Normalize name capitalization",
+      "sourceUrl": "https://github.com/dr5hn/countries-states-cities-database",
+      "license": "ODbL-1.0"
     }
   ]
 }

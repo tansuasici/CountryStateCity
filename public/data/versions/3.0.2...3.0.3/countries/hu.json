@@ -1,0 +1,1 @@
+{"releaseId":"3.0.2...3.0.3","countryCode":"HU","changes":[{"publicId":"csc:city:56139","entityType":"city","id":56139,"name":"Dunaújváros","countryCode":"HU","stateCode":"FE","changeTypes":["renamed"],"changedFields":[{"field":"name","before":"dunaújváros","after":"Dunaújváros"}],"breakingIdentity":false,"migration":null}]}

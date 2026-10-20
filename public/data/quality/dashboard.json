@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "generatedAt": "2026-08-08T00:00:00.000Z",
-  "dataVersion": "sha256:3b120e86bf074737e8d90eb42a2637ac400dbd25ac7f3ef78667c025e5e66306",
-  "packageVersion": "3.0.2",
+  "dataVersion": "sha256:60917c36e61be569a5c64eb772584f5e51982cb25b93844579365a0067d9ef68",
+  "packageVersion": "3.0.3",
   "release": {
     "sourceRelease": "v3.2-export.7",
     "sourceRevision": "624a208c3928937d1262ab1646d0b8fc9cacceee",
@@ -29,7 +29,7 @@
   "totals": {
     "countries": 250,
     "states": 4963,
-    "cities": 147739,
+    "cities": 147737,
     "districts": 922
   },
   "metrics": [
@@ -76,8 +76,8 @@
     {
       "id": "city-coordinate-coverage",
       "label": "City coordinates available",
-      "numerator": 147739,
-      "denominator": 147739,
+      "numerator": 147737,
+      "denominator": 147737,
       "value": 1,
       "unit": "ratio",
       "definition": "Place rows with a paired latitude and longitude.",
@@ -87,8 +87,8 @@
       "id": "city-qid-coverage",
       "label": "Verified city QIDs retained",
       "numerator": 85757,
-      "denominator": 147739,
-      "value": 0.580463,
+      "denominator": 147737,
+      "value": 0.580471,
       "unit": "ratio",
       "definition": "Place rows retaining a unique, verified Wikidata QID after the quality audit.",
       "source": "data/identity/wikidata-qid-verification.json"
@@ -106,8 +106,8 @@
   ],
   "trend": [
     {
-      "packageVersion": "3.0.2",
-      "dataVersion": "sha256:3b120e86bf074737e8d90eb42a2637ac400dbd25ac7f3ef78667c025e5e66306",
+      "packageVersion": "3.0.3",
+      "dataVersion": "sha256:60917c36e61be569a5c64eb772584f5e51982cb25b93844579365a0067d9ef68",
       "generatedAt": "2026-08-08T00:00:00.000Z",
       "gatePassed": true,
       "unresolvedBlockingFindings": 0,
@@ -116,11 +116,11 @@
       "records": {
         "countries": 250,
         "states": 4963,
-        "cities": 147739,
+        "cities": 147737,
         "districts": 922
       },
       "releaseChanges": 19,
-      "breakingIdentityChanges": 0
+      "breakingIdentityChanges": 2
     }
   ],
   "countries": [
@@ -5204,7 +5204,7 @@
         "coordinate": "available"
       },
       "states": 13,
-      "cities": 563,
+      "cities": 561,
       "coverageGaps": 0,
       "metadata": {
         "filled": 7,
@@ -5213,7 +5213,7 @@
         "gaps": []
       },
       "cityCoordinateCoverage": 1,
-      "cityQidCoverage": 0.332149,
+      "cityQidCoverage": 0.333333,
       "stateCoordinateExceptions": 0,
       "lowConfidenceQids": 1
     },
@@ -77274,7 +77274,7 @@
       "coordinateSource": "natural-earth-admin1-5.1.1",
       "latitude": "20.05903433",
       "longitude": "41.30803588",
-      "cities": 148,
+      "cities": 147,
       "cityCoordinateCoverage": 1,
       "cityQidCoverage": 0,
       "knownIssueIds": []
@@ -77414,9 +77414,9 @@
       "coordinateSource": "natural-earth-admin1-5.1.1",
       "latitude": "21.04631175",
       "longitude": "41.42896249",
-      "cities": 157,
+      "cities": 156,
       "cityCoordinateCoverage": 1,
-      "cityQidCoverage": 0.012739,
+      "cityQidCoverage": 0.012821,
       "knownIssueIds": []
     },
     {
@@ -88098,7 +88098,7 @@
     {
       "id": 3397,
       "publicId": "csc:state:3397",
-      "name": "districts of Republican Subordination",
+      "name": "Districts of Republican Subordination",
       "countryCode": "TJ",
       "stateCode": "RA",
       "type": null,
@@ -106162,7 +106162,7 @@
       "excepted": 0,
       "unresolved": 0,
       "generatedFiles": 197,
-      "dataVersion": "sha256:31573107e8b7e214bdf775e5f81bd6347b9b7eabd634f37d4d5921416e3ef458"
+      "dataVersion": "sha256:b71c7df3d55a2f0cfbee51a651cb69612c18ea96b38e87bd6c578aa6a0a0e4ac"
     },
     {
       "id": "exception-governance",

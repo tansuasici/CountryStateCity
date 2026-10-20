@@ -5,8 +5,8 @@
   "measuredAt": "2026-08-08T00:00:00.000Z",
   "passed": true,
   "measurement": {
-    "packedBytes": 3823590,
-    "unpackedBytes": 23290049,
+    "packedBytes": 3807678,
+    "unpackedBytes": 23291007,
     "files": 62,
     "browserEntrypointBytes": 35472
   },
@@ -18,14 +18,14 @@
   },
   "reductionBaseline": {
     "previousUnpackedBytes": 165785789,
-    "currentUnpackedBytes": 23290049,
-    "bytesRemoved": 142495740,
+    "currentUnpackedBytes": 23291007,
+    "bytesRemoved": 142494782,
     "reductionPercent": 85.95
   },
   "largestFiles": [
     {
       "file": "data/city-optimized.json",
-      "bytes": 12002526
+      "bytes": 12002372
     },
     {
       "file": "data/state.json",

@@ -76,7 +76,7 @@ const cityShardIndex = JSON.parse(
 );
 assert.equal(cityShardIndex.schemaVersion, 1, 'Unsupported web city shard index');
 assert.equal(cityShardIndex.countries, 250, 'Web city shard country coverage regressed');
-assert.equal(cityShardIndex.cities, 147739, 'Web city shard city total regressed');
+assert.equal(cityShardIndex.cities, 147737, 'Web city shard city total regressed');
 assert.equal(Object.keys(cityShardIndex.shards).length, 250, 'Every country needs a web shard');
 for (const shard of Object.values(cityShardIndex.shards)) {
   const shardPath = path.join(outputRoot, 'data/cities', `${shard.code}.json`);

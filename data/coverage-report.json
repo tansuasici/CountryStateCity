@@ -6,7 +6,7 @@
   "counts": {
     "countries": 250,
     "states": 4963,
-    "cities": 147739
+    "cities": 147737
   },
   "summary": {
     "countriesWithoutStates": 53,
@@ -3452,7 +3452,7 @@
         "status": "available"
       },
       "cities": {
-        "count": 563,
+        "count": 561,
         "status": "available"
       },
       "metadataGaps": [],

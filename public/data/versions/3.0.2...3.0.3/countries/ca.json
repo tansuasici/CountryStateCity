@@ -1,0 +1,1 @@
+{"releaseId":"3.0.2...3.0.3","countryCode":"CA","changes":[{"publicId":"csc:city:17224","entityType":"city","id":17224,"name":"Le Plateau","countryCode":"CA","stateCode":"QC","changeTypes":["renamed"],"changedFields":[{"field":"name","before":"le Plateau","after":"Le Plateau"}],"breakingIdentity":false,"migration":null}]}

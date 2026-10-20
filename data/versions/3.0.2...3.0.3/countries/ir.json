@@ -1,0 +1,1 @@
+{"releaseId":"3.0.2...3.0.3","countryCode":"IR","changes":[{"publicId":"csc:city:135148","entityType":"city","id":135148,"name":"Sedeyen-e Yek","countryCode":"IR","stateCode":"06","changeTypes":["renamed"],"changedFields":[{"field":"name","before":"sedeyen-e Yek","after":"Sedeyen-e Yek"}],"breakingIdentity":false,"migration":null}]}
