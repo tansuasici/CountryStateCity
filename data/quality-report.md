@@ -2,7 +2,7 @@
 
 Status: **PASS**
 
-Data version: `sha256:14b24c8fae071faa764fafa92e2affb73432a906495989566384578af3362bfd`
+Data version: `sha256:8f916575117e0f0040930d6c2d8304210d64150cfd5b1f7ed5f6e76a45befa8b`
 
 Records: 250 countries, 4963 states, 147739 cities, 922 districts.
 
@@ -250,7 +250,7 @@ Records: 250 countries, 4963 states, 147739 cities, 922 districts.
 | SD — Sudan | 18 | 71 | 0 | 0 | 0 |
 | SR — Suriname | 10 | 13 | 0 | 0 | 0 |
 | SJ — Svalbard And Jan Mayen Islands | 0 | 0 | 2 | 0 | 0 |
-| SZ — Swaziland | 4 | 34 | 0 | 0 | 0 |
+| SZ — Eswatini | 4 | 34 | 0 | 0 | 0 |
 | SE — Sweden | 20 | 1072 | 0 | 0 | 16 |
 | CH — Switzerland | 26 | 1506 | 0 | 0 | 1 |
 | SY — Syria | 14 | 142 | 0 | 0 | 5 |

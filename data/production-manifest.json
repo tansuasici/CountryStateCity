@@ -1,8 +1,8 @@
 {
   "schemaVersion": 2,
-  "dataVersion": "sha256:14b24c8fae071faa764fafa92e2affb73432a906495989566384578af3362bfd",
-  "packageVersion": "3.0.0",
-  "generatedAt": "2026-08-09T02:58:26.681Z",
+  "dataVersion": "sha256:8f916575117e0f0040930d6c2d8304210d64150cfd5b1f7ed5f6e76a45befa8b",
+  "packageVersion": "3.0.1",
+  "generatedAt": "2026-10-20T01:35:35.985Z",
   "counts": {
     "countries": 250,
     "states": 4963,
@@ -506,6 +506,13 @@
       "countryName": "Estonia",
       "states": 15,
       "cities": 162
+    },
+    {
+      "countryId": 212,
+      "countryCode": "SZ",
+      "countryName": "Eswatini",
+      "states": 4,
+      "cities": 34
     },
     {
       "countryId": 70,
@@ -1509,13 +1516,6 @@
       "cities": 0
     },
     {
-      "countryId": 212,
-      "countryCode": "SZ",
-      "countryName": "Swaziland",
-      "states": 4,
-      "cities": 34
-    },
-    {
       "countryId": 213,
       "countryCode": "SE",
       "countryName": "Sweden",
@@ -1786,7 +1786,7 @@
     }
   },
   "digestAlgorithm": "sha256(file-path + NUL + file-sha256 + LF)",
-  "digest": "14b24c8fae071faa764fafa92e2affb73432a906495989566384578af3362bfd",
+  "digest": "8f916575117e0f0040930d6c2d8304210d64150cfd5b1f7ed5f6e76a45befa8b",
   "files": [
     {
       "file": "countrystatecity-npm/data/cities/ad.json",
@@ -2760,13 +2760,13 @@
     },
     {
       "file": "countrystatecity-npm/data/country.json",
-      "bytes": 484236,
-      "sha256": "e5156f486f547a2a6b66d3c189c4b0279185a553f6227d45f477e3141bc6f478"
+      "bytes": 484303,
+      "sha256": "cd14fa2c669516045464d4ccb7628506b5ba3d8066d239bd07b37f4fe8a73025"
     },
     {
       "file": "countrystatecity-npm/data/state.json",
-      "bytes": 4472975,
-      "sha256": "2867d8182d3ea7ac9902c297933573c36a912e9472bdfe53d88a5af63840454a"
+      "bytes": 4472971,
+      "sha256": "4d8f02a7fa508a576734cf4e4327752fb16288dd21ab934d3b4c974b3495a235"
     },
     {
       "file": "data/admin/districts/tr.json",
@@ -2780,8 +2780,8 @@
     },
     {
       "file": "data/city.json",
-      "bytes": 89313407,
-      "sha256": "56a9cf2b6aea8697a6f4ac5497921198ac5312e4f950b8f818b365fdf8c50654"
+      "bytes": 89313373,
+      "sha256": "379ce3de5d229397b230174587c981b44199a5ddd5f9d4015df829b6b1475d19"
     },
     {
       "file": "data/country-metadata-policy.json",
@@ -2790,8 +2790,8 @@
     },
     {
       "file": "data/country.json",
-      "bytes": 484236,
-      "sha256": "e5156f486f547a2a6b66d3c189c4b0279185a553f6227d45f477e3141bc6f478"
+      "bytes": 484303,
+      "sha256": "cd14fa2c669516045464d4ccb7628506b5ba3d8066d239bd07b37f4fe8a73025"
     },
     {
       "file": "data/coverage-policy.json",
@@ -2800,13 +2800,13 @@
     },
     {
       "file": "data/coverage-report.json",
-      "bytes": 552477,
-      "sha256": "1478d6ab7f0f9876b522328544beb0fc0d13452c978bc243d1a747f01e2fae5c"
+      "bytes": 552476,
+      "sha256": "cc16a29532937226f0be9a207d5e91843999e5211317683d765395729cb14d5a"
     },
     {
       "file": "data/distribution-manifest.json",
       "bytes": 38030,
-      "sha256": "651624e1b31af5c2bbc5be5569ea6b4b082c9df94f9408e31d6587114b455829"
+      "sha256": "fbd430f816887dd7b7ad0412a9dcda2784f782bbb820b61b6f478a2dd8331425"
     },
     {
       "file": "data/entity-level-policy.json",
@@ -2890,8 +2890,8 @@
     },
     {
       "file": "data/state.json",
-      "bytes": 4472975,
-      "sha256": "2867d8182d3ea7ac9902c297933573c36a912e9472bdfe53d88a5af63840454a"
+      "bytes": 4472971,
+      "sha256": "4d8f02a7fa508a576734cf4e4327752fb16288dd21ab934d3b4c974b3495a235"
     },
     {
       "file": "data/timezone-policy.json",

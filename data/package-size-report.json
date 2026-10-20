@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
   "policyVersion": "core-package:v1",
-  "packageVersion": "3.0.0",
+  "packageVersion": "3.0.1",
   "measuredAt": "2026-08-08T00:00:00.000Z",
   "passed": true,
   "measurement": {
-    "packedBytes": 3806951,
-    "unpackedBytes": 23283775,
+    "packedBytes": 3807706,
+    "unpackedBytes": 23290116,
     "files": 62,
     "browserEntrypointBytes": 35472
   },
@@ -18,9 +18,9 @@
   },
   "reductionBaseline": {
     "previousUnpackedBytes": 165785789,
-    "currentUnpackedBytes": 23283775,
-    "bytesRemoved": 142502014,
-    "reductionPercent": 85.96
+    "currentUnpackedBytes": 23290116,
+    "bytesRemoved": 142495673,
+    "reductionPercent": 85.95
   },
   "largestFiles": [
     {
@@ -29,7 +29,7 @@
     },
     {
       "file": "data/state.json",
-      "bytes": 4472975
+      "bytes": 4472971
     },
     {
       "file": "data/geography/state-coordinate-policy.json",
@@ -45,11 +45,11 @@
     },
     {
       "file": "data/coverage-report.json",
-      "bytes": 552477
+      "bytes": 552476
     },
     {
       "file": "data/country.json",
-      "bytes": 484236
+      "bytes": 484303
     },
     {
       "file": "data/location-display.json",
@@ -61,11 +61,11 @@
     },
     {
       "file": "countrystatecity-mcp/dist/index.js",
-      "bytes": 285868
+      "bytes": 290256
     },
     {
       "file": "data/production-manifest.json",
-      "bytes": 74225
+      "bytes": 74224
     },
     {
       "file": "countrystatecity-npm/dist/index.node.cjs",
@@ -73,7 +73,7 @@
     },
     {
       "file": "data/quality-report.json",
-      "bytes": 63558
+      "bytes": 63557
     },
     {
       "file": "countrystatecity-npm/dist/index.node.mjs",

@@ -96,6 +96,882 @@
       "reason": "Remove the 0,0 sentinel because UM aggregates nine separate island territories and has no single defensible centre",
       "sourceUrl": "https://www.census.gov/library/reference/code-lists/ansi.2010.html",
       "license": "US-PUBLIC-DOMAIN"
+    },
+    {
+      "entity": "country",
+      "id": 50,
+      "operation": "merge",
+      "changes": {
+        "translations": {
+          "de": "Kongo",
+          "en": "Congo",
+          "es": "Congo",
+          "fa": "کنگو",
+          "fr": "Congo",
+          "hr": "Kongo",
+          "it": "Congo",
+          "ja": "コンゴ共和国",
+          "ko": "콩고",
+          "nl": "Congo [Republiek]",
+          "pt": "Congo",
+          "pt-BR": "Congo",
+          "tr": "Kongo Cumhuriyeti",
+          "zh-CN": "刚果"
+        }
+      },
+      "reason": "Correct country translations/names to current CLDR and ISO 4217 values",
+      "sourceUrl": "https://github.com/unicode-org/cldr",
+      "license": "Unicode-3.0"
+    },
+    {
+      "entity": "country",
+      "id": 129,
+      "operation": "merge",
+      "changes": {
+        "translations": {
+          "de": "Nordmazedonien",
+          "en": "North Macedonia",
+          "es": "Macedonia del Norte",
+          "fa": "",
+          "fr": "Macédoine du Nord",
+          "hr": "Sjeverna Makedonija",
+          "it": "Macedonia del Nord",
+          "ja": "北マケドニア",
+          "ko": "북마케도니아",
+          "nl": "Noord-Macedonië",
+          "pt": "Macedónia do Norte",
+          "pt-BR": "Macedônia do Norte",
+          "tr": "Kuzey Makedonya",
+          "zh-CN": "北马其顿"
+        }
+      },
+      "reason": "Correct country translations/names to current CLDR and ISO 4217 values",
+      "sourceUrl": "https://github.com/unicode-org/cldr",
+      "license": "Unicode-3.0"
+    },
+    {
+      "entity": "country",
+      "id": 91,
+      "operation": "merge",
+      "changes": {
+        "translations": {
+          "de": "Guernsey",
+          "en": "Guernsey and Alderney",
+          "es": "Guernsey",
+          "fa": "گرنزی",
+          "fr": "Guernesey",
+          "hr": "Guernsey",
+          "it": "Guernsey",
+          "ja": "ガーンジー",
+          "ko": "건지, 올더니",
+          "nl": "Guernsey",
+          "pt": "Guernsey",
+          "pt-BR": "Guernsey",
+          "tr": "Guernsey",
+          "zh-CN": "根西岛"
+        }
+      },
+      "reason": "Correct country translations/names to current CLDR and ISO 4217 values",
+      "sourceUrl": "https://github.com/unicode-org/cldr",
+      "license": "Unicode-3.0"
+    },
+    {
+      "entity": "country",
+      "id": 212,
+      "operation": "merge",
+      "changes": {
+        "translations": {
+          "de": "Eswatini",
+          "en": "Eswatini",
+          "es": "Esuatini",
+          "fa": "اسواتینی",
+          "fr": "Eswatini",
+          "hr": "Esvatini",
+          "it": "Eswatini",
+          "ja": "エスワティニ",
+          "ko": "에스와티니",
+          "nl": "Eswatini",
+          "pt": "Essuatíni",
+          "pt-BR": "Essuatíni",
+          "tr": "Esvatini",
+          "zh-CN": "斯威士兰"
+        },
+        "name": "Eswatini",
+        "native": "Eswatini"
+      },
+      "reason": "Correct country translations/names to current CLDR and ISO 4217 values",
+      "sourceUrl": "https://github.com/unicode-org/cldr",
+      "license": "Unicode-3.0"
+    },
+    {
+      "entity": "country",
+      "id": 63,
+      "operation": "merge",
+      "changes": {
+        "translations": {
+          "de": "Timor-Leste",
+          "en": "Timor-Leste",
+          "es": "Timor Oriental",
+          "fa": "تیمور شرقی",
+          "fr": "Timor oriental",
+          "hr": "Istočni Timor",
+          "it": "Timor Est",
+          "ja": "東ティモール",
+          "ko": "동티모르",
+          "nl": "Oost-Timor",
+          "pt": "Timor Leste",
+          "pt-BR": "Timor Leste",
+          "tr": "Doğu Timor",
+          "zh-CN": "东帝汶"
+        }
+      },
+      "reason": "Correct country translations/names to current CLDR and ISO 4217 values",
+      "sourceUrl": "https://github.com/unicode-org/cldr",
+      "license": "Unicode-3.0"
+    },
+    {
+      "entity": "country",
+      "id": 54,
+      "operation": "merge",
+      "changes": {
+        "translations": {
+          "de": "Elfenbeinküste",
+          "en": "Côte d’Ivoire",
+          "es": "Costa de Marfil",
+          "fa": "ساحل عاج",
+          "fr": "Côte d'Ivoire",
+          "hr": "Obala Bjelokosti",
+          "it": "Costa D'Avorio",
+          "ja": "コートジボワール",
+          "ko": "코트디부아르",
+          "nl": "Ivoorkust",
+          "pt": "Costa do Marfim",
+          "pt-BR": "Costa do Marfim",
+          "tr": "Fildişi Sahili",
+          "zh-CN": "科特迪瓦"
+        }
+      },
+      "reason": "Correct country translations/names to current CLDR and ISO 4217 values",
+      "sourceUrl": "https://github.com/unicode-org/cldr",
+      "license": "Unicode-3.0"
+    },
+    {
+      "entity": "country",
+      "id": 76,
+      "operation": "merge",
+      "changes": {
+        "translations": {
+          "de": "Französisch Guyana",
+          "en": "French Guiana",
+          "es": "Guayana Francesa",
+          "fa": "گویان فرانسه",
+          "fr": "Guyane française",
+          "hr": "Francuska Gvajana",
+          "it": "Guyana francese",
+          "ja": "フランス領ギアナ",
+          "ko": "프랑스령 기아나",
+          "nl": "Frans-Guyana",
+          "pt": "Guiana Francesa",
+          "pt-BR": "Guiana Francesa",
+          "tr": "Fransız Guyanası",
+          "zh-CN": "法属圭亚那"
+        }
+      },
+      "reason": "Correct country translations/names to current CLDR and ISO 4217 values",
+      "sourceUrl": "https://github.com/unicode-org/cldr",
+      "license": "Unicode-3.0"
+    },
+    {
+      "entity": "country",
+      "id": 94,
+      "operation": "merge",
+      "changes": {
+        "translations": {
+          "de": "Guyana",
+          "en": "Guyana",
+          "es": "Guyana",
+          "fa": "گویان",
+          "fr": "Guyana",
+          "hr": "Gvajana",
+          "it": "Guyana",
+          "ja": "ガイアナ",
+          "ko": "가이아나",
+          "nl": "Guyana",
+          "pt": "Guiana",
+          "pt-BR": "Guiana",
+          "tr": "Guyana",
+          "zh-CN": "圭亚那"
+        }
+      },
+      "reason": "Correct country translations/names to current CLDR and ISO 4217 values",
+      "sourceUrl": "https://github.com/unicode-org/cldr",
+      "license": "Unicode-3.0"
+    },
+    {
+      "entity": "country",
+      "id": 238,
+      "operation": "merge",
+      "changes": {
+        "translations": {
+          "de": "Heiliger Stuhl",
+          "en": "Vatican City",
+          "es": "Santa Sede",
+          "fa": "سریر مقدس",
+          "fr": "État de la Cité du Vatican",
+          "hr": "Sveta Stolica",
+          "it": "Santa Sede",
+          "ja": "聖座",
+          "ko": "바티칸 시국",
+          "nl": "Heilige Stoel",
+          "pt": "Vaticano",
+          "pt-BR": "Vaticano",
+          "tr": "Vatikan",
+          "zh-CN": "梵蒂冈"
+        }
+      },
+      "reason": "Correct country translations/names to current CLDR and ISO 4217 values",
+      "sourceUrl": "https://github.com/unicode-org/cldr",
+      "license": "Unicode-3.0"
+    },
+    {
+      "entity": "country",
+      "id": 186,
+      "operation": "merge",
+      "changes": {
+        "translations": {
+          "de": "Saint Lucia",
+          "en": "Saint Lucia",
+          "es": "Santa Lucía",
+          "fa": "سنت لوسیا",
+          "fr": "Sainte-Lucie",
+          "hr": "Sveta Lucija",
+          "it": "Santa Lucia",
+          "ja": "セントルシア",
+          "ko": "세인트루시아",
+          "nl": "Saint Lucia",
+          "pt": "Santa Lúcia",
+          "pt-BR": "Santa Lúcia",
+          "tr": "Saint Lucia",
+          "zh-CN": "圣卢西亚"
+        }
+      },
+      "reason": "Correct country translations/names to current CLDR and ISO 4217 values",
+      "sourceUrl": "https://github.com/unicode-org/cldr",
+      "license": "Unicode-3.0"
+    },
+    {
+      "entity": "country",
+      "id": 229,
+      "operation": "merge",
+      "changes": {
+        "translations": {
+          "de": "Uganda",
+          "en": "Uganda",
+          "es": "Uganda",
+          "fa": "اوگاندا",
+          "fr": "Ouganda",
+          "hr": "Uganda",
+          "it": "Uganda",
+          "ja": "ウガンダ",
+          "ko": "우간다",
+          "nl": "Oeganda",
+          "pt": "Uganda",
+          "pt-BR": "Uganda",
+          "tr": "Uganda",
+          "zh-CN": "乌干达"
+        }
+      },
+      "reason": "Correct country translations/names to current CLDR and ISO 4217 values",
+      "sourceUrl": "https://github.com/unicode-org/cldr",
+      "license": "Unicode-3.0"
+    },
+    {
+      "entity": "country",
+      "id": 189,
+      "operation": "merge",
+      "changes": {
+        "translations": {
+          "de": "Saint-Barthélemy",
+          "en": "Saint Barthélemy",
+          "es": "San Bartolomé",
+          "fa": "سن-بارتلمی",
+          "fr": "Saint-Barthélemy",
+          "hr": "Saint Barthélemy",
+          "it": "Saint-Barthélemy",
+          "ja": "サン・バルテルミー",
+          "ko": "생바르텔레미",
+          "nl": "Saint Barthélemy",
+          "pt": "São Bartolomeu",
+          "pt-BR": "São Bartolomeu",
+          "tr": "Saint Barthélemy",
+          "zh-CN": "圣巴泰勒米"
+        }
+      },
+      "reason": "Correct country translations/names to current CLDR and ISO 4217 values",
+      "sourceUrl": "https://github.com/unicode-org/cldr",
+      "license": "Unicode-3.0"
+    },
+    {
+      "entity": "country",
+      "id": 250,
+      "operation": "merge",
+      "changes": {
+        "translations": {
+          "de": "Sint Maarten (niederl. Teil)",
+          "en": "Sint Maarten (Dutch part)",
+          "es": null,
+          "fa": "سنت مارتن",
+          "fr": "Saint Martin (partie néerlandaise)",
+          "hr": null,
+          "it": "Sint Maarten",
+          "ja": null,
+          "ko": "신트마르턴",
+          "nl": "Sint Maarten",
+          "pt": "Sint Maarten",
+          "pt-BR": "Sint Maarten",
+          "tr": "Sint Maarten",
+          "zh-CN": "圣马丁岛（荷兰部分）"
+        }
+      },
+      "reason": "Correct country translations/names to current CLDR and ISO 4217 values",
+      "sourceUrl": "https://github.com/unicode-org/cldr",
+      "license": "Unicode-3.0"
+    },
+    {
+      "entity": "country",
+      "id": 81,
+      "operation": "merge",
+      "changes": {
+        "translations": {
+          "de": "Georgien",
+          "en": "Georgia",
+          "es": "Georgia",
+          "fa": "گرجستان",
+          "fr": "Géorgie",
+          "hr": "Gruzija",
+          "it": "Georgia",
+          "ja": "ジョージア",
+          "ko": "조지아",
+          "nl": "Georgië",
+          "pt": "Geórgia",
+          "pt-BR": "Geórgia",
+          "tr": "Gürcistan",
+          "zh-CN": "格鲁吉亚"
+        }
+      },
+      "reason": "Correct country translations/names to current CLDR and ISO 4217 values",
+      "sourceUrl": "https://github.com/unicode-org/cldr",
+      "license": "Unicode-3.0"
+    },
+    {
+      "entity": "country",
+      "id": 44,
+      "operation": "merge",
+      "changes": {
+        "translations": {
+          "de": "Chile",
+          "en": "Chile",
+          "es": "Chile",
+          "fa": "شیلی",
+          "fr": "Chili",
+          "hr": "Čile",
+          "it": "Cile",
+          "ja": "チリ",
+          "ko": "칠레",
+          "nl": "Chili",
+          "pt": "Chile",
+          "pt-BR": "Chile",
+          "tr": "Şili",
+          "zh-CN": "智利"
+        }
+      },
+      "reason": "Correct country translations/names to current CLDR and ISO 4217 values",
+      "sourceUrl": "https://github.com/unicode-org/cldr",
+      "license": "Unicode-3.0"
+    },
+    {
+      "entity": "country",
+      "id": 32,
+      "operation": "merge",
+      "changes": {
+        "translations": {
+          "de": "Britisches Territorium im Indischen Ozean",
+          "en": "British Indian Ocean Territory",
+          "es": "Territorio Británico del Océano Índico",
+          "fa": "قلمرو بریتانیا در اقیانوس هند",
+          "fr": "Territoire britannique de l'océan Indien",
+          "hr": "Britanski Indijskooceanski teritorij",
+          "it": "Territorio britannico dell'oceano indiano",
+          "ja": "イギリス領インド洋地域",
+          "ko": "영국령 인도양 지역",
+          "nl": "Britse Gebieden in de Indische Oceaan",
+          "pt": "Território Britânico do Oceano Índico",
+          "pt-BR": "Território Britânico do Oceano Índico",
+          "tr": "Britanya Hint Okyanusu Toprakları",
+          "zh-CN": "英属印度洋领地"
+        }
+      },
+      "reason": "Correct country translations/names to current CLDR and ISO 4217 values",
+      "sourceUrl": "https://github.com/unicode-org/cldr",
+      "license": "Unicode-3.0"
+    },
+    {
+      "entity": "country",
+      "id": 138,
+      "operation": "merge",
+      "changes": {
+        "translations": {
+          "de": "Martinique",
+          "en": "Martinique",
+          "es": "Martinica",
+          "fa": "مارتینیک",
+          "fr": "Martinique",
+          "hr": "Martinique",
+          "it": "Martinica",
+          "ja": "マルティニーク",
+          "ko": "마르티니크",
+          "nl": "Martinique",
+          "pt": "Martinica",
+          "pt-BR": "Martinica",
+          "tr": "Martinik",
+          "zh-CN": "马提尼克岛"
+        }
+      },
+      "reason": "Correct country translations/names to current CLDR and ISO 4217 values",
+      "sourceUrl": "https://github.com/unicode-org/cldr",
+      "license": "Unicode-3.0"
+    },
+    {
+      "entity": "country",
+      "id": 148,
+      "operation": "merge",
+      "changes": {
+        "translations": {
+          "de": "Montserrat",
+          "en": "Montserrat",
+          "es": "Montserrat",
+          "fa": "مونت‌سرات",
+          "fr": "Montserrat",
+          "hr": "Montserrat",
+          "it": "Montserrat",
+          "ja": "モントセラト",
+          "ko": "몬트세랫",
+          "nl": "Montserrat",
+          "pt": "Monserrate",
+          "pt-BR": "Montserrat",
+          "tr": "Montserrat",
+          "zh-CN": "蒙特塞拉特"
+        }
+      },
+      "reason": "Correct country translations/names to current CLDR and ISO 4217 values",
+      "sourceUrl": "https://github.com/unicode-org/cldr",
+      "license": "Unicode-3.0"
+    },
+    {
+      "entity": "country",
+      "id": 115,
+      "operation": "merge",
+      "changes": {
+        "translations": {
+          "de": "Nordkorea",
+          "en": "North Korea",
+          "es": "Corea del Norte",
+          "fa": "کره شمالی",
+          "fr": "Corée du Nord",
+          "hr": "Sjeverna Koreja",
+          "it": "Corea del Nord",
+          "ja": "朝鮮民主主義人民共和国",
+          "ko": "조선민주주의인민공화국",
+          "nl": "Noord-Korea",
+          "pt": "Coreia do Norte",
+          "pt-BR": "Coreia do Norte",
+          "tr": "Kuzey Kore",
+          "zh-CN": "朝鲜"
+        }
+      },
+      "reason": "Correct country translations/names to current CLDR and ISO 4217 values",
+      "sourceUrl": "https://github.com/unicode-org/cldr",
+      "license": "Unicode-3.0"
+    },
+    {
+      "entity": "country",
+      "id": 116,
+      "operation": "merge",
+      "changes": {
+        "translations": {
+          "de": "Südkorea",
+          "en": "South Korea",
+          "es": "Corea del Sur",
+          "fa": "کره جنوبی",
+          "fr": "Corée du Sud",
+          "hr": "Južna Koreja",
+          "it": "Corea del Sud",
+          "ja": "大韓民国",
+          "ko": "대한민국",
+          "nl": "Zuid-Korea",
+          "pt": "Coreia do Sul",
+          "pt-BR": "Coreia do Sul",
+          "tr": "Güney Kore",
+          "zh-CN": "韩国"
+        }
+      },
+      "reason": "Correct country translations/names to current CLDR and ISO 4217 values",
+      "sourceUrl": "https://github.com/unicode-org/cldr",
+      "license": "Unicode-3.0"
+    },
+    {
+      "entity": "country",
+      "id": 190,
+      "operation": "merge",
+      "changes": {
+        "translations": {
+          "de": "Saint Martin",
+          "en": "Saint Martin",
+          "es": "Saint Martin",
+          "fa": "سنت مارتین",
+          "fr": "Saint-Martin",
+          "hr": "Sveti Martin",
+          "it": "Saint Martin",
+          "ja": "サン・マルタン（フランス領）",
+          "ko": "세인트마틴 섬",
+          "nl": "Saint-Martin",
+          "pt": "Ilha São Martinho",
+          "pt-BR": "Saint Martin",
+          "tr": "Saint-Martin",
+          "zh-CN": "法属圣马丁"
+        }
+      },
+      "reason": "Correct country translations/names to current CLDR and ISO 4217 values",
+      "sourceUrl": "https://github.com/unicode-org/cldr",
+      "license": "Unicode-3.0"
+    },
+    {
+      "entity": "country",
+      "id": 174,
+      "operation": "merge",
+      "changes": {
+        "translations": {
+          "de": "Philippinen",
+          "en": "Philippines",
+          "es": "Filipinas",
+          "fa": "فیلیپین",
+          "fr": "Philippines",
+          "hr": "Filipini",
+          "it": "Filippine",
+          "ja": "フィリピン",
+          "ko": "필리핀",
+          "nl": "Filipijnen",
+          "pt": "Filipinas",
+          "pt-BR": "Filipinas",
+          "tr": "Filipinler",
+          "zh-CN": "菲律宾"
+        }
+      },
+      "reason": "Correct country translations/names to current CLDR and ISO 4217 values",
+      "sourceUrl": "https://github.com/unicode-org/cldr",
+      "license": "Unicode-3.0"
+    },
+    {
+      "entity": "country",
+      "id": 193,
+      "operation": "merge",
+      "changes": {
+        "translations": {
+          "de": "São Tomé und Príncipe",
+          "en": "Sao Tome and Principe",
+          "es": "Santo Tomé y Príncipe",
+          "fa": "سائوتومه و پرینسیپ",
+          "fr": "Sao Tomé-et-Principe",
+          "hr": "Sveti Toma i Princip",
+          "it": "São Tomé e Príncipe",
+          "ja": "サントメ・プリンシペ",
+          "ko": "상투메 프린시페",
+          "nl": "Sao Tomé en Principe",
+          "pt": "São Tomé e Príncipe",
+          "pt-BR": "São Tomé e Príncipe",
+          "tr": "São Tomé ve Príncipe",
+          "zh-CN": "圣多美和普林西比"
+        },
+        "currency": "STN",
+        "currencyName": "Dobra",
+        "currencySymbol": "Db"
+      },
+      "reason": "Correct country translations/names to current CLDR and ISO 4217 values",
+      "sourceUrl": "https://github.com/unicode-org/cldr",
+      "license": "Unicode-3.0"
+    },
+    {
+      "entity": "country",
+      "id": 230,
+      "operation": "merge",
+      "changes": {
+        "translations": {
+          "de": "Ukraine",
+          "en": "Ukraine",
+          "es": "Ucrania",
+          "fa": "اوکراین",
+          "fr": "Ukraine",
+          "hr": "Ukrajina",
+          "it": "Ucraina",
+          "ja": "ウクライナ",
+          "ko": "우크라이나",
+          "nl": "Oekraïne",
+          "pt": "Ucrânia",
+          "pt-BR": "Ucrânia",
+          "tr": "Ukrayna",
+          "zh-CN": "乌克兰"
+        }
+      },
+      "reason": "Correct country translations/names to current CLDR and ISO 4217 values",
+      "sourceUrl": "https://github.com/unicode-org/cldr",
+      "license": "Unicode-3.0"
+    },
+    {
+      "entity": "country",
+      "id": 51,
+      "operation": "merge",
+      "changes": {
+        "translations": {
+          "de": "Kongo (Dem. Rep.)",
+          "en": "Democratic Republic of the Congo",
+          "es": "Congo (Rep. Dem.)",
+          "fa": "جمهوری دموکراتیک کنگو",
+          "fr": "Congo (Rép. dém.)",
+          "hr": "Kongo, Demokratska Republika",
+          "it": "Congo (Rep. Dem.)",
+          "ja": "コンゴ民主共和国",
+          "ko": "콩고 민주 공화국",
+          "nl": "Congo [DRC]",
+          "pt": "RD Congo",
+          "pt-BR": "RD Congo",
+          "tr": "Demokratik Kongo Cumhuriyeti",
+          "zh-CN": "刚果（金）"
+        }
+      },
+      "reason": "Correct country translations/names to current CLDR and ISO 4217 values",
+      "sourceUrl": "https://github.com/unicode-org/cldr",
+      "license": "Unicode-3.0"
+    },
+    {
+      "entity": "country",
+      "id": 247,
+      "operation": "merge",
+      "changes": {
+        "translations": {
+          "de": "Simbabwe",
+          "en": "Zimbabwe",
+          "es": "Zimbabue",
+          "fa": "زیمبابوه",
+          "fr": "Zimbabwe",
+          "hr": "Zimbabve",
+          "it": "Zimbabwe",
+          "ja": "ジンバブエ",
+          "ko": "짐바브웨",
+          "nl": "Zimbabwe",
+          "pt": "Zimbabué",
+          "pt-BR": "Zimbabwe",
+          "tr": "Zimbabve",
+          "zh-CN": "津巴布韦"
+        }
+      },
+      "reason": "Correct country translations/names to current CLDR and ISO 4217 values",
+      "sourceUrl": "https://github.com/unicode-org/cldr",
+      "license": "Unicode-3.0"
+    },
+    {
+      "entity": "country",
+      "id": 155,
+      "operation": "merge",
+      "changes": {
+        "translations": {
+          "de": "Bonaire, Sint Eustatius und Saba",
+          "en": "Bonaire, Sint Eustatius and Saba",
+          "es": null,
+          "fa": "جزایر کارائیب هلند",
+          "fr": "Bonaire, Saint-Eustache et Saba",
+          "hr": null,
+          "it": "Bonaire, Saint-Eustache e Saba",
+          "ja": null,
+          "ko": "보네르 섬",
+          "nl": null,
+          "pt": "Bonaire",
+          "pt-BR": "Bonaire",
+          "tr": "Karayip Hollandası",
+          "zh-CN": "博内尔岛、圣尤斯特歇斯和萨巴岛"
+        }
+      },
+      "reason": "Correct country translations/names to current CLDR and ISO 4217 values",
+      "sourceUrl": "https://github.com/unicode-org/cldr",
+      "license": "Unicode-3.0"
+    },
+    {
+      "entity": "country",
+      "id": 241,
+      "operation": "merge",
+      "changes": {
+        "translations": {
+          "de": "Britische Jungferninseln",
+          "en": "British Virgin Islands",
+          "es": "Islas Vírgenes del Reino Unido",
+          "fa": "جزایر ویرجین بریتانیا",
+          "fr": "Îles Vierges britanniques",
+          "hr": "Britanski Djevičanski Otoci",
+          "it": "Isole Vergini Britanniche",
+          "ja": "イギリス領ヴァージン諸島",
+          "ko": "영국령 버진아일랜드",
+          "nl": "Britse Maagdeneilanden",
+          "pt": "Ilhas Virgens Britânicas",
+          "pt-BR": "Ilhas Virgens Britânicas",
+          "tr": "Britanya Virjin Adaları",
+          "zh-CN": "英属维尔京群岛"
+        }
+      },
+      "reason": "Correct country translations/names to current CLDR and ISO 4217 values",
+      "sourceUrl": "https://github.com/unicode-org/cldr",
+      "license": "Unicode-3.0"
+    },
+    {
+      "entity": "country",
+      "id": 119,
+      "operation": "merge",
+      "changes": {
+        "translations": {
+          "de": "Laos",
+          "en": "Laos",
+          "es": "Laos",
+          "fa": "لائوس",
+          "fr": "Laos",
+          "hr": "Laos",
+          "it": "Laos",
+          "ja": "ラオス人民民主共和国",
+          "ko": "라오스",
+          "nl": "Laos",
+          "pt": "Laos",
+          "pt-BR": "Laos",
+          "tr": "Laos",
+          "zh-CN": "老挝"
+        }
+      },
+      "reason": "Correct country translations/names to current CLDR and ISO 4217 values",
+      "sourceUrl": "https://github.com/unicode-org/cldr",
+      "license": "Unicode-3.0"
+    },
+    {
+      "entity": "country",
+      "id": 61,
+      "operation": "merge",
+      "changes": {
+        "translations": {
+          "de": "Dominica",
+          "en": "Dominica",
+          "es": "Dominica",
+          "fa": "دومینیکا",
+          "fr": "Dominique",
+          "hr": "Dominika",
+          "it": "Dominica",
+          "ja": "ドミニカ国",
+          "ko": "도미니카 연방",
+          "nl": "Dominica",
+          "pt": "Dominica",
+          "pt-BR": "Dominica",
+          "tr": "Dominika",
+          "zh-CN": "多米尼克"
+        }
+      },
+      "reason": "Correct country translations/names to current CLDR and ISO 4217 values",
+      "sourceUrl": "https://github.com/unicode-org/cldr",
+      "license": "Unicode-3.0"
+    },
+    {
+      "entity": "country",
+      "id": 62,
+      "operation": "merge",
+      "changes": {
+        "translations": {
+          "de": "Dominikanische Republik",
+          "en": "Dominican Republic",
+          "es": "República Dominicana",
+          "fa": "جمهوری دومینیکن",
+          "fr": "République dominicaine",
+          "hr": "Dominikanska Republika",
+          "it": "Repubblica Dominicana",
+          "ja": "ドミニカ共和国",
+          "ko": "도미니카 공화국",
+          "nl": "Dominicaanse Republiek",
+          "pt": "República Dominicana",
+          "pt-BR": "República Dominicana",
+          "tr": "Dominik Cumhuriyeti",
+          "zh-CN": "多米尼加共和国"
+        }
+      },
+      "reason": "Correct country translations/names to current CLDR and ISO 4217 values",
+      "sourceUrl": "https://github.com/unicode-org/cldr",
+      "license": "Unicode-3.0"
+    },
+    {
+      "entity": "country",
+      "id": 42,
+      "operation": "merge",
+      "changes": {
+        "translations": {
+          "de": "Zentralafrikanische Republik",
+          "en": "Central African Republic",
+          "es": "República Centroafricana",
+          "fa": "جمهوری آفریقای مرکزی",
+          "fr": "République centrafricaine",
+          "hr": "Srednjoafrička Republika",
+          "it": "Repubblica Centrafricana",
+          "ja": "中央アフリカ共和国",
+          "ko": "중앙아프리카 공화국",
+          "nl": "Centraal-Afrikaanse Republiek",
+          "pt": "República Centro-Africana",
+          "pt-BR": "República Centro-Africana",
+          "tr": "Orta Afrika Cumhuriyeti",
+          "zh-CN": "中非共和国"
+        }
+      },
+      "reason": "Correct country translations/names to current CLDR and ISO 4217 values",
+      "sourceUrl": "https://github.com/unicode-org/cldr",
+      "license": "Unicode-3.0"
+    },
+    {
+      "entity": "country",
+      "id": 19,
+      "operation": "merge",
+      "changes": {
+        "translations": {
+          "de": "Bangladesch",
+          "en": "Bangladesh",
+          "es": "Bangladesh",
+          "fa": "بنگلادش",
+          "fr": "Bangladesh",
+          "hr": "Bangladeš",
+          "it": "Bangladesh",
+          "ja": "バングラデシュ",
+          "ko": "방글라데시",
+          "nl": "Bangladesh",
+          "pt": "Bangladeche",
+          "pt-BR": "Bangladesh",
+          "tr": "Bangladeş",
+          "zh-CN": "孟加拉国"
+        }
+      },
+      "reason": "Correct country translations/names to current CLDR and ISO 4217 values",
+      "sourceUrl": "https://github.com/unicode-org/cldr",
+      "license": "Unicode-3.0"
+    },
+    {
+      "entity": "country",
+      "id": 239,
+      "operation": "merge",
+      "changes": {
+        "currency": "VES",
+        "currencyName": "Bolívar soberano",
+        "currencySymbol": "Bs.S"
+      },
+      "reason": "Correct country translations/names to current CLDR and ISO 4217 values",
+      "sourceUrl": "https://github.com/unicode-org/cldr",
+      "license": "Unicode-3.0"
     }
   ]
 }

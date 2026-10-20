@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "policyVersion": "quality-gate:v1",
   "generatedAt": "2026-08-08T00:00:00.000Z",
-  "dataVersion": "sha256:14b24c8fae071faa764fafa92e2affb73432a906495989566384578af3362bfd",
+  "dataVersion": "sha256:8f916575117e0f0040930d6c2d8304210d64150cfd5b1f7ed5f6e76a45befa8b",
   "gate": {
     "passed": true,
     "blockingSeverities": [
@@ -188,7 +188,7 @@
       "unresolved": 0,
       "sample": [],
       "generatedFiles": 197,
-      "dataVersion": "sha256:6374df145d95607bb72c76066fc9d63997782c081f844dc2ab4f4369655401fb"
+      "dataVersion": "sha256:123525bbf5c5403859638c1870ecb268008964223221ef965fadf56f32652aa3"
     },
     {
       "id": "exception-governance",
@@ -2374,7 +2374,7 @@
     {
       "countryId": 212,
       "countryCode": "SZ",
-      "countryName": "Swaziland",
+      "countryName": "Eswatini",
       "states": 4,
       "cities": 34,
       "coverageGaps": 0,

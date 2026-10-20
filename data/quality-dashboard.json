@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "generatedAt": "2026-08-08T00:00:00.000Z",
-  "dataVersion": "sha256:14b24c8fae071faa764fafa92e2affb73432a906495989566384578af3362bfd",
-  "packageVersion": "3.0.0",
+  "dataVersion": "sha256:8f916575117e0f0040930d6c2d8304210d64150cfd5b1f7ed5f6e76a45befa8b",
+  "packageVersion": "3.0.1",
   "release": {
     "sourceRelease": "v3.2-export.7",
     "sourceRevision": "624a208c3928937d1262ab1646d0b8fc9cacceee",
@@ -106,8 +106,8 @@
   ],
   "trend": [
     {
-      "packageVersion": "3.0.0",
-      "dataVersion": "sha256:14b24c8fae071faa764fafa92e2affb73432a906495989566384578af3362bfd",
+      "packageVersion": "3.0.1",
+      "dataVersion": "sha256:8f916575117e0f0040930d6c2d8304210d64150cfd5b1f7ed5f6e76a45befa8b",
       "generatedAt": "2026-08-08T00:00:00.000Z",
       "gatePassed": true,
       "unresolvedBlockingFindings": 0,
@@ -119,7 +119,7 @@
         "cities": 147739,
         "districts": 922
       },
-      "releaseChanges": 67700,
+      "releaseChanges": 1,
       "breakingIdentityChanges": 0
     }
   ],
@@ -5715,7 +5715,7 @@
       "id": 212,
       "publicId": "csc:country:212",
       "code": "SZ",
-      "name": "Swaziland",
+      "name": "Eswatini",
       "sourceStatus": {
         "states": "available",
         "stateReasonCode": null,
@@ -106162,7 +106162,7 @@
       "excepted": 0,
       "unresolved": 0,
       "generatedFiles": 197,
-      "dataVersion": "sha256:6374df145d95607bb72c76066fc9d63997782c081f844dc2ab4f4369655401fb"
+      "dataVersion": "sha256:123525bbf5c5403859638c1870ecb268008964223221ef965fadf56f32652aa3"
     },
     {
       "id": "exception-governance",
