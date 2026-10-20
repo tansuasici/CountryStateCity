@@ -1,0 +1,1 @@
+{"releaseId":"3.0.1...3.0.2","countryCode":"SA","changes":[{"publicId":"csc:city:148564","entityType":"city","id":148564,"name":"Ha'il","countryCode":"SA","stateCode":"04","changeTypes":["renamed"],"changedFields":[{"field":"name","before":"Ha'il ","after":"Ha'il"}],"breakingIdentity":false,"migration":null}]}

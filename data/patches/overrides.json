@@ -972,6 +972,228 @@
       "reason": "Correct country translations/names to current CLDR and ISO 4217 values",
       "sourceUrl": "https://github.com/unicode-org/cldr",
       "license": "Unicode-3.0"
+    },
+    {
+      "entity": "country",
+      "id": 9,
+      "operation": "merge",
+      "changes": {
+        "currency": "",
+        "currencyName": "",
+        "currencySymbol": ""
+      },
+      "reason": "Antarctica has no ISO 4217 currency; AAD is not an assigned code",
+      "sourceUrl": "https://www.six-group.com/en/products-services/financial-information/data-standards.html",
+      "license": "CC0-1.0"
+    },
+    {
+      "entity": "state",
+      "id": 3636,
+      "operation": "merge",
+      "changes": {
+        "name": "San Luis"
+      },
+      "reason": "Remove stray whitespace/tab characters from the name",
+      "sourceUrl": "https://github.com/dr5hn/countries-states-cities-database",
+      "license": "ODbL-1.0"
+    },
+    {
+      "entity": "state",
+      "id": 5035,
+      "operation": "merge",
+      "changes": {
+        "name": "Bas-Rhin"
+      },
+      "reason": "Remove stray whitespace/tab characters from the name",
+      "sourceUrl": "https://github.com/dr5hn/countries-states-cities-database",
+      "license": "ODbL-1.0"
+    },
+    {
+      "entity": "state",
+      "id": 5055,
+      "operation": "merge",
+      "changes": {
+        "name": "Haute-Vienne"
+      },
+      "reason": "Remove stray whitespace/tab characters from the name",
+      "sourceUrl": "https://github.com/dr5hn/countries-states-cities-database",
+      "license": "ODbL-1.0"
+    },
+    {
+      "entity": "state",
+      "id": 4971,
+      "operation": "merge",
+      "changes": {
+        "name": "Hautes-Alpes"
+      },
+      "reason": "Remove stray whitespace/tab characters from the name",
+      "sourceUrl": "https://github.com/dr5hn/countries-states-cities-database",
+      "license": "ODbL-1.0"
+    },
+    {
+      "entity": "state",
+      "id": 5062,
+      "operation": "merge",
+      "changes": {
+        "name": "Val-de-Marne"
+      },
+      "reason": "Remove stray whitespace/tab characters from the name",
+      "sourceUrl": "https://github.com/dr5hn/countries-states-cities-database",
+      "license": "ODbL-1.0"
+    },
+    {
+      "entity": "state",
+      "id": 4964,
+      "operation": "merge",
+      "changes": {
+        "name": "Nueva Segovia"
+      },
+      "reason": "Remove stray whitespace/tab characters from the name",
+      "sourceUrl": "https://github.com/dr5hn/countries-states-cities-database",
+      "license": "ODbL-1.0"
+    },
+    {
+      "entity": "city",
+      "id": 62328,
+      "operation": "merge",
+      "changes": {
+        "name": "Ballards Valley"
+      },
+      "reason": "Remove stray whitespace/tab characters from the name",
+      "sourceUrl": "https://github.com/dr5hn/countries-states-cities-database",
+      "license": "ODbL-1.0"
+    },
+    {
+      "entity": "city",
+      "id": 142831,
+      "operation": "merge",
+      "changes": {
+        "name": "San Gabriel, Jalisco"
+      },
+      "reason": "Remove stray whitespace/tab characters from the name",
+      "sourceUrl": "https://github.com/dr5hn/countries-states-cities-database",
+      "license": "ODbL-1.0"
+    },
+    {
+      "entity": "city",
+      "id": 77694,
+      "operation": "merge",
+      "changes": {
+        "name": "Gemeente Oldambt"
+      },
+      "reason": "Remove stray whitespace/tab characters from the name",
+      "sourceUrl": "https://github.com/dr5hn/countries-states-cities-database",
+      "license": "ODbL-1.0"
+    },
+    {
+      "entity": "city",
+      "id": 84180,
+      "operation": "merge",
+      "changes": {
+        "name": "Province of Zamboanga del Sur"
+      },
+      "reason": "Remove stray whitespace/tab characters from the name",
+      "sourceUrl": "https://github.com/dr5hn/countries-states-cities-database",
+      "license": "ODbL-1.0"
+    },
+    {
+      "entity": "city",
+      "id": 92624,
+      "operation": "merge",
+      "changes": {
+        "name": "Comuna Poiana Ilvei"
+      },
+      "reason": "Remove stray whitespace/tab characters from the name",
+      "sourceUrl": "https://github.com/dr5hn/countries-states-cities-database",
+      "license": "ODbL-1.0"
+    },
+    {
+      "entity": "city",
+      "id": 95102,
+      "operation": "merge",
+      "changes": {
+        "name": "Municipiul Codlea"
+      },
+      "reason": "Remove stray whitespace/tab characters from the name",
+      "sourceUrl": "https://github.com/dr5hn/countries-states-cities-database",
+      "license": "ODbL-1.0"
+    },
+    {
+      "entity": "city",
+      "id": 95104,
+      "operation": "merge",
+      "changes": {
+        "name": "Municipiul Topliţa"
+      },
+      "reason": "Remove stray whitespace/tab characters from the name",
+      "sourceUrl": "https://github.com/dr5hn/countries-states-cities-database",
+      "license": "ODbL-1.0"
+    },
+    {
+      "entity": "city",
+      "id": 95103,
+      "operation": "merge",
+      "changes": {
+        "name": "Municipiul Lupeni"
+      },
+      "reason": "Remove stray whitespace/tab characters from the name",
+      "sourceUrl": "https://github.com/dr5hn/countries-states-cities-database",
+      "license": "ODbL-1.0"
+    },
+    {
+      "entity": "city",
+      "id": 95105,
+      "operation": "merge",
+      "changes": {
+        "name": "Municipiul Vulcan"
+      },
+      "reason": "Remove stray whitespace/tab characters from the name",
+      "sourceUrl": "https://github.com/dr5hn/countries-states-cities-database",
+      "license": "ODbL-1.0"
+    },
+    {
+      "entity": "city",
+      "id": 91705,
+      "operation": "merge",
+      "changes": {
+        "name": "Comuna Duda Epureni"
+      },
+      "reason": "Remove stray whitespace/tab characters from the name",
+      "sourceUrl": "https://github.com/dr5hn/countries-states-cities-database",
+      "license": "ODbL-1.0"
+    },
+    {
+      "entity": "city",
+      "id": 95101,
+      "operation": "merge",
+      "changes": {
+        "name": "Municipiul Adjud"
+      },
+      "reason": "Remove stray whitespace/tab characters from the name",
+      "sourceUrl": "https://github.com/dr5hn/countries-states-cities-database",
+      "license": "ODbL-1.0"
+    },
+    {
+      "entity": "city",
+      "id": 148564,
+      "operation": "merge",
+      "changes": {
+        "name": "Ha'il"
+      },
+      "reason": "Remove stray whitespace/tab characters from the name",
+      "sourceUrl": "https://github.com/dr5hn/countries-states-cities-database",
+      "license": "ODbL-1.0"
+    },
+    {
+      "entity": "city",
+      "id": 130675,
+      "operation": "merge",
+      "changes": {
+        "name": "Al Hawtah"
+      },
+      "reason": "Remove stray whitespace/tab characters from the name",
+      "sourceUrl": "https://github.com/dr5hn/countries-states-cities-database",
+      "license": "ODbL-1.0"
     }
   ]
 }

@@ -1,0 +1,1 @@
+{"releaseId":"3.0.1...3.0.2","countryCode":"JM","changes":[{"publicId":"csc:city:62328","entityType":"city","id":62328,"name":"Ballards Valley","countryCode":"JM","stateCode":"11","changeTypes":["renamed"],"changedFields":[{"field":"name","before":"Ballards  Valley","after":"Ballards Valley"}],"breakingIdentity":false,"migration":null}]}

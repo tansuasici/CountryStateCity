@@ -2711,7 +2711,7 @@
     },
     "AR-D": {
       "stateId": 3636,
-      "name": "San Luis\t",
+      "name": "San Luis",
       "latitude": "-33.93684295",
       "longitude": "-65.95764785",
       "coordinateType": "point-on-surface",
@@ -18854,7 +18854,7 @@
     },
     "FR-67": {
       "stateId": 5035,
-      "name": "Bas-Rhin\t",
+      "name": "Bas-Rhin",
       "latitude": "48.59075480",
       "longitude": "7.53892825",
       "coordinateType": "point-on-surface",
@@ -19444,7 +19444,7 @@
     },
     "FR-87": {
       "stateId": 5055,
-      "name": "Haute-Vienne\t",
+      "name": "Haute-Vienne",
       "latitude": "45.92140655",
       "longitude": "1.19138843",
       "coordinateType": "point-on-surface",
@@ -19459,7 +19459,7 @@
     },
     "FR-05": {
       "stateId": 4971,
-      "name": "Hautes-Alpes\t",
+      "name": "Hautes-Alpes",
       "latitude": "44.65643619",
       "longitude": "6.35280627",
       "coordinateType": "point-on-surface",
@@ -20344,7 +20344,7 @@
     },
     "FR-94": {
       "stateId": 5062,
-      "name": "Val-de-Marne\t",
+      "name": "Val-de-Marne",
       "latitude": "48.77218303",
       "longitude": "2.45701548",
       "coordinateType": "point-on-surface",
@@ -44188,7 +44188,7 @@
     },
     "NI-NS": {
       "stateId": 4964,
-      "name": "Nueva Segovia\t",
+      "name": "Nueva Segovia",
       "latitude": "13.77047841",
       "longitude": "-86.05127142",
       "coordinateType": "point-on-surface",

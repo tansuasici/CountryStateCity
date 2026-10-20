@@ -1,0 +1,1 @@
+{"releaseId":"3.0.1...3.0.2","countryCode":"YE","changes":[{"publicId":"csc:city:130675","entityType":"city","id":130675,"name":"Al Hawtah","countryCode":"YE","stateCode":"LA","changeTypes":["renamed"],"changedFields":[{"field":"name","before":"Al  Hawtah","after":"Al Hawtah"}],"breakingIdentity":false,"migration":null}]}

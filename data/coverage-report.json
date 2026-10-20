@@ -9374,7 +9374,7 @@
     {
       "stateId": 5035,
       "stateCode": "67",
-      "stateName": "Bas-Rhin\t",
+      "stateName": "Bas-Rhin",
       "countryId": 75,
       "countryCode": "FR",
       "countryName": "France",
@@ -9759,7 +9759,7 @@
     {
       "stateId": 5055,
       "stateCode": "87",
-      "stateName": "Haute-Vienne\t",
+      "stateName": "Haute-Vienne",
       "countryId": 75,
       "countryCode": "FR",
       "countryName": "France",
@@ -9770,7 +9770,7 @@
     {
       "stateId": 4971,
       "stateCode": "05",
-      "stateName": "Hautes-Alpes\t",
+      "stateName": "Hautes-Alpes",
       "countryId": 75,
       "countryCode": "FR",
       "countryName": "France",
@@ -10353,7 +10353,7 @@
     {
       "stateId": 5062,
       "stateCode": "94",
-      "stateName": "Val-de-Marne\t",
+      "stateName": "Val-de-Marne",
       "countryId": 75,
       "countryCode": "FR",
       "countryName": "France",

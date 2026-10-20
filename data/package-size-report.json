@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
   "policyVersion": "core-package:v1",
-  "packageVersion": "3.0.1",
+  "packageVersion": "3.0.2",
   "measuredAt": "2026-08-08T00:00:00.000Z",
   "passed": true,
   "measurement": {
-    "packedBytes": 3807706,
-    "unpackedBytes": 23290116,
+    "packedBytes": 3823590,
+    "unpackedBytes": 23290049,
     "files": 62,
     "browserEntrypointBytes": 35472
   },
@@ -18,22 +18,22 @@
   },
   "reductionBaseline": {
     "previousUnpackedBytes": 165785789,
-    "currentUnpackedBytes": 23290116,
-    "bytesRemoved": 142495673,
+    "currentUnpackedBytes": 23290049,
+    "bytesRemoved": 142495740,
     "reductionPercent": 85.95
   },
   "largestFiles": [
     {
       "file": "data/city-optimized.json",
-      "bytes": 12002539
+      "bytes": 12002526
     },
     {
       "file": "data/state.json",
-      "bytes": 4472971
+      "bytes": 4472959
     },
     {
       "file": "data/geography/state-coordinate-policy.json",
-      "bytes": 2481672
+      "bytes": 2481660
     },
     {
       "file": "data/boundaries/tr/turkey-admin-z0-4.json",
@@ -45,11 +45,11 @@
     },
     {
       "file": "data/coverage-report.json",
-      "bytes": 552476
+      "bytes": 552468
     },
     {
       "file": "data/country.json",
-      "bytes": 484303
+      "bytes": 484281
     },
     {
       "file": "data/location-display.json",

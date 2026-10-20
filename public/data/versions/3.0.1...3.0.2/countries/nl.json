@@ -1,0 +1,1 @@
+{"releaseId":"3.0.1...3.0.2","countryCode":"NL","changes":[{"publicId":"csc:city:77694","entityType":"city","id":77694,"name":"Gemeente Oldambt","countryCode":"NL","stateCode":"GR","changeTypes":["renamed"],"changedFields":[{"field":"name","before":"Gemeente  Oldambt","after":"Gemeente Oldambt"}],"breakingIdentity":false,"migration":null}]}

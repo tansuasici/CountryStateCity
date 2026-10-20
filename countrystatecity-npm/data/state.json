@@ -5265,7 +5265,7 @@
   },
   {
     "id": 3636,
-    "name": "San Luis\t",
+    "name": "San Luis",
     "countryId": 11,
     "countryCode": "AR",
     "countryName": "Argentina",
@@ -35981,7 +35981,7 @@
   },
   {
     "id": 5035,
-    "name": "Bas-Rhin\t",
+    "name": "Bas-Rhin",
     "countryId": 75,
     "countryCode": "FR",
     "countryName": "France",
@@ -37101,7 +37101,7 @@
   },
   {
     "id": 5055,
-    "name": "Haute-Vienne\t",
+    "name": "Haute-Vienne",
     "countryId": 75,
     "countryCode": "FR",
     "countryName": "France",
@@ -37129,7 +37129,7 @@
   },
   {
     "id": 4971,
-    "name": "Hautes-Alpes\t",
+    "name": "Hautes-Alpes",
     "countryId": 75,
     "countryCode": "FR",
     "countryName": "France",
@@ -38809,7 +38809,7 @@
   },
   {
     "id": 5062,
-    "name": "Val-de-Marne\t",
+    "name": "Val-de-Marne",
     "countryId": 75,
     "countryCode": "FR",
     "countryName": "France",
@@ -84169,7 +84169,7 @@
   },
   {
     "id": 4964,
-    "name": "Nueva Segovia\t",
+    "name": "Nueva Segovia",
     "countryId": 159,
     "countryCode": "NI",
     "countryName": "Nicaragua",

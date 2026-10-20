@@ -1,0 +1,20 @@
+publicId,entityType,id,name,countryCode,stateCode,changeTypes,breakingIdentity,changedFields
+csc:city:62328,city,62328,Ballards Valley,JM,11,renamed,false,name
+csc:city:142831,city,142831,"San Gabriel, Jalisco",MX,JAL,renamed,false,name
+csc:city:77694,city,77694,Gemeente Oldambt,NL,GR,renamed,false,name
+csc:city:84180,city,84180,Province of Zamboanga del Sur,PH,ZSI,renamed,false,name
+csc:city:91705,city,91705,Comuna Duda Epureni,RO,VS,renamed,false,name
+csc:city:92624,city,92624,Comuna Poiana Ilvei,RO,BN,renamed,false,name
+csc:city:95101,city,95101,Municipiul Adjud,RO,VN,renamed,false,name
+csc:city:95102,city,95102,Municipiul Codlea,RO,BV,renamed,false,name
+csc:city:95103,city,95103,Municipiul Lupeni,RO,HD,renamed,false,name
+csc:city:95104,city,95104,Municipiul Topliţa,RO,HR,renamed,false,name
+csc:city:95105,city,95105,Municipiul Vulcan,RO,HD,renamed,false,name
+csc:city:148564,city,148564,Ha'il,SA,04,renamed,false,name
+csc:city:130675,city,130675,Al Hawtah,YE,LA,renamed,false,name
+csc:state:3636,state,3636,San Luis,AR,D,renamed,false,name
+csc:state:4971,state,4971,Hautes-Alpes,FR,05,renamed,false,name
+csc:state:5035,state,5035,Bas-Rhin,FR,67,renamed,false,name
+csc:state:5055,state,5055,Haute-Vienne,FR,87,renamed,false,name
+csc:state:5062,state,5062,Val-de-Marne,FR,94,renamed,false,name
+csc:state:4964,state,4964,Nueva Segovia,NI,NS,renamed,false,name
