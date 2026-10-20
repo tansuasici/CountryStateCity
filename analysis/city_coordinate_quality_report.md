@@ -4,7 +4,7 @@
 
 - **The 25 km quality gate is fully resolved.** The pinned baseline contained 636 major outliers; 4 country-polygon coordinate defects were corrected and the remaining 632 records have stable reason-code exceptions.
 - **Most apparent failures are model differences, not bad points.** Crimea/Ukraine and Puerto Rico/US account for 580 of the 636 baseline cases.
-- **No unresolved major outlier remains.** All 147,739 city coordinates are numeric and in range; every city row has a usable country reference geometry.
+- **No unresolved major outlier remains.** All 147,737 city coordinates are numeric and in range; every city row has a usable country reference geometry.
 
 ## What the audit measures
 
@@ -12,25 +12,25 @@ Every published city point is compared with the pinned Natural Earth Admin-0 Cou
 
 ## The baseline resolves into five explainable classes
 
-| Resolution class | Records | Treatment |
-|---|---:|---|
-| Disputed/de-facto model | 332 | Documented policy exception |
-| Dependency hierarchy | 255 | Versioned hierarchy decision deferred |
-| Reference-scale omission | 44 | Country location independently verified |
-| Corrected coordinate | 4 | Production and patch overlay updated |
-| Territorial claim | 1 | Explicit claim-area exception |
+| Resolution class         | Records | Treatment                               |
+| ------------------------ | ------: | --------------------------------------- |
+| Disputed/de-facto model  |     332 | Documented policy exception             |
+| Dependency hierarchy     |     255 | Versioned hierarchy decision deferred   |
+| Reference-scale omission |      44 | Country location independently verified |
+| Corrected coordinate     |       4 | Production and patch overlay updated    |
+| Territorial claim        |       1 | Explicit claim-area exception           |
 
 The 3308 points still outside the reference polygon include small coastline and island generalization effects below the gate. They are not treated as coordinate defects.
 
 ## Applied coordinate corrections
 
-| City ID | Record | Country | Previous coordinate | Corrected coordinate | Source |
-|---:|---|---|---|---|---|
-| 148461 | Juan Fernández | CL | -30.02564270, -82.05192080 | -33.61666667, -78.86666667 | wikidata-Q14454 |
-| 149096 | Tain | GH | 8.18114110, -2.86487620 | 7.87100000, -2.31700000 | wikidata-Q695048 |
-| 133809 | Sarupathar | IN | 26.20600000, 96.81000000 | 26.19545833, 93.86240278 | wikidata-Q638291 |
-| 132750 | Lakshadweep | IN | 11.27333000, 74.04582000 | 10.56510000, 72.64564000 | geonames-9748019 |
-| 107863 | Kadıköy | TR | 40.98229000, 29.09032000 | 40.98109600, 29.06514473 | openstreetmap-relation-1276548-point-on-surface |
+| City ID | Record         | Country | Previous coordinate        | Corrected coordinate       | Source                                          |
+| ------: | -------------- | ------- | -------------------------- | -------------------------- | ----------------------------------------------- |
+|  148461 | Juan Fernández | CL      | -30.02564270, -82.05192080 | -33.61666667, -78.86666667 | wikidata-Q14454                                 |
+|  149096 | Tain           | GH      | 8.18114110, -2.86487620    | 7.87100000, -2.31700000    | wikidata-Q695048                                |
+|  133809 | Sarupathar     | IN      | 26.20600000, 96.81000000   | 26.19545833, 93.86240278   | wikidata-Q638291                                |
+|  132750 | Lakshadweep    | IN      | 11.27333000, 74.04582000   | 10.56510000, 72.64564000   | geonames-9748019                                |
+|  107863 | Kadıköy        | TR      | 40.98229000, 29.09032000   | 40.98109600, 29.06514473   | openstreetmap-relation-1276548-point-on-surface |
 
 The production JSON, compact representation, country shards, and pinned sync patch overlay all carry the same corrected values. This table also includes corrections found by stricter admin-level containment checks, which are tracked separately from the country-polygon baseline.
 
