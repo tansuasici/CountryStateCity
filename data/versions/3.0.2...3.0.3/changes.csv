@@ -1,0 +1,20 @@
+publicId,entityType,id,name,countryCode,stateCode,changeTypes,breakingIdentity,changedFields
+csc:city:9,city,9,La Massana,AD,04,renamed,false,name
+csc:city:10,city,10,Les Escaldes,AD,08,renamed,false,name
+csc:city:17224,city,17224,Le Plateau,CA,QC,renamed,false,name
+csc:city:31253,city,31253,Babor,DZ,19,renamed,false,name
+csc:city:31467,city,31467,El Hed,DZ,06,renamed,false,name
+csc:city:56139,city,56139,Dunaújváros,HU,FE,renamed,false,name
+csc:city:57577,city,57577,Maalot Tarshīhā,IL,Z,renamed,false,name
+csc:city:134446,city,134446,Patamda,IN,JH,renamed,false,name
+csc:city:134447,city,134447,Pedda Nakkalapalem,IN,AP,renamed,false,name
+csc:city:134448,city,134448,Vadlamuru,IN,AP,renamed,false,name
+csc:city:135148,city,135148,Sedeyen-e Yek,IR,06,renamed,false,name
+csc:city:142571,city,142571,Iprovipe I,MX,JAL,renamed,false,name
+csc:city:79759,city,79759,Kankrabari Dovan,NP,1,renamed,false,name
+csc:city:88752,city,88752,Powiat Łowicki,PL,LD,renamed,false,name
+csc:city:146855,city,146855,Tohat,RO,MM,renamed,false,name
+csc:city:102893,city,102893,Shokhaibٍ,SA,01,renamed,false,name
+csc:city:148699,city,148699,CITY GHRAN,SA,11,removed,true,
+csc:city:148971,city,148971,CITY GHRAN,SA,02,removed,true,
+csc:state:3397,state,3397,Districts of Republican Subordination,TJ,RA,renamed,false,name

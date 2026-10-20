@@ -5,5 +5,5 @@
 export const STATS = {
   countries: 250,
   states: 4963,
-  cities: 147739,
+  cities: 147737,
 } as const;

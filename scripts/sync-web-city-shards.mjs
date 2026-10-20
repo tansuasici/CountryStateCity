@@ -55,7 +55,7 @@ if (checkOnly) {
 }
 
 assert(countries.length === 250, 'Unexpected country count');
-assert(totalCities === 147739, 'Unexpected web city total');
+assert(totalCities === 147737, 'Unexpected web city total');
 console.log(
   `Web city shards ${checkOnly ? 'verified' : 'generated'}: 250 countries, ${totalCities} cities, ${expected.size} files.`
 );

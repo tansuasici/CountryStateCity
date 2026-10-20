@@ -1,0 +1,1 @@
+{"releaseId":"3.0.2...3.0.3","countryCode":"PL","changes":[{"publicId":"csc:city:88752","entityType":"city","id":88752,"name":"Powiat Łowicki","countryCode":"PL","stateCode":"LD","changeTypes":["renamed"],"changedFields":[{"field":"name","before":"powiat Łowicki","after":"Powiat Łowicki"}],"breakingIdentity":false,"migration":null}]}

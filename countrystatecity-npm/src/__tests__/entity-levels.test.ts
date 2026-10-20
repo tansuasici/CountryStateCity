@@ -40,7 +40,7 @@ describe('canonical entity levels', () => {
     const allCities = CountryStateCity.getAllCities() as City[];
     const settlements = CountryStateCity.getSettlements({ lifecycleStatus: 'all' });
     expect(allCities.filter((row) => row.entityType === 'administrative-area')).toHaveLength(3712);
-    expect(settlements).toHaveLength(144027);
+    expect(settlements).toHaveLength(144025);
     expect(settlements.every((row) => row.entityType === 'settlement')).toBe(true);
   });
 });

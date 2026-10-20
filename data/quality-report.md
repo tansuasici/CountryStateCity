@@ -2,9 +2,9 @@
 
 Status: **PASS**
 
-Data version: `sha256:3b120e86bf074737e8d90eb42a2637ac400dbd25ac7f3ef78667c025e5e66306`
+Data version: `sha256:8ff03b8ed9ac866b82eae98b482d8ab76a57b2233e8d0d7ff2f8421eddb81dcd`
 
-Records: 250 countries, 4963 states, 147739 cities, 922 districts.
+Records: 250 countries, 4963 states, 147737 cities, 922 districts.
 
 ## Checks
 
@@ -230,7 +230,7 @@ Records: 250 countries, 4963 states, 147739 cities, 922 districts.
 | WS — Samoa | 11 | 20 | 0 | 0 | 0 |
 | SM — San Marino | 9 | 9 | 0 | 0 | 0 |
 | ST — Sao Tome and Principe | 2 | 5 | 0 | 0 | 0 |
-| SA — Saudi Arabia | 13 | 563 | 0 | 0 | 1 |
+| SA — Saudi Arabia | 13 | 561 | 0 | 0 | 1 |
 | SN — Senegal | 14 | 73 | 0 | 0 | 2 |
 | RS — Serbia | 26 | 334 | 0 | 0 | 1 |
 | SC — Seychelles | 24 | 8 | 0 | 0 | 0 |

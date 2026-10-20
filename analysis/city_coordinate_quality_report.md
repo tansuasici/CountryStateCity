@@ -4,7 +4,7 @@
 
 - **The 25 km quality gate is fully resolved.** The pinned baseline contained 636 major outliers; 4 country-polygon coordinate defects were corrected and the remaining 632 records have stable reason-code exceptions.
 - **Most apparent failures are model differences, not bad points.** Crimea/Ukraine and Puerto Rico/US account for 580 of the 636 baseline cases.
-- **No unresolved major outlier remains.** All 147,739 city coordinates are numeric and in range; every city row has a usable country reference geometry.
+- **No unresolved major outlier remains.** All 147,737 city coordinates are numeric and in range; every city row has a usable country reference geometry.
 
 ## What the audit measures
 

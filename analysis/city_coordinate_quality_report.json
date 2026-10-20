@@ -4,7 +4,7 @@
   "generatedAt": "2026-08-06T00:00:00Z",
   "dataset": {
     "grain": "one row per published city record",
-    "cityRows": 147739,
+    "cityRows": 147737,
     "countryRows": 250,
     "coordinateFields": [
       "latitude",

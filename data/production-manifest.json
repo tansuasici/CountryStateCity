@@ -1,12 +1,12 @@
 {
   "schemaVersion": 2,
-  "dataVersion": "sha256:3b120e86bf074737e8d90eb42a2637ac400dbd25ac7f3ef78667c025e5e66306",
-  "packageVersion": "3.0.2",
-  "generatedAt": "2026-10-20T03:28:57.213Z",
+  "dataVersion": "sha256:8ff03b8ed9ac866b82eae98b482d8ab76a57b2233e8d0d7ff2f8421eddb81dcd",
+  "packageVersion": "3.0.3",
+  "generatedAt": "2026-10-20T11:38:39.383Z",
   "counts": {
     "countries": 250,
     "states": 4963,
-    "cities": 147739,
+    "cities": 147737,
     "districts": 922
   },
   "coverage": [
@@ -1380,7 +1380,7 @@
       "countryCode": "SA",
       "countryName": "Saudi Arabia",
       "states": 13,
-      "cities": 563
+      "cities": 561
     },
     {
       "countryId": 195,
@@ -1786,12 +1786,12 @@
     }
   },
   "digestAlgorithm": "sha256(file-path + NUL + file-sha256 + LF)",
-  "digest": "3b120e86bf074737e8d90eb42a2637ac400dbd25ac7f3ef78667c025e5e66306",
+  "digest": "8ff03b8ed9ac866b82eae98b482d8ab76a57b2233e8d0d7ff2f8421eddb81dcd",
   "files": [
     {
       "file": "countrystatecity-npm/data/cities/ad.json",
       "bytes": 658,
-      "sha256": "9f3614a6216247da2905b1f438bd704735204572855803d2858e91c6b315b1f8"
+      "sha256": "2a0cc922684041f4647069351f2fb8fca74802fc52dac5e8c1d1001d085c1cd0"
     },
     {
       "file": "countrystatecity-npm/data/cities/ae.json",
@@ -1931,7 +1931,7 @@
     {
       "file": "countrystatecity-npm/data/cities/ca.json",
       "bytes": 79607,
-      "sha256": "a9b53aa3e168434e0e032489e201680e110535684f96ff904af6d5d850f305ef"
+      "sha256": "ad54ea91d955274b4bfca786c5e5b5ac9f3242fe8793508cd614fc6d8929599b"
     },
     {
       "file": "countrystatecity-npm/data/cities/cd.json",
@@ -2030,8 +2030,8 @@
     },
     {
       "file": "countrystatecity-npm/data/cities/dz.json",
-      "bytes": 21789,
-      "sha256": "7fa313ab3b293e87b982d9605b48d69e15039f51fa3310bd16ce659984784c4a"
+      "bytes": 21781,
+      "sha256": "57869faa4b0e1ada5307ec53d858627c7f7bf6322984e3c698a83b35b311ae87"
     },
     {
       "file": "countrystatecity-npm/data/cities/ec.json",
@@ -2161,7 +2161,7 @@
     {
       "file": "countrystatecity-npm/data/cities/hu.json",
       "bytes": 78893,
-      "sha256": "a4f6b484d769e67d78da2274a841ac741b9747c6801ba9341ea1112742c1f2a6"
+      "sha256": "0bb279db3a13334597af4b3b2772c534df56ebefa7120eefda2c4de4dbd1f742"
     },
     {
       "file": "countrystatecity-npm/data/cities/id.json",
@@ -2176,17 +2176,17 @@
     {
       "file": "countrystatecity-npm/data/cities/il.json",
       "bytes": 11128,
-      "sha256": "9346d9a840665af82068a8a659d436e26c696ee28d55a42926018a57b6f3e61a"
+      "sha256": "9b5f8bc8bedbe91fbf47c5bc06859143cd3461c2a35ec1a5f2bc552bf5665070"
     },
     {
       "file": "countrystatecity-npm/data/cities/in.json",
       "bytes": 305414,
-      "sha256": "511d9230e13416cb427e684fe466fa54cac5df95c543be70d88b67a302e2ffe3"
+      "sha256": "92325cb06bde163f6b8844ee588accf2937db1a8e3b89158b7a6c36bd88a3893"
     },
     {
       "file": "countrystatecity-npm/data/cities/index.json",
       "bytes": 8365,
-      "sha256": "88d5e523c69ae0588260c16ba9a9bd2ac891f85c1a13ae4f9cec0c900253d306"
+      "sha256": "66ff39fd9c9aab2c605c4aa387d4f42283ddd569faae512925eadc031d694a33"
     },
     {
       "file": "countrystatecity-npm/data/cities/iq.json",
@@ -2196,7 +2196,7 @@
     {
       "file": "countrystatecity-npm/data/cities/ir.json",
       "bytes": 83408,
-      "sha256": "a358a9c1d9333c0613daf3180bbdd6b78e0c7f25d86b7e9899dbefd33db3097b"
+      "sha256": "aad13ab29fdc8f22b084935d02f47f301658d0df8438c7d44c3f52dd3f7ffcf6"
     },
     {
       "file": "countrystatecity-npm/data/cities/is.json",
@@ -2396,7 +2396,7 @@
     {
       "file": "countrystatecity-npm/data/cities/mx.json",
       "bytes": 704547,
-      "sha256": "ae91814566d1d37fc645b167ee5fddfc3cba10c990583364888a06fa70eb2a99"
+      "sha256": "071180613bcb3b71ac5922be6291bdcab494a31210bc6d1465e81b0d7fd9d422"
     },
     {
       "file": "countrystatecity-npm/data/cities/my.json",
@@ -2441,7 +2441,7 @@
     {
       "file": "countrystatecity-npm/data/cities/np.json",
       "bytes": 4015,
-      "sha256": "ae883f612046a7a21b3f2e45f8d50c9b0a889ec46648c56de496fa1a9eadf96c"
+      "sha256": "5cf507d9d94b23940842c5b43606299faae7c6340d3b7bae6618efd652ac5968"
     },
     {
       "file": "countrystatecity-npm/data/cities/nr.json",
@@ -2486,7 +2486,7 @@
     {
       "file": "countrystatecity-npm/data/cities/pl.json",
       "bytes": 236192,
-      "sha256": "2309d817946cd43359663d15776cc4cd2bdb1f50f3718bb9d2f591b4191113e9"
+      "sha256": "dc0189ce20f6cc0a76df8eb619b482e89e9abab4b4b72c3e54d238ae21fd12fb"
     },
     {
       "file": "countrystatecity-npm/data/cities/pt.json",
@@ -2511,7 +2511,7 @@
     {
       "file": "countrystatecity-npm/data/cities/ro.json",
       "bytes": 638963,
-      "sha256": "6920b1e98649c5abaa395a5ff078f0c439fb4c1e0c30a0d41f30dd5b8f0ecf85"
+      "sha256": "410db0bb0e41bd6af1bca7318f8fe98c6bb398b62fed4f31beb3625bc2f6680c"
     },
     {
       "file": "countrystatecity-npm/data/cities/rs.json",
@@ -2530,8 +2530,8 @@
     },
     {
       "file": "countrystatecity-npm/data/cities/sa.json",
-      "bytes": 38504,
-      "sha256": "e3352611630824dbc451b03c2abcf3a03baa292fffe7c22983848957cdad2630"
+      "bytes": 38374,
+      "sha256": "75a7f28811cdbab9e0a92d1f3b6676660205f9b26640996ebf75e5e4bceaf77f"
     },
     {
       "file": "countrystatecity-npm/data/cities/sb.json",
@@ -2755,8 +2755,8 @@
     },
     {
       "file": "countrystatecity-npm/data/city.json",
-      "bytes": 12002526,
-      "sha256": "d9e68e4383557a96c17dde61860e23a04d59713284a3b486d33a2f2ebd73019f"
+      "bytes": 12002372,
+      "sha256": "195c7cf1de71fd6d9dd18471477deff67881131ceb816aa447f49bea6199a10d"
     },
     {
       "file": "countrystatecity-npm/data/country.json",
@@ -2766,7 +2766,7 @@
     {
       "file": "countrystatecity-npm/data/state.json",
       "bytes": 4472959,
-      "sha256": "ca3f0f7e2a4e9516b9b355ad953bd346c4b47dc5c261344c87aa0921e4426a9b"
+      "sha256": "e9925c9b99bdac72d67e814255e737e7572433f680b182e3b4381ca161e3e222"
     },
     {
       "file": "data/admin/districts/tr.json",
@@ -2775,13 +2775,13 @@
     },
     {
       "file": "data/city-optimized.json",
-      "bytes": 12002526,
-      "sha256": "d9e68e4383557a96c17dde61860e23a04d59713284a3b486d33a2f2ebd73019f"
+      "bytes": 12002372,
+      "sha256": "195c7cf1de71fd6d9dd18471477deff67881131ceb816aa447f49bea6199a10d"
     },
     {
       "file": "data/city.json",
-      "bytes": 89313302,
-      "sha256": "ef1535992151cb8ee55c227f921437bbab5cedf6560fe7d1d4993c45609b22d2"
+      "bytes": 89312096,
+      "sha256": "69360689b92d03542f9333eb8a7a46f5ebe76ee54f7a8f305b4d1a2e6ec7d4dc"
     },
     {
       "file": "data/country-metadata-policy.json",
@@ -2801,12 +2801,12 @@
     {
       "file": "data/coverage-report.json",
       "bytes": 552468,
-      "sha256": "06a064ab4984521825cf12783076f08e2b048e4a06937c8f7baeb9b15d5fa79e"
+      "sha256": "ea73da7cb94f8ff819b559c0e9a3d628961e3f700deddc0f3c6539ecd201fad8"
     },
     {
       "file": "data/distribution-manifest.json",
       "bytes": 38030,
-      "sha256": "1455a6fbcb14a8d3ebc5a797725440fe242f62161814e60fd124fdf326d985c7"
+      "sha256": "140db80e82a5e04498235335aacb348b27d715dd5a494698527ade5ec1b7253a"
     },
     {
       "file": "data/entity-level-policy.json",
@@ -2816,7 +2816,7 @@
     {
       "file": "data/entity-level-report.json",
       "bytes": 48609,
-      "sha256": "039c4e015b60037b604be8c416f2ff8197249ff699ff434f86c8cbd2e656a58f"
+      "sha256": "5a88a4ed047fc5bc7bf45257673bbc3904a89eaca0bbb95f7b1f01655f87398f"
     },
     {
       "file": "data/geography/city-coordinate-policy.json",
@@ -2826,7 +2826,7 @@
     {
       "file": "data/geography/state-coordinate-policy.json",
       "bytes": 2481660,
-      "sha256": "f863881cd8d00140450f4215088b0dcdd951f52aa04e9d7d8d806ccbde7497f5"
+      "sha256": "3836a2ec9e9a52352750fc8cd2f6c0dedd6e4aac05ad6e837ba1036f3146c9c9"
     },
     {
       "file": "data/identity-policy.json",
@@ -2876,7 +2876,7 @@
     {
       "file": "data/quality-policy.json",
       "bytes": 1462,
-      "sha256": "aed44a2f681e7f92438cbacc52ca0ffb0e1709e9249a90096eb8f85f6ac04628"
+      "sha256": "c1853b0713b017827a774d2f62808e69acb7e0850fe0c2cecd17d4ba18c34752"
     },
     {
       "file": "data/schema-normalization-policy.json",
@@ -2891,7 +2891,7 @@
     {
       "file": "data/state.json",
       "bytes": 4472959,
-      "sha256": "ca3f0f7e2a4e9516b9b355ad953bd346c4b47dc5c261344c87aa0921e4426a9b"
+      "sha256": "e9925c9b99bdac72d67e814255e737e7572433f680b182e3b4381ca161e3e222"
     },
     {
       "file": "data/timezone-policy.json",

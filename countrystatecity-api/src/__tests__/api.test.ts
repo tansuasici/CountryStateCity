@@ -29,7 +29,7 @@ describe('hosted API', () => {
 
     expect(response.status).toBe(200);
     expect(body.data.status).toBe('ok');
-    expect(body.data.counts).toMatchObject({ countries: 250, states: 4963, cities: 147739 });
+    expect(body.data.counts).toMatchObject({ countries: 250, states: 4963, cities: 147737 });
     expect(body.meta.dataVersion).toMatch(/^sha256:/);
     expect(body.meta.source.license.id).toBe('ODbL-1.0');
   });

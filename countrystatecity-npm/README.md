@@ -13,7 +13,7 @@ Versioned world location data for Node.js and browsers, with TypeScript types, m
 | ------------------------- | ------: | ------------------------------------------------------------------ |
 | Countries and territories |     250 | ISO metadata, translations, timezones, currencies                  |
 | Administrative areas      |   4,963 | Explicit level, type, lifecycle, parent, and coordinate provenance |
-| Populated places          | 147,739 | Compact distribution with lazy full-object reconstruction          |
+| Populated places          | 147,737 | Compact distribution with lazy full-object reconstruction          |
 | Türkiye districts         |     922 | Province parents, aliases, stable IDs, coordinate review status    |
 
 The package publishes machine-readable provenance, coverage, quality, normalization, identity, and migration contracts alongside the data.

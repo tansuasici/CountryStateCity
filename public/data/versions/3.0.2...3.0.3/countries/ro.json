@@ -1,0 +1,1 @@
+{"releaseId":"3.0.2...3.0.3","countryCode":"RO","changes":[{"publicId":"csc:city:146855","entityType":"city","id":146855,"name":"Tohat","countryCode":"RO","stateCode":"MM","changeTypes":["renamed"],"changedFields":[{"field":"name","before":"tohat","after":"Tohat"}],"breakingIdentity":false,"migration":null}]}

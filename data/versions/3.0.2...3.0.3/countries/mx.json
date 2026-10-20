@@ -1,0 +1,1 @@
+{"releaseId":"3.0.2...3.0.3","countryCode":"MX","changes":[{"publicId":"csc:city:142571","entityType":"city","id":142571,"name":"Iprovipe I","countryCode":"MX","stateCode":"JAL","changeTypes":["renamed"],"changedFields":[{"field":"name","before":"IPROVIPE I","after":"Iprovipe I"}],"breakingIdentity":false,"migration":null}]}

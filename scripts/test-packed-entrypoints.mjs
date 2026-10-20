@@ -35,10 +35,10 @@ import { CountryStateCity as browserApi } from '@tansuasici/country-state-city/b
 import compactCities from '@tansuasici/country-state-city/data/cities.optimized.json' with { type: 'json' };
 
 for (const api of [rootApi, nodeApi, browserApi]) {
-  assert.deepEqual(api.getStats(), { countries: 250, states: 4963, cities: 147739, districts: 922 });
+  assert.deepEqual(api.getStats(), { countries: 250, states: 4963, cities: 147737, districts: 922 });
   assert.equal(api.getCityById(107863)?.name, 'Kadıköy');
 }
-assert.equal(compactCities.length, 147739);
+assert.equal(compactCities.length, 147737);
 assert.deepEqual(Object.keys(compactCities[0]).slice(0, 4), ['i', 'n', 's', 'c']);
 const boundaryManifest = (await import(
   '@tansuasici/country-state-city/data/boundaries/manifest.json',
