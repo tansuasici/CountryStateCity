@@ -29,6 +29,6 @@ jobs:
       - run: npm run build:mcp
       - run: npm run test:package-size
       - run: npm run test:packed-entrypoints
-      - run: npm publish --provenance --access public
+      - run: npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
