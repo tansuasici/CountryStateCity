@@ -1,0 +1,1 @@
+{"releaseId":"3.0.1...3.0.2","countryCode":"MX","changes":[{"publicId":"csc:city:142831","entityType":"city","id":142831,"name":"San Gabriel, Jalisco","countryCode":"MX","stateCode":"JAL","changeTypes":["renamed"],"changedFields":[{"field":"name","before":"San Gabriel,  Jalisco","after":"San Gabriel, Jalisco"}],"breakingIdentity":false,"migration":null}]}

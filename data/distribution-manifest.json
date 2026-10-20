@@ -1,32 +1,32 @@
 {
   "schemaVersion": 1,
-  "packageVersion": "3.0.1",
-  "dataVersion": "sha256:123525bbf5c5403859638c1870ecb268008964223221ef965fadf56f32652aa3",
+  "packageVersion": "3.0.2",
+  "dataVersion": "sha256:31573107e8b7e214bdf775e5f81bd6347b9b7eabd634f37d4d5921416e3ef458",
   "canonicalSource": {
     "files": [
       {
         "file": "data/city.json",
-        "bytes": 89313373,
-        "sha256": "379ce3de5d229397b230174587c981b44199a5ddd5f9d4015df829b6b1475d19"
+        "bytes": 89313302,
+        "sha256": "ef1535992151cb8ee55c227f921437bbab5cedf6560fe7d1d4993c45609b22d2"
       },
       {
         "file": "data/country.json",
-        "bytes": 484303,
-        "sha256": "cd14fa2c669516045464d4ccb7628506b5ba3d8066d239bd07b37f4fe8a73025"
+        "bytes": 484281,
+        "sha256": "e1ab2b5c06e6784eecc888fd8e30fb3d652e60965797fa4a878a642b8ccc0dc4"
       },
       {
         "file": "data/state.json",
-        "bytes": 4472971,
-        "sha256": "4d8f02a7fa508a576734cf4e4327752fb16288dd21ab934d3b4c974b3495a235"
+        "bytes": 4472959,
+        "sha256": "ca3f0f7e2a4e9516b9b355ad953bd346c4b47dc5c261344c87aa0921e4426a9b"
       }
     ],
-    "digest": "123525bbf5c5403859638c1870ecb268008964223221ef965fadf56f32652aa3",
+    "digest": "31573107e8b7e214bdf775e5f81bd6347b9b7eabd634f37d4d5921416e3ef458",
     "upstreamRelease": "v3.2-export.7",
     "upstreamRevision": "624a208c3928937d1262ab1646d0b8fc9cacceee"
   },
   "generatedArtifacts": {
     "count": 197,
-    "digest": "171503aee6704b568d51219cdf13ba0310345a0d1978e491203b50648ca82c84",
+    "digest": "97f8d1ae038e781e2c4f36e2f44f7c3e67123df82a9f19de5fb3272e4bc1fbbd",
     "files": [
       {
         "file": "countrystatecity-npm/data/cities/ad.json",
@@ -426,7 +426,7 @@
       {
         "file": "countrystatecity-npm/data/cities/index.json",
         "bytes": 8365,
-        "sha256": "ce6271cdf082484681b6d5e9b35bf07cb990ba53227c0ab6713488ebaf2dda76"
+        "sha256": "88d5e523c69ae0588260c16ba9a9bd2ac891f85c1a13ae4f9cec0c900253d306"
       },
       {
         "file": "countrystatecity-npm/data/cities/iq.json",
@@ -450,8 +450,8 @@
       },
       {
         "file": "countrystatecity-npm/data/cities/jm.json",
-        "bytes": 54795,
-        "sha256": "c9f2105ec4a453e77eb8cd6f6b951d5f4f415037e175fe9ebbc8266b3fb81fb1"
+        "bytes": 54794,
+        "sha256": "bcbeb218d46930e11e70f51e4ab06f5303c1829a70f13a1b87a2611f7e680eaa"
       },
       {
         "file": "countrystatecity-npm/data/cities/jo.json",
@@ -635,8 +635,8 @@
       },
       {
         "file": "countrystatecity-npm/data/cities/mx.json",
-        "bytes": 704548,
-        "sha256": "df8abc43455420e61c55993ca93c0f0df91dfe0789831a12817dd2bfa6c81b8f"
+        "bytes": 704547,
+        "sha256": "ae91814566d1d37fc645b167ee5fddfc3cba10c990583364888a06fa70eb2a99"
       },
       {
         "file": "countrystatecity-npm/data/cities/my.json",
@@ -670,8 +670,8 @@
       },
       {
         "file": "countrystatecity-npm/data/cities/nl.json",
-        "bytes": 123835,
-        "sha256": "ac1a21c5f73d7c8ee284725b395467ccbc1b55fdd063608d87ed11bc8094642f"
+        "bytes": 123834,
+        "sha256": "2b659e87bac8d5d0a2aff7255c325b325360deee3ec70bebba16160f08b636a6"
       },
       {
         "file": "countrystatecity-npm/data/cities/no.json",
@@ -715,8 +715,8 @@
       },
       {
         "file": "countrystatecity-npm/data/cities/ph.json",
-        "bytes": 433847,
-        "sha256": "1ab9fb954a80ab40bd77484d78846792f471a7c9d58f512bc0f7dc21e5a83da2"
+        "bytes": 433846,
+        "sha256": "701e830c4644bbf3b01a17517b2b47e2266add5cac8bdf3a321b91ca9f9d2e64"
       },
       {
         "file": "countrystatecity-npm/data/cities/pk.json",
@@ -750,8 +750,8 @@
       },
       {
         "file": "countrystatecity-npm/data/cities/ro.json",
-        "bytes": 638970,
-        "sha256": "a9fdd95acb4591a6542be4f7f854ce0843260536186cb1bb4b409148a8835817"
+        "bytes": 638963,
+        "sha256": "6920b1e98649c5abaa395a5ff078f0c439fb4c1e0c30a0d41f30dd5b8f0ecf85"
       },
       {
         "file": "countrystatecity-npm/data/cities/rs.json",
@@ -770,8 +770,8 @@
       },
       {
         "file": "countrystatecity-npm/data/cities/sa.json",
-        "bytes": 38505,
-        "sha256": "8f7dbed0bd48c47cdfed1d7820a870089f1863ebfaba5872f146341aba717bac"
+        "bytes": 38504,
+        "sha256": "e3352611630824dbc451b03c2abcf3a03baa292fffe7c22983848957cdad2630"
       },
       {
         "file": "countrystatecity-npm/data/cities/sb.json",
@@ -975,8 +975,8 @@
       },
       {
         "file": "countrystatecity-npm/data/cities/ye.json",
-        "bytes": 26684,
-        "sha256": "cf6aa52fba9c1c871d708a2fec007b92cfbc7d014b8196f7758d6537205ce29e"
+        "bytes": 26683,
+        "sha256": "309de063fe8a7b432a402eee45a7f8bbb0d422c2bd0973fa8b54c909df115e65"
       },
       {
         "file": "countrystatecity-npm/data/cities/za.json",
@@ -995,23 +995,23 @@
       },
       {
         "file": "countrystatecity-npm/data/city.json",
-        "bytes": 12002539,
-        "sha256": "04ace76f6390d77b11339c8f8cdc79fcdb592c7566d2bc83fec87e07caf66a85"
+        "bytes": 12002526,
+        "sha256": "d9e68e4383557a96c17dde61860e23a04d59713284a3b486d33a2f2ebd73019f"
       },
       {
         "file": "countrystatecity-npm/data/country.json",
-        "bytes": 484303,
-        "sha256": "cd14fa2c669516045464d4ccb7628506b5ba3d8066d239bd07b37f4fe8a73025"
+        "bytes": 484281,
+        "sha256": "e1ab2b5c06e6784eecc888fd8e30fb3d652e60965797fa4a878a642b8ccc0dc4"
       },
       {
         "file": "countrystatecity-npm/data/state.json",
-        "bytes": 4472971,
-        "sha256": "4d8f02a7fa508a576734cf4e4327752fb16288dd21ab934d3b4c974b3495a235"
+        "bytes": 4472959,
+        "sha256": "ca3f0f7e2a4e9516b9b355ad953bd346c4b47dc5c261344c87aa0921e4426a9b"
       },
       {
         "file": "data/city-optimized.json",
-        "bytes": 12002539,
-        "sha256": "04ace76f6390d77b11339c8f8cdc79fcdb592c7566d2bc83fec87e07caf66a85"
+        "bytes": 12002526,
+        "sha256": "d9e68e4383557a96c17dde61860e23a04d59713284a3b486d33a2f2ebd73019f"
       }
     ]
   },

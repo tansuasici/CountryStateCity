@@ -1,0 +1,1 @@
+{"releaseId":"3.0.1...3.0.2","countryCode":"NI","changes":[{"publicId":"csc:state:4964","entityType":"state","id":4964,"name":"Nueva Segovia","countryCode":"NI","stateCode":"NS","changeTypes":["renamed"],"changedFields":[{"field":"name","before":"Nueva Segovia\t","after":"Nueva Segovia"}],"breakingIdentity":false,"migration":null}]}

@@ -2,7 +2,7 @@
 
 Status: **PASS**
 
-Data version: `sha256:8f916575117e0f0040930d6c2d8304210d64150cfd5b1f7ed5f6e76a45befa8b`
+Data version: `sha256:3b120e86bf074737e8d90eb42a2637ac400dbd25ac7f3ef78667c025e5e66306`
 
 Records: 250 countries, 4963 states, 147739 cities, 922 districts.
 

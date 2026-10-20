@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "policyVersion": "quality-gate:v1",
   "generatedAt": "2026-08-08T00:00:00.000Z",
-  "dataVersion": "sha256:8f916575117e0f0040930d6c2d8304210d64150cfd5b1f7ed5f6e76a45befa8b",
+  "dataVersion": "sha256:3b120e86bf074737e8d90eb42a2637ac400dbd25ac7f3ef78667c025e5e66306",
   "gate": {
     "passed": true,
     "blockingSeverities": [
@@ -188,7 +188,7 @@
       "unresolved": 0,
       "sample": [],
       "generatedFiles": 197,
-      "dataVersion": "sha256:123525bbf5c5403859638c1870ecb268008964223221ef965fadf56f32652aa3"
+      "dataVersion": "sha256:31573107e8b7e214bdf775e5f81bd6347b9b7eabd634f37d4d5921416e3ef458"
     },
     {
       "id": "exception-governance",
