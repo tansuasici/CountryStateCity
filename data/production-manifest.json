@@ -1,8 +1,8 @@
 {
   "schemaVersion": 2,
-  "dataVersion": "sha256:60917c36e61be569a5c64eb772584f5e51982cb25b93844579365a0067d9ef68",
+  "dataVersion": "sha256:8ff03b8ed9ac866b82eae98b482d8ab76a57b2233e8d0d7ff2f8421eddb81dcd",
   "packageVersion": "3.0.3",
-  "generatedAt": "2026-10-20T11:34:02.052Z",
+  "generatedAt": "2026-10-20T11:38:39.383Z",
   "counts": {
     "countries": 250,
     "states": 4963,
@@ -1786,7 +1786,7 @@
     }
   },
   "digestAlgorithm": "sha256(file-path + NUL + file-sha256 + LF)",
-  "digest": "60917c36e61be569a5c64eb772584f5e51982cb25b93844579365a0067d9ef68",
+  "digest": "8ff03b8ed9ac866b82eae98b482d8ab76a57b2233e8d0d7ff2f8421eddb81dcd",
   "files": [
     {
       "file": "countrystatecity-npm/data/cities/ad.json",
@@ -2806,7 +2806,7 @@
     {
       "file": "data/distribution-manifest.json",
       "bytes": 38030,
-      "sha256": "8b2c5be72eb90193255bc748136ea68499900fef42f1f3be124fa21488d9a5a1"
+      "sha256": "140db80e82a5e04498235335aacb348b27d715dd5a494698527ade5ec1b7253a"
     },
     {
       "file": "data/entity-level-policy.json",
