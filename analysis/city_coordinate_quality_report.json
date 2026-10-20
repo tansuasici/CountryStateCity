@@ -6,7 +6,10 @@
     "grain": "one row per published city record",
     "cityRows": 147737,
     "countryRows": 250,
-    "coordinateFields": ["latitude", "longitude"]
+    "coordinateFields": [
+      "latitude",
+      "longitude"
+    ]
   },
   "reference": {
     "id": "natural-earth-admin0-countries-5.1.1",

@@ -12,25 +12,25 @@ Every published city point is compared with the pinned Natural Earth Admin-0 Cou
 
 ## The baseline resolves into five explainable classes
 
-| Resolution class         | Records | Treatment                               |
-| ------------------------ | ------: | --------------------------------------- |
-| Disputed/de-facto model  |     332 | Documented policy exception             |
-| Dependency hierarchy     |     255 | Versioned hierarchy decision deferred   |
-| Reference-scale omission |      44 | Country location independently verified |
-| Corrected coordinate     |       4 | Production and patch overlay updated    |
-| Territorial claim        |       1 | Explicit claim-area exception           |
+| Resolution class | Records | Treatment |
+|---|---:|---|
+| Disputed/de-facto model | 332 | Documented policy exception |
+| Dependency hierarchy | 255 | Versioned hierarchy decision deferred |
+| Reference-scale omission | 44 | Country location independently verified |
+| Corrected coordinate | 4 | Production and patch overlay updated |
+| Territorial claim | 1 | Explicit claim-area exception |
 
 The 3308 points still outside the reference polygon include small coastline and island generalization effects below the gate. They are not treated as coordinate defects.
 
 ## Applied coordinate corrections
 
-| City ID | Record         | Country | Previous coordinate        | Corrected coordinate       | Source                                          |
-| ------: | -------------- | ------- | -------------------------- | -------------------------- | ----------------------------------------------- |
-|  148461 | Juan Fernández | CL      | -30.02564270, -82.05192080 | -33.61666667, -78.86666667 | wikidata-Q14454                                 |
-|  149096 | Tain           | GH      | 8.18114110, -2.86487620    | 7.87100000, -2.31700000    | wikidata-Q695048                                |
-|  133809 | Sarupathar     | IN      | 26.20600000, 96.81000000   | 26.19545833, 93.86240278   | wikidata-Q638291                                |
-|  132750 | Lakshadweep    | IN      | 11.27333000, 74.04582000   | 10.56510000, 72.64564000   | geonames-9748019                                |
-|  107863 | Kadıköy        | TR      | 40.98229000, 29.09032000   | 40.98109600, 29.06514473   | openstreetmap-relation-1276548-point-on-surface |
+| City ID | Record | Country | Previous coordinate | Corrected coordinate | Source |
+|---:|---|---|---|---|---|
+| 148461 | Juan Fernández | CL | -30.02564270, -82.05192080 | -33.61666667, -78.86666667 | wikidata-Q14454 |
+| 149096 | Tain | GH | 8.18114110, -2.86487620 | 7.87100000, -2.31700000 | wikidata-Q695048 |
+| 133809 | Sarupathar | IN | 26.20600000, 96.81000000 | 26.19545833, 93.86240278 | wikidata-Q638291 |
+| 132750 | Lakshadweep | IN | 11.27333000, 74.04582000 | 10.56510000, 72.64564000 | geonames-9748019 |
+| 107863 | Kadıköy | TR | 40.98229000, 29.09032000 | 40.98109600, 29.06514473 | openstreetmap-relation-1276548-point-on-surface |
 
 The production JSON, compact representation, country shards, and pinned sync patch overlay all carry the same corrected values. This table also includes corrections found by stricter admin-level containment checks, which are tracked separately from the country-polygon baseline.
 

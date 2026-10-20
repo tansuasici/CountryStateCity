@@ -3,3 +3,6 @@
 /public/data/
 /public/changes/
 /countrystatecity-npm/data/
+# Byte-compared generated audit reports
+/analysis/city_coordinate_quality_report.json
+/analysis/city_coordinate_quality_report.md
