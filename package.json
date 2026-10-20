@@ -288,7 +288,7 @@
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
     "rollup": "^4.62.4",
-    "shadcn": "^4.16.1",
+    "shadcn": "^4.16.2",
     "tailwind-merge": "^3.6.0",
     "tailwindcss": "^4.3.3",
     "topojson-client": "^3.1.0",
