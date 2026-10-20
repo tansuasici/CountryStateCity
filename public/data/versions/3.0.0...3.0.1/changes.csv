@@ -1,0 +1,2 @@
+publicId,entityType,id,name,countryCode,stateCode,changeTypes,breakingIdentity,changedFields
+csc:country:212,country,212,Eswatini,SZ,,renamed,false,name

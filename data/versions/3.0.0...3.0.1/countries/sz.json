@@ -1,0 +1,1 @@
+{"releaseId":"3.0.0...3.0.1","countryCode":"SZ","changes":[{"publicId":"csc:country:212","entityType":"country","id":212,"name":"Eswatini","countryCode":"SZ","stateCode":null,"changeTypes":["renamed"],"changedFields":[{"field":"name","before":"Swaziland","after":"Eswatini"}],"breakingIdentity":false,"migration":null}]}

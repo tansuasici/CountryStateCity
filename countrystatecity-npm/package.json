@@ -1,6 +1,6 @@
 {
   "name": "@tansuasici/country-state-city",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "private": true,
   "description": "Versioned country, administrative-area, city, and district data with search, spatial, timezone, export, and MCP APIs.",
   "main": "dist/index.js",

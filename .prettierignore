@@ -1,0 +1,5 @@
+# Generated, hash-pinned data artifacts: prettier would reformat them and break checksum parity.
+/data/
+/public/data/
+/public/changes/
+/countrystatecity-npm/data/
